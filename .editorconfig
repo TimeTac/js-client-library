@@ -1,0 +1,15 @@
+# Default EditorConfig
+# reference: https://editorconfig.org/
+
+# Note that some rules might be redudnant.
+# If there are problems with certain tools, it might help to remove them
+
+# top-most EditorConfig file in this repository
+root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+insert_final_newline = true
+indent_size = 2
