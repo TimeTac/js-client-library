@@ -1,6 +1,17 @@
-export type TimeTracking = {
-  id?: number;
-  user_id?: number;
+type TimeTracking = {
+  id: number;
+  user_id: number;
+  task_id: number;
+  start_time?: string; // dateTimeString ??
+  end_time?: string; // dateTimeString ??
+  /**
+   * Timezone, eg. Europe/Vienna, that is mandatory if action is CREATE
+   */
+  start_time_timezone?: string;
+  /**
+   * Timezone needs to be set if end_time field value is set
+   */
+  end_time_timezone?: string;
   /**
    * The department id to which the timetrackings user (pm_time_tracking.user_id)
    * was assigned at the time start_date of the timeTracking.
@@ -11,19 +22,8 @@ export type TimeTracking = {
    * was assigned at the time start_date of the timeTracking.
    */
   department_role_id?: number;
-  task_id?: number;
-  start_time?: string;
-  end_time?: string;
   start_time_offset?: number;
   end_time_offset?: number;
-  /**
-   * Timezone, eg. Europe/Vienna, that is mandatory if action is CREATE
-   */
-  start_time_timezone?: string;
-  /**
-   * Timezone needs to be set if end_time field value is set
-   */
-  end_time_timezone?: string;
   timezone?: string;
   /**
    * Whether the start of the timer was booked live or not
@@ -75,3 +75,5 @@ export type TimeTracking = {
    */
   end_type_id?: number;
 };
+
+export default TimeTracking;

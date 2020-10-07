@@ -1,0 +1,32 @@
+type Project = {
+  id: number;
+  mother_id: number;
+  view_id: string;
+  name: string;
+  sort_order?: number;
+  node_path?: string;
+  ultimate_mother_id?: number;
+  is_done?: boolean;
+  view_order?: number;
+  icon_name?: string;
+  initial_duration?: number;
+  target_duration?: number;
+  begin?: string;
+  deadline?: string;
+  object_type?: string;
+  notes?: string;
+  client_id?: number;
+  t_iv_1?: string;
+  t_iv_2?: string;
+  t_iv_3?: string;
+  t_iv_4?: string;
+  t_iv_5?: string;
+  t_iv_6?: string;
+  approve_by_project_leader?: boolean;
+  is_blocked?: boolean;
+  is_hidden?: boolean;
+  restrict_tracking_from_to?: boolean;
+  duration?: number;
+};
+
+export default Project;

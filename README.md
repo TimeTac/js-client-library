@@ -29,6 +29,14 @@ const environment = {
   version: '3'
 }
 
+const authCredentials = {
+  grant_type: 'password',
+  client_id: 'WEB_APP',
+  client_secret: '',
+  username: <USER_NAME>,
+  password: <PASSWORD>'
+}
+
 const api = new Api(environment);
 
 async() => {

@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { TimeTracking } from './types';
+import TimeTracking from './types';
 import responseHandler from '../utils/responseHandlers';
 
 const resourceName = 'timetrackings';
