@@ -1,5 +1,9 @@
 export type User = {
-  id?: number;
+  id: number;
+  lastname: string;
+  firstname: string;
+  fullname: string;
+  profile_picture: string;
   internal_user_group?: number;
   active?: boolean;
   hr_manager?: boolean;
@@ -9,9 +13,6 @@ export type User = {
   start_task_at_login?: number;
   username?: string;
   personnel_number?: string;
-  lastname?: string;
-  firstname?: string;
-  fullname?: string;
   abbrevation?: string;
   restrict_to_ip?: boolean;
   permission_change_all_timers?: boolean;
@@ -33,7 +34,6 @@ export type User = {
   language_id?: number;
   phone?: string;
   skype?: string;
-  profile_picture?: string;
   u_iv_1?: string;
   u_iv_1_valid_from?: string;
   u_iv_2?: string;
