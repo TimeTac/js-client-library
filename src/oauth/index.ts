@@ -3,7 +3,7 @@ import { stringify } from 'type-qs';
 import BaseApi from '../baseApi';
 import { Credentials } from './types';
 
-export default class oAuth extends BaseApi {
+export default class Authentication extends BaseApi {
   setTokens({ accessToken, refreshToken }: { accessToken?: string; refreshToken?: string }) {
     this.config.accessToken = accessToken;
     this.config.refreshToken = refreshToken;
@@ -26,8 +26,8 @@ export default class oAuth extends BaseApi {
     return axios.post<Credentials>(url, stringify(credentials), config);
   }
 
-  async authenticate(authentication: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
-    const response = await this.requestTokens(authentication);
+  async login(credentials: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
+    const response = await this.requestTokens(credentials);
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
     this.setTokens({ accessToken, refreshToken });
     return { accessToken, refreshToken };
