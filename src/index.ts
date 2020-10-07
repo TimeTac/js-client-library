@@ -1,4 +1,4 @@
-import oAuth from './oauth';
+import Authentication from './oauth';
 import Users from './users';
 import Timetrackings from './timetrackings';
 import ServerCommunication from './serverCommunication';
@@ -9,14 +9,14 @@ export default class Api {
   public config: ApiConfig;
 
   public users: Users;
-  public oauth: oAuth;
+  public authentication: Authentication;
   public timeTrackings: Timetrackings;
   public serverCommunication: ServerCommunication;
 
   constructor(config: ApiConfig) {
     this.config = config;
 
-    this.oauth = new oAuth(this.config);
+    this.authentication = new Authentication(this.config);
     this.users = new Users(this.config);
     this.timeTrackings = new Timetrackings(this.config);
     this.serverCommunication = new ServerCommunication(this.config);
@@ -28,7 +28,7 @@ export default class Api {
 
   static async withCredentials(config: ApiConfig, credentials: Credentials): Promise<Api> {
     const api = new Api(config);
-    await api.oauth.authenticate(credentials);
+    await api.authentication.login(credentials);
     return api;
   }
 }

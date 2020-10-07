@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiResponse } from './utils/apiResponse';
 
 const DEFAULT_API_VERSION = 3;
+const DEFAULT_HOST = 'go.timetac.com';
 
 export type ApiConfig = {
   host?: string;
@@ -35,7 +36,7 @@ export default abstract class BaseApi {
   }
 
   protected getAccountUrl(): string {
-    return `https://${this.config.host ?? 'go.timetac.com'}/${this.config.account}/`;
+    return `https://${this.config.host ?? DEFAULT_HOST}/${this.config.account}/`;
   }
 
   protected setAccount(account: string): void {
