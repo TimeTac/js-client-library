@@ -1,4 +1,4 @@
-type Project = {
+export type Project = {
   id: number;
   mother_id: number;
   view_id: string;
@@ -28,5 +28,3 @@ type Project = {
   restrict_tracking_from_to?: boolean;
   duration?: number;
 };
-
-export default Project;

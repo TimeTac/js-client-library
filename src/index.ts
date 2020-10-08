@@ -7,6 +7,8 @@ import { Credentials } from './oauth/types';
 import DeltaSync from './deltaSync';
 
 export { SyncResource, SyncData, SyncResourceField } from './deltaSync/types';
+export { Project } from './projects/types';
+export { Task };
 
 export default class Api {
   public config: ApiConfig;

@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   id: number;
   lastname: string;
   firstname: string;
@@ -95,5 +95,3 @@ type User = {
   time_tracking_ex_post_earliest_working_time?: string;
   show_status_overview?: boolean;
 };
-
-export default User;

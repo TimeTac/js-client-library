@@ -1,4 +1,4 @@
-type Task = {
+export type Task = {
   id: number;
   mother_id: number;
   name: string;
@@ -29,5 +29,3 @@ type Task = {
   restrict_tracking_from_to?: boolean;
   duration?: number;
 };
-
-export default Task;

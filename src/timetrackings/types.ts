@@ -1,4 +1,4 @@
-type TimeTracking = {
+export type TimeTracking = {
   id: number;
   user_id: number;
   task_id: number;
@@ -75,5 +75,3 @@ type TimeTracking = {
    */
   end_type_id?: number;
 };
-
-export default TimeTracking;
