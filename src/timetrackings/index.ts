@@ -5,7 +5,7 @@ import responseHandler from '../utils/responseHandlers';
 const resourceName = 'timetrackings';
 
 export default class TimeTrackings extends BaseApi {
-  async readAll(): Promise<TimeTracking[]> {
+  read(): Promise<TimeTracking[]> {
     const response = this.get<TimeTracking>(`${resourceName}/read`);
     return responseHandler.requiredList(response);
   }

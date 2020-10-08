@@ -8,7 +8,9 @@ import DeltaSync from './deltaSync';
 
 export { SyncResource, SyncData, SyncResourceField } from './deltaSync/types';
 export { Project } from './projects/types';
-export { Task };
+export { Task } from './tasks/types';
+export { User } from './users/types';
+export { TimeTracking } from './timetrackings/types';
 
 export default class Api {
   public config: ApiConfig;
