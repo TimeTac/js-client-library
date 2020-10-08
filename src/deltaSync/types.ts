@@ -1,4 +1,4 @@
-import User from '../users/types';
+import { User } from '../users/types';
 import { Task } from '../tasks/types';
 import { Project } from '../projects/types';
 import { TimeTracking } from '../timetrackings/types';
