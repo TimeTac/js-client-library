@@ -11,6 +11,7 @@ export { Project } from './projects/types';
 export { Task } from './tasks/types';
 export { User } from './users/types';
 export { TimeTracking } from './timetrackings/types';
+export { ServerCommunication } from './serverCommunication/types';
 
 export default class Api {
   public config: ApiConfig;
