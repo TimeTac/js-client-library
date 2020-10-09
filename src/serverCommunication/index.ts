@@ -6,13 +6,9 @@ import { ServerCommunication as Model } from './types';
 const resourceName = 'serverCommunication';
 
 export default class ServerCommunication extends Base {
-  get serverCommunication() {
-    return this;
-  }
-
-  read(account: string): Promise<Model | undefined> {
+  read(account: string) {
     this.setAccount(account);
     const response = axios.get<Model>(`${this.getApiPath()}${resourceName}/read`, { withCredentials: false });
-    return responseHandlers.optional(response);
+    return responseHandlers.toApiResponse(response);
   }
 }

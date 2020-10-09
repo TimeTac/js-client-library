@@ -42,7 +42,7 @@ const api = new Api(environment);
 async() => {
   await api.authentication.login(authCredentials);
 
-  api.timeTrackings.readAll()
+  api.timeTrackings.read()
     .then(timetrackings => {
       console.log(timetrackings)
     });

@@ -21,24 +21,14 @@ export default abstract class BaseApi {
 
   protected get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
     const url = this.basePath + endpoint;
-    const config = this.getOptions(options);
-    return axios.get<ApiResponse<T>>(url, config);
-  }
-
-  protected post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
-    const url = this.basePath + endpoint;
-    const config = this.getOptions(options);
-    return axios.post<ApiResponse<T>>(url, data, config);
-  }
-
-  getOptions(options?: AxiosRequestConfig) {
-    return {
+    const config = {
+      ...options,
       headers: {
         Authorization: `Bearer ${this.config.accessToken}`,
         'Content-type': 'application/json',
       },
-      ...options,
     };
+    return axios.get<ApiResponse<T>>(url, config);
   }
 
   protected getApiPath(): string {
@@ -50,6 +40,6 @@ export default abstract class BaseApi {
   }
 
   protected setAccount(account: string): void {
-    this.config.account = account;
+    this.config.account = account || this.config.account;
   }
 }
