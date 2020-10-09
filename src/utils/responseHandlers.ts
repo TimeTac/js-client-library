@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { ApiResponse } from './apiResponse';
 
 class ResponseHandler {
-  private toApiResponse(promise: Promise<any>) {
+  toApiResponse(promise: Promise<any>) {
     return promise.then((response) => {
       if (!response) {
         return Promise.reject(new Error('Request failed.'));
