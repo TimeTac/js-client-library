@@ -5,7 +5,7 @@ import { User } from './types';
 const resourceName = 'users';
 
 export default class Users extends BaseApi {
-  getMe(): Promise<User> {
+  readMe(): Promise<User> {
     const response = this.get(`${resourceName}/me`);
     return responseHandler.required(response);
   }

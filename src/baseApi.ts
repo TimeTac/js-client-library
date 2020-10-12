@@ -13,14 +13,10 @@ export type ApiConfig = {
 };
 
 export default abstract class BaseApi {
-  private readonly basePath: string;
-
-  constructor(public config: ApiConfig) {
-    this.basePath = this.getApiPath();
-  }
+  constructor(public config: ApiConfig) {}
 
   protected get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
-    const url = this.basePath + endpoint;
+    const url = this.getApiPath() + endpoint;
     const config = {
       ...options,
       headers: {
