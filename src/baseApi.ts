@@ -13,11 +13,7 @@ export type ApiConfig = {
 };
 
 export default abstract class BaseApi {
-  private readonly basePath: string;
-
-  constructor(public config: ApiConfig) {
-    this.basePath = this.getApiPath();
-  }
+  constructor(public config: ApiConfig) {}
 
   private getOptions(options?: AxiosRequestConfig) {
     return {
@@ -30,25 +26,25 @@ export default abstract class BaseApi {
   }
 
   protected get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
-    const url = this.basePath + endpoint;
+    const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.get<ApiResponse<T>>(url, config);
   }
 
   protected post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
-    const url = this.basePath + endpoint;
+    const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.post<ApiResponse<T>>(url, data, config);
   }
 
   protected put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
-    const url = this.basePath + endpoint;
+    const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.put<ApiResponse<T>>(url, data, config);
   }
 
   protected remove<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
-    const url = this.basePath + endpoint;
+    const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.delete<ApiResponse<T>>(url, config);
   }

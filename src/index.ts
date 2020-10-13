@@ -29,6 +29,7 @@ export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { TimeTracking } from './timetrackings/types';
 export { User } from './users/types';
+export { ServerCommunication } from './serverCommunication/types';
 
 export default class Api {
   public config: ApiConfig;
