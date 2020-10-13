@@ -5,7 +5,7 @@ import { AxiosRequestConfig } from 'axios';
 import { ReadOptions } from '../utils/types';
 
 export default class TimeTrackings extends BaseApi {
-  static resourceName = 'absences';
+  static resourceName = 'timeTrackings';
 
   read(id: number, options: ReadOptions = {}) {
     const axiosConfig: AxiosRequestConfig = {

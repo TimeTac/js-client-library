@@ -27,7 +27,7 @@ export { Task } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
-export { TimeTracking } from './timetrackings/types';
+export { TimeTracking, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { User } from './users/types';
 export { ServerCommunication } from './serverCommunication/types';
 
