@@ -4,7 +4,7 @@ import Base from '../baseApi';
 
 const resourceName = 'serverCommunication';
 
-export default class ServerCommunication extends Base {
+export default class ServerCommunications extends Base {
   get serverCommunication() {
     return this;
   }
