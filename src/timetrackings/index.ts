@@ -1,12 +1,36 @@
 import BaseApi from '../baseApi';
-import { TimeTracking } from './types';
 import responseHandler from '../utils/responseHandlers';
-
-const resourceName = 'timetrackings';
+import { TimeTracking } from './types';
 
 export default class TimeTrackings extends BaseApi {
-  read(): Promise<TimeTracking[]> {
-    const response = this.get<TimeTracking>(`${resourceName}/read`);
+  static resourceName = 'absences';
+
+  public read(): Promise<TimeTracking[]> {
+    const response = this.get<TimeTracking>(`${TimeTrackings.resourceName}/read`);
     return responseHandler.requiredList(response);
+  }
+  public create(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
+  }
+  public update(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
+  }
+  public start(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
+  }
+  public stop(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
+  }
+  public split(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
+  }
+  public approve(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
+  }
+  public reject(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
+  }
+  public delete(): Promise<TimeTracking> {
+    throw new Error('not Implemented');
   }
 }

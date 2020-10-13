@@ -15,16 +15,38 @@ export type ApiConfig = {
 export default abstract class BaseApi {
   constructor(public config: ApiConfig) {}
 
-  protected get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
-    const url = this.getApiPath() + endpoint;
-    const config = {
-      ...options,
+  private getOptions(options?: AxiosRequestConfig) {
+    return {
       headers: {
         Authorization: `Bearer ${this.config.accessToken}`,
         'Content-type': 'application/json',
       },
+      ...options,
     };
+  }
+
+  protected get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
+    const url = this.getApiPath() + endpoint;
+    const config = this.getOptions(options);
     return axios.get<ApiResponse<T>>(url, config);
+  }
+
+  protected post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
+    const url = this.getApiPath() + endpoint;
+    const config = this.getOptions(options);
+    return axios.post<ApiResponse<T>>(url, data, config);
+  }
+
+  protected put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
+    const url = this.getApiPath() + endpoint;
+    const config = this.getOptions(options);
+    return axios.put<ApiResponse<T>>(url, data, config);
+  }
+
+  protected remove<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
+    const url = this.getApiPath() + endpoint;
+    const config = this.getOptions(options);
+    return axios.delete<ApiResponse<T>>(url, config);
   }
 
   protected getApiPath(): string {
@@ -36,6 +58,6 @@ export default abstract class BaseApi {
   }
 
   protected setAccount(account: string): void {
-    this.config.account = account || this.config.account;
+    this.config.account = account;
   }
 }
