@@ -2,16 +2,21 @@ import BaseApi from '../baseApi';
 import responseHandler from '../utils/responseHandlers';
 import { User } from './types';
 
-const resourceName = 'users';
-
 export default class Users extends BaseApi {
-  getMe(): Promise<User> {
-    const response = this.get(`${resourceName}/me`);
+  static resourceName = 'users';
+
+  public read(): Promise<User[]> {
+    const response = this.get<User[]>(`${Users.resourceName}/read`);
+    return responseHandler.requiredList(response);
+  }
+  public readMe(): Promise<User> {
+    const response = this.get(`${Users.resourceName}/me`);
     return responseHandler.required(response);
   }
-
-  read(id: number): Promise<User | undefined> {
-    const response = this.get<User>(`${resourceName}/${id}`);
-    return responseHandler.optional(response);
+  public create(): Promise<User> {
+    throw new Error('not Implemented');
+  }
+  public update(): Promise<User> {
+    throw new Error('not Implemented');
   }
 }

@@ -19,6 +19,16 @@ export default abstract class BaseApi {
     this.basePath = this.getApiPath();
   }
 
+  private getOptions(options?: AxiosRequestConfig) {
+    return {
+      headers: {
+        Authorization: `Bearer ${this.config.accessToken}`,
+        'Content-type': 'application/json',
+      },
+      ...options,
+    };
+  }
+
   protected get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
     const url = this.basePath + endpoint;
     const config = this.getOptions(options);
@@ -31,14 +41,16 @@ export default abstract class BaseApi {
     return axios.post<ApiResponse<T>>(url, data, config);
   }
 
-  getOptions(options?: AxiosRequestConfig) {
-    return {
-      headers: {
-        Authorization: `Bearer ${this.config.accessToken}`,
-        'Content-type': 'application/json',
-      },
-      ...options,
-    };
+  protected put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
+    const url = this.basePath + endpoint;
+    const config = this.getOptions(options);
+    return axios.put<ApiResponse<T>>(url, data, config);
+  }
+
+  protected remove<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
+    const url = this.basePath + endpoint;
+    const config = this.getOptions(options);
+    return axios.delete<ApiResponse<T>>(url, config);
   }
 
   protected getApiPath(): string {
