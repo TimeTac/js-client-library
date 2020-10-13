@@ -4,12 +4,12 @@ import Base from '../baseApi';
 
 const resourceName = 'serverCommunication';
 
-export default class ServerCommunications extends Base {
+export default class ServerCommunication extends Base {
   get serverCommunication() {
     return this;
   }
 
-  getRead(account: string) {
+  read(account: string) {
     this.setAccount(account);
     return axios.get(`${this.getApiPath()}${resourceName}/read`, { withCredentials: false });
   }

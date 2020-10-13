@@ -2,7 +2,7 @@ import Authentication from './oauth';
 import Users from './users';
 import Timetrackings from './timetrackings';
 import Projects from './projects';
-import ServerCommunications from './serverCommunication';
+import ServerCommunication from './serverCommunication';
 import { ApiConfig } from './baseApi';
 import { Credentials } from './oauth/types';
 import DeltaSync from './deltaSync';
@@ -21,7 +21,7 @@ export default class Api {
   public authentication: Authentication;
   public timeTrackings: Timetrackings;
   public projects: Projects;
-  public serverCommunication: ServerCommunications;
+  public serverCommunication: ServerCommunication;
   public deltaSync: DeltaSync;
 
   constructor(config: ApiConfig) {
@@ -30,7 +30,7 @@ export default class Api {
     this.authentication = new Authentication(this.config);
     this.users = new Users(this.config);
     this.timeTrackings = new Timetrackings(this.config);
-    this.serverCommunication = new ServerCommunications(this.config);
+    this.serverCommunication = new ServerCommunication(this.config);
     this.projects = new Projects(this.config);
     this.deltaSync = new DeltaSync(this.config);
   }
