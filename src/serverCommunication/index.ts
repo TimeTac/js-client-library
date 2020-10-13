@@ -1,16 +1,14 @@
-import axios, { AxiosResponse } from 'axios';
-import { stringify } from 'type-qs';
+import axios from 'axios';
 import Base from '../baseApi';
+import responseHandlers from '../utils/responseHandlers';
+import { ServerCommunication as Model } from './types';
 
 const resourceName = 'serverCommunication';
 
 export default class ServerCommunication extends Base {
-  get serverCommunication() {
-    return this;
-  }
-
   read(account: string) {
     this.setAccount(account);
-    return axios.get(`${this.getApiPath()}${resourceName}/read`, { withCredentials: false });
+    const response = axios.get<Model>(`${this.getApiPath()}${resourceName}/read`, { withCredentials: false });
+    return responseHandlers.toApiResponse(response);
   }
 }

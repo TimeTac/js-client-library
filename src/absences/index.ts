@@ -4,14 +4,26 @@ import responseHandler from '../utils/responseHandlers';
 import { ReadOptions } from '../utils/types';
 import { AxiosRequestConfig } from 'axios';
 
-const resourceName = 'absences';
-
 export default class Absences extends BaseApi {
-  getAll(options: ReadOptions = {}) {
+  static resourceName = 'absences';
+
+  public read(options: ReadOptions = {}): Promise<Absence[]> {
     const axiosConfig: AxiosRequestConfig = {
       params: options,
     };
-    const response = this._get<Absence[]>(`${resourceName}/read`, axiosConfig);
+    const response = this._get<Absence[]>(`${Absences.resourceName}/read`, axiosConfig);
     return responseHandler.requiredList(response);
+  }
+  public create(): Promise<Absence> {
+    throw new Error('not Implemented');
+  }
+  public approve(): Promise<Absence> {
+    throw new Error('not Implemented');
+  }
+  public reject(): Promise<Absence> {
+    throw new Error('not Implemented');
+  }
+  public cancel(): Promise<Absence> {
+    throw new Error('not Implemented');
   }
 }
