@@ -28,6 +28,8 @@ export default abstract class BaseApi {
   protected get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
+    console.log(url);
+    console.log(config);
     return axios.get<ApiResponse<T>>(url, config);
   }
 

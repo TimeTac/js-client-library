@@ -23,13 +23,14 @@ export { Credentials } from './authentication/types';
 export { SyncResource, SyncData, SyncResourceField } from './deltaSync/types';
 export { Department } from './departments/types';
 export { Project } from './projects/types';
+export { ServerCommunication } from './serverCommunication/types';
 export { Task } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { TimeTracking } from './timetrackings/types';
 export { User } from './users/types';
-export { ServerCommunication } from './serverCommunication/types';
+export * from './utils/requestParams';
 
 export default class Api {
   public config: ApiConfig;
