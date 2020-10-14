@@ -13,11 +13,7 @@ export type ApiConfig = {
 };
 
 export default abstract class BaseApi {
-  private readonly basePath: string;
-
-  constructor(public config: ApiConfig) {
-    this.basePath = this.getApiPath();
-  }
+  constructor(public config: ApiConfig) {}
 
   private getOptions(options?: AxiosRequestConfig) {
     return {
