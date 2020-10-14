@@ -1,9 +1,9 @@
-export type AbsenceDay = {
+export interface AbsenceDay {
   id?: number;
-  user_id?: number;
-  user_department_id?: number;
+  user_id: number;
+  user_department_id: number;
   user_role_id?: number;
-  date?: string;
+  date: string;
   type?: string;
   other_paid_leave_id?: number;
   value?: number;
@@ -13,4 +13,4 @@ export type AbsenceDay = {
   comment?: string;
   begin?: string;
   updated?: string;
-};
+}
