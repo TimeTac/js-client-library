@@ -19,14 +19,18 @@ describe('AbsenceDays', () => {
 
     mock.onGet(path).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = absenceDays.read(new RequestParams<AbsenceDay>());
-    await result;
+    await result.then((result) => expect(result).toStrictEqual([{}]));
 
     mock.onGet(path, { params: { user_id: '1', _op__user_id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', '1'));
-    await result;
+    await result.then((result) => expect(result).toStrictEqual([{}]));
 
-    mock.onGet(path).reply(500, { Success: false });
+    mock.onGet(path).reply(200, { Success: false });
     result = absenceDays.read(new RequestParams<AbsenceDay>());
-    await result;
+    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+
+    mock.onGet(path).reply(500);
+    result = absenceDays.read(new RequestParams<AbsenceDay>());
+    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
   });
 });
