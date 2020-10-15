@@ -12,7 +12,7 @@ class ResponseHandler {
       })
       .catch((error: any) => {
         if (error.response) {
-          return Promise.reject(error.resonse);
+          return Promise.reject(error.response);
         }
         return Promise.reject(new Error(error.message));
       });
