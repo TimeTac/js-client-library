@@ -47,12 +47,14 @@ class ResponseHandler {
    * @return A promise that resolves to T or null if no results but Success is true.
    */
   optional<T>(promise: Promise<AxiosResponse>): Promise<T | undefined> {
-    return this.toApiResponse(promise).then((response: ApiResponse<T[]>) => {
-      if (response.Success) {
-        return (response.NumResults > 0 && response.Results[0]) || undefined;
-      }
-      return Promise.reject(response.ErrorMessage);
-    });
+    return this.toApiResponse(promise)
+      .then((response: ApiResponse<T[]>) => {
+        if (response.Success) {
+          return (response.NumResults > 0 && response.Results[0]) || undefined;
+        }
+        return Promise.reject(response.ErrorMessage);
+      })
+      .catch((error) => error);
   }
 }
 
