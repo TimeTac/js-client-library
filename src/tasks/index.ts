@@ -1,5 +1,4 @@
 import BaseApi from '../baseApi';
-import RequestParams from '../utils/requestParams';
 import responseHandler from '../utils/responseHandlers';
 import { Task } from './types';
 import { ReadParams } from '../utils/types';
