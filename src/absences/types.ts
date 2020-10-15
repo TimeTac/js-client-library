@@ -1,8 +1,8 @@
-export interface Absence {
+export type Absence = {
   id?: number;
-  type_id: number;
-  subtype_id: number;
-  user_id: number;
+  type_id?: number;
+  subtype_id?: number;
+  user_id?: number;
   /**
    * The user replacement for this request.
    */
@@ -51,4 +51,4 @@ export interface Absence {
    */
   chain_level?: number;
   updated?: string;
-}
+};
