@@ -14,7 +14,14 @@ describe('AbsenceDays', () => {
   });
 
   test('read', async () => {
-    mock.onGet('https://go.timetac.com/undefined/userapi/v3/absencesDays/read').reply(200, { Success: true, NumResults: 2, Results: {} });
-    const result: Promise<AbsenceDay[]> = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', '1'));
+    let result: Promise<AbsenceDay[]>;
+
+    mock.onGet('https://go.timetac.com/undefined/userapi/v3/absencesDays/read').reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    result = absenceDays.read(new RequestParams<AbsenceDay>());
+
+    mock
+      .onGet('https://go.timetac.com/undefined/userapi/v3/absencesDays/read', { params: { user_id: '1', _op__user_id: 'eq' } })
+      .reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', '1'));
   });
 });

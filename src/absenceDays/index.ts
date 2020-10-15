@@ -4,12 +4,21 @@ import RequestParams from '../utils/requestParams';
 import { AbsenceDay } from './types';
 
 export default class AbsenceDays extends BaseApi {
-  static resourceName = 'absencesDays';
+  private readonly resourceName = 'absencesDays';
 
   public read(requestParams: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
-    const params = requestParams.getParams();
-    const response = this.get<AbsenceDay[]>(`${AbsenceDays.resourceName}/read`, { params });
-
+    const response = this._get(this, '/read', requestParams);
     return responseHandler.requiredList(response);
+  }
+
+  // Move this to BasiAPI (or some where else)
+  private _get(endpoint: AbsenceDays, slug: string, requestParams: RequestParams<Object>): any {
+    const params = requestParams.getParams();
+    return this.get<any>(`${endpoint.getResourceName()}${slug}`, { params });
+  }
+
+  // Also move BaseAPI
+  public getResourceName(): String {
+    return this.resourceName;
   }
 }
