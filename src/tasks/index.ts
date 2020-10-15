@@ -1,13 +1,25 @@
 import BaseApi from '../baseApi';
 import responseHandler from '../utils/responseHandlers';
 import { Task } from './types';
+import { ReadParams } from '../utils/types';
+import { AxiosRequestConfig } from 'axios';
 
 export default class Tasks extends BaseApi {
-  static resourceName = 'projects';
+  static resourceName = 'tasks';
 
-  public read(): Promise<Task[]> {
-    const response = this.get<Task[]>(`${Tasks.resourceName}/read`);
+  public read(options: ReadParams = {}): Promise<Task[]> {
+    const axiosConfig: AxiosRequestConfig = {
+      params: options,
+    };
+    const response = this._get<Task[]>(`${Tasks.resourceName}/read`, axiosConfig);
     return responseHandler.requiredList(response);
+  }
+  public readById(id: number, options: ReadParams = {}): Promise<Task[]> {
+    const axiosConfig: AxiosRequestConfig = {
+      params: options,
+    };
+    const response = this._get<Task[]>(`${Tasks.resourceName}/read/${id}`, axiosConfig);
+    return responseHandler.required(response);
   }
   public create(): Promise<Task> {
     throw new Error('not Implemented');

@@ -28,4 +28,6 @@ export type Task = {
   is_hidden?: boolean;
   restrict_tracking_from_to?: boolean;
   duration?: number;
+  is_startable?: boolean;
+  is_paid_non_working?: boolean;
 };

@@ -1,36 +1,43 @@
 import BaseApi from '../baseApi';
+import { TimeTracking, StartTimeTrackingData, StopTimeTrackingData } from './types';
 import responseHandler from '../utils/responseHandlers';
-import { TimeTracking } from './types';
-
+import { AxiosRequestConfig } from 'axios';
+import { ReadParams } from '../utils/types';
 export default class TimeTrackings extends BaseApi {
-  static resourceName = 'absences';
+  static resourceName = 'timeTrackings';
 
-  public read(): Promise<TimeTracking[]> {
-    const response = this.get<TimeTracking>(`${TimeTrackings.resourceName}/read`);
+  public read(options: ReadParams = {}): Promise<TimeTracking[]> {
+    const axiosConfig: AxiosRequestConfig = {
+      params: options,
+    };
+    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/read`, axiosConfig);
     return responseHandler.requiredList(response);
   }
-  public create(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
+  public readById(id: number, options: ReadParams = {}): Promise<TimeTracking[]> {
+    const axiosConfig: AxiosRequestConfig = {
+      params: options,
+    };
+    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/read/${id}`, axiosConfig);
+    return responseHandler.required(response);
   }
-  public update(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
+  public create(data: TimeTracking) {
+    const response = this._post<TimeTracking>(`${TimeTrackings.resourceName}/create`, data);
+    return responseHandler.requiredList(response);
   }
-  public start(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
+  public update(data: TimeTracking) {
+    const response = this._put<TimeTracking>(`${TimeTrackings.resourceName}/update`, data);
+    return responseHandler.requiredList(response);
   }
-  public stop(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
+  public delete(id: number) {
+    const response = this._delete<TimeTracking>(`${TimeTrackings.resourceName}/delete/${id}`);
+    return responseHandler.requiredList(response);
   }
-  public split(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
+  public start(data: StartTimeTrackingData): Promise<TimeTracking> {
+    const response = this._post<TimeTracking>(`${TimeTrackings.resourceName}/start`, data);
+    return responseHandler.required(response);
   }
-  public approve(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
-  }
-  public reject(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
-  }
-  public delete(): Promise<TimeTracking> {
-    throw new Error('not Implemented');
+  public stop(data: StopTimeTrackingData): Promise<TimeTracking> {
+    const response = this._put<TimeTracking>(`${TimeTrackings.resourceName}/stop`, data);
+    return responseHandler.required(response);
   }
 }
