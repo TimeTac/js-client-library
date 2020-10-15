@@ -74,4 +74,18 @@ export type TimeTracking = {
    * 0 = post-dated, 1 = live, 2 = nfc
    */
   end_type_id?: number;
+  notes?: string;
+};
+
+export type StartTimeTrackingData = {
+  user_id: number;
+  start_time?: string;
+  start_time_timezone?: string;
+  task_id?: number; // TODO: list all fields available for request
+};
+
+export type StopTimeTrackingData = {
+  user_id: number;
+  end_time?: string;
+  end_time_timezone: string;
 };

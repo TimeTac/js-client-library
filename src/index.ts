@@ -28,7 +28,7 @@ export { Task } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
-export { TimeTracking } from './timetrackings/types';
+export { TimeTracking, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { User } from './users/types';
 export * from './utils/requestParams';
 
@@ -47,7 +47,7 @@ export default class Api {
   public teamMembers: TeamMembers;
   public teams: Teams;
   public timesheetAccountings: TimesheetAccountings;
-  public timetrackings: Timetrackings;
+  public timeTrackings: Timetrackings;
   public users: Users;
 
   constructor(config: ApiConfig) {
@@ -65,7 +65,7 @@ export default class Api {
     this.teamMembers = new TeamMembers(this.config);
     this.teams = new Teams(this.config);
     this.timesheetAccountings = new TimesheetAccountings(this.config);
-    this.timetrackings = new Timetrackings(this.config);
+    this.timeTrackings = new Timetrackings(this.config);
     this.users = new Users(this.config);
   }
 

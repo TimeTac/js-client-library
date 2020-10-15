@@ -11,10 +11,10 @@ export default class DeltaSync extends BaseApi {
     since: string | undefined,
     map: { [index: string]: string }
   ): Promise<ApiResponse<any>> {
-    const response = this.get('/deltaSync/read/', {
+    const response = this._get('deltaSync/read/', {
       params: {
         _limit: limit,
-        _off: offset,
+        _offset: offset,
         _since: since,
         ...map,
         _includes: resources.join(','),
