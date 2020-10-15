@@ -5,7 +5,7 @@ import { ReadParams } from '../utils/types';
 import { AxiosRequestConfig } from 'axios';
 
 export default class AbsenceTypes extends BaseApi {
-  static resourceName = 'absencesDays';
+  static resourceName = 'absenceTypes';
 
   public read(options: ReadParams = {}): Promise<AbsenceType[]> {
     const axiosConfig: AxiosRequestConfig = {
