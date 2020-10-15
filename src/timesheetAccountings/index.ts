@@ -16,9 +16,9 @@ export default class TimesheetAccountings extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<TimesheetAccounting[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<TimesheetAccounting[]>(`${TimesheetAccountings.resourceName}/read`, axiosConfig);
+    const response = this._get<TimesheetAccounting[]>(`${TimesheetAccountings.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
 }

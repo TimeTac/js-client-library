@@ -16,9 +16,9 @@ export default class TeamMembers extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<TeamMember[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<TeamMember[]>(`${TeamMembers.resourceName}/read`, axiosConfig);
+    const response = this._get<TeamMember[]>(`${TeamMembers.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
   public create(): Promise<TeamMember> {

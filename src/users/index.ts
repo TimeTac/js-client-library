@@ -16,9 +16,9 @@ export default class Users extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<User[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<User[]>(`${Users.resourceName}/read`, axiosConfig);
+    const response = this._get<User[]>(`${Users.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.requiredList(response);
   }
   public readMe(): Promise<User> {

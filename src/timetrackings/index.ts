@@ -17,9 +17,9 @@ export default class TimeTrackings extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<TimesheetAccounting[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/read`, axiosConfig);
+    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
   public create(data: TimeTracking) {

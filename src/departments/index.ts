@@ -3,7 +3,6 @@ import responseHandler from '../utils/responseHandlers';
 import { Department } from './types';
 import { ReadParams } from '../utils/types';
 import { AxiosRequestConfig } from 'axios';
-import { AbsenceType } from '..';
 
 export default class AbsenceDays extends BaseApi {
   static resourceName = 'absencesDays';
@@ -17,9 +16,9 @@ export default class AbsenceDays extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<Department[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<AbsenceType[]>(`${AbsenceDays.resourceName}/read`, axiosConfig);
+    const response = this._get<Department[]>(`${AbsenceDays.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
 }

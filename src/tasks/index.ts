@@ -16,9 +16,9 @@ export default class Tasks extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<Task[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<Task[]>(`${Tasks.resourceName}/read`, axiosConfig);
+    const response = this._get<Task[]>(`${Tasks.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
   public create(): Promise<Task> {

@@ -16,9 +16,9 @@ export default class Projects extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<Project[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<Project[]>(`${Projects.resourceName}/read`, axiosConfig);
+    const response = this._get<Project[]>(`${Projects.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
   public create(): Promise<Project> {

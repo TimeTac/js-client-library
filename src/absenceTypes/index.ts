@@ -16,9 +16,9 @@ export default class AbsenceTypes extends BaseApi {
   }
   public readById(id: number, options: ReadParams = {}): Promise<AbsenceType[]> {
     const axiosConfig: AxiosRequestConfig = {
-      params: { ...options, id },
+      params: options,
     };
-    const response = this._get<AbsenceType[]>(`${AbsenceTypes.resourceName}/read`, axiosConfig);
+    const response = this._get<AbsenceType[]>(`${AbsenceTypes.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
   public create(): Promise<AbsenceType> {
