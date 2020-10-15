@@ -5,7 +5,7 @@ import { ReadParams } from '../utils/types';
 import { AxiosRequestConfig } from 'axios';
 
 export default class Tasks extends BaseApi {
-  static resourceName = 'projects';
+  static resourceName = 'tasks';
 
   public read(options: ReadParams = {}): Promise<Task[]> {
     const axiosConfig: AxiosRequestConfig = {
