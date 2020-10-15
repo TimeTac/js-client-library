@@ -3,19 +3,17 @@ import { TimeTracking, StartTimeTrackingData, StopTimeTrackingData } from './typ
 import responseHandler from '../utils/responseHandlers';
 import { AxiosRequestConfig } from 'axios';
 import { ReadParams } from '../utils/types';
-import { TimesheetAccounting } from '..';
-
 export default class TimeTrackings extends BaseApi {
   static resourceName = 'timeTrackings';
 
-  public read(options: ReadParams = {}): Promise<TimesheetAccounting[]> {
+  public read(options: ReadParams = {}): Promise<TimeTracking[]> {
     const axiosConfig: AxiosRequestConfig = {
       params: options,
     };
     const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/read`, axiosConfig);
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, options: ReadParams = {}): Promise<TimesheetAccounting[]> {
+  public readById(id: number, options: ReadParams = {}): Promise<TimeTracking[]> {
     const axiosConfig: AxiosRequestConfig = {
       params: options,
     };
