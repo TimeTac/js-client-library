@@ -21,4 +21,8 @@ export default class AbsenceDays extends BaseApi {
   public getResourceName(): String {
     return this.resourceName;
   }
+
+  public getResourcePath(): String {
+    return `${this.getApiPath()}${this.getResourceName()}`;
+  }
 }

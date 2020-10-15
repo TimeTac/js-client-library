@@ -51,11 +51,11 @@ export default abstract class BaseApi {
     return axios.delete<ApiResponse<T>>(url, config);
   }
 
-  protected getApiPath(): string {
+  public getApiPath(): string {
     return `${this.getAccountUrl()}userapi/v${this.config.version ?? DEFAULT_API_VERSION}/`;
   }
 
-  protected getAccountUrl(): string {
+  public getAccountUrl(): string {
     return `https://${this.config.host ?? DEFAULT_HOST}/${this.config.account}/`;
   }
 

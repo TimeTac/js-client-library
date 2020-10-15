@@ -15,13 +15,18 @@ describe('AbsenceDays', () => {
 
   test('read', async () => {
     let result: Promise<AbsenceDay[]>;
+    let path = `${absenceDays.getResourcePath()}/read`;
 
-    mock.onGet('https://go.timetac.com/undefined/userapi/v3/absencesDays/read').reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onGet(path).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = absenceDays.read(new RequestParams<AbsenceDay>());
+    await result;
 
-    mock
-      .onGet('https://go.timetac.com/undefined/userapi/v3/absencesDays/read', { params: { user_id: '1', _op__user_id: 'eq' } })
-      .reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onGet(path, { params: { user_id: '1', _op__user_id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', '1'));
+    await result;
+
+    mock.onGet(path).reply(500, { Success: false });
+    result = absenceDays.read(new RequestParams<AbsenceDay>());
+    await result;
   });
 });
