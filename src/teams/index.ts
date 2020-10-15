@@ -5,7 +5,7 @@ import { ReadParams } from '../utils/types';
 import { AxiosRequestConfig } from 'axios';
 
 export default class Teams extends BaseApi {
-  static resourceName = 'team';
+  static resourceName = 'teams';
 
   public read(options: ReadParams = {}): Promise<Team[]> {
     const axiosConfig: AxiosRequestConfig = {
