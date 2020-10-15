@@ -40,4 +40,9 @@ export default class TimeTrackings extends BaseApi {
     const response = this._put<TimeTracking>(`${TimeTrackings.resourceName}/stop`, data);
     return responseHandler.required(response);
   }
+
+  public current(): Promise<TimeTracking | undefined> {
+    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/current`);
+    return responseHandler.optional<TimeTracking>(response);
+  }
 }
