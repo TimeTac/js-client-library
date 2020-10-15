@@ -23,7 +23,6 @@
     "prettycheck": "prettier -c 'src/**/*.{ts,js,css,html}'",
     "prettyfix": "prettier --write 'src/**/*.{ts,js,css,html}'",
     "compile": "tsc",
-    "build": "tsc",
     "dev": "tsc --watch"
   },
   "dependencies": {
