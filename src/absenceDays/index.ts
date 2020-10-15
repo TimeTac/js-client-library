@@ -9,22 +9,17 @@ export default class AbsenceDays extends BaseApi {
   private readonly resourceName = 'absencesDays';
 
   public read(requestParams?: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
-    const response = this.myget(this, '/read', requestParams);
-    return responseHandler.requiredList(response);
-  }
-
-  public readById(id: number, requestParams?: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
-    const response = this.myget(this, `/read/${id}`, requestParams);
+    const params = requestParams ? requestParams.getParams() : {};
+    const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.required(response);
   }
 
-  // Move this to BasiAPI (or some where else)
-  private myget(endpoint: AbsenceDays, slug: string, requestParams?: RequestParams<Object>): any {
+  public readById(id: number, requestParams?: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
     const params = requestParams ? requestParams.getParams() : {};
-    return this._get<any>(`${endpoint.getResourceName()}${slug}`, { params });
+    const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read/${id}`, { params });
+    return responseHandler.required(response);
   }
 
-  // Also move BaseAPI
   public getResourceName(): String {
     return this.resourceName;
   }
