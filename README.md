@@ -60,7 +60,7 @@ async() => {
   api.absenceDay.read({
     user_id: '1',
     date: '2020-01-01',
-    _op_date: 'gteq'
+    _op__date: 'gteq'
   })
 }
 ```
