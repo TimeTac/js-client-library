@@ -9,13 +9,13 @@ export default class AbsenceDays extends BaseApi {
   private readonly resourceName = 'absencesDays';
 
   public read(requestParams?: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
-    const params = requestParams ? requestParams.getParams() : {};
+    const params = requestParams?.getParams() ?? {};
     const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
 
   public readById(id: number, requestParams?: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
-    const params = requestParams ? requestParams.getParams() : {};
+    const params = requestParams?.getParams() ?? {};
     const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }

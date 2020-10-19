@@ -11,7 +11,7 @@ class ResponseHandler {
         return Promise.reject(response);
       })
       .catch((error: any) => {
-        if (error.response.data!) {
+        if (error.response!.data) {
           return Promise.reject(error.response.data);
         }
         return Promise.reject(error.message);
