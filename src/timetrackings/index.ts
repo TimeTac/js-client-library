@@ -41,8 +41,12 @@ export default class TimeTrackings extends BaseApi {
     return responseHandler.required(response);
   }
 
-  public current(): Promise<TimeTracking | undefined> {
-    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/current`);
+  public current(userId?: number): Promise<TimeTracking | undefined> {
+    let query = '';
+    if (userId) {
+      query = `?user_id=${userId}`;
+    }
+    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/current${query}`);
     return responseHandler.optional<TimeTracking>(response);
   }
 }
