@@ -8,8 +8,8 @@ import { AxiosRequestConfig } from 'axios';
 export default class AbsenceDays extends BaseApi {
   private readonly resourceName = 'absencesDays';
 
-  public read(requestParams?: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
-    const params = requestParams?.getParams() ?? {};
+  public read(requestParams?: RequestParams<AbsenceDay> | Object): Promise<AbsenceDay[]> {
+    const params = requestParams instanceof RequestParams ? requestParams?.getParams() : requestParams;
     const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
