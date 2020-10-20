@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { stringify } from 'type-qs';
+import { stringify } from 'qs';
 import BaseApi from '../baseApi';
 import { Credentials } from './types';
 

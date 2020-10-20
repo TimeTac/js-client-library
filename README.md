@@ -50,6 +50,18 @@ async() => {
   api.users.getMe().then(meData => {
     console.log(meData);
   });
+
+  api.absenceDays.read(
+    new RequestParams<AbsenceDay>()
+    .eq('user_id', '1')
+    .gteq('date', '2020-01-01')
+  );
+
+  api.absenceDay.read({
+    user_id: '1',
+    date: '2020-01-01',
+    _op__date: 'gteq'
+  })
 }
 ```
 
