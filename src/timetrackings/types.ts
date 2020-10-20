@@ -8,10 +8,12 @@ export type TimeTracking = {
    * Timezone, eg. Europe/Vienna, that is mandatory if action is CREATE
    */
   start_time_timezone?: string;
+  start_time_timezone_id?: number;
   /**
    * Timezone needs to be set if end_time field value is set
    */
   end_time_timezone?: string;
+  end_time_timezone_id?: number;
   /**
    * The department id to which the timetrackings user (pm_time_tracking.user_id)
    * was assigned at the time start_date of the timeTracking.

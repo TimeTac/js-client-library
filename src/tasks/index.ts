@@ -21,8 +21,9 @@ export default class Tasks extends BaseApi {
     const response = this._get<Task[]>(`${Tasks.resourceName}/read/${id}`, axiosConfig);
     return responseHandler.required(response);
   }
-  public create(): Promise<Task> {
-    throw new Error('not Implemented');
+  public create(task: Task): Promise<Task> {
+    const response = this._post(`${Tasks.resourceName}/create`, task);
+    return responseHandler.required(response);
   }
   public update(): Promise<Task> {
     throw new Error('not Implemented');
