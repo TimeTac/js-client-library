@@ -8,11 +8,17 @@ export interface TimeTracking {
    * Timezone, eg. Europe/Vienna, that is mandatory if action is CREATE
    */
   start_time_timezone?: string;
+  /**
+   * Timezone id for start_time
+   */
   start_time_timezone_id?: number;
   /**
    * Timezone needs to be set if end_time field value is set
    */
   end_time_timezone?: string;
+  /**
+   * Timezone id for end_time
+   */
   end_time_timezone_id?: number;
   /**
    * The department id to which the timetrackings user (pm_time_tracking.user_id)
