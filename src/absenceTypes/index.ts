@@ -1,24 +1,19 @@
 import BaseApi from '../baseApi';
 import responseHandler from '../utils/responseHandlers';
+import RequestParams from '../utils/requestParams';
 import { AbsenceType } from './types';
-import { ReadParams } from '../utils/types';
-import { AxiosRequestConfig } from 'axios';
 
 export default class AbsenceTypes extends BaseApi {
-  static resourceName = 'absenceTypes';
+  public readonly resourceName = 'absenceTypes';
 
-  public read(options: ReadParams = {}): Promise<AbsenceType[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<AbsenceType[]>(`${AbsenceTypes.resourceName}/read`, axiosConfig);
+  public read(requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType[]> {
+    const params = requestParams instanceof RequestParams ? requestParams?.getParams() : requestParams;
+    const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, options: ReadParams = {}): Promise<AbsenceType[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<AbsenceType[]>(`${AbsenceTypes.resourceName}/read/${id}`, axiosConfig);
+  public readById(id: number, requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType[]> {
+    const params = requestParams instanceof RequestParams ? requestParams?.getParams() : requestParams;
+    const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
   public create(): Promise<AbsenceType> {
