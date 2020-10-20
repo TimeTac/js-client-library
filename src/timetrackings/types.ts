@@ -1,4 +1,4 @@
-export type TimeTracking = {
+export interface TimeTracking {
   id: number;
   user_id: number;
   task_id: number;
@@ -77,17 +77,12 @@ export type TimeTracking = {
    */
   end_type_id?: number;
   notes?: string;
-};
+}
 
-export type StartTimeTrackingData = {
-  user_id: number;
-  start_time?: string;
-  start_time_timezone?: string;
-  task_id?: number; // TODO: list all fields available for request
-};
+export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id'> {
+  task_id?: number;
+}
 
-export type StopTimeTrackingData = {
-  user_id: number;
-  end_time?: string;
+export interface StopTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id' | 'end_time_timezone'> {
   end_time_timezone: string;
-};
+}

@@ -11,10 +11,10 @@ class ResponseHandler {
         return Promise.reject(response);
       })
       .catch((error: any) => {
-        if (error.response) {
-          return Promise.reject(error.response);
+        if (error.response!.data) {
+          return Promise.reject(error.response.data);
         }
-        return Promise.reject(new Error(error.message));
+        return Promise.reject(error.message);
       });
   }
 
