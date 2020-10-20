@@ -30,7 +30,7 @@ export default class TimeTrackings extends BaseApi {
   }
   public delete(id: number) {
     const response = this._delete<TimeTracking>(`${TimeTrackings.resourceName}/delete/${id}`);
-    return responseHandler.requiredList(response);
+    return responseHandler.required(response);
   }
   public start(data: StartTimeTrackingData): Promise<TimeTracking> {
     const response = this._post<TimeTracking>(`${TimeTrackings.resourceName}/start`, data);
