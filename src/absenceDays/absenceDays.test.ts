@@ -1,6 +1,5 @@
 import AbsenceDays from './index';
 import { AbsenceDay } from './types';
-import { Absence } from '../absences/types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams';
