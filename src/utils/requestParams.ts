@@ -58,9 +58,9 @@ export default class RequestParams<R extends Object> {
     return this;
   }
 
-  between(field: string, ...values: string[]): RequestParams<R> {
+  between(field: string, min: String, max: string): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'betw';
-    this.criteria[field] = values.join('|');
+    this.criteria[field] = [min, max].join('|');
     return this;
   }
 
