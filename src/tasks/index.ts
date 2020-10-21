@@ -1,28 +1,23 @@
 import BaseApi from '../baseApi';
 import responseHandler from '../utils/responseHandlers';
+import RequestParams from '../utils/requestParams';
 import { Task } from './types';
-import { ReadParams } from '../utils/types';
-import { AxiosRequestConfig } from 'axios';
 
 export default class Tasks extends BaseApi {
-  static resourceName = 'tasks';
+  public readonly resourceName = 'tasks';
 
-  public read(options: ReadParams = {}): Promise<Task[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<Task[]>(`${Tasks.resourceName}/read`, axiosConfig);
+  public read(requestParams?: RequestParams<Task> | Object): Promise<Task[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, options: ReadParams = {}): Promise<Task[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<Task[]>(`${Tasks.resourceName}/read/${id}`, axiosConfig);
+  public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
   public create(task: Task): Promise<Task> {
-    const response = this._post(`${Tasks.resourceName}/create`, task);
+    const response = this._post(`${this.getResourceName()}/create`, task);
     return responseHandler.required(response);
   }
   public update(): Promise<Task> {

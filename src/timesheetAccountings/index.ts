@@ -1,24 +1,19 @@
 import BaseApi from '../baseApi';
 import responseHandler from '../utils/responseHandlers';
+import RequestParams from '../utils/requestParams';
 import { TimesheetAccounting } from './types';
-import { ReadParams } from '../utils/types';
-import { AxiosRequestConfig } from 'axios';
 
 export default class TimesheetAccountings extends BaseApi {
-  static resourceName = 'timesheetAccountings';
+  public readonly resourceName = 'timesheetAccountings';
 
-  public read(options: ReadParams = {}): Promise<TimesheetAccounting[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<TimesheetAccounting[]>(`${TimesheetAccountings.resourceName}/read`, axiosConfig);
+  public read(requestParams?: RequestParams<TimesheetAccounting> | Object): Promise<TimesheetAccounting[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<TimesheetAccounting[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, options: ReadParams = {}): Promise<TimesheetAccounting[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<TimesheetAccounting[]>(`${TimesheetAccountings.resourceName}/read/${id}`, axiosConfig);
+  public readById(id: number, requestParams?: RequestParams<TimesheetAccounting> | Object): Promise<TimesheetAccounting[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<TimesheetAccounting[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
 }

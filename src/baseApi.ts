@@ -13,6 +13,8 @@ export type ApiConfig = {
 };
 
 export default abstract class BaseApi {
+  public readonly resourceName: String = 'placeholder';
+
   constructor(public config: ApiConfig) {}
 
   private getOptions(options?: AxiosRequestConfig) {
@@ -59,5 +61,13 @@ export default abstract class BaseApi {
 
   protected setAccount(account: string): void {
     this.config.account = account;
+  }
+
+  public getResourceName(): String {
+    return this.resourceName;
+  }
+
+  public getResourcePath(): String {
+    return `${this.getApiPath()}${this.getResourceName()}`;
   }
 }
