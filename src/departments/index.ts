@@ -1,24 +1,19 @@
 import BaseApi from '../baseApi';
 import responseHandler from '../utils/responseHandlers';
+import RequestParams from '../utils/requestParams';
 import { Department } from './types';
-import { ReadParams } from '../utils/types';
-import { AxiosRequestConfig } from 'axios';
 
 export default class Departments extends BaseApi {
-  static resourceName = 'departments';
+  public readonly resourceName = 'departments';
 
-  public read(options: ReadParams = {}): Promise<Department[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<Department[]>(`${Departments.resourceName}/read`, axiosConfig);
+  public read(requestParams?: RequestParams<Department> | Object): Promise<Department[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<Department[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, options: ReadParams = {}): Promise<Department[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<Department[]>(`${Departments.resourceName}/read/${id}`, axiosConfig);
+  public readById(id: number, requestParams?: RequestParams<Department> | Object): Promise<Department[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<Department[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
 }

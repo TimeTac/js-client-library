@@ -1,49 +1,44 @@
 import BaseApi from '../baseApi';
-import { TimeTracking, StartTimeTrackingData, StopTimeTrackingData } from './types';
 import responseHandler from '../utils/responseHandlers';
-import { AxiosRequestConfig } from 'axios';
-import { ReadParams } from '../utils/types';
-export default class TimeTrackings extends BaseApi {
-  static resourceName = 'timeTrackings';
+import RequestParams from '../utils/requestParams';
+import { TimeTracking, StartTimeTrackingData, StopTimeTrackingData } from './types';
 
-  public read(options: ReadParams = {}): Promise<TimeTracking[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/read`, axiosConfig);
+export default class TimeTrackings extends BaseApi {
+  public readonly resourceName = 'timeTrackings';
+
+  public read(requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<TimeTracking>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, options: ReadParams = {}): Promise<TimeTracking[]> {
-    const axiosConfig: AxiosRequestConfig = {
-      params: options,
-    };
-    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/read/${id}`, axiosConfig);
+  public readById(id: number, requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking[]> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<TimeTracking>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
+  public current(requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking | undefined> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<TimeTracking>(`${this.getResourceName()}/current`, { params });
+    return responseHandler.optional<TimeTracking>(response);
+  }
   public create(data: TimeTracking) {
-    const response = this._post<TimeTracking>(`${TimeTrackings.resourceName}/create`, data);
+    const response = this._post<TimeTracking>(`${this.getResourceName()}/create`, data);
     return responseHandler.requiredList(response);
   }
   public update(data: TimeTracking) {
-    const response = this._put<TimeTracking>(`${TimeTrackings.resourceName}/update`, data);
+    const response = this._put<TimeTracking>(`${this.getResourceName()}/update`, data);
     return responseHandler.requiredList(response);
   }
   public delete(id: number) {
-    const response = this._delete<TimeTracking>(`${TimeTrackings.resourceName}/delete/${id}`);
+    const response = this._delete<TimeTracking>(`${this.getResourceName()}/delete/${id}`);
     return responseHandler.requiredList(response);
   }
   public start(data: StartTimeTrackingData): Promise<TimeTracking> {
-    const response = this._post<TimeTracking>(`${TimeTrackings.resourceName}/start`, data);
+    const response = this._post<TimeTracking>(`${this.getResourceName()}/start`, data);
     return responseHandler.required(response);
   }
   public stop(data: StopTimeTrackingData): Promise<TimeTracking> {
-    const response = this._put<TimeTracking>(`${TimeTrackings.resourceName}/stop`, data);
+    const response = this._put<TimeTracking>(`${this.getResourceName()}/stop`, data);
     return responseHandler.required(response);
-  }
-
-  public current(userId?: number): Promise<TimeTracking | undefined> {
-    const params = userId ? { user_id: userId } : {};
-    const response = this._get<TimeTracking>(`${TimeTrackings.resourceName}/current`, { params });
-    return responseHandler.optional<TimeTracking>(response);
   }
 }
