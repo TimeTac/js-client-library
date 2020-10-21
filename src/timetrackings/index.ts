@@ -7,17 +7,17 @@ export default class TimeTrackings extends BaseApi {
   public readonly resourceName = 'timeTrackings';
 
   public read(requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking[]> {
-    const params = requestParams instanceof RequestParams ? requestParams?.getParams() : requestParams;
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<TimeTracking>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
   public readById(id: number, requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking[]> {
-    const params = requestParams instanceof RequestParams ? requestParams?.getParams() : requestParams;
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<TimeTracking>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
   public current(requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking | undefined> {
-    const params = requestParams instanceof RequestParams ? requestParams?.getParams() : requestParams;
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<TimeTracking>(`${this.getResourceName()}/current`, { params });
     return responseHandler.optional<TimeTracking>(response);
   }
