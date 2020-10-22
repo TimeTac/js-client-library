@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import responseHandler from '../utils/responseHandlers';
 import RequestParams from '../utils/requestParams';
-import { TimeTracking, StartTimeTrackingData, StopTimeTrackingData } from './types';
+import { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './types';
 
 export default class TimeTrackings extends BaseApi {
   public readonly resourceName = 'timeTrackings';
@@ -21,7 +21,7 @@ export default class TimeTrackings extends BaseApi {
     const response = this._get<TimeTracking>(`${this.getResourceName()}/current`, { params });
     return responseHandler.optional<TimeTracking>(response);
   }
-  public create(data: TimeTracking) {
+  public create(data: TimeTrackingCreate) {
     const response = this._post<TimeTracking>(`${this.getResourceName()}/create`, data);
     return responseHandler.required(response);
   }
