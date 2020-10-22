@@ -9,9 +9,17 @@ export interface TimeTracking {
    */
   start_time_timezone?: string;
   /**
+   * Timezone id for start_time
+   */
+  start_time_timezone_id?: number;
+  /**
    * Timezone needs to be set if end_time field value is set
    */
   end_time_timezone?: string;
+  /**
+   * Timezone id for end_time
+   */
+  end_time_timezone_id?: number;
   /**
    * The department id to which the timetrackings user (pm_time_tracking.user_id)
    * was assigned at the time start_date of the timeTracking.

@@ -16,8 +16,9 @@ export default class Tasks extends BaseApi {
     const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
-  public create(): Promise<Task> {
-    throw new Error('not Implemented');
+  public create(data: Task): Promise<Task> {
+    const response = this._post(`${this.getResourceName()}/create`, data);
+    return responseHandler.required(response);
   }
   public update(): Promise<Task> {
     throw new Error('not Implemented');
