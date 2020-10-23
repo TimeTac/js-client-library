@@ -5,7 +5,7 @@
   "homepage": "https://github.com/TimeTac/js-client-library#readme",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:TimeTac/js-client-library.git"
+    "url": "git+ssh://git@github.com/TimeTac/js-client-library.git"
   },
   "keywords": [
     "timetac",
@@ -53,5 +53,11 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,jsx,tsx,yml}": "prettier --write"
+  },
+  "bugs": {
+    "url": "https://github.com/TimeTac/js-client-library/issues"
+  },
+  "directories": {
+    "test": "tests"
   }
 }

@@ -34,7 +34,7 @@ const authCredentials = {
   client_id: 'WEB_APP',
   client_secret: '',
   username: <USER_NAME>,
-  password: <PASSWORD>'
+  password: <PASSWORD>
 }
 
 const api = new Api(environment);
