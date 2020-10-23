@@ -83,8 +83,10 @@ export interface TimeTracking {
    */
   end_type_id?: number;
   notes?: string;
+  is_billable?: boolean;
+  is_nonworking?: boolean;
 }
-
+export interface TimeTrackingCreate extends Omit<TimeTracking, 'id'> {}
 export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id'> {
   task_id?: number;
 }
