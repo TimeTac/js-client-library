@@ -59,8 +59,5 @@
   },
   "bugs": {
     "url": "https://github.com/TimeTac/js-client-library/issues"
-  },
-  "directories": {
-    "test": "tests"
   }
 }
