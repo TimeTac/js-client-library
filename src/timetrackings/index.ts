@@ -21,15 +21,15 @@ export default class TimeTrackings extends BaseApi {
     const response = this._get<TimeTracking>(`${this.getResourceName()}/current`, { params });
     return responseHandler.optional<TimeTracking>(response);
   }
-  public create(data: TimeTrackingCreate) {
+  public create(data: TimeTrackingCreate): Promise<TimeTracking> {
     const response = this._post<TimeTracking>(`${this.getResourceName()}/create`, data);
     return responseHandler.required(response);
   }
-  public update(data: TimeTracking) {
+  public update(data: TimeTracking): Promise<TimeTracking> {
     const response = this._put<TimeTracking>(`${this.getResourceName()}/update`, data);
     return responseHandler.required(response);
   }
-  public delete(id: number) {
+  public delete(id: number): Promise<TimeTracking> {
     const response = this._delete<TimeTracking>(`${this.getResourceName()}/delete/${id}`);
     return responseHandler.required(response);
   }

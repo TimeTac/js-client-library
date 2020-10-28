@@ -64,11 +64,9 @@ export default class RequestParams<R extends Object> {
     return this;
   }
 
-  orderBy<F extends keyof R & string>(field: F, descending = false): RequestParams<R> {
+  orderBy<F extends keyof R & string>(field: F, order: 'asc' | 'desc'): RequestParams<R> {
     this.criteria[`_order_by`] = field;
-    if (descending) {
-      this.criteria[`_order_desc`] = 'true';
-    }
+    this.criteria[`_order_desc`] = order === 'desc' ? 'true' : 'false';
     return this;
   }
 
