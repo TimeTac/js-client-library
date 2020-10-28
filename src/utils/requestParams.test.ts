@@ -65,8 +65,33 @@ describe('RequestParams', () => {
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'in', status: '5|3' });
   });
 
-  test('in', () => {
+  test('fields', () => {
     const requestParams = new RequestParams<Resource>().fields('status');
     expect(requestParams.getParams()).toStrictEqual({ _fields: 'status' });
+  });
+
+  test('like', () => {
+    const requestParams = new RequestParams<Resource>().like('comment', 'foo');
+    expect(requestParams.getParams()).toStrictEqual({ _op__comment: 'like', comment: 'foo' });
+  });
+
+  test('orderBy asc', () => {
+    const requestParams = new RequestParams<Resource>().orderBy('status', 'asc');
+    expect(requestParams.getParams()).toStrictEqual({ _order_by: 'status', _order_desc: 'false' });
+  });
+
+  test('orderBy desc', () => {
+    const requestParams = new RequestParams<Resource>().orderBy('status', 'desc');
+    expect(requestParams.getParams()).toStrictEqual({ _order_by: 'status', _order_desc: 'true' });
+  });
+
+  test('groupBy', () => {
+    const requestParams = new RequestParams<Resource>().groupBy('status');
+    expect(requestParams.getParams()).toStrictEqual({ _group_by: 'status' });
+  });
+
+  test('aggregate', () => {
+    const requestParams = new RequestParams<Resource>().aggregate('status', 'sum');
+    expect(requestParams.getParams()).toStrictEqual({ _aggregate__status: 'sum' });
   });
 });

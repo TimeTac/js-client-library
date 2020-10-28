@@ -7,11 +7,20 @@ import RequestParams from '../utils/requestParams';
 describe('TimeTrackings', () => {
   var timeTrackings: TimeTrackings = new TimeTrackings({});
   var readPath: string = `${timeTrackings.getResourcePath()}/read`;
+  var createPath: string = `${timeTrackings.getResourcePath()}/create`;
+  var updatePath: string = `${timeTrackings.getResourcePath()}/update`;
+  var deletePath: string = `${timeTrackings.getResourcePath()}/delete`;
+  var startPath: string = `${timeTrackings.getResourcePath()}/start`;
+  var stopPath: string = `${timeTrackings.getResourcePath()}/stop`;
+
   var mock = new AxiosMockAdapter(axios);
-  var result: Promise<TimeTracking[]>;
+  var result: Promise<TimeTracking[]> | null;
+  var resultSingle: Promise<TimeTracking> | null;
 
   afterEach(() => {
     mock.reset();
+    result = null;
+    resultSingle = null;
   });
 
   test('read', async () => {
@@ -30,5 +39,35 @@ describe('TimeTrackings', () => {
     mock.onGet(readPath).reply(500);
     result = timeTrackings.read();
     await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+  });
+
+  test('create', async () => {
+    mock.onPost(createPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = timeTrackings.create({ task_id: 1, user_id: 1 });
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
+  test('update', async () => {
+    mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = timeTrackings.update({ id: 1, task_id: 1, user_id: 1 });
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
+  test('delete', async () => {
+    mock.onDelete(`${deletePath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = timeTrackings.delete(1);
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
+  test('start', async () => {
+    mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = timeTrackings.start({ task_id: 1, user_id: 1 });
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
+  test('stop', async () => {
+    mock.onPut(stopPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = timeTrackings.stop({ user_id: 1, end_time_timezone: 'foo' });
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 });

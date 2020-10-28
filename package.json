@@ -19,6 +19,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "test": "jest --no-cache",
+    "coverage": "jest --coverage=true",
     "lint": "eslint --max-warnings=0 --ext .ts,.tsx,.js,.jsx src",
     "prettycheck": "prettier -c 'src/**/*.{ts,js,css,html}'",
     "prettyfix": "prettier --write 'src/**/*.{ts,js,css,html}'",
