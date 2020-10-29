@@ -8,7 +8,7 @@ describe('AbsenceDays', () => {
   var absenceDays: AbsenceDays = new AbsenceDays({});
   var readPath: string = `${absenceDays.getResourcePath()}/read`;
   var mock = new AxiosMockAdapter(axios);
-  var result: Promise<AbsenceDay[]> | null;
+  var result: Promise<AbsenceDay[] | Object> | null;
   var resultSingle: Promise<AbsenceDay> | null;
 
   afterEach(() => {
@@ -21,6 +21,12 @@ describe('AbsenceDays', () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = absenceDays.read();
     await result.then((result) => expect(result).toStrictEqual([{}]));
+  });
+
+  test('read asRawData', async () => {
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', '1').asRawData());
+    await result.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
   });
 
   test('read with Success false', async () => {

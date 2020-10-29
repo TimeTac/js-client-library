@@ -6,9 +6,12 @@ import { AbsenceDay } from './types';
 export default class AbsenceDays extends BaseApi {
   public readonly resourceName = 'absencesDays';
 
-  public read(requestParams?: RequestParams<AbsenceDay> | Object): Promise<AbsenceDay[]> {
+  public read(requestParams?: RequestParams<AbsenceDay> | Object): Promise<AbsenceDay[] | Object> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read`, { params });
+    if (requestParams instanceof RequestParams && requestParams.useRawData) {
+      return responseHandler.rawData(response);
+    }
     return responseHandler.requiredList(response);
   }
 

@@ -56,6 +56,10 @@ class ResponseHandler {
       })
       .catch((error) => error);
   }
+
+  rawData(promise: Promise<AxiosResponse>): Promise<Object> {
+    return this.toApiResponse(promise);
+  }
 }
 
 export default new ResponseHandler();

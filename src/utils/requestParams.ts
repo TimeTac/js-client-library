@@ -1,5 +1,6 @@
 export default class RequestParams<R extends Object> {
   private criteria: { [index: string]: string } = {};
+  public useRawData: Boolean = false;
 
   limit(limit: number): RequestParams<R> {
     this.criteria['_limit'] = String(limit);
@@ -82,5 +83,9 @@ export default class RequestParams<R extends Object> {
 
   getParams() {
     return this.criteria;
+  }
+  asRawData() {
+    this.useRawData = true;
+    return this;
   }
 }
