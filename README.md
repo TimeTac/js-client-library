@@ -1,6 +1,6 @@
 # TimeTac Client Library
 
-TimeTac Client Library is a thin wrapper for client to make api request.
+TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit the [documentation](https://api-dev.timetac.com/)
 
 ## Installation
 
@@ -67,10 +67,62 @@ async() => {
 
 ## List of supported endpoints
 
-- api.oauth
-- api.timeTrackings
-- api.users
-- api.serverCommunication
+- [x] authentication
+- [x] absenceDays
+- [ ] absenceBans
+- [x] absences
+- [ ] absenceMultistageResponsibilities
+- [x] absenceTypes
+- [ ] absenceTypesRestrictToCountries
+- [ ] accessCredentials
+- [ ] changeTimeTrackingRequests
+- [ ] checkpoints
+- [ ] checkpointTrackings
+- [ ] clients
+- [ ] countries
+- [x] deltaSync
+- [x] departments
+- [ ] files
+- [ ] generalSettingsChangeLog
+- [ ] generalSettings
+- [ ] geofences
+- [ ] geofenceToNodes
+- [ ] invoices
+- [ ] jobParams
+- [ ] jobQueues
+- [ ] messages
+- [ ] nfcTransponders
+- [ ] notifications
+- [ ] notificationsTypeHtml
+- [ ] notificationUrls
+- [ ] offlineSyncErrors
+- [ ] permissionsRelatedEndpoints
+- [x] projects
+- [ ] recentTasks
+- [ ] salutations
+- [ ] schedulings
+- [x] serverCommunication
+- [ ] serverEvents
+- [ ] serverTime
+- [ ] skills
+- [ ] surveys
+- [ ] surveyAnswers
+- [ ] surveySubmits
+- [ ] surveyQuestions
+- [ ] surveyQuestionDefinitions
+- [x] tasks
+- [x] teamMembers
+- [x] teams
+- [x] timetrackings
+- [x] timesheetAccounting
+- [ ] timesheetAccountingSummaries
+- [ ] timetrackingChangelogs
+- [ ] timezones
+- [ ] todoTasks
+- [ ] translations
+- [x] users
+- [x] userStatusOverview
+- [ ] zohoSubscriptions
 
 ## Contributing
 
