@@ -11,7 +11,7 @@ export default class TimeTrackings extends BaseApi {
     const response = this._get<TimeTracking>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking[]> {
+  public readById(id: number, requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<TimeTracking>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);

@@ -11,9 +11,9 @@ export default class Tasks extends BaseApi {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task[]> {
+  public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, { params });
+    const response = this._get<Task>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
   public create(data: Task): Promise<Task> {

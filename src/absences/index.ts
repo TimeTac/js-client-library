@@ -11,9 +11,9 @@ export default class Absences extends BaseApi {
     const response = this._get<Absence[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, requestParams?: RequestParams<Absence> | Object): Promise<Absence[]> {
+  public readById(id: number, requestParams?: RequestParams<Absence> | Object): Promise<Absence> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<Absence[]>(`${this.getResourceName()}/read/${id}`, { params });
+    const response = this._get<Absence>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
   public create(): Promise<Absence> {

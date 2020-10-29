@@ -11,9 +11,9 @@ export default class Departments extends BaseApi {
     const response = this._get<Department[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, requestParams?: RequestParams<Department> | Object): Promise<Department[]> {
+  public readById(id: number, requestParams?: RequestParams<Department> | Object): Promise<Department> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<Department[]>(`${this.getResourceName()}/read/${id}`, { params });
+    const response = this._get<Department>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
 }
