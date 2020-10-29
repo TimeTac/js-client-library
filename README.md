@@ -1,6 +1,6 @@
 # TimeTac Client Library
 
-TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit the [documentation](https://api-dev.timetac.com/)
+TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit our [documentation](https://api-dev.timetac.com/).
 
 ## Installation
 
