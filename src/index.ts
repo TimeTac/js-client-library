@@ -15,6 +15,7 @@ import Teams from './teams';
 import TimesheetAccountings from './timesheetAccountings';
 import Timetrackings from './timetrackings';
 import Users from './users';
+import UserStatusOverviews from './userStatusOverview';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence } from './absences/types';
@@ -30,6 +31,7 @@ export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { User } from './users/types';
+export { UserStatusOverview } from './userStatusOverview/types';
 export * from './utils/requestParams';
 
 export default class Api {
@@ -49,6 +51,7 @@ export default class Api {
   public timesheetAccountings: TimesheetAccountings;
   public timeTrackings: Timetrackings;
   public users: Users;
+  public userStatusOverviews: UserStatusOverviews;
 
   constructor(config: ApiConfig) {
     this.config = config;
@@ -67,6 +70,7 @@ export default class Api {
     this.timesheetAccountings = new TimesheetAccountings(this.config);
     this.timeTrackings = new Timetrackings(this.config);
     this.users = new Users(this.config);
+    this.userStatusOverviews = new UserStatusOverviews(this.config);
   }
 
   public setAccount(account: string) {
