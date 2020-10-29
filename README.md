@@ -1,6 +1,6 @@
 # TimeTac Client Library
 
-TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit our [documentation](https://api-dev.timetac.com/).
+TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit our [documentation](https://api.timetac.com/).
 
 ## Installation
 
@@ -24,15 +24,15 @@ npm install @timetac/js-client-library
 import Api from "@timetac/js-client-library"
 //Only account name is required.
 const environment = {
-  host: 'go-dev.timetac.com',
+  host: 'go.timetac.com',
   account: <ACCOUNT_NAME>,
   version: '3'
 }
 
 const authCredentials = {
   grant_type: 'password',
-  client_id: 'WEB_APP',
-  client_secret: '',
+  client_id: <CLIENT_ID>,
+  client_secret: <CLIENT_SECRET>,
   username: <USER_NAME>,
   password: <PASSWORD>
 }
