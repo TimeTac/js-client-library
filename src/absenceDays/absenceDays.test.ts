@@ -8,10 +8,13 @@ describe('AbsenceDays', () => {
   var absenceDays: AbsenceDays = new AbsenceDays({});
   var readPath: string = `${absenceDays.getResourcePath()}/read`;
   var mock = new AxiosMockAdapter(axios);
-  var result: Promise<AbsenceDay[]>;
+  var result: Promise<AbsenceDay[]> | null;
+  var resultSingle: Promise<AbsenceDay> | null;
 
   afterEach(() => {
     mock.reset();
+    result = null;
+    resultSingle = null;
   });
 
   test('read', async () => {
@@ -58,5 +61,11 @@ describe('AbsenceDays', () => {
       .reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = absenceDays.read({ user_id: '1', date: '2020-01-01', _op__date: 'gteq' });
     await result.then((result) => expect(result).toStrictEqual([{}]));
+  });
+
+  test('readById', async () => {
+    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = absenceDays.readById(1);
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 });

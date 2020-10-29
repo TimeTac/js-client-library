@@ -8,10 +8,13 @@ describe('Departments', () => {
   var departments: Departments = new Departments({});
   var readPath: string = `${departments.getResourcePath()}/read`;
   var mock = new AxiosMockAdapter(axios);
-  var result: Promise<Department[]>;
+  var result: Promise<Department[]> | null;
+  var resultSingle: Promise<Department> | null;
 
   afterEach(() => {
     mock.reset();
+    result = null;
+    resultSingle = null;
   });
 
   test('read', async () => {
@@ -30,5 +33,11 @@ describe('Departments', () => {
     mock.onGet(readPath).reply(500);
     result = departments.read();
     await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+  });
+
+  test('readById', async () => {
+    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = departments.readById(1);
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 });

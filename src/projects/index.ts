@@ -11,9 +11,9 @@ export default class Projects extends BaseApi {
     const response = this._get<Project>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, requestParams?: RequestParams<Project> | Object): Promise<Project[]> {
+  public readById(id: number, requestParams?: RequestParams<Project> | Object): Promise<Project> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<Project[]>(`${this.getResourceName()}/read/${id}`, { params });
+    const response = this._get<Project>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
   public create(): Promise<Project> {

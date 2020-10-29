@@ -41,6 +41,12 @@ describe('TimeTrackings', () => {
     await result.then((result) => expect(result).toBe('Request failed with status code 500'));
   });
 
+  test('readById', async () => {
+    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultSingle = timeTrackings.readById(1);
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
   test('create', async () => {
     mock.onPost(createPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = timeTrackings.create({ task_id: 1, user_id: 1 });
