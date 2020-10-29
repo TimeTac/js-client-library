@@ -11,9 +11,9 @@ export default class UserStatusOverviews extends BaseApi {
     const response = this._get<UserStatusOverview[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
-  public readById(id: number, requestParams?: RequestParams<UserStatusOverview> | Object): Promise<UserStatusOverview[]> {
+  public readById(id: number, requestParams?: RequestParams<UserStatusOverview> | Object): Promise<UserStatusOverview> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<UserStatusOverview[]>(`${this.getResourceName()}/read/${id}`, { params });
+    const response = this._get<UserStatusOverview>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
 }

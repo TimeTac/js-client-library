@@ -8,10 +8,13 @@ describe('UserStatusOverview', () => {
   var userStatusOverviews: UserStatusOverviews = new UserStatusOverviews({});
   var readPath: string = `${userStatusOverviews.getResourcePath()}/read`;
   var mock = new AxiosMockAdapter(axios);
-  var result: Promise<UserStatusOverview[]>;
+  var result: Promise<UserStatusOverview[]> | null;
+  var resultSingle: Promise<UserStatusOverview> | null;
 
   afterEach(() => {
     mock.reset();
+    result = null;
+    resultSingle = null;
   });
 
   test('read', async () => {
@@ -33,7 +36,7 @@ describe('UserStatusOverview', () => {
   });
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = userStatusOverviews.readById(1);
-    await result.then((result) => expect(result).toStrictEqual({}));
+    resultSingle = userStatusOverviews.readById(1);
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 });
