@@ -1,5 +1,5 @@
 export type UserStatusOverview = {
-  user_id?: number;
+  user_id: number;
   /**
    * Time tracking id of a running task
    */
@@ -22,5 +22,7 @@ export type UserStatusOverview = {
   /**
    * Represents current status of users activity if he is offline (0), working(1),break(2),on leave(3), core time violation (5)
    */
-  status?: number;
+  status: number;
+  profile_picture: string;
+  user_fullname: string;
 };
