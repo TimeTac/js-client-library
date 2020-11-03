@@ -2,14 +2,12 @@ import { User } from '../users/types';
 import { Task } from '../tasks/types';
 import { Project } from '../projects/types';
 import { TimeTracking } from '../timetrackings/types';
-import { UserStatusOverview } from '../userStatusOverview/types';
 
 export type SyncData = {
   users: User[];
   tasks: Task[];
   projects: Project[];
   timeTrackings: TimeTracking[];
-  userStatusOverviews: UserStatusOverview[];
 };
 
 export type SyncResource = keyof SyncData;
