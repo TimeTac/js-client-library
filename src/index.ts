@@ -1,5 +1,6 @@
 import { ApiConfig } from './baseApi';
 import { Credentials } from './authentication/types';
+import RequestParams from './utils/requestParams';
 
 import AbsenceDays from './absenceDays';
 import Absences from './absences';
@@ -32,7 +33,7 @@ export { TimesheetAccounting } from './timesheetAccountings/types';
 export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
-export * from './utils/requestParams';
+export { RequestParams };
 
 export default class Api {
   public config: ApiConfig;
