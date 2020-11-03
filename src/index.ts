@@ -19,7 +19,7 @@ import Users from './users';
 import UserStatusOverviews from './userStatusOverview';
 
 export { AbsenceDay } from './absenceDays/types';
-export { Absence } from './absences/types';
+export { Absence, AbsenceStatus } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { SyncResource, SyncData, SyncResourceField } from './deltaSync/types';

@@ -2,35 +2,35 @@ export type AbsenceType = {
   /**
    * Id of the absence.
    */
-  id?: number;
+  id: number;
   /**
    * Id of the absence type.
    */
-  absence_type_id?: number;
+  absence_type_id: number;
   /**
    * Id of the sub absence (other paid leaves).
    */
-  absence_subtype_id?: number;
+  absence_subtype_id: number;
   /**
    * Group of the absence defined in pm_absece_groups.
    */
-  absence_group_id?: number;
+  absence_group_id: number;
   /**
    * Sort order in views.
    */
-  sort_order?: number;
+  sort_order: number;
   /**
    * Absence name.
    */
-  name_const?: string;
+  name_const: string;
   /**
    * Absence abbrevation constant.
    */
-  abbreviation_const?: string;
+  abbreviation_const: string;
   /**
    * If the absence is shown in the selection for user.
    */
-  show_in_selection?: boolean;
+  show_in_selection: boolean;
   /**
    * The task_id of pm_tasks_subprojects which will be used to automatically create timestamps based on the absence.
    */
@@ -38,7 +38,7 @@ export type AbsenceType = {
   /**
    * If the users can request this absence.
    */
-  enabled_for_requests?: boolean;
+  enabled_for_requests: boolean;
   /**
    * If the leave should be added to working hours.
    */
@@ -74,7 +74,7 @@ export type AbsenceType = {
   /**
    * Duration unit of the absence (hours or days).
    */
-  duration_unit?: string;
+  duration_unit: 'd' | 'hs';
   /**
    * Whether the user limitation config is enabled for this absence.
    */
@@ -98,7 +98,7 @@ export type AbsenceType = {
   /**
    * The HEX code for the color to be shown in the holiday planers.
    */
-  color?: string;
+  color: string;
   /**
    * If there is a country restriction for this other paid leave. The limitations are defined in pm_working_hour_other_paid_leave_to_countries.
    */

@@ -1,8 +1,16 @@
+export enum AbsenceStatus {
+  Open,
+  Granted,
+  Declined,
+  Cancelled,
+  OpenWaitingForReplacement = 5,
+}
+
 export type Absence = {
-  id?: number;
-  type_id?: number;
-  subtype_id?: number;
-  user_id?: number;
+  id: number;
+  type_id: number;
+  subtype_id: number;
+  user_id: number;
   /**
    * The user replacement for this request.
    */
@@ -17,16 +25,16 @@ export type Absence = {
    *  was assigned at the time of holiday request
    */
   request_user_role_id?: number;
-  created?: string;
-  status?: number;
+  created: string;
+  status: AbsenceStatus;
   granted_user_id?: number;
   granted_as_substitute_user_id?: number;
   granted_timestamp?: string;
   request_comment?: string;
   granted_comment?: string;
-  from_date?: string;
-  to_date?: string;
-  duration?: number;
+  from_date: string;
+  to_date: string;
+  duration: number;
   /**
    * If the request ends with a partial day, the value of the last partial day.
    */
@@ -35,7 +43,7 @@ export type Absence = {
    * If the request begins with a partial day, the value of the first partial day.
    */
   request_partial_end_duration?: number;
-  duration_unit?: string;
+  duration_unit: 'd' | 'hs';
   begin?: string;
   substitute_enabled?: boolean;
   /**
@@ -50,5 +58,5 @@ export type Absence = {
    * The last level in the chain responsibility table (autoupdated) that is not approved yet
    */
   chain_level?: number;
-  updated?: string;
+  updated: string;
 };
