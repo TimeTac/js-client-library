@@ -32,7 +32,7 @@ export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { User } from './users/types';
-export { UserStatusOverview } from './userStatusOverview/types';
+export * from './userStatusOverview/types';
 export { RequestParams };
 
 export default class Api {
