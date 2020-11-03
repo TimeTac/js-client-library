@@ -1,3 +1,11 @@
+export enum UserStatusOverviewStatus {
+  Offline,
+  Working,
+  Break,
+  Leave,
+  CoreTimeViolation = 5,
+}
+
 export type UserStatusOverview = {
   user_id: number;
   /**
@@ -22,7 +30,7 @@ export type UserStatusOverview = {
   /**
    * Represents current status of users activity if he is offline (0), working(1),break(2),on leave(3), core time violation (5)
    */
-  status: number;
+  status: UserStatusOverviewStatus;
   profile_picture: string;
   user_fullname: string;
 };
