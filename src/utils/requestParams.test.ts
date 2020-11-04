@@ -16,12 +16,12 @@ describe('RequestParams', () => {
   });
 
   test('single eq', () => {
-    const requestParams = new RequestParams<Resource>().eq('id', '1');
+    const requestParams = new RequestParams<Resource>().eq('id', 1);
     expect(requestParams.getParams()).toStrictEqual({ id: '1', _op__id: 'eq' });
   });
 
   test('double eq', () => {
-    const requestParams = new RequestParams<Resource>().eq('id', '1').eq('user_id', '2');
+    const requestParams = new RequestParams<Resource>().eq('id', 1).eq('user_id', 2);
     expect(requestParams.getParams()).toStrictEqual({ id: '1', _op__id: 'eq', user_id: '2', _op__user_id: 'eq' });
   });
 
@@ -36,32 +36,32 @@ describe('RequestParams', () => {
   });
 
   test('between', () => {
-    const requestParams = new RequestParams<Resource>().between('status', '1', '3');
+    const requestParams = new RequestParams<Resource>().between('status', 1, 3);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'betw', status: '1|3' });
   });
 
   test('gt', () => {
-    const requestParams = new RequestParams<Resource>().gt('status', '1');
+    const requestParams = new RequestParams<Resource>().gt('status', 1);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'gt', status: '1' });
   });
 
   test('gteq', () => {
-    const requestParams = new RequestParams<Resource>().gteq('status', '1');
+    const requestParams = new RequestParams<Resource>().gteq('status', 1);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'gteq', status: '1' });
   });
 
   test('lt', () => {
-    const requestParams = new RequestParams<Resource>().lt('status', '5');
+    const requestParams = new RequestParams<Resource>().lt('status', 5);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'lt', status: '5' });
   });
 
   test('lteq', () => {
-    const requestParams = new RequestParams<Resource>().lteq('status', '5');
+    const requestParams = new RequestParams<Resource>().lteq('status', 5);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'lteq', status: '5' });
   });
 
   test('in', () => {
-    const requestParams = new RequestParams<Resource>().in('status', '5', '3');
+    const requestParams = new RequestParams<Resource>().in('status', 5, 3);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'in', status: '5|3' });
   });
 

@@ -37,7 +37,7 @@ describe('AbsenceDays', () => {
 
   test('read with RequestParams', async () => {
     mock.onGet(readPath, { params: { user_id: '1', _op__user_id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', '1'));
+    result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', 1));
     await result.then((result) => expect(result).toStrictEqual([{}]));
 
     mock.reset();
@@ -45,7 +45,7 @@ describe('AbsenceDays', () => {
     mock
       .onGet(readPath, { params: { user_id: '1', _op__user_id: 'eq', date: '2020-01-01', _op__date: 'gteq' } })
       .reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', '1').gteq('date', '2020-01-01'));
+    result = absenceDays.read(new RequestParams<AbsenceDay>().eq('user_id', 1).gteq('date', '2020-01-01'));
     await result.then((result) => expect(result).toStrictEqual([{}]));
   });
 
