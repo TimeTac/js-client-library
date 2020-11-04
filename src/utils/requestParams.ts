@@ -16,49 +16,49 @@ export default class RequestParams<R extends Object> {
     return this;
   }
 
-  eq<F extends keyof R & string>(field: F, value: string): RequestParams<R> {
+  eq<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'eq';
-    this.criteria[field] = value;
+    this.criteria[field] = String(value);
     return this;
   }
 
-  gt<F extends keyof R & string>(field: F, value: string): RequestParams<R> {
+  gt<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'gt';
-    this.criteria[field] = value;
+    this.criteria[field] = String(value);
     return this;
   }
 
-  gteq<F extends keyof R & string>(field: F, value: string): RequestParams<R> {
+  gteq<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'gteq';
-    this.criteria[field] = value;
+    this.criteria[field] = String(value);
     return this;
   }
 
-  lt<F extends keyof R & string>(field: F, value: string): RequestParams<R> {
+  lt<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'lt';
-    this.criteria[field] = value;
+    this.criteria[field] = String(value);
     return this;
   }
 
-  lteq<F extends keyof R & string>(field: F, value: string): RequestParams<R> {
+  lteq<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'lteq';
-    this.criteria[field] = value;
+    this.criteria[field] = String(value);
     return this;
   }
 
-  like<F extends keyof R & string>(field: F, value: string): RequestParams<R> {
+  like<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'like';
-    this.criteria[field] = value;
+    this.criteria[field] = String(value);
     return this;
   }
 
-  in<F extends keyof R & string>(field: F, ...values: string[]): RequestParams<R> {
+  in<F extends keyof R & string>(field: F, ...values: Array<R[F]>): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'in';
     this.criteria[field] = values.join('|');
     return this;
   }
 
-  between<F extends keyof R & string>(field: F, min: String, max: string): RequestParams<R> {
+  between<F extends keyof R & string>(field: F, min: R[F], max: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'betw';
     this.criteria[field] = [min, max].join('|');
     return this;
