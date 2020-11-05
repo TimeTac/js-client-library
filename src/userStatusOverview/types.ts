@@ -1,5 +1,3 @@
-import { Task } from '../tasks/types';
-
 export enum UserStatusOverviewStatus {
   Offline,
   Working,
