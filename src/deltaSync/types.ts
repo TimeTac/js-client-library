@@ -3,6 +3,7 @@ import { Task } from '../tasks/types';
 import { Project } from '../projects/types';
 import { TimeTracking } from '../timetrackings/types';
 import { AbsenceType } from '..';
+import { GeneralSetting } from '../generalSettings/types';
 
 export type SyncData = {
   users: User[];
@@ -10,6 +11,7 @@ export type SyncData = {
   projects: Project[];
   timeTrackings: TimeTracking[];
   absenceTypes: AbsenceType[];
+  generalSettings: GeneralSetting[];
 };
 
 export type SyncResource = keyof SyncData;
