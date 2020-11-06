@@ -17,7 +17,7 @@ export default class DeltaSync extends BaseApi {
         _offset: offset,
         _since: since,
         ...map,
-        _includes: resources.join(','),
+        _include: resources.join(','),
       },
     });
     return responseHandler.toApiResponse(response);

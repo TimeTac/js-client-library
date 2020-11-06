@@ -17,9 +17,10 @@ import TimesheetAccountings from './timesheetAccountings';
 import Timetrackings from './timetrackings';
 import Users from './users';
 import UserStatusOverviews from './userStatusOverview';
+import GeneralSettings from './generalSettings';
 
 export { AbsenceDay } from './absenceDays/types';
-export { Absence } from './absences/types';
+export { Absence, AbsenceStatus } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { SyncResource, SyncData, SyncResourceField } from './deltaSync/types';
@@ -30,6 +31,7 @@ export { Task } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
+export { GeneralSetting } from './generalSettings/types';
 export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { User } from './users/types';
 export * from './userStatusOverview/types';
@@ -53,6 +55,7 @@ export default class Api {
   public timeTrackings: Timetrackings;
   public users: Users;
   public userStatusOverviews: UserStatusOverviews;
+  public generalSettings: GeneralSettings;
 
   constructor(config: ApiConfig) {
     this.config = config;
@@ -72,6 +75,7 @@ export default class Api {
     this.timeTrackings = new Timetrackings(this.config);
     this.users = new Users(this.config);
     this.userStatusOverviews = new UserStatusOverviews(this.config);
+    this.generalSettings = new GeneralSettings(this.config);
   }
 
   public setAccount(account: string) {
