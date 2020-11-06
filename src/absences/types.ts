@@ -60,3 +60,5 @@ export type Absence = {
   chain_level?: number;
   updated: string;
 };
+
+export interface AbsenceCreate extends Omit<Absence, 'id' | 'created' | 'status' | 'duration' | 'duration_unit' | 'updated'> {}

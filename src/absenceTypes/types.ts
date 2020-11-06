@@ -121,3 +121,5 @@ export type AbsenceType = {
    */
   is_visible_for_edit?: boolean;
 };
+
+export interface AbsenceTypeCreate extends Omit<AbsenceType, 'id'> {}
