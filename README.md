@@ -84,7 +84,7 @@ async() => {
 - [x] departments
 - [ ] files
 - [ ] generalSettingsChangeLog
-- [ ] generalSettings
+- [x] generalSettings
 - [ ] geofences
 - [ ] geofenceToNodes
 - [ ] invoices
