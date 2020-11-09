@@ -18,7 +18,7 @@ export default class GeneralSettings extends BaseApi {
     return responseHandler.required(response);
   }
 
-  public readBySettingType(id: number, settingType: string): Promise<GeneralSetting> {
+  public readBySettingType(settingType: string): Promise<GeneralSetting> {
     const params = new RequestParams<GeneralSetting>().eq('setting_type', settingType).getParams();
     const response = this._get<GeneralSetting>(`${this.getResourceName()}/read/`, { params });
     return responseHandler.required(response);
