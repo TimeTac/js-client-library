@@ -25,13 +25,13 @@ export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { SyncResource, SyncData, SyncResourceField } from './deltaSync/types';
 export { Department } from './departments/types';
+export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
 export { ServerCommunication } from './serverCommunication/types';
 export { Task } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
-export { GeneralSetting } from './generalSettings/types';
 export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { User } from './users/types';
 export * from './userStatusOverview/types';
@@ -46,6 +46,7 @@ export default class Api {
   public authentication: Authentication;
   public deltaSync: DeltaSync;
   public departments: Departments;
+  public generalSettings: GeneralSettings;
   public projects: Projects;
   public serverCommunication: ServerCommunication;
   public tasks: Tasks;
@@ -55,7 +56,6 @@ export default class Api {
   public timeTrackings: Timetrackings;
   public users: Users;
   public userStatusOverviews: UserStatusOverviews;
-  public generalSettings: GeneralSettings;
 
   constructor(config: ApiConfig) {
     this.config = config;
@@ -66,6 +66,7 @@ export default class Api {
     this.authentication = new Authentication(this.config);
     this.deltaSync = new DeltaSync(this.config);
     this.departments = new Departments(this.config);
+    this.generalSettings = new GeneralSettings(this.config);
     this.projects = new Projects(this.config);
     this.serverCommunication = new ServerCommunication(this.config);
     this.tasks = new Tasks(this.config);
@@ -75,7 +76,6 @@ export default class Api {
     this.timeTrackings = new Timetrackings(this.config);
     this.users = new Users(this.config);
     this.userStatusOverviews = new UserStatusOverviews(this.config);
-    this.generalSettings = new GeneralSettings(this.config);
   }
 
   public setAccount(account: string) {
