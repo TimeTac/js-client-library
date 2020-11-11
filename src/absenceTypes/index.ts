@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
-import responseHandler from '../utils/responseHandlers';
-import RequestParams from '../utils/requestParams';
+import responseHandler from '../utils/response/responseHandlers';
+import RequestParams from '../utils/requestParams/requestParams';
 import { AbsenceType } from './types';
 
 export default class AbsenceTypes extends BaseApi {

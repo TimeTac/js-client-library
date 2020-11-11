@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
-import responseHandler from '../utils/responseHandlers';
-import RequestParams from '../utils/requestParams';
+import responseHandler from '../utils/response/responseHandlers';
+import RequestParams from '../utils/requestParams/requestParams';
 import { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './types';
 
 export default class TimeTrackings extends BaseApi {

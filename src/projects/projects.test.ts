@@ -2,7 +2,7 @@ import Projects from './index';
 import { Project } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('Projects', () => {
   var projects: Projects = new Projects({});
@@ -31,8 +31,8 @@ describe('Projects', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = projects.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await projects.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
   test('readById', async () => {

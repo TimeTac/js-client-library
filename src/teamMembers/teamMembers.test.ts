@@ -2,7 +2,7 @@ import TeamMembers from './index';
 import { TeamMember } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TeamMembers', () => {
   var teamMembers: TeamMembers = new TeamMembers({});
@@ -28,7 +28,7 @@ describe('TeamMembers', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = teamMembers.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await teamMembers.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 });

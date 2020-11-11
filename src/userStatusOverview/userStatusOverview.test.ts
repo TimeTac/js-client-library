@@ -2,7 +2,7 @@ import UserStatusOverviews from './index';
 import { UserStatusOverview } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('UserStatusOverview', () => {
   var userStatusOverviews: UserStatusOverviews = new UserStatusOverviews({});
@@ -31,8 +31,8 @@ describe('UserStatusOverview', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = userStatusOverviews.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await userStatusOverviews.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });

@@ -2,7 +2,7 @@ import GeneralSettings from './index';
 import { GeneralSetting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('GeneralSettings', () => {
   var generalSettings: GeneralSettings = new GeneralSettings({});
@@ -31,8 +31,8 @@ describe('GeneralSettings', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = generalSettings.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await generalSettings.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
   test('readById', async () => {

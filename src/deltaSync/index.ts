@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
-import responseHandler from '../utils/responseHandlers';
+import responseHandler from '../utils/response/responseHandlers';
 import { SyncResource } from './types';
-import { ApiResponse } from '../utils/apiResponse';
+import { ApiResponse } from '../utils/response/apiResponse';
 
 export default class DeltaSync extends BaseApi {
   async read(

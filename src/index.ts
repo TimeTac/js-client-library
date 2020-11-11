@@ -1,6 +1,6 @@
 import { ApiConfig } from './baseApi';
 import { Credentials } from './authentication/types';
-import RequestParams from './utils/requestParams';
+import RequestParams from './utils/requestParams/requestParams';
 
 import AbsenceDays from './absenceDays';
 import Absences from './absences';

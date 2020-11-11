@@ -2,7 +2,7 @@ import AbsenceDays from './index';
 import { AbsenceDay } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('AbsenceDays', () => {
   var absenceDays: AbsenceDays = new AbsenceDays({});
@@ -31,8 +31,8 @@ describe('AbsenceDays', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = absenceDays.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await absenceDays.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
   test('read with RequestParams', async () => {
