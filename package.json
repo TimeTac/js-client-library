@@ -1,6 +1,6 @@
 {
   "name": "@timetac/js-client-library",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "TimeTac API JS client library",
   "homepage": "https://github.com/TimeTac/js-client-library#readme",
   "repository": {
@@ -20,6 +20,9 @@
   "license": "Apache-2.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest --no-cache",
     "coverage": "jest --no-cache --coverage=true",
@@ -27,7 +30,8 @@
     "prettycheck": "prettier -c 'src/**/*.{ts,js,css,html}'",
     "prettyfix": "prettier --write 'src/**/*.{ts,js,css,html}'",
     "compile": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepare": "tsc"
   },
   "dependencies": {
     "@types/qs": "^6.9.5",
