@@ -31,7 +31,7 @@
     "prettyfix": "prettier --write 'src/**/*.{ts,js,css,html}'",
     "compile": "tsc",
     "dev": "tsc --watch",
-    "prepublish": "compile"
+    "prepare": "tsc"
   },
   "dependencies": {
     "@types/qs": "^6.9.5",
