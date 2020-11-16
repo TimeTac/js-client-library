@@ -21,7 +21,7 @@ class ResponseHandler {
       if (response.NumResults > 0) {
         return response.Results[0];
       } else {
-        throw new Error('There are no results.');
+        throw 'There are no results.';
       }
     });
   }
@@ -31,7 +31,7 @@ class ResponseHandler {
       if (response.NumResults > 0) {
         return response.Results;
       } else {
-        throw new Error('There are no results.');
+        throw 'There are no results.';
       }
     });
   }
