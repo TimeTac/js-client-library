@@ -2,7 +2,7 @@ import Absences from './index';
 import { Absence } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('Absences', () => {
   var absences: Absences = new Absences({});
@@ -31,8 +31,8 @@ describe('Absences', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = absences.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await absences.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
   test('readById', async () => {

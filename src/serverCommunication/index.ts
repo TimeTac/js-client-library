@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Base from '../baseApi';
-import responseHandlers from '../utils/responseHandlers';
+import responseHandlers from '../utils/response/responseHandlers';
 import { ServerCommunication as Model } from './types';
 
 const resourceName = 'serverCommunication';

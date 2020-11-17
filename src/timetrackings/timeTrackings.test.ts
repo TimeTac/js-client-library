@@ -2,7 +2,7 @@ import TimeTrackings from './index';
 import { TimeTracking } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TimeTrackings', () => {
   var timeTrackings: TimeTrackings = new TimeTrackings({});
@@ -43,8 +43,8 @@ describe('TimeTrackings', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = timeTrackings.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await timeTrackings.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
   test('readById', async () => {

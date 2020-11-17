@@ -2,7 +2,7 @@ import TimesheetAccountings from './index';
 import { TimesheetAccounting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TimesheetAccountings', () => {
   var timesheetAccountings: TimesheetAccountings = new TimesheetAccountings({});
@@ -28,7 +28,7 @@ describe('TimesheetAccountings', () => {
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = timesheetAccountings.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await timesheetAccountings.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 });

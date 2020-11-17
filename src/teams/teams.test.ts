@@ -2,7 +2,6 @@ import Teams from './index';
 import { Team } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams';
 
 describe('Teams', () => {
   var teams: Teams = new Teams({});
@@ -21,14 +20,14 @@ describe('Teams', () => {
   });
 
   test('read with Success false', async () => {
-    mock.onGet(readPath).reply(200, { Success: false });
-    result = teams.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+    mock.onGet(readPath).reply(200, { Success: false, ErrorMessage: 'No data' });
+    expect.assertions(1);
+    await teams.read().catch((err) => expect(err.ErrorMessage).toMatch('No data'));
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    result = teams.read();
-    await result.then((result) => expect(result).toBe('Request failed with status code 500'));
+    expect.assertions(1);
+    await teams.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 });
