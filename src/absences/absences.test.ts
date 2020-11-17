@@ -1,32 +1,35 @@
 import Absences from './index';
-import { Absence } from './types';
+import { Absence, AbsenceApprove, AbsenceCancel, AbsenceUpdate } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
+import { successfulResponse } from '../../test/utils/successfulResponse';
 
 describe('Absences', () => {
-  var absences: Absences = new Absences({});
-  var readPath: string = `${absences.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<Absence[]> | null;
-  var resultSingle: Promise<Absence> | null;
+  const absences: Absences = new Absences({});
+
+  const readPath: string = `${absences.getResourcePath()}/read`;
+  const createPath: string = `${absences.getResourcePath()}/create`;
+  const updatePath: string = `${absences.getResourcePath()}/update`;
+  const deletePath: string = `${absences.getResourcePath()}/delete`;
+  const approvePath: string = `${absences.getResourcePath()}/approve`;
+  const rejectPath: string = `${absences.getResourcePath()}/reject`;
+  const cancelPath: string = `${absences.getResourcePath()}/cancel`;
+
+  const mock = new AxiosMockAdapter(axios);
 
   afterEach(() => {
     mock.reset();
-    result = null;
-    resultSingle = null;
   });
 
   test('read', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = absences.read();
-    await result.then((result) => expect(result).toStrictEqual([{}]));
+    const result: Absence[] = await absences.read();
+    expect(result).toStrictEqual([{}]);
   });
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
-    result = absences.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+    await absences.read().catch((result) => expect(result).toStrictEqual({ Success: false }));
   });
 
   test('read with status code 500', async () => {
@@ -37,7 +40,52 @@ describe('Absences', () => {
 
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultSingle = absences.readById(1);
-    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+    const result: Absence = await absences.readById(1);
+    expect(result).toStrictEqual({});
+  });
+
+  test('create', async () => {
+    const absence = { user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    mock.onPost(createPath).reply(...successfulResponse(absence));
+    const result: Absence = await absences.create(absence);
+    expect(result).toStrictEqual(absence);
+  });
+
+  test('update', async () => {
+    const absence = { id: 1, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absenceUpdate: AbsenceUpdate = { id: 7, to_date: '05-01-2020' };
+    mock.onPut(updatePath).reply(...successfulResponse(absence));
+    expect(await absences.update(absenceUpdate)).toStrictEqual(absence);
+  });
+
+  test('delete', async () => {
+    const absence = { id: 2, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    mock.onDelete(`${deletePath}/2`).reply(...successfulResponse(absence));
+    const result: Absence = await absences.delete(2);
+    expect(result).toStrictEqual(absence);
+  });
+
+  test('approve', async () => {
+    const absence = { id: 3, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absenceApprove: AbsenceApprove = { id: 3 };
+    mock.onPut(approvePath).reply(...successfulResponse(absence));
+    const result: Absence = await absences.approve(absenceApprove);
+    expect(result).toStrictEqual(absence);
+  });
+
+  test('reject', async () => {
+    const absence = { id: 4, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absenceReject: AbsenceApprove = { id: 4, granted_comment: 'reasons' };
+    mock.onPut(rejectPath).reply(...successfulResponse(absence));
+    const result: Absence = await absences.reject(absenceReject);
+    expect(result).toStrictEqual(absence);
+  });
+
+  test('cancel', async () => {
+    const absence = { id: 5, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absenceCancel: AbsenceCancel = { id: 5 };
+    mock.onPut(cancelPath).reply(...successfulResponse(absence));
+    const result: Absence = await absences.cancel(absenceCancel);
+    expect(result).toStrictEqual(absence);
   });
 });
