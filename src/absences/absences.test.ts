@@ -1,5 +1,5 @@
 import Absences from './index';
-import { Absence, AbsenceApprove, AbsenceCancel, AbsenceUpdate } from './types';
+import { Absence, AbsenceApprove, AbsenceCancel, AbsenceReject, AbsenceUpdate } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { successfulResponse } from '../../test/utils/successfulResponse';
@@ -75,7 +75,7 @@ describe('Absences', () => {
 
   test('reject', async () => {
     const absence = { id: 4, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
-    const absenceReject: AbsenceApprove = { id: 4, granted_comment: 'reasons' };
+    const absenceReject: AbsenceReject = { id: 4, granted_comment: 'reasons' };
     mock.onPut(rejectPath).reply(...successfulResponse(absence));
     const result: Absence = await absences.reject(absenceReject);
     expect(result).toStrictEqual(absence);
