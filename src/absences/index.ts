@@ -11,13 +11,20 @@ export default class Absences extends BaseApi {
     const response = this._get<Absence[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
   }
+
   public readById(id: number, requestParams?: RequestParams<Absence> | Object): Promise<Absence> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Absence>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandler.required(response);
   }
+
   public create(data: AbsenceCreate): Promise<Absence> {
     const response = this._post<Absence>(`${this.getResourceName()}/create`, data);
+    return responseHandler.required(response);
+  }
+
+  public validate(data: AbsenceCreate): Promise<Absence> {
+    const response = this._post<Absence>(`${this.getResourceName()}/validate`, data);
     return responseHandler.required(response);
   }
 

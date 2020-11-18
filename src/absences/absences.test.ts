@@ -1,19 +1,20 @@
 import Absences from './index';
-import { Absence, AbsenceApprove, AbsenceCancel, AbsenceReject, AbsenceUpdate } from './types';
+import { Absence, AbsenceApprove, AbsenceCancel, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { successfulResponse } from '../test/utils/successfulResponse';
 
 describe('Absences', () => {
-  const absences: Absences = new Absences({});
+  const absences = new Absences({});
 
-  const readPath: string = `${absences.getResourcePath()}/read`;
-  const createPath: string = `${absences.getResourcePath()}/create`;
-  const updatePath: string = `${absences.getResourcePath()}/update`;
-  const deletePath: string = `${absences.getResourcePath()}/delete`;
-  const approvePath: string = `${absences.getResourcePath()}/approve`;
-  const rejectPath: string = `${absences.getResourcePath()}/reject`;
-  const cancelPath: string = `${absences.getResourcePath()}/cancel`;
+  const readPath = `${absences.getResourcePath()}/read`;
+  const createPath = `${absences.getResourcePath()}/create`;
+  const updatePath = `${absences.getResourcePath()}/update`;
+  const deletePath = `${absences.getResourcePath()}/delete`;
+  const approvePath = `${absences.getResourcePath()}/approve`;
+  const rejectPath = `${absences.getResourcePath()}/reject`;
+  const cancelPath = `${absences.getResourcePath()}/cancel`;
+  const validatePath = `${absences.getResourcePath()}/validate`;
 
   const mock = new AxiosMockAdapter(axios);
 
@@ -45,7 +46,7 @@ describe('Absences', () => {
   });
 
   test('create', async () => {
-    const absence = { user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence: AbsenceCreate = { user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
     mock.onPost(createPath).reply(...successfulResponse(absence));
     const result: Absence = await absences.create(absence);
     expect(result).toStrictEqual(absence);
@@ -86,6 +87,13 @@ describe('Absences', () => {
     const absenceCancel: AbsenceCancel = { id: 5 };
     mock.onPut(cancelPath).reply(...successfulResponse(absence));
     const result: Absence = await absences.cancel(absenceCancel);
+    expect(result).toStrictEqual(absence);
+  });
+
+  test('validate', async () => {
+    const absence: AbsenceCreate = { user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    mock.onPost(validatePath).reply(...successfulResponse(absence));
+    const result: Absence = await absences.validate(absence);
     expect(result).toStrictEqual(absence);
   });
 });
