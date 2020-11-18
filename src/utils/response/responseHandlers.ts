@@ -12,6 +12,20 @@ class ResponseHandler {
 
     throw apiResponse;
   }
+  /**
+   * Only server communication has Results as object {} else where is as array [].
+   *
+   * @return A promises that resolves and return all results
+   */
+  requiredObject<T>(promise: Promise<AxiosResponse>): Promise<T> {
+    return this.toApiResponse<T>(promise).then((response: ApiResponseOnSuccess<T>) => {
+      if (response.NumResults > 0) {
+        return response.Results;
+      } else {
+        throw 'There are no results.';
+      }
+    });
+  }
 
   /**
    * @return A promise that resolves to T or rejects if no results
