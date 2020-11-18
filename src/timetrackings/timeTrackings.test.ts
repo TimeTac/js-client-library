@@ -3,6 +3,7 @@ import { TimeTracking } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
+import { assertAndReply } from '../test/utils/assertAndReply';
 
 describe('TimeTrackings', () => {
   var timeTrackings: TimeTrackings = new TimeTrackings({});
@@ -30,7 +31,7 @@ describe('TimeTrackings', () => {
   });
 
   test('read with RequestParmas', async () => {
-    mock.onGet(readPath, { params: { id: '99', _op__id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onGet(readPath).reply(assertAndReply({ id: '99', _op__id: 'eq' }, {}));
     result = timeTrackings.read(new RequestParams<TimeTracking>().eq('id', 99));
     await result.then((result) => expect(result).toStrictEqual([{}]));
   });

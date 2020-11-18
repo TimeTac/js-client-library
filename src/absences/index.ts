@@ -24,6 +24,7 @@ export default class Absences extends BaseApi {
   }
 
   public validate(data: AbsenceCreate): Promise<Absence> {
+    data.user_id = 4;
     const response = this._post<Absence>(`${this.getResourceName()}/validate`, data);
     return responseHandler.required(response);
   }
