@@ -1,4 +1,4 @@
-import { ApiResponseOnSuccess } from '../../src/utils/response/apiResponse';
+import { ApiResponseOnSuccess } from '../../utils/response/apiResponse';
 
 type MockResponse<T> = [number, ApiResponseOnSuccess<T[]>];
 

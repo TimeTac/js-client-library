@@ -2,7 +2,7 @@ import Absences from './index';
 import { Absence, AbsenceApprove, AbsenceCancel, AbsenceReject, AbsenceUpdate } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import { successfulResponse } from '../../test/utils/successfulResponse';
+import { successfulResponse } from '../test/utils/successfulResponse';
 
 describe('Absences', () => {
   const absences: Absences = new Absences({});
