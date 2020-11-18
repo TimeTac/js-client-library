@@ -46,28 +46,28 @@ describe('Absences', () => {
   });
 
   test('create', async () => {
-    const absence: AbsenceCreate = { user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence: AbsenceCreate = { user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
     mock.onPost(createPath).reply(...successfulResponse(absence));
     const result: Absence = await absences.create(absence);
     expect(result).toStrictEqual(absence);
   });
 
   test('update', async () => {
-    const absence = { id: 1, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence = { id: 1, user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
     const absenceUpdate: AbsenceUpdate = { id: 7, to_date: '05-01-2020' };
     mock.onPut(updatePath).reply(...successfulResponse(absence));
     expect(await absences.update(absenceUpdate)).toStrictEqual(absence);
   });
 
   test('delete', async () => {
-    const absence = { id: 2, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence = { id: 2, user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
     mock.onDelete(`${deletePath}/2`).reply(...successfulResponse(absence));
     const result: Absence = await absences.delete(2);
     expect(result).toStrictEqual(absence);
   });
 
   test('approve', async () => {
-    const absence = { id: 3, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence = { id: 3, user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
     const absenceApprove: AbsenceApprove = { id: 3 };
     mock.onPut(approvePath).reply(...successfulResponse(absence));
     const result: Absence = await absences.approve(absenceApprove);
@@ -75,7 +75,7 @@ describe('Absences', () => {
   });
 
   test('reject', async () => {
-    const absence = { id: 4, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence = { id: 4, user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
     const absenceReject: AbsenceReject = { id: 4, granted_comment: 'reasons' };
     mock.onPut(rejectPath).reply(...successfulResponse(absence));
     const result: Absence = await absences.reject(absenceReject);
@@ -83,7 +83,7 @@ describe('Absences', () => {
   });
 
   test('cancel', async () => {
-    const absence = { id: 5, user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence = { id: 5, user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
     const absenceCancel: AbsenceCancel = { id: 5 };
     mock.onPut(cancelPath).reply(...successfulResponse(absence));
     const result: Absence = await absences.cancel(absenceCancel);
@@ -91,7 +91,7 @@ describe('Absences', () => {
   });
 
   test('validate', async () => {
-    const absence: AbsenceCreate = { user_id: 1, from_date: '01-01-2020', to_date: '03-01-2020', type_id: 2, subtype_id: 3 };
+    const absence: AbsenceCreate = { user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
     mock.onPost(validatePath).reply(...successfulResponse(absence));
     const result: Absence = await absences.validate(absence);
     expect(result).toStrictEqual(absence);
