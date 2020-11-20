@@ -71,10 +71,6 @@ export interface AbsenceApprove {
 
 export interface AbsenceReject extends AbsenceApprove {}
 
-export interface AbsenceCancel {
-  id: number;
-}
-
 export interface AbsenceUpdate extends Partial<Absence> {
   id: number;
 }

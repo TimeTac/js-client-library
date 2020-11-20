@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { required, requiredList } from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
-import { Absence, AbsenceApprove, AbsenceCancel, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
+import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
 export default class Absences extends BaseApi {
   public readonly resourceName = 'absences';
@@ -43,8 +43,8 @@ export default class Absences extends BaseApi {
     return required(response);
   }
 
-  public cancel(data: AbsenceCancel): Promise<Absence> {
-    const response = this._put<Absence[]>(`${this.getResourceName()}/cancel`, data);
+  public cancel(id: number): Promise<Absence> {
+    const response = this._put<Absence[]>(`${this.getResourceName()}/cancel`, { id });
     return required(response);
   }
 
