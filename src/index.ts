@@ -20,7 +20,7 @@ import UserStatusOverviews from './userStatusOverview';
 import GeneralSettings from './generalSettings';
 
 export { AbsenceDay } from './absenceDays/types';
-export { Absence, AbsenceStatus, AbsenceCancel, AbsenceApprove, AbsenceUpdate, AbsenceReject, AbsenceCreate } from './absences/types';
+export { Absence, AbsenceStatus, AbsenceApprove, AbsenceUpdate, AbsenceReject, AbsenceCreate } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { SyncResource, SyncData, SyncResourceField } from './deltaSync/types';
