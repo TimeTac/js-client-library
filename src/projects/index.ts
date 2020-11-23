@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import RequestParams from '../utils/requestParams/requestParams';
 import { Project } from './types';
-import { required, requiredList } from '../utils/response/responseHandlers';
+import * as responseHandlers from '../utils/response/responseHandlers';
 
 export default class Projects extends BaseApi {
   public readonly resourceName = 'projects';
@@ -9,13 +9,13 @@ export default class Projects extends BaseApi {
   public read(requestParams?: RequestParams<Project> | Object): Promise<Project[]> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
-    return requiredList(response);
+    return responseHandlers.list(response);
   }
 
   public readById(id: number, requestParams?: RequestParams<Project> | Object): Promise<Project> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Project[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return required(response);
+    return responseHandlers.required(response);
   }
 
   public create(): Promise<Project> {

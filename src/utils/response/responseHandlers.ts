@@ -26,16 +26,6 @@ export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
   }
 }
 
-export async function requiredList<T>(promise: RequestPromise<T[]>): Promise<T[]> {
-  const response = await toApiResponse<T[]>(promise);
-
-  if (response.NumResults > 0) {
-    return response.Results;
-  } else {
-    throw new Error('There are no results.');
-  }
-}
-
 /**
  * @return A promise that resolves to T or undefined if no results but Success is true.
  */
@@ -44,10 +34,7 @@ export async function optional<T>(promise: RequestPromise<T[]>): Promise<T | und
   return (response.NumResults > 0 && response.Results[0]) || undefined;
 }
 
-/**
- * @return A promise that resolves to array of T or null if no results but Success is true.
- */
-export async function optionalList<T>(promise: RequestPromise<T[]>): Promise<T[]> {
+export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
   const response = await toApiResponse<T[]>(promise);
-  return (response.NumResults > 0 && response.Results) || [];
+  return response.Results ?? [];
 }
