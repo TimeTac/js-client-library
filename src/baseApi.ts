@@ -27,19 +27,19 @@ export default abstract class BaseApi {
     };
   }
 
-  protected _get<T>(endpoint: string, options?: AxiosRequestConfig) {
+  protected _get<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.get<ApiResponse<T>>(url, config);
   }
 
-  protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig) {
+  protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.post<ApiResponse<T>>(url, data, config);
   }
 
-  protected _put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig) {
+  protected _put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): Promise<AxiosResponse> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.put<ApiResponse<T>>(url, data, config);
