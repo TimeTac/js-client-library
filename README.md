@@ -1,6 +1,6 @@
 # TimeTac Client Library
 
-TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit our [documentation](https://api.timetac.com/).
+TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit our [API documentation](https://api.timetac.com/).
 
 ## Installation
 
@@ -67,12 +67,12 @@ async() => {
 
 ## List of supported endpoints
 
-- [x] authentication
-- [x] absenceDays
+- [x] [authentication](https://api.timetac.com/doc/v3#tag/authentication)
+- [x] [absenceDays](https://api.timetac.com/doc/v3#tag/absenceDays)
 - [ ] absenceBans
-- [x] absences
+- [x] [absences](https://api.timetac.com/doc/v3#tag/absences)
 - [ ] absenceMultistageResponsibilities
-- [x] absenceTypes
+- [x] [absenceTypes](https://api.timetac.com/doc/v3#tag/absenceTypes)
 - [ ] absenceTypesRestrictToCountries
 - [ ] accessCredentials
 - [ ] changeTimeTrackingRequests
@@ -80,11 +80,11 @@ async() => {
 - [ ] checkpointTrackings
 - [ ] clients
 - [ ] countries
-- [x] deltaSync
-- [x] departments
+- [x] [deltaSync](https://api.timetac.com/doc/v3#tag/deltaSync)
+- [x] [departments](https://api.timetac.com/doc/v3#tag/departments)
 - [ ] files
 - [ ] generalSettingsChangeLog
-- [x] generalSettings
+- [x] [generalSettings](https://api.timetac.com/doc/v3#tag/generalSettings)
 - [ ] geofences
 - [ ] geofenceToNodes
 - [ ] invoices
@@ -97,11 +97,11 @@ async() => {
 - [ ] notificationUrls
 - [ ] offlineSyncErrors
 - [ ] permissionsRelatedEndpoints
-- [x] projects
+- [x] [projects](https://api.timetac.com/doc/v3#tag/projects)
 - [ ] recentTasks
 - [ ] salutations
 - [ ] schedulings
-- [x] serverCommunication
+- [x] [serverCommunication]()
 - [ ] serverEvents
 - [ ] serverTime
 - [ ] skills
@@ -110,23 +110,29 @@ async() => {
 - [ ] surveySubmits
 - [ ] surveyQuestions
 - [ ] surveyQuestionDefinitions
-- [x] tasks
-- [x] teamMembers
-- [x] teams
-- [x] timetrackings
-- [x] timesheetAccounting
+- [x] [tasks](https://api.timetac.com/doc/v3#tag/tasks)
+- [x] [teamMembers](https://api.timetac.com/doc/v3#tag/teamMembers)
+- [x] [teams](https://api.timetac.com/doc/v3#tag/teams)
+- [x] [timetrackings](https://api.timetac.com/doc/v3#tag/timetrackings)
+- [x] [timesheetAccounting](https://api.timetac.com/doc/v3#tag/timesheetAccounting)
 - [ ] timesheetAccountingSummaries
 - [ ] timetrackingChangelogs
 - [ ] timezones
 - [ ] todoTasks
 - [ ] translations
-- [x] users
-- [x] userStatusOverview
+- [x] [users](https://api.timetac.com/doc/v3#tag/users)
+- [x] [userStatusOverview](https://api.timetac.com/doc/v3#tag/userStatusOverview)
 - [ ] zohoSubscriptions
 
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+The shortest, simplest way of running the test suite is the following command:
+
+```bash
+yarn test
+```
 
 ## License
 
