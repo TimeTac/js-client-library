@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
+import responseHandler from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { AbsenceType } from './types';
-import * as responseHandlers from '../utils/response/responseHandlers';
 
 export default class AbsenceTypes extends BaseApi {
   public readonly resourceName = 'absenceTypes';
@@ -9,12 +9,12 @@ export default class AbsenceTypes extends BaseApi {
   public read(requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType[]> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
+    return responseHandler.requiredList(response);
   }
   public readById(id: number, requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
+    const response = this._get<AbsenceType>(`${this.getResourceName()}/read/${id}`, { params });
+    return responseHandler.required(response);
   }
   public create(): Promise<AbsenceType> {
     throw new Error('not Implemented');

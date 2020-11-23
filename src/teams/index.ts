@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
+import responseHandler from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { Team } from './types';
-import * as responseHandlers from '../utils/response/responseHandlers';
 
 export default class Teams extends BaseApi {
   public readonly resourceName = 'teams';
@@ -9,15 +9,13 @@ export default class Teams extends BaseApi {
   public read(requestParams?: RequestParams<Team> | Object): Promise<Team[]> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Team[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
+    return responseHandler.requiredList(response);
   }
-
-  public readById(id: number, requestParams?: RequestParams<Team> | Object): Promise<Team> {
+  public readById(id: number, requestParams?: RequestParams<Team> | Object): Promise<Team[]> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Team[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
+    return responseHandler.required(response);
   }
-
   public create(): Promise<Team> {
     throw new Error('not Implemented');
   }

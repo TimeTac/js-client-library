@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
+import responseHandler from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { Task } from './types';
-import * as responseHandlers from '../utils/response/responseHandlers';
 
 export default class Tasks extends BaseApi {
   public readonly resourceName = 'tasks';
@@ -9,24 +9,20 @@ export default class Tasks extends BaseApi {
   public read(requestParams?: RequestParams<Task> | Object): Promise<Task[]> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
+    return responseHandler.requiredList(response);
   }
-
   public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
+    const response = this._get<Task>(`${this.getResourceName()}/read/${id}`, { params });
+    return responseHandler.required(response);
   }
-
   public create(data: Task): Promise<Task> {
-    const response = this._post<Task[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
+    const response = this._post(`${this.getResourceName()}/create`, data);
+    return responseHandler.required(response);
   }
-
   public update(): Promise<Task> {
     throw new Error('not Implemented');
   }
-
   public delete(): Promise<Task> {
     throw new Error('not Implemented');
   }
