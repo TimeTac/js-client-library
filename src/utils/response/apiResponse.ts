@@ -7,6 +7,7 @@ export type ApiResponseOnSuccess<T> = {
 
 type ApiResponseOnFailure = {
   Success: false;
+  RequestStartTime: string;
   ErrorMessage: string;
   RequestStartTime: string;
   ErrorExtended?: {
