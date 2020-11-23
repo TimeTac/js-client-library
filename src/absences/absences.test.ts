@@ -45,14 +45,14 @@ describe('Absences', () => {
   });
 
   test('create', async () => {
-    const absenceCreate: AbsenceCreate = { user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
+    const absenceCreate: AbsenceCreate = { user_id: 1, from_date: '2020-01-01', to_date: '2020-01-02', type_id: 1, subtype_id: 0 };
     mock.onPost(createPath, absenceCreate).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     const result: Absence = await absences.create(absenceCreate);
     expect(result).toStrictEqual({});
   });
 
   test('update', async () => {
-    const absenceUpdate: AbsenceUpdate = { id: 7, to_date: '05-01-2020' };
+    const absenceUpdate: AbsenceUpdate = { id: 7, to_date: '2020-01-01' };
     mock.onPut(updatePath, absenceUpdate).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     expect(await absences.update(absenceUpdate)).toStrictEqual({});
   });
@@ -84,7 +84,7 @@ describe('Absences', () => {
   });
 
   test('validate', async () => {
-    const absenceCreate: AbsenceCreate = { user_id: 1, from_date: '2020-01-01', to_date: '2020-01-03', type_id: 2, subtype_id: 3 };
+    const absenceCreate: AbsenceCreate = { user_id: 1, from_date: '2020-01-01', to_date: '2020-01-02', type_id: 2, subtype_id: 0 };
     mock.onPost(validatePath, absenceCreate).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     const result: Absence = await absences.validate(absenceCreate);
     expect(result).toStrictEqual({});
