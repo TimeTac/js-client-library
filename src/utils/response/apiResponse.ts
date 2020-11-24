@@ -9,7 +9,6 @@ type ApiResponseOnFailure = {
   Success: false;
   RequestStartTime: string;
   ErrorMessage: string;
-  RequestStartTime: string;
   ErrorExtended?: {
     aErrorTranslationConstants: object;
     data: object;
