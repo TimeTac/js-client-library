@@ -1,6 +1,6 @@
 export type TimesheetAccounting = {
-  id?: number;
-  user_id?: number;
+  id: number;
+  user_id: number;
   department_id?: number;
   /**
    * The department role id to which the user (user_id) was assigned at the time of timesheetAccounting
@@ -96,7 +96,7 @@ export type TimesheetAccounting = {
   comment?: string;
   data_changed?: string;
   break_law_check?: number;
-  workday?: boolean;
+  workday: boolean;
   weekday?: number;
   /**
    * Meant to allow grouping by year
