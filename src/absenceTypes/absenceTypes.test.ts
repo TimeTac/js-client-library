@@ -44,6 +44,20 @@ describe('AbsenceTypes', () => {
     await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
   });
 
+  test('readRaw with Success false', async () => {
+    mock.onGet(readPath).reply(200, { Success: false });
+    expect.assertions(1);
+    resultRaw = absenceTypes.readRaw();
+    await resultRaw.catch((result) => expect(result).toStrictEqual({ Success: false }));
+  });
+
+  test.skip('readRaw with Success false and status code 400', async () => {
+    mock.onGet(readPath).reply(400, { Success: false });
+    expect.assertions(1);
+    resultRaw = absenceTypes.readRaw();
+    await resultRaw.catch((result) => expect(result).toStrictEqual({ Success: false }));
+  });
+
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = absenceTypes.readById(1);
