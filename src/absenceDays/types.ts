@@ -5,12 +5,13 @@ export type AbsenceDay = {
   user_role_id: number;
   date: string;
   type: string;
-  other_paid_leave_id: number;
   value: number;
   value_unit: string;
   request_id: number;
   status: number;
   comment: string;
   begin: string;
-  updated: string;
+  updated: string | null;
+  type_id: number;
+  subtype_id: number;
 };
