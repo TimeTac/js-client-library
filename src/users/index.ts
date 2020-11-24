@@ -2,6 +2,7 @@ import BaseApi from '../baseApi';
 import responseHandler from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { User } from './types';
+import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 export default class Users extends BaseApi {
   public readonly resourceName = 'users';
@@ -10,6 +11,11 @@ export default class Users extends BaseApi {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.requiredList(response);
+  }
+  public readRaw(requestParams?: RequestParams<User> | Object): Promise<ApiResponseOnSuccess<User[]>> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
+    return responseHandler.toApiResponse(response);
   }
   public readById(id: number, requestParams?: RequestParams<User> | Object): Promise<User> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;

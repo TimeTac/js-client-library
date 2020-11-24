@@ -3,6 +3,7 @@ import { GeneralSetting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
+import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('GeneralSettings', () => {
   var generalSettings: GeneralSettings = new GeneralSettings({});
@@ -10,11 +11,13 @@ describe('GeneralSettings', () => {
   var mock = new AxiosMockAdapter(axios);
   var result: Promise<GeneralSetting[]> | null;
   var resultSingle: Promise<GeneralSetting> | null;
+  var resultRaw: Promise<ApiResponseOnSuccess<GeneralSetting[]>> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
+    resultRaw = null;
   });
 
   test('read', async () => {
@@ -47,5 +50,11 @@ describe('GeneralSettings', () => {
       .reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = generalSettings.readBySettingType('setting_foo');
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
+  test('readRaw', async () => {
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultRaw = generalSettings.readRaw();
+    await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
   });
 });

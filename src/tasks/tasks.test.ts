@@ -3,6 +3,7 @@ import { Task } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
+import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Tasks', () => {
   var tasks: Tasks = new Tasks({});
@@ -10,11 +11,13 @@ describe('Tasks', () => {
   var mock = new AxiosMockAdapter(axios);
   var result: Promise<Task[]> | null;
   var resultSingle: Promise<Task> | null;
+  var resultRaw: Promise<ApiResponseOnSuccess<Task[]>> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
+    resultRaw = null;
   });
 
   test('read', async () => {
