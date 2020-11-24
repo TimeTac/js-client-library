@@ -38,6 +38,12 @@ describe('Tasks', () => {
     await tasks.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
+  test('readRaw', async () => {
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultRaw = tasks.readRaw();
+    await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
+  });
+
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = tasks.readById(1);
