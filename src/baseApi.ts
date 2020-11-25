@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiResponse } from './utils/response/apiResponse';
+import { RequestPromise } from './utils/response/responseHandlers';
 
 const DEFAULT_API_VERSION = 3;
 const DEFAULT_HOST = 'go.timetac.com';
@@ -27,25 +28,25 @@ export default abstract class BaseApi {
     };
   }
 
-  protected _get<T>(endpoint: string, options?: AxiosRequestConfig) {
+  protected _get<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.get<ApiResponse<T>>(url, config);
   }
 
-  protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig) {
+  protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.post<ApiResponse<T>>(url, data, config);
   }
 
-  protected _put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig) {
+  protected _put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.put<ApiResponse<T>>(url, data, config);
   }
 
-  protected _delete<T>(endpoint: string, options?: AxiosRequestConfig): Promise<AxiosResponse> {
+  protected _delete<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.delete<ApiResponse<T>>(url, config);

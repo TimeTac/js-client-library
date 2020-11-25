@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { ApiResponse } from './apiResponse';
 
-type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
+export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
 
 export async function toApiResponse<T>(promise: RequestPromise<T>) {
   const apiResponse = (await promise).data;
