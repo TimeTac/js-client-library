@@ -14,7 +14,7 @@ export default class Projects extends BaseApi {
   }
   public readRaw(requestParams?: RequestParams<Project> | Object): Promise<ApiResponseOnSuccess<Project[]>> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<Project>(`${this.getResourceName()}/read`, { params });
+    const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.toApiResponse(response);
   }
   public readById(id: number, requestParams?: RequestParams<Project> | Object): Promise<Project> {

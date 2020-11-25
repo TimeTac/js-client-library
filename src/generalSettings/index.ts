@@ -15,7 +15,7 @@ export default class GeneralSettings extends BaseApi {
 
   public readRaw(requestParams?: RequestParams<GeneralSetting> | Object): Promise<ApiResponseOnSuccess<GeneralSetting[]>> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
-    const response = this._get<GeneralSetting>(`${this.getResourceName()}/read`, { params });
+    const response = this._get<GeneralSetting[]>(`${this.getResourceName()}/read`, { params });
     return responseHandler.toApiResponse(response);
   }
 
