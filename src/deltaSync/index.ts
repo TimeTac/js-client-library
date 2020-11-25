@@ -3,7 +3,7 @@ import { SyncResource } from './types';
 import { ApiResponse } from '../utils/response/apiResponse';
 import { toApiResponse } from '../utils/response/responseHandlers';
 
-export default class DeltaSync extends BaseApi {
+export default class DeltaSyncEndpoint extends BaseApi {
   async read(
     resources: SyncResource[],
     offset: number,

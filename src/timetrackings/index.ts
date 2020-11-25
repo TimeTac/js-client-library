@@ -3,7 +3,7 @@ import RequestParams from '../utils/requestParams/requestParams';
 import { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 
-export default class TimeTrackings extends BaseApi {
+export default class TimeTrackingsEndpoint extends BaseApi {
   public readonly resourceName = 'timeTrackings';
 
   public read(requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking[]> {

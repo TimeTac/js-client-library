@@ -3,7 +3,7 @@ import RequestParams from '../utils/requestParams/requestParams';
 import { TimesheetAccounting } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 
-export default class TimesheetAccountings extends BaseApi {
+export default class TimesheetAccountingsEndpoint extends BaseApi {
   public readonly resourceName = 'timesheetAccountings';
 
   public read(requestParams?: RequestParams<TimesheetAccounting> | Object): Promise<TimesheetAccounting[]> {

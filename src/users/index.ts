@@ -4,7 +4,7 @@ import { User } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
-export default class Users extends BaseApi {
+export default class UsersEndpoint extends BaseApi {
   public readonly resourceName = 'users';
 
   public read(requestParams?: RequestParams<User> | Object): Promise<User[]> {

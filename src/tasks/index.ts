@@ -4,7 +4,7 @@ import { Task } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
-export default class Tasks extends BaseApi {
+export default class TasksEndpoint extends BaseApi {
   public readonly resourceName = 'tasks';
 
   public read(requestParams?: RequestParams<Task> | Object): Promise<Task[]> {

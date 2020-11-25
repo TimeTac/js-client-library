@@ -3,7 +3,7 @@ import RequestParams from '../utils/requestParams/requestParams';
 import { TeamMember } from './types';
 import { required, list } from '../utils/response/responseHandlers';
 
-export default class TeamMembers extends BaseApi {
+export default class TeamMembersEndpoint extends BaseApi {
   public readonly resourceName = 'teamMembers';
 
   public read(requestParams?: RequestParams<TeamMember> | Object): Promise<TeamMember[]> {

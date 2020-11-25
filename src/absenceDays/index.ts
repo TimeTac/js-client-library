@@ -3,7 +3,7 @@ import RequestParams from '../utils/requestParams/requestParams';
 import { AbsenceDay } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 
-export default class AbsenceDays extends BaseApi {
+export default class AbsenceDaysEndpoint extends BaseApi {
   public readonly resourceName = 'absenceDays';
 
   public read(requestParams?: RequestParams<AbsenceDay> | Object): Promise<AbsenceDay[]> {

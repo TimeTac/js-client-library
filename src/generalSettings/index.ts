@@ -4,7 +4,7 @@ import { GeneralSetting } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
-export default class GeneralSettings extends BaseApi {
+export default class GeneralSettingsEndpoint extends BaseApi {
   public readonly resourceName = 'generalSettings';
 
   public read(requestParams?: RequestParams<GeneralSetting> | Object): Promise<GeneralSetting[]> {

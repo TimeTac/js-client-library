@@ -3,7 +3,7 @@ import { stringify } from 'qs';
 import BaseApi from '../baseApi';
 import { Credentials } from './types';
 
-export default class Authentication extends BaseApi {
+export default class AuthenticationEndpoint extends BaseApi {
   setTokens({ accessToken, refreshToken }: { accessToken?: string; refreshToken?: string }) {
     this.config.accessToken = accessToken;
     this.config.refreshToken = refreshToken;

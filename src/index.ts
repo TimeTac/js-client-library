@@ -2,7 +2,7 @@ import { ApiConfig } from './baseApi';
 import { Credentials } from './authentication/types';
 import RequestParams from './utils/requestParams/requestParams';
 
-import AbsenceDays from './absenceDays';
+import AbsenceDaysEndpoint from './absenceDays';
 import Absences from './absences';
 import AbsenceTypes from './absenceTypes';
 import Authentication from './authentication';
@@ -40,7 +40,7 @@ export { RequestParams };
 export default class Api {
   public config: ApiConfig;
 
-  public absenceDays: AbsenceDays;
+  public absenceDays: AbsenceDaysEndpoint;
   public absences: Absences;
   public absenceTypes: AbsenceTypes;
   public authentication: Authentication;
@@ -60,7 +60,7 @@ export default class Api {
   constructor(config: ApiConfig) {
     this.config = config;
 
-    this.absenceDays = new AbsenceDays(this.config);
+    this.absenceDays = new AbsenceDaysEndpoint(this.config);
     this.absences = new Absences(this.config);
     this.absenceTypes = new AbsenceTypes(this.config);
     this.authentication = new Authentication(this.config);

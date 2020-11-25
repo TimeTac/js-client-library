@@ -6,7 +6,7 @@ import { ApiResponse } from '../utils/response/apiResponse';
 
 const resourceName = 'serverCommunication';
 
-export default class ServerCommunication extends Base {
+export default class ServerCommunicationEndpoint extends Base {
   read(account: string) {
     this.setAccount(account);
     const response = axios.get<ApiResponse<Model>>(`${this.getApiPath()}${resourceName}/read`, { withCredentials: false });
