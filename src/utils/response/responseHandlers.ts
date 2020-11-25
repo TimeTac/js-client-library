@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
 
 class ResponseHandler {
-  async toApiResponse<T>(promise: Promise<AxiosResponse>) {
+  async _toApiResponse<T>(promise: Promise<AxiosResponse>) {
     const dataPromise = await promise;
     const apiResponse = (dataPromise.data as unknown) as ApiResponse<T>;
 
@@ -11,6 +11,28 @@ class ResponseHandler {
     }
 
     throw apiResponse;
+  }
+
+  async toApiResponse<T>(promise: Promise<AxiosResponse>) {
+    return promise
+      .then((response: AxiosResponse) => {
+        const apiResponse = (response.data as unknown) as ApiResponse<T>;
+
+        if (!apiResponse.Success) {
+          throw apiResponse;
+        }
+
+        return apiResponse;
+      })
+      .catch((error: any) => {
+        if (error.data) {
+          return Promise.reject(error.data);
+        }
+        if (error.response && error.response.data) {
+          return Promise.reject(error.response.data);
+        }
+        return Promise.reject(error); // this returns an axios error, i don't like it because we can not control it.
+      });
   }
 
   /**

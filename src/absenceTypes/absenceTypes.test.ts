@@ -54,7 +54,8 @@ describe('AbsenceTypes', () => {
   test('readRaw with Success false and status code 400', async () => {
     mock.onGet(readPath).reply(400, { Success: false });
     expect.assertions(1);
-    await absenceTypes.read().catch((err) => expect(err.message).toMatch('Request failed with status code 400'));
+    resultRaw = absenceTypes.readRaw();
+    await resultRaw.catch((result) => expect(result).toStrictEqual({ Success: false }));
   });
 
   test('readById', async () => {
