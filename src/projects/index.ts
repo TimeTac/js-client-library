@@ -2,6 +2,7 @@ import BaseApi from '../baseApi';
 import RequestParams from '../utils/requestParams/requestParams';
 import { Project } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
+import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 export default class Projects extends BaseApi {
   public readonly resourceName = 'projects';
@@ -10,6 +11,11 @@ export default class Projects extends BaseApi {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
+  }
+  public readRaw(requestParams?: RequestParams<Project> | Object): Promise<ApiResponseOnSuccess<Project[]>> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
+    return responseHandlers.toApiResponse(response);
   }
 
   public readById(id: number, requestParams?: RequestParams<Project> | Object): Promise<Project> {

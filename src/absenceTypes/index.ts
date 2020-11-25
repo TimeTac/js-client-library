@@ -1,5 +1,6 @@
 import BaseApi from '../baseApi';
 import RequestParams from '../utils/requestParams/requestParams';
+import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import { AbsenceType } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 
@@ -10,6 +11,11 @@ export default class AbsenceTypes extends BaseApi {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
+  }
+  public readRaw(requestParams?: RequestParams<AbsenceType> | Object): Promise<ApiResponseOnSuccess<AbsenceType[]>> {
+    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+    const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
+    return responseHandlers.toApiResponse(response);
   }
   public readById(id: number, requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;

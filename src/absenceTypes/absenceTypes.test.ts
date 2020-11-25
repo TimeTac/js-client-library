@@ -3,6 +3,7 @@ import { AbsenceType } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
+import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('AbsenceTypes', () => {
   var absenceTypes: AbsenceTypes = new AbsenceTypes({});
@@ -10,11 +11,13 @@ describe('AbsenceTypes', () => {
   var mock = new AxiosMockAdapter(axios);
   var result: Promise<AbsenceType[]> | null;
   var resultSingle: Promise<AbsenceType> | null;
+  var resultRaw: Promise<ApiResponseOnSuccess<AbsenceType[]>> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
+    resultRaw = null;
   });
 
   test('read', async () => {
@@ -33,6 +36,25 @@ describe('AbsenceTypes', () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
     await absenceTypes.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+  });
+
+  test('readRaw', async () => {
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultRaw = absenceTypes.readRaw();
+    await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
+  });
+
+  test('readRaw with Success false', async () => {
+    mock.onGet(readPath).reply(200, { Success: false });
+    expect.assertions(1);
+    resultRaw = absenceTypes.readRaw();
+    await resultRaw.catch((result) => expect(result).toStrictEqual({ Success: false }));
+  });
+
+  test('readRaw with Success false and status code 400', async () => {
+    mock.onGet(readPath).reply(400, { Success: false });
+    expect.assertions(1);
+    await absenceTypes.read().catch((err) => expect(err.message).toMatch('Request failed with status code 400'));
   });
 
   test('readById', async () => {
