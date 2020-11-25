@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
 
 class ResponseHandler {
-  async toApiResponse<T>(promise: Promise<AxiosResponse>) {
+  async toApiResponse<T>(promise: Promise<AxiosResponse>): Promise<ApiResponseOnSuccess<T>> {
     const dataPromise = await promise;
     const apiResponse = (dataPromise.data as unknown) as ApiResponse<T>;
 
@@ -11,6 +11,20 @@ class ResponseHandler {
     }
 
     throw apiResponse;
+  }
+  /**
+   * Only server communication has Results as object {} else where is as array [].
+   *
+   * @return A promises that resolves and return all results
+   */
+  requiredObject<T>(promise: Promise<AxiosResponse>): Promise<T> {
+    return this.toApiResponse<T>(promise).then((response: ApiResponseOnSuccess<T>) => {
+      if (response.NumResults > 0) {
+        return response.Results;
+      } else {
+        throw 'There are no results.';
+      }
+    });
   }
 
   /**
@@ -21,7 +35,7 @@ class ResponseHandler {
       if (response.NumResults > 0) {
         return response.Results[0];
       } else {
-        throw new Error('There are no results.');
+        throw 'There are no results.';
       }
     });
   }
@@ -31,7 +45,7 @@ class ResponseHandler {
       if (response.NumResults > 0) {
         return response.Results;
       } else {
-        throw new Error('There are no results.');
+        throw 'There are no results.';
       }
     });
   }

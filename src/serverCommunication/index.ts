@@ -9,6 +9,6 @@ export default class ServerCommunication extends Base {
   read(account: string) {
     this.setAccount(account);
     const response = axios.get<Model>(`${this.getApiPath()}${resourceName}/read`, { withCredentials: false });
-    return responseHandlers.toApiResponse(response);
+    return responseHandlers.requiredObject<Model>(response);
   }
 }
