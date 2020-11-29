@@ -4,6 +4,7 @@ import { Project } from '../projects/types';
 import { TimeTracking } from '../timetrackings/types';
 import { AbsenceType } from '..';
 import { GeneralSetting } from '../generalSettings/types';
+import { TimesheetAccounting } from '../timesheetAccountings/types';
 
 export type SyncData = {
   users: User[];
@@ -12,6 +13,7 @@ export type SyncData = {
   timeTrackings: TimeTracking[];
   absenceTypes: AbsenceType[];
   generalSettings: GeneralSetting[];
+  timesheetAccountings: TimesheetAccounting[];
 };
 
 export type SyncResource = keyof SyncData;
