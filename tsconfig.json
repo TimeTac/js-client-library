@@ -12,7 +12,7 @@
       "declaration": true,
       "moduleResolution": "node",
       "sourceMap": true,
-      "removeComments": true,
+      "removeComments": true
       },
       "include": ["./src/index.ts"]
   }

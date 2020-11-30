@@ -3,6 +3,7 @@ import { Project } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
+import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Projects', () => {
   var projects: Projects = new Projects({});
@@ -10,11 +11,13 @@ describe('Projects', () => {
   var mock = new AxiosMockAdapter(axios);
   var result: Promise<Project[]> | null;
   var resultSingle: Promise<Project> | null;
+  var resultRaw: Promise<ApiResponseOnSuccess<Project[]>> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
+    resultRaw = null;
   });
 
   test('read', async () => {
@@ -33,6 +36,12 @@ describe('Projects', () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
     await projects.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+  });
+
+  test('readRaw', async () => {
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultRaw = projects.readRaw();
+    await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
   });
 
   test('readById', async () => {
