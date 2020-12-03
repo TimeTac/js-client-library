@@ -59,7 +59,7 @@ export default abstract class BaseApi {
     return `https://${this.config.host ?? DEFAULT_HOST}/${this.config.account}/`;
   }
 
-  protected setAccount(account: string): void {
+  public setAccount(account: string): void {
     this.config.account = account;
   }
 
