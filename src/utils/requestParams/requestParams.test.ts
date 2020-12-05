@@ -61,7 +61,7 @@ describe('RequestParams', () => {
   });
 
   test('in', () => {
-    const requestParams = new RequestParams<Resource>().in('status', 5, 3);
+    const requestParams = new RequestParams<Resource>().in('status', [5, 3]);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'in', status: '5|3' });
   });
 
