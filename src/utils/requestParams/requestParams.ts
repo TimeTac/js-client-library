@@ -11,7 +11,7 @@ export default class RequestParams<R extends Object> {
     return this;
   }
 
-  fields<F extends keyof R & string>(...values: F[]): RequestParams<R> {
+  fields<F extends keyof R & string>(values: F[]): RequestParams<R> {
     this.criteria['_fields'] = values.join(',');
     return this;
   }
@@ -70,7 +70,7 @@ export default class RequestParams<R extends Object> {
     return this;
   }
 
-  groupBy<F extends keyof R & string>(...fields: F[]): RequestParams<R> {
+  groupBy<F extends keyof R & string>(fields: F[]): RequestParams<R> {
     this.criteria['_group_by'] = fields.join('|');
     return this;
   }

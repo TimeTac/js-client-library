@@ -66,7 +66,7 @@ describe('RequestParams', () => {
   });
 
   test('fields', () => {
-    const requestParams = new RequestParams<Resource>().fields('status');
+    const requestParams = new RequestParams<Resource>().fields(['status']);
     expect(requestParams.getParams()).toStrictEqual({ _fields: 'status' });
   });
 
@@ -86,7 +86,7 @@ describe('RequestParams', () => {
   });
 
   test('groupBy', () => {
-    const requestParams = new RequestParams<Resource>().groupBy('status');
+    const requestParams = new RequestParams<Resource>().groupBy(['status']);
     expect(requestParams.getParams()).toStrictEqual({ _group_by: 'status' });
   });
 
