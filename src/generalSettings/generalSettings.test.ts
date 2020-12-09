@@ -2,7 +2,6 @@ import GeneralSettings from './index';
 import { GeneralSetting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('GeneralSettings', () => {
