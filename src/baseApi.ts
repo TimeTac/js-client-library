@@ -2,7 +2,9 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiResponse } from './utils/response/apiResponse';
 
 const DEFAULT_API_VERSION = 3;
-const DEFAULT_HOST = 'go.timetac.com';
+const DEFAULT_HOST = 'go-stage.timetac.com';
+
+type onTokenRefreshedCallback = (accessToken: string, refreshToken: string) => void;
 
 export type ApiConfig = {
   host?: string;
@@ -10,10 +12,13 @@ export type ApiConfig = {
   account?: string;
   accessToken?: string;
   refreshToken?: string;
+  clientId?: string;
+  clientSecret?: string;
+  onTokenRefreshedCallback?: onTokenRefreshedCallback;
 };
 
 export default abstract class BaseApi {
-  public readonly resourceName: String = 'placeholder';
+  public readonly resourceName: String = '';
 
   constructor(public config: ApiConfig) {}
 

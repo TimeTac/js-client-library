@@ -18,6 +18,7 @@ import Timetrackings from './timetrackings';
 import Users from './users';
 import UserStatusOverviews from './userStatusOverview';
 import GeneralSettings from './generalSettings';
+import axios from 'axios';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceStatus, AbsenceApprove, AbsenceUpdate, AbsenceReject, AbsenceCreate } from './absences/types';
@@ -76,6 +77,35 @@ export default class Api {
     this.timeTrackings = new Timetrackings(this.config);
     this.users = new Users(this.config);
     this.userStatusOverviews = new UserStatusOverviews(this.config);
+
+    axios.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+      async (error) => {
+        const untouchedRequest = error.config;
+
+        if (error.response.status === 401 && untouchedRequest.url.indexOf('auth/oauth2/token') !== -1) {
+          return Promise.reject(error);
+        }
+        if (error.response.status === 401 && !untouchedRequest._retry) {
+          untouchedRequest._retry = true;
+
+          this.authentication.refreshToken().then(async (res) => {
+            if (res.status === 200) {
+              const { access_token: accessToken, refresh_token: refreshToken } = res.data;
+              this.authentication.setTokens({ accessToken, refreshToken });
+              untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
+              if (this.config.onTokenRefreshedCallback) {
+                this.config.onTokenRefreshedCallback(accessToken, refreshToken);
+              }
+              return axios(untouchedRequest);
+            }
+          });
+        }
+        return Promise.reject(error.response);
+      }
+    );
   }
 
   public setAccount(account: string) {

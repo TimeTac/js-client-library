@@ -4,6 +4,10 @@ import BaseApi from '../baseApi';
 import { Credentials } from './types';
 
 export default class Authentication extends BaseApi {
+  setClientId(clientId: string): void {
+    this.config.clientId = clientId;
+  }
+
   setTokens({ accessToken, refreshToken }: { accessToken?: string; refreshToken?: string }) {
     this.config.accessToken = accessToken;
     this.config.refreshToken = refreshToken;
@@ -26,7 +30,27 @@ export default class Authentication extends BaseApi {
     return axios.post<Credentials>(url, stringify(credentials), config);
   }
 
+  async refreshToken(): Promise<AxiosResponse> {
+    const { refreshToken } = this.getTokens();
+    const credentials = {
+      refresh_token: refreshToken,
+      client_id: this.config.clientId,
+      client_secret: this.config.clientSecret,
+      grant_type: 'refresh_token',
+    };
+
+    const url = `${this.getAccountUrl()}auth/oauth2/token`;
+    const config = {
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
+      },
+    };
+    return axios.post<Credentials>(url, stringify(credentials), config);
+  }
+
   async login(credentials: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
+    this.config.clientId = credentials.client_id;
+    this.config.clientSecret = credentials.client_secret;
     const response = await this.requestTokens(credentials);
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
     this.setTokens({ accessToken, refreshToken });
