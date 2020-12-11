@@ -3,6 +3,7 @@ import { FavouriteTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('FavouriteTasks', () => {
   var favouriteTasksEndpoint: FavouriteTasksEndpoint = new FavouriteTasksEndpoint({});
@@ -39,6 +40,13 @@ describe('FavouriteTasks', () => {
     await favouriteTasksEndpoint.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
+  test('read with RequestParmas', async () => {
+    mock.onGet(readPath, { id: 1 }).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1, node_id: 2, user_id: 3 }] });
+
+    result = favouriteTasksEndpoint.read(new RequestParams<FavouriteTask>().eq('id', 1));
+    await result.then((result) => expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]));
+  });
+
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1 }] });
     resultSingle = favouriteTasksEndpoint.readById(1);
@@ -46,10 +54,13 @@ describe('FavouriteTasks', () => {
   });
 
   test('create', async () => {
-    const checkData = { id: 1, node_id: 2, user_id: 3 };
-    mock.onPost(createPath).reply(200, { Success: true, NumResults: 1, Results: [checkData] });
+    const results = { id: 1, node_id: 2, user_id: 3 };
+    const data = { node_id: 2, user_id: 3 };
+
+    mock.onPost(createPath, data).reply(200, { Success: true, NumResults: 1, Results: [results] });
     resultSingle = favouriteTasksEndpoint.create({ node_id: 2, user_id: 3 });
-    await resultSingle.then((result) => expect(result).toStrictEqual(checkData));
+
+    await resultSingle.then((result) => expect(result).toStrictEqual(results));
   });
 
   test('delete', async () => {

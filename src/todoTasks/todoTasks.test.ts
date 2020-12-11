@@ -3,6 +3,7 @@ import { TodoTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TodoTasks', () => {
   var todoTasksEndpoint: TodoTasksEndpoint = new TodoTasksEndpoint({});
@@ -45,11 +46,21 @@ describe('TodoTasks', () => {
     await resultSingle.then((result) => expect(result).toStrictEqual({ id: 1 }));
   });
 
+  test('read with RequestParmas', async () => {
+    mock.onGet(readPath, { id: 1 }).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1, node_id: 2, user_id: 3 }] });
+
+    result = todoTasksEndpoint.read(new RequestParams<TodoTask>().eq('id', 1));
+    await result.then((result) => expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]));
+  });
+
   test('create', async () => {
-    const data = { id: 1, node_id: 2, user_id: 3 };
-    mock.onPost(createPath).reply(200, { Success: true, NumResults: 1, Results: [data] });
+    const results = { id: 1, node_id: 2, user_id: 3 };
+    const data = { node_id: 2, user_id: 3 };
+
+    mock.onPost(createPath, data).reply(200, { Success: true, NumResults: 1, Results: [results] });
     resultSingle = todoTasksEndpoint.create({ node_id: 2, user_id: 3 });
-    await resultSingle.then((result) => expect(result).toStrictEqual(data));
+
+    await resultSingle.then((result) => expect(result).toStrictEqual(results));
   });
 
   test('delete', async () => {
