@@ -30,7 +30,7 @@ export { Department } from './departments/types';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
-export { RecentTask } from './recentTasks/types';
+export { RecentTask, RecentTaskCreate } from './recentTasks/types';
 export { ServerCommunication } from './serverCommunication/types';
 export { Task } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
