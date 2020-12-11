@@ -141,7 +141,7 @@ async() => {
 - [] [permissionScopes](https://api.timetac.com/doc/v3#tag/permissionScopes)
 - [x] [projects](https://api.timetac.com/doc/v3#tag/projects)
 - [] [publicHolidayTemplates](https://api.timetac.com/doc/v3#tag/PublicHolidayTemplates)
-- [] [recentTasks](https://api.timetac.com/doc/v3#tag/recentTasks)
+- [x] [recentTasks](https://api.timetac.com/doc/v3#tag/recentTasks)
 - [] [salutations](https://api.timetac.com/doc/v3#tag/salutations)
 - [] [schedulings](https://api.timetac.com/doc/v3#tag/schedulings)
 - [x] [serverCommunication]
