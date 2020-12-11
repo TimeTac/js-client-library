@@ -2,7 +2,7 @@ export interface RecentTask {
   id: number;
   user_id: number;
   node_id: number;
-  _assign_to_child_nodes?: boolean;
+  last_started: string;
 }
 
-export interface RecentTaskCreate extends Omit<RecentTask, 'id'> {}
+export interface RecentTaskCreate extends Omit<RecentTask, 'id' | 'last_started'> {}
