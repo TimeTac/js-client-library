@@ -1,4 +1,4 @@
-import { ApiConfig } from './baseApi';
+import { ApiConfig, ApiState } from './baseApi';
 import { Credentials } from './authentication/types';
 import RequestParams from './utils/requestParams/requestParams';
 
@@ -40,6 +40,7 @@ export { RequestParams };
 
 export default class Api {
   public config: ApiConfig;
+  public state: ApiState;
 
   public absenceDays: AbsenceDays;
   public absences: Absences;
@@ -60,6 +61,9 @@ export default class Api {
 
   constructor(config: ApiConfig) {
     this.config = config;
+    this.state = {
+      refreshingToken: false,
+    };
 
     this.absenceDays = new AbsenceDays(this.config);
     this.absences = new Absences(this.config);
@@ -91,13 +95,16 @@ export default class Api {
         if (error.response.status === 401 && !untouchedRequest._retry) {
           untouchedRequest._retry = true;
 
-          this.authentication.refreshToken().then(async (res) => {
+          if (!this.state.refreshingToken) {
+            this.state.refreshingToken = this.authentication.refreshToken();
+          }
+          this.state.refreshingToken.then(async (res) => {
             if (res.status === 200) {
               const { access_token: accessToken, refresh_token: refreshToken } = res.data;
               this.authentication.setTokens({ accessToken, refreshToken });
               untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
               if (this.config.onTokenRefreshedCallback) {
-                this.config.onTokenRefreshedCallback(accessToken, refreshToken);
+                this.config.onTokenRefreshedCallback({ accessToken, refreshToken });
               }
               return axios(untouchedRequest);
             }

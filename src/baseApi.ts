@@ -4,7 +4,16 @@ import { ApiResponse } from './utils/response/apiResponse';
 const DEFAULT_API_VERSION = 3;
 const DEFAULT_HOST = 'go-stage.timetac.com';
 
-type onTokenRefreshedCallback = (accessToken: string, refreshToken: string) => void;
+export type Tokens = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+type onTokenRefreshedCallback = (tokens: Tokens) => void;
+
+export type ApiState = {
+  refreshingToken: false | Promise<AxiosResponse<any>>;
+};
 
 export type ApiConfig = {
   host?: string;
