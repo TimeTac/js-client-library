@@ -24,6 +24,7 @@ export type ApiConfig = {
   clientId?: string;
   clientSecret?: string;
   onTokenRefreshedCallback?: onTokenRefreshedCallback;
+  autoRefreshToken?: boolean;
 };
 
 export default abstract class BaseApi {

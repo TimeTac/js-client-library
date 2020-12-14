@@ -61,6 +61,7 @@ export default class Api {
 
   constructor(config: ApiConfig) {
     this.config = config;
+    this.config.autoRefreshToken = config.autoRefreshToken || true;
     this.state = {
       refreshingToken: false,
     };
@@ -87,30 +88,33 @@ export default class Api {
         return res;
       },
       async (error) => {
-        const untouchedRequest = error.config;
+        if (this.config.autoRefreshToken) {
+          const untouchedRequest = error.config;
 
-        if (error.response.status === 401 && untouchedRequest.url.indexOf('auth/oauth2/token') !== -1) {
-          return Promise.reject(error);
-        }
-        if (error.response.status === 401 && !untouchedRequest._retry) {
-          untouchedRequest._retry = true;
-
-          if (!this.state.refreshingToken) {
-            this.state.refreshingToken = this.authentication.refreshToken();
+          if (error.response.status === 401 && untouchedRequest.url.indexOf('auth/oauth2/token') !== -1) {
+            return Promise.reject(error);
           }
-          this.state.refreshingToken.then(async (res) => {
-            if (res.status === 200) {
-              const { access_token: accessToken, refresh_token: refreshToken } = res.data;
-              this.authentication.setTokens({ accessToken, refreshToken });
-              untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
-              if (this.config.onTokenRefreshedCallback) {
-                this.config.onTokenRefreshedCallback({ accessToken, refreshToken });
-              }
-              return axios(untouchedRequest);
+          if (error.response.status === 401 && !untouchedRequest._retry) {
+            untouchedRequest._retry = true;
+
+            if (!this.state.refreshingToken) {
+              this.state.refreshingToken = this.authentication.refreshToken();
             }
-          });
+            this.state.refreshingToken.then(async (res) => {
+              if (res.status === 200) {
+                const { access_token: accessToken, refresh_token: refreshToken } = res.data;
+                this.authentication.setTokens({ accessToken, refreshToken });
+                untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
+                if (this.config.onTokenRefreshedCallback) {
+                  this.config.onTokenRefreshedCallback({ accessToken, refreshToken });
+                }
+                return axios(untouchedRequest);
+              }
+            });
+          }
+          return Promise.reject(error.response);
         }
-        return Promise.reject(error.response);
+        return error.response;
       }
     );
   }

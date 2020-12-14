@@ -26,7 +26,11 @@ import Api from "@timetac/js-client-library"
 const environment = {
   host: 'go.timetac.com',
   account: <ACCOUNT_NAME>,
-  version: '3'
+  version: '3',
+  //Callback, called on refresh of the token. object of access token and refresh {accessToken, refreshTOken}  token are passed as parameter
+  onTokenRefreshedCallback: <METHOD>,
+  //If true, it tries to refresh token on failed request
+  autoRefreshToken: <BOOLEAN>
 }
 
 const authCredentials = {
