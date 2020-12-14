@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiResponse } from './utils/response/apiResponse';
 
 const DEFAULT_API_VERSION = 3;
-const DEFAULT_HOST = 'go-stage.timetac.com';
+const DEFAULT_HOST = 'go.timetac.com';
 
 export type Tokens = {
   accessToken: string;
