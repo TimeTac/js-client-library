@@ -61,12 +61,12 @@ describe('RequestParams', () => {
   });
 
   test('in', () => {
-    const requestParams = new RequestParams<Resource>().in('status', 5, 3);
+    const requestParams = new RequestParams<Resource>().in('status', [5, 3]);
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'in', status: '5|3' });
   });
 
   test('fields', () => {
-    const requestParams = new RequestParams<Resource>().fields('status');
+    const requestParams = new RequestParams<Resource>().fields(['status']);
     expect(requestParams.getParams()).toStrictEqual({ _fields: 'status' });
   });
 
@@ -86,7 +86,7 @@ describe('RequestParams', () => {
   });
 
   test('groupBy', () => {
-    const requestParams = new RequestParams<Resource>().groupBy('status');
+    const requestParams = new RequestParams<Resource>().groupBy(['status']);
     expect(requestParams.getParams()).toStrictEqual({ _group_by: 'status' });
   });
 
