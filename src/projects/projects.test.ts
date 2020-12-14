@@ -2,11 +2,10 @@ import Projects from './index';
 import { Project } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Projects', () => {
-  var projects: Projects = new Projects({});
+  var projects: Projects = new Projects({ account: 'testingAccount' });
   var readPath: string = `${projects.getResourcePath()}/read`;
   var mock = new AxiosMockAdapter(axios);
   var result: Promise<Project[]> | null;

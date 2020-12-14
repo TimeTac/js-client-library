@@ -4,7 +4,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('TimesheetAccountings', () => {
-  const timesheetAccountings: TimesheetAccountings = new TimesheetAccountings({});
+  const timesheetAccountings: TimesheetAccountings = new TimesheetAccountings({ account: 'testingAccount' });
   const readPath: string = `${timesheetAccountings.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
 

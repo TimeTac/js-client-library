@@ -2,11 +2,10 @@ import GeneralSettings from './index';
 import { GeneralSetting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('GeneralSettings', () => {
-  var generalSettings: GeneralSettings = new GeneralSettings({});
+  var generalSettings: GeneralSettings = new GeneralSettings({ account: 'testingAccount' });
   var readPath: string = `${generalSettings.getResourcePath()}/read`;
   var mock = new AxiosMockAdapter(axios);
   var result: Promise<GeneralSetting[]> | null;

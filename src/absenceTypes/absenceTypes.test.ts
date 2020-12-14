@@ -2,11 +2,10 @@ import AbsenceTypes from './index';
 import { AbsenceType } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('AbsenceTypes', () => {
-  var absenceTypes: AbsenceTypes = new AbsenceTypes({});
+  var absenceTypes: AbsenceTypes = new AbsenceTypes({ account: 'testingAccount' });
   var readPath: string = `${absenceTypes.getResourcePath()}/read`;
   var mock = new AxiosMockAdapter(axios);
   var result: Promise<AbsenceType[]> | null;

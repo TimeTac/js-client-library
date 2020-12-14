@@ -71,6 +71,9 @@ export default abstract class BaseApi {
   }
 
   protected getAccountUrl(): string {
+    if (!this.config.account) {
+      throw 'Account is not set';
+    }
     return `https://${this.config.host ?? DEFAULT_HOST}/${this.config.account}/`;
   }
 
