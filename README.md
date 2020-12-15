@@ -28,8 +28,8 @@ const environment = {
   account: <ACCOUNT_NAME>,
   version: '3',
   //Callback, called on refresh of the token. object of access token and refresh {accessToken, refreshTOken}  token are passed as parameter
-  onTokenRefreshedCallback: <METHOD>,
-  //If true, it tries to refresh token on failed request
+  onTokenRefreshedCallback: (tokens) => console.log(`${tokens.accessToken} ${tokens.refreshToken}`),
+  //If true, it tries to refresh token on failed request. Default true.
   autoRefreshToken: <BOOLEAN>
 }
 

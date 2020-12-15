@@ -28,7 +28,7 @@ export type ApiConfig = {
 };
 
 export default abstract class BaseApi {
-  public readonly resourceName: String = '';
+  public abstract readonly resourceName: String;
 
   constructor(public config: ApiConfig) {}
 

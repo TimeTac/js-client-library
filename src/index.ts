@@ -122,10 +122,4 @@ export default class Api {
   public setAccount(account: string) {
     this.config.account = account;
   }
-
-  static async withCredentials(config: ApiConfig, credentials: Credentials): Promise<Api> {
-    const api = new Api(config);
-    await api.authentication.login(credentials);
-    return api;
-  }
 }
