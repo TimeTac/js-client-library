@@ -62,8 +62,8 @@ export default class Authentication extends BaseApi {
   }
 
   async login(credentials: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
-    this.config.clientId = credentials.client_id;
-    this.config.clientSecret = credentials.client_secret;
+    this.config.clientId = credentials.client_id || this.config.clientId;
+    this.config.clientSecret = credentials.client_secret || this.config.clientSecret;
     const response = await this.requestTokens(credentials);
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
     this.setTokens({ accessToken, refreshToken });
