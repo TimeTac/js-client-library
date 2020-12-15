@@ -4,10 +4,11 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('Teams', () => {
-  var teams: Teams = new Teams({});
-  var readPath: string = `${teams.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<Team[]>;
+  const teams: Teams = new Teams({});
+  const readPath: string = `${teams.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<Team[]>;
 
   afterEach(() => {
     mock.reset();

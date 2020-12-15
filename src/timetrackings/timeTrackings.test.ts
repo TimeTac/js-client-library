@@ -5,17 +5,17 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TimeTrackings', () => {
-  var timeTrackings: TimeTrackings = new TimeTrackings({});
-  var readPath: string = `${timeTrackings.getResourcePath()}/read`;
-  var createPath: string = `${timeTrackings.getResourcePath()}/create`;
-  var updatePath: string = `${timeTrackings.getResourcePath()}/update`;
-  var deletePath: string = `${timeTrackings.getResourcePath()}/delete`;
-  var startPath: string = `${timeTrackings.getResourcePath()}/start`;
-  var stopPath: string = `${timeTrackings.getResourcePath()}/stop`;
+  const timeTrackings: TimeTrackings = new TimeTrackings({});
+  const readPath: string = `${timeTrackings.getResourcePath()}/read`;
+  const createPath: string = `${timeTrackings.getResourcePath()}/create`;
+  const updatePath: string = `${timeTrackings.getResourcePath()}/update`;
+  const deletePath: string = `${timeTrackings.getResourcePath()}/delete`;
+  const startPath: string = `${timeTrackings.getResourcePath()}/start`;
+  const stopPath: string = `${timeTrackings.getResourcePath()}/stop`;
 
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<TimeTracking[]> | null;
-  var resultSingle: Promise<TimeTracking> | null;
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<TimeTracking[]> | null;
+  let resultSingle: Promise<TimeTracking> | null;
 
   afterEach(() => {
     mock.reset();

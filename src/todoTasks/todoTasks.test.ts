@@ -2,24 +2,22 @@ import TodoTasksEndpoint from './index';
 import { TodoTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TodoTasks', () => {
-  var todoTasksEndpoint: TodoTasksEndpoint = new TodoTasksEndpoint({});
-  var readPath: string = `${todoTasksEndpoint.getResourcePath()}/read`;
-  var createPath: string = `${todoTasksEndpoint.getResourcePath()}/create`;
-  var deletePath: string = `${todoTasksEndpoint.getResourcePath()}/delete`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<TodoTask[]> | null;
-  var resultSingle: Promise<TodoTask> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<TodoTask[]>> | null;
+  const todoTasksEndpoint: TodoTasksEndpoint = new TodoTasksEndpoint({});
+  const readPath: string = `${todoTasksEndpoint.getResourcePath()}/read`;
+  const createPath: string = `${todoTasksEndpoint.getResourcePath()}/create`;
+  const deletePath: string = `${todoTasksEndpoint.getResourcePath()}/delete`;
+  const mock = new AxiosMockAdapter(axios);
+
+  let result: Promise<TodoTask[]> | null;
+  let resultSingle: Promise<TodoTask> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
-    resultRaw = null;
   });
 
   test('read', async () => {

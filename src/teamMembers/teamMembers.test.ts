@@ -5,10 +5,11 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TeamMembers', () => {
-  var teamMembers: TeamMembers = new TeamMembers({});
-  var readPath: string = `${teamMembers.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<TeamMember[]>;
+  const teamMembers: TeamMembers = new TeamMembers({});
+  const readPath: string = `${teamMembers.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<TeamMember[]>;
 
   afterEach(() => {
     mock.reset();

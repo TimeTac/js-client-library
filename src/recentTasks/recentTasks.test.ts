@@ -2,24 +2,22 @@ import RecentTasksEndpoint from './index';
 import { RecentTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('RecentTasks', () => {
-  var recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint({});
-  var readPath: string = `${recentTasksEndpoint.getResourcePath()}/read`;
-  var createPath: string = `${recentTasksEndpoint.getResourcePath()}/create`;
-  var deletePath: string = `${recentTasksEndpoint.getResourcePath()}/delete`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<RecentTask[]> | null;
-  var resultSingle: Promise<RecentTask> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<RecentTask[]>> | null;
+  const recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint({});
+  const readPath: string = `${recentTasksEndpoint.getResourcePath()}/read`;
+  const createPath: string = `${recentTasksEndpoint.getResourcePath()}/create`;
+  const deletePath: string = `${recentTasksEndpoint.getResourcePath()}/delete`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<RecentTask[]> | null;
+  let resultSingle: Promise<RecentTask> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
-    resultRaw = null;
   });
 
   test('read', async () => {

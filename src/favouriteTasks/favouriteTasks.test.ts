@@ -2,24 +2,22 @@ import FavouriteTasksEndpoint from './index';
 import { FavouriteTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('FavouriteTasks', () => {
-  var favouriteTasksEndpoint: FavouriteTasksEndpoint = new FavouriteTasksEndpoint({});
-  var readPath: string = `${favouriteTasksEndpoint.getResourcePath()}/read`;
-  var createPath: string = `${favouriteTasksEndpoint.getResourcePath()}/create`;
-  var deletePath: string = `${favouriteTasksEndpoint.getResourcePath()}/delete`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<FavouriteTask[]> | null;
-  var resultSingle: Promise<FavouriteTask> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<FavouriteTask[]>> | null;
+  const favouriteTasksEndpoint: FavouriteTasksEndpoint = new FavouriteTasksEndpoint({});
+  const readPath: string = `${favouriteTasksEndpoint.getResourcePath()}/read`;
+  const createPath: string = `${favouriteTasksEndpoint.getResourcePath()}/create`;
+  const deletePath: string = `${favouriteTasksEndpoint.getResourcePath()}/delete`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<FavouriteTask[]> | null;
+  let resultSingle: Promise<FavouriteTask> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
-    resultRaw = null;
   });
 
   test('read', async () => {

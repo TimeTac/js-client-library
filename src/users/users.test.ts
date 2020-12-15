@@ -6,12 +6,13 @@ import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Users', () => {
-  var users: Users = new Users({});
-  var readPath: string = `${users.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<User[]> | null;
-  var resultSingle: Promise<User> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<User[]>> | null;
+  const users: Users = new Users({});
+  const readPath: string = `${users.getResourcePath()}/read`;
+  const mock = new AxiosMockAdapter(axios);
+
+  let result: Promise<User[]> | null;
+  let resultSingle: Promise<User> | null;
+  let resultRaw: Promise<ApiResponseOnSuccess<User[]>> | null;
 
   afterEach(() => {
     mock.reset();
