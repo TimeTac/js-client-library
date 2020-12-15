@@ -5,11 +5,12 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('Departments', () => {
-  var departments: Departments = new Departments({});
-  var readPath: string = `${departments.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<Department[]> | null;
-  var resultSingle: Promise<Department> | null;
+  const departments: Departments = new Departments({});
+  const readPath: string = `${departments.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<Department[]> | null;
+  let resultSingle: Promise<Department> | null;
 
   afterEach(() => {
     mock.reset();

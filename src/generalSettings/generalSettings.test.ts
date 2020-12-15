@@ -2,16 +2,16 @@ import GeneralSettings from './index';
 import { GeneralSetting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('GeneralSettings', () => {
-  var generalSettings: GeneralSettings = new GeneralSettings({});
-  var readPath: string = `${generalSettings.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<GeneralSetting[]> | null;
-  var resultSingle: Promise<GeneralSetting> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<GeneralSetting[]>> | null;
+  const generalSettings: GeneralSettings = new GeneralSettings({});
+  const readPath: string = `${generalSettings.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<GeneralSetting[]> | null;
+  let resultSingle: Promise<GeneralSetting> | null;
+  let resultRaw: Promise<ApiResponseOnSuccess<GeneralSetting[]>> | null;
 
   afterEach(() => {
     mock.reset();

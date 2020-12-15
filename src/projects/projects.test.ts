@@ -2,16 +2,16 @@ import Projects from './index';
 import { Project } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Projects', () => {
-  var projects: Projects = new Projects({});
-  var readPath: string = `${projects.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<Project[]> | null;
-  var resultSingle: Promise<Project> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<Project[]>> | null;
+  const projects: Projects = new Projects({});
+  const readPath: string = `${projects.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<Project[]> | null;
+  let resultSingle: Promise<Project> | null;
+  let resultRaw: Promise<ApiResponseOnSuccess<Project[]>> | null;
 
   afterEach(() => {
     mock.reset();
