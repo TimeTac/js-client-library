@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiResponse } from './utils/response/apiResponse';
+import { TokenResponse } from './authentication/types';
 
 const DEFAULT_API_VERSION = 3;
 const DEFAULT_HOST = 'go.timetac.com';
@@ -12,7 +13,7 @@ export type Tokens = {
 type onTokenRefreshedCallback = (tokens: Tokens) => void;
 
 export type ApiState = {
-  refreshingToken: false | Promise<AxiosResponse<any>>;
+  refreshingToken: false | Promise<AxiosResponse<TokenResponse>>;
 };
 
 export type ApiConfig = {
