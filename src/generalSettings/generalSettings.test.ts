@@ -5,12 +5,13 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('GeneralSettings', () => {
-  var generalSettings: GeneralSettings = new GeneralSettings({ account: 'testingAccount' });
-  var readPath: string = `${generalSettings.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<GeneralSetting[]> | null;
-  var resultSingle: Promise<GeneralSetting> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<GeneralSetting[]>> | null;
+  const generalSettings: GeneralSettings = new GeneralSettings({ account: 'testingAccount' });
+  const readPath: string = `${generalSettings.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<GeneralSetting[]> | null;
+  let resultSingle: Promise<GeneralSetting> | null;
+  let resultRaw: Promise<ApiResponseOnSuccess<GeneralSetting[]>> | null;
 
   afterEach(() => {
     mock.reset();

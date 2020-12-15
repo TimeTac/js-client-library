@@ -6,6 +6,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 describe('TeamMembers', () => {
   const teamMembers: TeamMembers = new TeamMembers({ account: 'testingAccount' });
   const readPath: string = `${teamMembers.getResourcePath()}/read`;
+
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<TeamMember[]>;
 

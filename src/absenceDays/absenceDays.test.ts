@@ -5,11 +5,12 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('AbsenceDays', () => {
-  var absenceDays: AbsenceDays = new AbsenceDays({ account: 'testingAccount' });
-  var readPath: string = `${absenceDays.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<AbsenceDay[]> | null;
-  var resultSingle: Promise<AbsenceDay> | null;
+  const absenceDays: AbsenceDays = new AbsenceDays({ account: 'testingAccount' });
+  const readPath: string = `${absenceDays.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<AbsenceDay[]> | null;
+  let resultSingle: Promise<AbsenceDay> | null;
 
   afterEach(() => {
     mock.reset();

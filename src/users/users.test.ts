@@ -5,12 +5,13 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Users', () => {
-  var users: Users = new Users({ account: 'testingAccount' });
-  var readPath: string = `${users.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<User[]> | null;
-  var resultSingle: Promise<User> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<User[]>> | null;
+  const users: Users = new Users({ account: 'testingAccount' });
+  const readPath: string = `${users.getResourcePath()}/read`;
+  const mock = new AxiosMockAdapter(axios);
+
+  let result: Promise<User[]> | null;
+  let resultSingle: Promise<User> | null;
+  let resultRaw: Promise<ApiResponseOnSuccess<User[]>> | null;
 
   afterEach(() => {
     mock.reset();

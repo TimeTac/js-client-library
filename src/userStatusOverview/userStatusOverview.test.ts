@@ -4,11 +4,12 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('UserStatusOverview', () => {
-  var userStatusOverviews: UserStatusOverviews = new UserStatusOverviews({ account: 'testingAccount' });
-  var readPath: string = `${userStatusOverviews.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<UserStatusOverview[]> | null;
-  var resultSingle: Promise<UserStatusOverview> | null;
+  const userStatusOverviews: UserStatusOverviews = new UserStatusOverviews({ account: 'testingAccount' });
+  const readPath: string = `${userStatusOverviews.getResourcePath()}/read`;
+  const mock = new AxiosMockAdapter(axios);
+
+  let result: Promise<UserStatusOverview[]> | null;
+  let resultSingle: Promise<UserStatusOverview> | null;
 
   afterEach(() => {
     mock.reset();
