@@ -6,6 +6,11 @@ export enum AbsenceStatus {
   OpenWaitingForReplacement = 5,
 }
 
+export enum DurationUnit {
+  Days = 'd',
+  Hours = 'hs',
+}
+
 export type Absence = {
   id: number;
   type_id: number;
@@ -43,7 +48,7 @@ export type Absence = {
    * If the request begins with a partial day, the value of the first partial day.
    */
   request_partial_end_duration?: number;
-  duration_unit: 'd' | 'hs';
+  duration_unit: DurationUnit;
   begin?: string;
   substitute_enabled?: boolean;
   /**
