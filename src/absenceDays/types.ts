@@ -1,12 +1,4 @@
-import { AbsenceStatus, DurationUnit } from '../absences/types';
-
-export enum AbsenceDayType {
-  Holiday = 'holiday',
-  OvertimeReduction = 'overtime_reduction',
-  OtherPaidLeave = 'other_paid_leave',
-  SickLeave = 'sick_leave',
-  PublicHoliday = 'public_holiday',
-}
+import { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus } from '../enums';
 
 export type AbsenceDay = {
   id: number;
@@ -16,7 +8,7 @@ export type AbsenceDay = {
   date: string;
   type: AbsenceDayType;
   value: number;
-  value_unit: DurationUnit;
+  value_unit: AbsenceDurationUnit;
   request_id: number;
   status: AbsenceStatus;
   comment: string;

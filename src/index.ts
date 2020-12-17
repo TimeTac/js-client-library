@@ -19,12 +19,11 @@ import TodoTasks from './todoTasks';
 import Users from './users';
 import UserStatusOverviews from './userStatusOverview';
 import GeneralSettings from './generalSettings';
-import axios from 'axios';
 import interceptor from './utils/axiosSetup';
 
-export { AbsenceDay, AbsenceDayType } from './absenceDays/types';
-export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceStatus, AbsenceUpdate, DurationUnit } from './absences/types';
-export { AbsenceType, RequestType } from './absenceTypes/types';
+export { AbsenceDay } from './absenceDays/types';
+export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
+export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { SyncData, SyncResource, SyncResourceField } from './deltaSync/types';
 export { Department } from './departments/types';

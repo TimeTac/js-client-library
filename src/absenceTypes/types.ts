@@ -1,11 +1,4 @@
-import { DurationUnit } from '../absences/types';
-
-export enum RequestType {
-  Workflow = 'WORKFLOW',
-  User = 'USER',
-  HRManager = 'HR_MANAGER',
-  Manager = 'MANAGER',
-}
+import { AbsenceDurationUnit, AbsenceTypeRequestType } from '../enums';
 
 export type AbsenceType = {
   /**
@@ -59,7 +52,7 @@ export type AbsenceType = {
   /**
    * The possible types are WORKFLOW, USER, HR_MANAGER, MANAGER, SYSTEM
    */
-  request_type?: RequestType;
+  request_type?: AbsenceTypeRequestType;
   /**
    * Whether the absence can be entered on a non working day like weekends and public holidays
    */
@@ -83,7 +76,7 @@ export type AbsenceType = {
   /**
    * Duration unit of the absence (hours or days).
    */
-  duration_unit: DurationUnit;
+  duration_unit: AbsenceDurationUnit;
   /**
    * Whether the user limitation config is enabled for this absence.
    */
