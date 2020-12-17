@@ -4,7 +4,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('Teams', () => {
-  const teams: Teams = new Teams({});
+  const teams: Teams = new Teams({ account: 'testingAccount' });
   const readPath: string = `${teams.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

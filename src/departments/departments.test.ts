@@ -2,10 +2,9 @@ import Departments from './index';
 import { Department } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 
 describe('Departments', () => {
-  const departments: Departments = new Departments({});
+  const departments: Departments = new Departments({ account: 'testingAccount' });
   const readPath: string = `${departments.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

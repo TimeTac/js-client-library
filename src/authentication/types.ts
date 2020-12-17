@@ -20,3 +20,8 @@ export type Credentials =
       code_verifier: string;
       redirect_uri: string;
     };
+
+export type TokenResponse = {
+  access_token: string;
+  refresh_token: string;
+};

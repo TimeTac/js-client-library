@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('GeneralSettings', () => {
-  const generalSettings: GeneralSettings = new GeneralSettings({});
+  const generalSettings: GeneralSettings = new GeneralSettings({ account: 'testingAccount' });
   const readPath: string = `${generalSettings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

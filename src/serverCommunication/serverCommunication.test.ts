@@ -4,7 +4,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('ServerCommunication', () => {
-  const serverCommunication: ServerCommunication = new ServerCommunication({});
+  const serverCommunication: ServerCommunication = new ServerCommunication({ account: 'testingAccount' });
   const readPath: string = `${serverCommunication.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
   const account: string = 'placeholder';

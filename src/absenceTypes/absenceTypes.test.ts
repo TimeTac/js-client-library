@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('AbsenceTypes', () => {
-  const absenceTypes: AbsenceTypes = new AbsenceTypes({});
+  const absenceTypes: AbsenceTypes = new AbsenceTypes({ account: 'testingAccount' });
   const readPath: string = `${absenceTypes.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

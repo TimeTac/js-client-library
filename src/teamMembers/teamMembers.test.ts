@@ -2,10 +2,9 @@ import TeamMembers from './index';
 import { TeamMember } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TeamMembers', () => {
-  const teamMembers: TeamMembers = new TeamMembers({});
+  const teamMembers: TeamMembers = new TeamMembers({ account: 'testingAccount' });
   const readPath: string = `${teamMembers.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
