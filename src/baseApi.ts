@@ -1,8 +1,20 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiResponse } from './utils/response/apiResponse';
+import { TokenResponse } from './authentication/types';
 
 const DEFAULT_API_VERSION = 3;
 const DEFAULT_HOST = 'go.timetac.com';
+
+export type Tokens = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+type onTokenRefreshedCallback = (tokens: Tokens) => void;
+
+export type ApiState = {
+  refreshingToken: false | Promise<AxiosResponse<TokenResponse>>;
+};
 
 export type ApiConfig = {
   host?: string;
@@ -10,10 +22,14 @@ export type ApiConfig = {
   account?: string;
   accessToken?: string;
   refreshToken?: string;
+  clientId?: string;
+  clientSecret?: string;
+  onTokenRefreshedCallback?: onTokenRefreshedCallback;
+  autoRefreshToken?: boolean;
 };
 
 export default abstract class BaseApi {
-  public readonly resourceName: String = 'placeholder';
+  public abstract readonly resourceName: String;
 
   constructor(public config: ApiConfig) {}
 
@@ -56,6 +72,9 @@ export default abstract class BaseApi {
   }
 
   protected getAccountUrl(): string {
+    if (!this.config.account) {
+      throw 'Account is not set';
+    }
     return `https://${this.config.host ?? DEFAULT_HOST}/${this.config.account}/`;
   }
 

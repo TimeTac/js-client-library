@@ -2,11 +2,10 @@ import Users from './index';
 import { User } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Users', () => {
-  const users: Users = new Users({});
+  const users: Users = new Users({ account: 'testingAccount' });
   const readPath: string = `${users.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
 

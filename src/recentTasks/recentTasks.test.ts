@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('RecentTasks', () => {
-  const recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint({});
+  const recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint({ account: 'testingAccount' });
   const readPath: string = `${recentTasksEndpoint.getResourcePath()}/read`;
   const createPath: string = `${recentTasksEndpoint.getResourcePath()}/create`;
   const deletePath: string = `${recentTasksEndpoint.getResourcePath()}/delete`;

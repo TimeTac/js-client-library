@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Tasks', () => {
-  const tasks: Tasks = new Tasks({});
+  const tasks: Tasks = new Tasks({ account: 'testingAccount' });
   const readPath: string = `${tasks.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('AbsenceDays', () => {
-  const absenceDays: AbsenceDays = new AbsenceDays({});
+  const absenceDays: AbsenceDays = new AbsenceDays({ account: 'testingAccount' });
   const readPath: string = `${absenceDays.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

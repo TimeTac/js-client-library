@@ -2,10 +2,9 @@ import UserStatusOverviews from './index';
 import { UserStatusOverview } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 
 describe('UserStatusOverview', () => {
-  const userStatusOverviews: UserStatusOverviews = new UserStatusOverviews({});
+  const userStatusOverviews: UserStatusOverviews = new UserStatusOverviews({ account: 'testingAccount' });
   const readPath: string = `${userStatusOverviews.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
 
