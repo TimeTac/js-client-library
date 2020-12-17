@@ -1,13 +1,12 @@
+import { ApiConfig, ApiState } from './baseApi';
+import RequestParams from './utils/requestParams/requestParams';
 import AbsenceDays from './absenceDays';
 import Absences from './absences';
 import AbsenceTypes from './absenceTypes';
 import Authentication from './authentication';
-import { Credentials } from './authentication/types';
-import { ApiConfig } from './baseApi';
 import DeltaSync from './deltaSync';
 import Departments from './departments';
 import FavouriteTasks from './favouriteTasks';
-import GeneralSettings from './generalSettings';
 import Projects from './projects';
 import RecentTasks from './recentTasks';
 import ServerCommunication from './serverCommunication';
@@ -19,10 +18,14 @@ import Timetrackings from './timetrackings';
 import TodoTasks from './todoTasks';
 import Users from './users';
 import UserStatusOverviews from './userStatusOverview';
-import RequestParams from './utils/requestParams/requestParams';
+import GeneralSettings from './generalSettings';
+import interceptor from './utils/axiosSetup';
+
+export * from './enums';
+export { RequestParams };
 
 export { AbsenceDay } from './absenceDays/types';
-export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceStatus, AbsenceUpdate } from './absences/types';
+export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { SyncData, SyncResource, SyncResourceField } from './deltaSync/types';
@@ -39,11 +42,11 @@ export { TimesheetAccounting } from './timesheetAccountings/types';
 export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
-export * from './userStatusOverview/types';
-export { RequestParams };
+export { UserStatusOverview } from './userStatusOverview/types';
 
 export default class Api {
   public config: ApiConfig;
+  public state: ApiState;
 
   public absenceDays: AbsenceDays;
   public absences: Absences;
@@ -67,6 +70,10 @@ export default class Api {
 
   constructor(config: ApiConfig) {
     this.config = config;
+    this.config.autoRefreshToken = config.autoRefreshToken || true;
+    this.state = {
+      refreshingToken: false,
+    };
 
     this.absenceDays = new AbsenceDays(this.config);
     this.absences = new Absences(this.config);
@@ -87,15 +94,11 @@ export default class Api {
     this.todoTasks = new TodoTasks(this.config);
     this.users = new Users(this.config);
     this.userStatusOverviews = new UserStatusOverviews(this.config);
+
+    interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
   public setAccount(account: string) {
     this.config.account = account;
-  }
-
-  static async withCredentials(config: ApiConfig, credentials: Credentials): Promise<Api> {
-    const api = new Api(config);
-    await api.authentication.login(credentials);
-    return api;
   }
 }

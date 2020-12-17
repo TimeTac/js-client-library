@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TodoTasks', () => {
-  const todoTasksEndpoint: TodoTasksEndpoint = new TodoTasksEndpoint({});
+  const todoTasksEndpoint: TodoTasksEndpoint = new TodoTasksEndpoint({ account: 'testingAccount' });
   const readPath: string = `${todoTasksEndpoint.getResourcePath()}/read`;
   const createPath: string = `${todoTasksEndpoint.getResourcePath()}/create`;
   const deletePath: string = `${todoTasksEndpoint.getResourcePath()}/delete`;

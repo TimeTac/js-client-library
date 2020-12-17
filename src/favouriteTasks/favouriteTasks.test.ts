@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('FavouriteTasks', () => {
-  const favouriteTasksEndpoint: FavouriteTasksEndpoint = new FavouriteTasksEndpoint({});
+  const favouriteTasksEndpoint: FavouriteTasksEndpoint = new FavouriteTasksEndpoint({ account: 'testingAccount' });
   const readPath: string = `${favouriteTasksEndpoint.getResourcePath()}/read`;
   const createPath: string = `${favouriteTasksEndpoint.getResourcePath()}/create`;
   const deletePath: string = `${favouriteTasksEndpoint.getResourcePath()}/delete`;

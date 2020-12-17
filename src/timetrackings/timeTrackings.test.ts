@@ -5,7 +5,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TimeTrackings', () => {
-  const timeTrackings: TimeTrackings = new TimeTrackings({});
+  const timeTrackings: TimeTrackings = new TimeTrackings({ account: 'testingAccount' });
   const readPath: string = `${timeTrackings.getResourcePath()}/read`;
   const createPath: string = `${timeTrackings.getResourcePath()}/create`;
   const updatePath: string = `${timeTrackings.getResourcePath()}/update`;
