@@ -21,6 +21,9 @@ import UserStatusOverviews from './userStatusOverview';
 import GeneralSettings from './generalSettings';
 import interceptor from './utils/axiosSetup';
 
+export * from './enums';
+export { RequestParams };
+
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
@@ -39,8 +42,7 @@ export { TimesheetAccounting } from './timesheetAccountings/types';
 export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
-export * from './userStatusOverview/types';
-export { RequestParams };
+export { UserStatusOverview } from './userStatusOverview/types';
 
 export default class Api {
   public config: ApiConfig;
