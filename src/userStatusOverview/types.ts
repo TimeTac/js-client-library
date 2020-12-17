@@ -1,10 +1,4 @@
-export enum UserStatusOverviewStatus {
-  Offline,
-  Working,
-  Break,
-  Leave,
-  CoreTimeViolation = 5,
-}
+import { UserStatusOverviewStatus } from '../enums';
 
 export type UserStatusOverview = {
   user_id: number;

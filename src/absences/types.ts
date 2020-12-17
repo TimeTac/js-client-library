@@ -1,10 +1,4 @@
-export enum AbsenceStatus {
-  Open,
-  Granted,
-  Declined,
-  Cancelled,
-  OpenWaitingForReplacement = 5,
-}
+import { AbsenceDurationUnit, AbsenceStatus } from '../enums';
 
 export type Absence = {
   id: number;
@@ -43,7 +37,7 @@ export type Absence = {
    * If the request begins with a partial day, the value of the first partial day.
    */
   request_partial_end_duration?: number;
-  duration_unit: 'd' | 'hs';
+  duration_unit: AbsenceDurationUnit;
   begin?: string;
   substitute_enabled?: boolean;
   /**
