@@ -3,7 +3,7 @@ import * as responseHandlers from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { TodoTask, TodoTaskCreate } from './types';
 
-export default class TodoTasksEndpoint extends BaseApi {
+export class TodoTasksEndpoint extends BaseApi {
   public readonly resourceName = 'todoTasks';
 
   public read(requestParams?: RequestParams<TodoTask> | Object): Promise<TodoTask[]> {

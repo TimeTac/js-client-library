@@ -4,7 +4,7 @@ import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import { AbsenceType } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 
-export default class AbsenceTypesEndpoint extends BaseApi {
+export class AbsenceTypesEndpoint extends BaseApi {
   public readonly resourceName = 'absenceTypes';
 
   public read(requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType[]> {

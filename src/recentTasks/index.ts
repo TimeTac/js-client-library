@@ -3,7 +3,7 @@ import * as responseHandlers from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { RecentTask, RecentTaskCreate } from './types';
 
-export default class RecentTasksEndpoint extends BaseApi {
+export class RecentTasksEndpoint extends BaseApi {
   public readonly resourceName = 'recentTasks';
 
   public read(requestParams?: RequestParams<RecentTask> | Object): Promise<RecentTask[]> {

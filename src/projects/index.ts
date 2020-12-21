@@ -4,7 +4,7 @@ import { Project } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
-export default class ProjectsEndpoint extends BaseApi {
+export class ProjectsEndpoint extends BaseApi {
   public readonly resourceName = 'projects';
 
   public read(requestParams?: RequestParams<Project> | Object): Promise<Project[]> {

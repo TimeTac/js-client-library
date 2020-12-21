@@ -3,7 +3,7 @@ import RequestParams from '../utils/requestParams/requestParams';
 import { Department } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 
-export default class DepartmentsEndpoint extends BaseApi {
+export class DepartmentsEndpoint extends BaseApi {
   public readonly resourceName = 'departments';
 
   public read(requestParams?: RequestParams<Department> | Object): Promise<Department[]> {

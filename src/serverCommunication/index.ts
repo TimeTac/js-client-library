@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { ServerCommunication } from './types';
 
-export default class ServerCommunicationEndpoint extends BaseApi {
+export class ServerCommunicationEndpoint extends BaseApi {
   public readonly resourceName = 'serverCommunication';
 
   async read(account: string): Promise<ServerCommunication> {

@@ -3,7 +3,7 @@ import * as responseHandlers from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
-export default class AbsencesEndpoint extends BaseApi {
+export class AbsencesEndpoint extends BaseApi {
   public readonly resourceName = 'absences';
 
   public read(requestParams?: RequestParams<Absence> | Object): Promise<Absence[]> {

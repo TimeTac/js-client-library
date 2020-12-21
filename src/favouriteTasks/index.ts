@@ -3,7 +3,7 @@ import * as responseHandlers from '../utils/response/responseHandlers';
 import RequestParams from '../utils/requestParams/requestParams';
 import { FavouriteTask, FavouriteTaskCreate } from './types';
 
-export default class FavouriteTasksEndpoint extends BaseApi {
+export class FavouriteTasksEndpoint extends BaseApi {
   public readonly resourceName = 'favouriteTasks';
 
   public read(requestParams?: RequestParams<FavouriteTask> | Object): Promise<FavouriteTask[]> {

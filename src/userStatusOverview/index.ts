@@ -3,7 +3,7 @@ import RequestParams from '../utils/requestParams/requestParams';
 import { UserStatusOverview } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 
-export default class UserStatusOverviewsEndpoint extends BaseApi {
+export class UserStatusOverviewsEndpoint extends BaseApi {
   public readonly resourceName = 'userStatusOverview';
 
   public read(requestParams?: RequestParams<UserStatusOverview> | Object): Promise<UserStatusOverview[]> {
