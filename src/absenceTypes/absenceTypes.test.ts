@@ -2,16 +2,16 @@ import AbsenceTypes from './index';
 import { AbsenceType } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('AbsenceTypes', () => {
-  var absenceTypes: AbsenceTypes = new AbsenceTypes({});
-  var readPath: string = `${absenceTypes.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<AbsenceType[]> | null;
-  var resultSingle: Promise<AbsenceType> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<AbsenceType[]>> | null;
+  const absenceTypes: AbsenceTypes = new AbsenceTypes({ account: 'testingAccount' });
+  const readPath: string = `${absenceTypes.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<AbsenceType[]> | null;
+  let resultSingle: Promise<AbsenceType> | null;
+  let resultRaw: Promise<ApiResponseOnSuccess<AbsenceType[]>> | null;
 
   afterEach(() => {
     mock.reset();

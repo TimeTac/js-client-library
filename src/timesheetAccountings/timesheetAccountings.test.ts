@@ -2,13 +2,12 @@ import TimesheetAccountings from './index';
 import { TimesheetAccounting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TimesheetAccountings', () => {
-  var timesheetAccountings: TimesheetAccountings = new TimesheetAccountings({});
-  var readPath: string = `${timesheetAccountings.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<TimesheetAccounting[]>;
+  const timesheetAccountings: TimesheetAccountings = new TimesheetAccountings({ account: 'testingAccount' });
+  const readPath: string = `${timesheetAccountings.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
 
   afterEach(() => {
     mock.reset();
@@ -16,13 +15,13 @@ describe('TimesheetAccountings', () => {
 
   test('read', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = timesheetAccountings.read();
+    let result: Promise<TimesheetAccounting[]> = timesheetAccountings.read();
     await result.then((result) => expect(result).toStrictEqual([{}]));
   });
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
-    result = timesheetAccountings.read();
+    let result: Promise<TimesheetAccounting[]> = timesheetAccountings.read();
     await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
   });
 

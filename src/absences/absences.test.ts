@@ -4,7 +4,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('Absences', () => {
-  const absences = new Absences({});
+  const absences = new Absences({ account: 'testingAccount' });
 
   const readPath = `${absences.getResourcePath()}/read`;
   const createPath = `${absences.getResourcePath()}/create`;

@@ -2,16 +2,16 @@ import Tasks from './index';
 import { Task } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Tasks', () => {
-  var tasks: Tasks = new Tasks({});
-  var readPath: string = `${tasks.getResourcePath()}/read`;
-  var mock = new AxiosMockAdapter(axios);
-  var result: Promise<Task[]> | null;
-  var resultSingle: Promise<Task> | null;
-  var resultRaw: Promise<ApiResponseOnSuccess<Task[]>> | null;
+  const tasks: Tasks = new Tasks({ account: 'testingAccount' });
+  const readPath: string = `${tasks.getResourcePath()}/read`;
+
+  const mock = new AxiosMockAdapter(axios);
+  let result: Promise<Task[]> | null;
+  let resultSingle: Promise<Task> | null;
+  let resultRaw: Promise<ApiResponseOnSuccess<Task[]>> | null;
 
   afterEach(() => {
     mock.reset();
