@@ -22,9 +22,7 @@ import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { GeneralSettingsEndpoint } from './generalSettings';
 import interceptor from './utils/axiosSetup';
 
-export * from './enums';
-export { RequestParams };
-
+export { Tokens } from './baseApi';
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';

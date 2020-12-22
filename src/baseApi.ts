@@ -26,6 +26,7 @@ export type ApiConfig = {
   clientId?: string;
   clientSecret?: string;
   onTokenRefreshedCallback?: onTokenRefreshedCallback;
+  onTokenRefreshedFailed?: () => void;
   autoRefreshToken?: boolean;
 };
 
