@@ -41,6 +41,7 @@ export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTracki
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
+export { RequestParams };
 
 export default class Api {
   public config: ApiConfig;
