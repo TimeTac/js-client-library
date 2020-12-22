@@ -1,10 +1,10 @@
-import TimesheetAccountings from './index';
+import { TimesheetAccountingsEndpoint } from './index';
 import { TimesheetAccounting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('TimesheetAccountings', () => {
-  const timesheetAccountings: TimesheetAccountings = new TimesheetAccountings({ account: 'testingAccount' });
+  const timesheetAccountings: TimesheetAccountingsEndpoint = new TimesheetAccountingsEndpoint({ account: 'testingAccount' });
   const readPath: string = `${timesheetAccountings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

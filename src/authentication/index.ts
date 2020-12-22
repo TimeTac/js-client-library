@@ -4,7 +4,7 @@ import BaseApi from '../baseApi';
 import { Credentials, TokenResponse } from './types';
 import { objectCheck } from '../utils';
 
-export default class Authentication extends BaseApi {
+export class AuthenticationEndpoint extends BaseApi {
   public readonly resourceName = '';
 
   setClientId(clientId: string): void {

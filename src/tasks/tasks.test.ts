@@ -1,11 +1,11 @@
-import Tasks from './index';
+import { TasksEndpoint } from './index';
 import { Task } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Tasks', () => {
-  const tasks: Tasks = new Tasks({ account: 'testingAccount' });
+  const tasks: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });
   const readPath: string = `${tasks.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
