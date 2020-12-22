@@ -4,6 +4,7 @@ import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
 class ResponseHandler {
   async toApiResponse<T>(promise: Promise<AxiosResponse>): Promise<ApiResponseOnSuccess<T>> {
     const dataPromise = await promise;
+
     const apiResponse = (dataPromise.data as unknown) as ApiResponse<T>;
 
     if (apiResponse.Success) {
