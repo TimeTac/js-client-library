@@ -1,14 +1,16 @@
-import axios from 'axios';
-import Base from '../baseApi';
-import responseHandlers from '../utils/response/responseHandlers';
-import { ServerCommunication as Model } from './types';
+import BaseApi from '../baseApi';
+import { ServerCommunication } from './types';
 
-export default class ServerCommunication extends Base {
+export class ServerCommunicationEndpoint extends BaseApi {
   public readonly resourceName = 'serverCommunication';
 
-  public read(account: string): Promise<Model> {
+  async read(account: string): Promise<ServerCommunication> {
     this.setAccount(account);
-    const response = axios.get<Model>(`${this.getApiPath()}${this.resourceName}/read`, { withCredentials: false });
-    return responseHandlers.requiredObject<Model>(response);
+    const response = await this._get<ServerCommunication>(`${this.resourceName}/read`, { withCredentials: false });
+    if (response.data.Success) {
+      return response.data.Results;
+    } else {
+      throw response.data ?? response;
+    }
   }
 }

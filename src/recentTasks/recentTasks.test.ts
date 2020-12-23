@@ -1,4 +1,4 @@
-import RecentTasksEndpoint from './index';
+import { RecentTasksEndpoint } from './index';
 import { RecentTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';

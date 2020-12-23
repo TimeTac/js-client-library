@@ -1,10 +1,10 @@
-import Absences from './index';
+import { AbsencesEndpoint } from './index';
 import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 describe('Absences', () => {
-  const absences = new Absences({ account: 'testingAccount' });
+  const absences = new AbsencesEndpoint({ account: 'testingAccount' });
 
   const readPath = `${absences.getResourcePath()}/read`;
   const createPath = `${absences.getResourcePath()}/create`;

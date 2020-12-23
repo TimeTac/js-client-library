@@ -1,11 +1,11 @@
-import Projects from './index';
+import { ProjectsEndpoint } from './index';
 import { Project } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('Projects', () => {
-  const projects: Projects = new Projects({ account: 'testingAccount' });
+  const projects: ProjectsEndpoint = new ProjectsEndpoint({ account: 'testingAccount' });
   const readPath: string = `${projects.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

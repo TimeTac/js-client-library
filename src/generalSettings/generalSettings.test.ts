@@ -1,11 +1,11 @@
-import GeneralSettings from './index';
+import { GeneralSettingsEndpoint } from './index';
 import { GeneralSetting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('GeneralSettings', () => {
-  const generalSettings: GeneralSettings = new GeneralSettings({ account: 'testingAccount' });
+  const generalSettings: GeneralSettingsEndpoint = new GeneralSettingsEndpoint({ account: 'testingAccount' });
   const readPath: string = `${generalSettings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

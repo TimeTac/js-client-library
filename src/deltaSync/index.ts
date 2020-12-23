@@ -1,9 +1,9 @@
 import BaseApi from '../baseApi';
-import responseHandler from '../utils/response/responseHandlers';
 import { SyncResource } from './types';
 import { ApiResponse } from '../utils/response/apiResponse';
+import { toApiResponse } from '../utils/response/responseHandlers';
 
-export default class DeltaSync extends BaseApi {
+export class DeltaSyncEndpoint extends BaseApi {
   public readonly resourceName = 'deltaSync';
 
   async read(
@@ -22,6 +22,6 @@ export default class DeltaSync extends BaseApi {
         _include: resources.join(','),
       },
     });
-    return responseHandler.toApiResponse(response);
+    return toApiResponse(response);
   }
 }

@@ -1,4 +1,4 @@
-import TodoTasksEndpoint from './index';
+import { TodoTasksEndpoint } from './index';
 import { TodoTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
