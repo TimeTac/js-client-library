@@ -1,11 +1,11 @@
-import AbsenceTypes from './index';
+import { AbsenceTypesEndpoint } from './index';
 import { AbsenceType } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 
 describe('AbsenceTypes', () => {
-  const absenceTypes: AbsenceTypes = new AbsenceTypes({ account: 'testingAccount' });
+  const absenceTypes: AbsenceTypesEndpoint = new AbsenceTypesEndpoint({ account: 'testingAccount' });
   const readPath: string = `${absenceTypes.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

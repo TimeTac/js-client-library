@@ -1,4 +1,4 @@
-import FavouriteTasksEndpoint from './index';
+import { FavouriteTasksEndpoint } from './index';
 import { FavouriteTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';

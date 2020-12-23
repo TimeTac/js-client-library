@@ -1,11 +1,11 @@
-import TimeTrackings from './index';
+import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import RequestParams from '../utils/requestParams/requestParams';
 
 describe('TimeTrackings', () => {
-  const timeTrackings: TimeTrackings = new TimeTrackings({ account: 'testingAccount' });
+  const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint({ account: 'testingAccount' });
   const readPath: string = `${timeTrackings.getResourcePath()}/read`;
   const createPath: string = `${timeTrackings.getResourcePath()}/create`;
   const updatePath: string = `${timeTrackings.getResourcePath()}/update`;

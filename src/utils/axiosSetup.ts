@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { ApiConfig, ApiState } from '../baseApi';
-import Authentication from '../authentication';
+import { AuthenticationEndpoint } from '../authentication';
 
 type interceptorParams = {
   state: ApiState;
   config: ApiConfig;
-  authentication: Authentication;
+  authentication: AuthenticationEndpoint;
 };
 
 const interceptor = (apiInstanceData: interceptorParams) => {
