@@ -77,7 +77,7 @@ export default abstract class BaseApi {
     if (!this.config.account) {
       throw 'Account is not set';
     }
-    return `https://${this.config.host ?? DEFAULT_HOST}/${this.config.account}/`;
+    return `${this.config.account}/`;
   }
 
   public setAccount(account: string): void {

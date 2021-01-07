@@ -20,7 +20,7 @@ import { TodoTasksEndpoint } from './todoTasks';
 import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { GeneralSettingsEndpoint } from './generalSettings';
-import interceptor from './utils/axiosSetup';
+import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
 
 export { Tokens } from './baseApi';
 export { AbsenceDay } from './absenceDays/types';
@@ -43,6 +43,9 @@ export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export { RequestParams };
+export { AbsenceDayType, AbsenceStatus, AbsenceDurationUnit, UserStatusOverviewStatus } from './enums';
+
+const DEFAULT_HOST = 'go.timetac.com';
 
 export default class Api {
   public config: ApiConfig;
@@ -96,6 +99,7 @@ export default class Api {
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
+    setAxiosDefaults({ baseURL: `https://${this.config.host ?? DEFAULT_HOST}/` });
   }
 
   public setAccount(account: string) {

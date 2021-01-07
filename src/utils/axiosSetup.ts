@@ -8,7 +8,7 @@ type interceptorParams = {
   authentication: AuthenticationEndpoint;
 };
 
-const interceptor = (apiInstanceData: interceptorParams) => {
+export const interceptor = (apiInstanceData: interceptorParams) => {
   axios.interceptors.response.use(
     (res) => {
       return res;
@@ -16,7 +16,6 @@ const interceptor = (apiInstanceData: interceptorParams) => {
     async (error) => {
       if (apiInstanceData.config.autoRefreshToken && error.response) {
         const untouchedRequest = error.config;
-
         if (error.response.status === 497 && untouchedRequest.url.includes('auth/oauth2/token')) {
           if (apiInstanceData.config.onTokenRefreshedFailed) {
             apiInstanceData.config.onTokenRefreshedFailed();
@@ -30,7 +29,9 @@ const interceptor = (apiInstanceData: interceptorParams) => {
           if (!apiInstanceData.state.refreshingToken) {
             apiInstanceData.state.refreshingToken = apiInstanceData.authentication.refreshToken();
           }
+
           const res = await apiInstanceData.state.refreshingToken;
+          apiInstanceData.state.refreshingToken = false;
 
           if (res.status === 200 && res.data.access_token) {
             const { access_token: accessToken, refresh_token: refreshToken } = res.data;
@@ -40,6 +41,11 @@ const interceptor = (apiInstanceData: interceptorParams) => {
               apiInstanceData.config.onTokenRefreshedCallback({ accessToken, refreshToken });
             }
             return axios(untouchedRequest);
+          } else {
+            if (apiInstanceData.config.onTokenRefreshedFailed) {
+              console.log('log out triggered');
+              apiInstanceData.config.onTokenRefreshedFailed();
+            }
           }
         }
         return Promise.reject(error.response);
@@ -49,4 +55,9 @@ const interceptor = (apiInstanceData: interceptorParams) => {
   );
 };
 
-export default interceptor;
+export const setAxiosDefaults = (defaults: object) => {
+  axios.defaults = {
+    ...axios.defaults,
+    ...defaults,
+  };
+};
