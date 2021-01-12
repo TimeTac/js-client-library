@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import RequestParams from '../utils/requestParams/requestParams';
+import RequestParams from '../utils/params/requestParams';
 import { TeamMember } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
 

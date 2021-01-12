@@ -1,5 +1,7 @@
+const DEFAULT_PAGE_SIZE = 100;
+
 export default class RequestParams<R extends Object> {
-  private criteria: { [index: string]: string } = {};
+  protected criteria: { [index: string]: string } = {};
 
   limit(limit: number): RequestParams<R> {
     this.criteria['_limit'] = String(limit);
@@ -81,6 +83,18 @@ export default class RequestParams<R extends Object> {
   }
 
   getParams() {
+    return this.criteria;
+  }
+
+  getLimit(): number {
+    return this.criteria['_limit'] ? Number(this.criteria['_limit']) : DEFAULT_PAGE_SIZE;
+  }
+
+  getOffset(): number {
+    return this.criteria['_offset'] ? Number(this.criteria['_offset']) : 0;
+  }
+
+  getCriteria(): { [index: string]: string } {
     return this.criteria;
   }
 }
