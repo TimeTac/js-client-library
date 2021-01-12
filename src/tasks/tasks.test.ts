@@ -2,7 +2,7 @@ import { TasksEndpoint } from './index';
 import { Task } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParams';
 import { Response } from '../utils/response/response';
 
 describe('Tasks', () => {

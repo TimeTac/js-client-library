@@ -1,5 +1,5 @@
-import PagingParams from '../params/pagingParams';
-import RequestParams from '../params/requestParams';
+import { PagingParams } from '../params/pagingParams';
+import { RequestParams } from '../params/requestParams';
 import { RequestPromise, toApiResponse } from './responseHandlers';
 
 export type Response<T> = {

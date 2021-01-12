@@ -1,4 +1,4 @@
-import RequestParams from './requestParams';
+import { RequestParams } from './requestParams';
 
 describe('RequestParams', () => {
   type Resource = {

@@ -2,7 +2,7 @@ import { TodoTasksEndpoint } from './index';
 import { TodoTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParams';
 
 describe('TodoTasks', () => {
   const todoTasksEndpoint: TodoTasksEndpoint = new TodoTasksEndpoint({ account: 'testingAccount' });

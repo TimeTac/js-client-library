@@ -1,6 +1,6 @@
 const DEFAULT_PAGE_SIZE = 100;
 
-export default class RequestParams<R extends Object> {
+export class RequestParams<R extends Object> {
   protected criteria: { [index: string]: string } = {};
 
   limit(limit: number): RequestParams<R> {

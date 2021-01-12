@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
-import RequestParams from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParams';
 import { Task } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import PagingParams from '../utils/params/pagingParams';
+import { PagingParams } from '../utils/params/pagingParams';
 import { createResponse, Response } from '../utils/response/response';
 
 export class TasksEndpoint extends BaseApi {

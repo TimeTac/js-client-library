@@ -1,7 +1,7 @@
-import RequestParams from './requestParams';
+import { RequestParams } from './requestParams';
 import { Response } from '../response/response';
 
-export default class PagingParams<T extends Object> extends RequestParams<T> {
+export class PagingParams<T extends Object> extends RequestParams<T> {
   private readonly valid: boolean;
   private readonly startTime?: string;
 

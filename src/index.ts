@@ -1,7 +1,4 @@
 import { ApiConfig, ApiState } from './baseApi';
-import RequestParams from './utils/params/requestParams';
-import PagingParams from './utils/params/pagingParams';
-import { Response } from './utils/response/response';
 
 import { AbsenceDaysEndpoint } from './absenceDays';
 import { AbsencesEndpoint } from './absences';
@@ -45,8 +42,8 @@ export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export * from './enums';
-export { RequestParams };
-export { PagingParams };
+export { RequestParams } from './utils/params/requestParams';
+export { PagingParams } from './utils/params/pagingParams';
 export { Response } from './utils/response/response';
 
 export default class Api {

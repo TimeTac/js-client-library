@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import RequestParams from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParams';
 import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
 export class AbsencesEndpoint extends BaseApi {

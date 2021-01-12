@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import RequestParams from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import { AbsenceType } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
