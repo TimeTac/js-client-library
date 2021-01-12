@@ -24,6 +24,17 @@ export default class PagingParams<T extends Object> extends RequestParams<T> {
     }
   }
 
+  getCriteria(): { [index: string]: string } {
+    return this.criteria;
+  }
+
+  getParams() {
+    if (!this.isValid()) {
+      throw new Error('Call with invalid params');
+    }
+    return super.getParams();
+  }
+
   isValid(): boolean {
     return this.valid;
   }

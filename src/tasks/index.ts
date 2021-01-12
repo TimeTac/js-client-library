@@ -14,9 +14,6 @@ export class TasksEndpoint extends BaseApi {
     return responseHandlers.list(response);
   }
   public readRaw(requestParams: RequestParams<Task> | PagingParams<Task>): Promise<Response<Task>> {
-    if (requestParams instanceof PagingParams && !requestParams.isValid()) {
-      throw new Error('Call with invalid params');
-    }
     const params = requestParams.getParams();
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return createResponse(response, requestParams);
