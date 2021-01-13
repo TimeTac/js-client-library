@@ -1,3 +1,4 @@
+import { expect, test, describe } from '@jest/globals';
 import { RequestParams } from './requestParams';
 
 describe('RequestParams', () => {
@@ -93,5 +94,25 @@ describe('RequestParams', () => {
   test('aggregate', () => {
     const requestParams = new RequestParams<Resource>().aggregate('status', 'sum');
     expect(requestParams.getParams()).toStrictEqual({ _aggregate__status: 'sum' });
+  });
+
+  test('getLimit default', () => {
+    const requestParams = new RequestParams<Resource>();
+    expect(requestParams.getLimit()).toBe(100);
+  });
+
+  test('getLimit', () => {
+    const requestParams = new RequestParams<Resource>().limit(55);
+    expect(requestParams.getLimit()).toBe(55);
+  });
+
+  test('getOffset default', () => {
+    const requestParams = new RequestParams<Resource>();
+    expect(requestParams.getOffset()).toBe(0);
+  });
+
+  test('getOffset', () => {
+    const requestParams = new RequestParams<Resource>().offset(66);
+    expect(requestParams.getOffset()).toBe(66);
   });
 });
