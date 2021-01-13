@@ -41,11 +41,8 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
               apiInstanceData.config.onTokenRefreshedCallback({ accessToken, refreshToken });
             }
             return axios(untouchedRequest);
-          } else {
-            if (apiInstanceData.config.onTokenRefreshedFailed) {
-              console.log('log out triggered');
-              apiInstanceData.config.onTokenRefreshedFailed();
-            }
+          } else if (apiInstanceData.config.onTokenRefreshedFailed) {
+            apiInstanceData.config.onTokenRefreshedFailed();
           }
         }
         return Promise.reject(error.response);
