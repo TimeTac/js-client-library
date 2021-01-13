@@ -20,7 +20,7 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
           if (apiInstanceData.config.onTokenRefreshedFailed) {
             apiInstanceData.config.onTokenRefreshedFailed();
           }
-          return error;
+          throw error;
         }
 
         if (error.response.status === 401 && !untouchedRequest._retry) {
