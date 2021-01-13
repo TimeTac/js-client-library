@@ -16,14 +16,13 @@ export type Response<T> = {
 export async function createResponse<T>(promise: RequestPromise<T[]>, params: RequestParams<T>): Promise<Response<T>> {
   const apiResponse = await toApiResponse<T[]>(promise);
 
-  let response: Response<T> = {
+  const response: Response<T> = {
     success: true,
     results: apiResponse.Results,
     startTime: apiResponse.RequestStartTime,
     requestParams: params,
+    nextPage: new PagingParams<T>(params, apiResponse),
   };
-
-  response.nextPage = new PagingParams(params, response);
 
   return response;
 }

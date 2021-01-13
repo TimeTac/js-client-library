@@ -1,22 +1,24 @@
 import { RequestParams } from './requestParams';
-import { Response } from '../response/response';
+import { ApiResponseOnSuccess } from '../response/apiResponse';
 
 export class PagingParams<T extends Object> extends RequestParams<T> {
   private readonly valid: boolean;
   private readonly startTime?: string;
 
-  constructor(params: RequestParams<T> | PagingParams<T>, result: Response<T>) {
+  constructor(params: RequestParams<T> | PagingParams<T>, apiResponse: ApiResponseOnSuccess<T[]>) {
     super();
     this.criteria = params.getCriteria();
 
     if (params instanceof RequestParams) {
-      this.startTime = result.startTime;
+      this.startTime = apiResponse.RequestStartTime;
     }
     if (params instanceof PagingParams) {
       this.startTime = params.startTime;
     }
 
-    if (result.results.length < this.getLimit()) {
+    // If there this was the last page, the nextPageParams object is not valid and can not be used to make a request.
+    // This logic can be improved if we create PagingParams via a factory.
+    if (apiResponse.NumResults < this.getLimit()) {
       this.valid = false;
     } else {
       this.valid = true;
