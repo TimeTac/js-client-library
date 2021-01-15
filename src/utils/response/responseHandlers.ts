@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+
 import { ApiResponse } from './apiResponse';
 
 export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;

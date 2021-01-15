@@ -1,4 +1,5 @@
-import { expect, test, describe } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
+
 import { RequestParams } from './requestParams';
 
 describe('RequestParams', () => {

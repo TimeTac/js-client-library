@@ -1,7 +1,8 @@
-import { TeamMembersEndpoint } from './index';
-import { TeamMember } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
+import { TeamMembersEndpoint } from './index';
+import { TeamMember } from './types';
 
 describe('TeamMembers', () => {
   const teamMembers: TeamMembersEndpoint = new TeamMembersEndpoint({ account: 'testingAccount' });

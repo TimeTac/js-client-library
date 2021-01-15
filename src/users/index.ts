@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { User } from './types';
-import * as responseHandlers from '../utils/response/responseHandlers';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import * as responseHandlers from '../utils/response/responseHandlers';
+import { User } from './types';
 
 export class UsersEndpoint extends BaseApi {
   public readonly resourceName = 'users';

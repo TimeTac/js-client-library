@@ -1,8 +1,9 @@
-import { UsersEndpoint } from './index';
-import { User } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { UsersEndpoint } from './index';
+import { User } from './types';
 
 describe('Users', () => {
   const users: UsersEndpoint = new UsersEndpoint({ account: 'testingAccount' });

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { ApiConfig, ApiState } from '../baseApi';
+
 import { AuthenticationEndpoint } from '../authentication';
+import { ApiConfig, ApiState } from '../baseApi';
 
 type interceptorParams = {
   state: ApiState;

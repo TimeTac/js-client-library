@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
-import * as responseHandlers from '../utils/response/responseHandlers';
 import { RequestParams } from '../utils/params/requestParams';
+import * as responseHandlers from '../utils/response/responseHandlers';
 import { TodoTask, TodoTaskCreate } from './types';
 
 export class TodoTasksEndpoint extends BaseApi {

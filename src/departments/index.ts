@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { Department } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
+import { Department } from './types';
 
 export class DepartmentsEndpoint extends BaseApi {
   public readonly resourceName = 'departments';

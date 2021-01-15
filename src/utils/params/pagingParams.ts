@@ -1,5 +1,5 @@
-import { RequestParams } from './requestParams';
 import { ApiResponseOnSuccess } from '../response/apiResponse';
+import { RequestParams } from './requestParams';
 
 export class PagingParams<T extends Object> extends RequestParams<T> {
   private readonly valid: boolean;

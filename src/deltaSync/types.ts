@@ -1,10 +1,10 @@
-import { User } from '../users/types';
-import { Task } from '../tasks/types';
-import { Project } from '../projects/types';
-import { TimeTracking } from '../timetrackings/types';
 import { AbsenceType } from '..';
 import { GeneralSetting } from '../generalSettings/types';
+import { Project } from '../projects/types';
+import { Task } from '../tasks/types';
 import { TimesheetAccounting } from '../timesheetAccountings/types';
+import { TimeTracking } from '../timetrackings/types';
+import { User } from '../users/types';
 
 export type SyncData = {
   users: User[];

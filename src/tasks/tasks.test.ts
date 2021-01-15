@@ -1,9 +1,10 @@
-import { TasksEndpoint } from './index';
-import { Task } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
 import { RequestParams } from '../utils/params/requestParams';
 import { Response } from '../utils/response/response';
+import { TasksEndpoint } from './index';
+import { Task } from './types';
 
 describe('Tasks', () => {
   const tasks: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });

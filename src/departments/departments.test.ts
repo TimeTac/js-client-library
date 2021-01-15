@@ -1,7 +1,8 @@
-import { DepartmentsEndpoint } from './index';
-import { Department } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
+import { DepartmentsEndpoint } from './index';
+import { Department } from './types';
 
 describe('Departments', () => {
   const departments: DepartmentsEndpoint = new DepartmentsEndpoint({ account: 'testingAccount' });
