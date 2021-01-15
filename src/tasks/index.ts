@@ -1,8 +1,9 @@
 import BaseApi from '../baseApi';
-import RequestParams from '../utils/requestParams/requestParams';
+import { RequestParams } from '../utils/params/requestParams';
 import { Task } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { PagingParams } from '../utils/params/pagingParams';
+import { createResponse, Response } from '../utils/response/response';
 
 export class TasksEndpoint extends BaseApi {
   public readonly resourceName = 'tasks';
@@ -12,10 +13,10 @@ export class TasksEndpoint extends BaseApi {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
-  public readRaw(requestParams?: RequestParams<Task> | Object): Promise<ApiResponseOnSuccess<Task[]>> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readRaw(requestParams: RequestParams<Task> | PagingParams<Task>): Promise<Response<Task>> {
+    const params = requestParams.getParams();
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.toApiResponse(response);
+    return createResponse(response, requestParams);
   }
   public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
