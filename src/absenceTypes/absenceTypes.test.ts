@@ -1,8 +1,9 @@
-import { AbsenceTypesEndpoint } from './index';
-import { AbsenceType } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { AbsenceTypesEndpoint } from './index';
+import { AbsenceType } from './types';
 
 describe('AbsenceTypes', () => {
   const absenceTypes: AbsenceTypesEndpoint = new AbsenceTypesEndpoint({ account: 'testingAccount' });

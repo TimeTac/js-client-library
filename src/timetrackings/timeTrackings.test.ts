@@ -1,8 +1,9 @@
-import { TimeTrackingsEndpoint } from './index';
-import { TimeTracking } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
 import { RequestParams } from '../utils/params/requestParams';
+import { TimeTrackingsEndpoint } from './index';
+import { TimeTracking } from './types';
 
 describe('TimeTrackings', () => {
   const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint({ account: 'testingAccount' });

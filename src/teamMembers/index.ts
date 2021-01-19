@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { TeamMember } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
+import { TeamMember } from './types';
 
 export class TeamMembersEndpoint extends BaseApi {
   public readonly resourceName = 'teamMembers';

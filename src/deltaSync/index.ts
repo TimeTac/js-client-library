@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
-import { SyncResource } from './types';
 import { ApiResponse } from '../utils/response/apiResponse';
 import { toApiResponse } from '../utils/response/responseHandlers';
+import { SyncResource } from './types';
 
 export class DeltaSyncEndpoint extends BaseApi {
   public readonly resourceName = 'deltaSync';

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { ApiConfig, ApiState } from '../baseApi';
+
 import { AuthenticationEndpoint } from '../authentication';
+import { ApiConfig, ApiState } from '../baseApi';
 
 type interceptorParams = {
   state: ApiState;
@@ -8,7 +9,7 @@ type interceptorParams = {
   authentication: AuthenticationEndpoint;
 };
 
-const interceptor = (apiInstanceData: interceptorParams) => {
+export const interceptor = (apiInstanceData: interceptorParams) => {
   axios.interceptors.response.use(
     (res) => {
       return res;
@@ -48,5 +49,3 @@ const interceptor = (apiInstanceData: interceptorParams) => {
     }
   );
 };
-
-export default interceptor;

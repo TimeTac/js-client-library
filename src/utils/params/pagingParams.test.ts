@@ -1,7 +1,8 @@
-import { expect, test, describe } from '@jest/globals';
-import { RequestParams } from './requestParams';
-import { PagingParams } from './pagingParams';
+import { describe, expect, test } from '@jest/globals';
+
 import { ApiResponseOnSuccess } from '../response/apiResponse';
+import { PagingParams } from './pagingParams';
+import { RequestParams } from './requestParams';
 
 describe('PagingParams', () => {
   type Resource = {};

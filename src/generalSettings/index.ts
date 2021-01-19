@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { GeneralSetting } from './types';
-import * as responseHandlers from '../utils/response/responseHandlers';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import * as responseHandlers from '../utils/response/responseHandlers';
+import { GeneralSetting } from './types';
 
 export class GeneralSettingsEndpoint extends BaseApi {
   public readonly resourceName = 'generalSettings';

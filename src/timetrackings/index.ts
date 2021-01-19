@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
+import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './types';
 
 export class TimeTrackingsEndpoint extends BaseApi {
   public readonly resourceName = 'timeTrackings';

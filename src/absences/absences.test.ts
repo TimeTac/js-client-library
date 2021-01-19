@@ -1,7 +1,8 @@
-import { AbsencesEndpoint } from './index';
-import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
+import { AbsencesEndpoint } from './index';
+import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
 describe('Absences', () => {
   const absences = new AbsencesEndpoint({ account: 'testingAccount' });

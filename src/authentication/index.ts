@@ -1,8 +1,9 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { stringify } from 'qs';
+
 import BaseApi from '../baseApi';
-import { Credentials, TokenResponse } from './types';
 import { objectCheck } from '../utils';
+import { Credentials, TokenResponse } from './types';
 
 export class AuthenticationEndpoint extends BaseApi {
   public readonly resourceName = '';

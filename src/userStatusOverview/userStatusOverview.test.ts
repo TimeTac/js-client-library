@@ -1,7 +1,8 @@
-import { UserStatusOverviewsEndpoint } from './index';
-import { UserStatusOverview } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
+import { UserStatusOverviewsEndpoint } from './index';
+import { UserStatusOverview } from './types';
 
 describe('UserStatusOverview', () => {
   const userStatusOverviews: UserStatusOverviewsEndpoint = new UserStatusOverviewsEndpoint({ account: 'testingAccount' });
