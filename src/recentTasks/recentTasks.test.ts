@@ -1,8 +1,9 @@
-import { RecentTasksEndpoint } from './index';
-import { RecentTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
+
+import { RequestParams } from '../utils/params/requestParams';
+import { RecentTasksEndpoint } from './index';
+import { RecentTask } from './types';
 
 describe('RecentTasks', () => {
   const recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint({ account: 'testingAccount' });

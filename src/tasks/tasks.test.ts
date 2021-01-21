@@ -1,8 +1,10 @@
-import { TasksEndpoint } from './index';
-import { Task } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+
+import { RequestParams } from '../utils/params/requestParams';
+import { Response } from '../utils/response/response';
+import { TasksEndpoint } from './index';
+import { Task } from './types';
 
 describe('Tasks', () => {
   const tasks: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });
@@ -11,7 +13,7 @@ describe('Tasks', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Task[]> | null;
   let resultSingle: Promise<Task> | null;
-  let resultRaw: Promise<ApiResponseOnSuccess<Task[]>> | null;
+  let resultRaw: Promise<Response<Task>> | null;
 
   afterEach(() => {
     mock.reset();
@@ -40,8 +42,10 @@ describe('Tasks', () => {
 
   test('readRaw', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultRaw = tasks.readRaw();
-    await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
+    resultRaw = tasks.readRaw(new RequestParams<Task>());
+    await resultRaw.then((result) =>
+      expect(result).toMatchObject({ success: true, results: [{}], requestParams: new RequestParams<Task>() })
+    );
   });
 
   test('readById', async () => {

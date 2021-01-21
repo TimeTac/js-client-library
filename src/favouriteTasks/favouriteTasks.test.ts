@@ -1,8 +1,9 @@
-import { FavouriteTasksEndpoint } from './index';
-import { FavouriteTask } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
-import RequestParams from '../utils/requestParams/requestParams';
+
+import { RequestParams } from '../utils/params/requestParams';
+import { FavouriteTasksEndpoint } from './index';
+import { FavouriteTask } from './types';
 
 describe('FavouriteTasks', () => {
   const favouriteTasksEndpoint: FavouriteTasksEndpoint = new FavouriteTasksEndpoint({ account: 'testingAccount' });

@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
-import RequestParams from '../utils/requestParams/requestParams';
+import { RequestParams } from '../utils/params/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
-import { AbsenceType } from './types';
 import * as responseHandlers from '../utils/response/responseHandlers';
+import { AbsenceType } from './types';
 
 export class AbsenceTypesEndpoint extends BaseApi {
   public readonly resourceName = 'absenceTypes';

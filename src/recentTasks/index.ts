@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
+import { RequestParams } from '../utils/params/requestParams';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import RequestParams from '../utils/requestParams/requestParams';
 import { RecentTask, RecentTaskCreate } from './types';
 
 export class RecentTasksEndpoint extends BaseApi {

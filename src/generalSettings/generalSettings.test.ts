@@ -1,8 +1,9 @@
-import { GeneralSettingsEndpoint } from './index';
-import { GeneralSetting } from './types';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { GeneralSettingsEndpoint } from './index';
+import { GeneralSetting } from './types';
 
 describe('GeneralSettings', () => {
   const generalSettings: GeneralSettingsEndpoint = new GeneralSettingsEndpoint({ account: 'testingAccount' });

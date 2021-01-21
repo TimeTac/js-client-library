@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
-import RequestParams from '../utils/requestParams/requestParams';
-import { Team } from './types';
+import { RequestParams } from '../utils/params/requestParams';
 import * as responseHandlers from '../utils/response/responseHandlers';
+import { Team } from './types';
 
 export class TeamsEndpoint extends BaseApi {
   public readonly resourceName = 'teams';

@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+
+import { TokenResponse } from './authentication/types';
 import { ApiResponse } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
-import { TokenResponse } from './authentication/types';
 
 const DEFAULT_API_VERSION = 3;
 const DEFAULT_HOST = 'go.timetac.com';

@@ -1,13 +1,12 @@
-import { ApiConfig, ApiState } from './baseApi';
-import RequestParams from './utils/requestParams/requestParams';
-
 import { AbsenceDaysEndpoint } from './absenceDays';
 import { AbsencesEndpoint } from './absences';
 import { AbsenceTypesEndpoint } from './absenceTypes';
 import { AuthenticationEndpoint } from './authentication';
+import { ApiConfig, ApiState } from './baseApi';
 import { DeltaSyncEndpoint } from './deltaSync';
 import { DepartmentsEndpoint } from './departments';
 import { FavouriteTasksEndpoint } from './favouriteTasks';
+import { GeneralSettingsEndpoint } from './generalSettings';
 import { ProjectsEndpoint } from './projects';
 import { RecentTasksEndpoint } from './recentTasks';
 import { ServerCommunicationEndpoint } from './serverCommunication';
@@ -19,16 +18,17 @@ import { TimeTrackingsEndpoint } from './timetrackings';
 import { TodoTasksEndpoint } from './todoTasks';
 import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
-import { GeneralSettingsEndpoint } from './generalSettings';
 import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
 
-export { Tokens } from './baseApi';
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
+export { Tokens } from './baseApi';
 export { SyncData, SyncResource, SyncResourceField } from './deltaSync/types';
 export { Department } from './departments/types';
+export * from './enums';
+export { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus, UserStatusOverviewStatus } from './enums';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
@@ -38,14 +38,15 @@ export { Task } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
-export { TimeTracking, TimeTrackingCreate, StartTimeTrackingData, StopTimeTrackingData } from './timetrackings/types';
+export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './timetrackings/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
-export { RequestParams };
-export { AbsenceDayType, AbsenceStatus, AbsenceDurationUnit, UserStatusOverviewStatus } from './enums';
 
 const DEFAULT_HOST = 'go.timetac.com';
+export { PagingParams } from './utils/params/pagingParams';
+export { RequestParams } from './utils/params/requestParams';
+export { Response } from './utils/response/response';
 
 export default class Api {
   public config: ApiConfig;
