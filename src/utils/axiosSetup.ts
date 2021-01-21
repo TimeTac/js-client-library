@@ -45,9 +45,8 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
             apiInstanceData.config.onTokenRefreshedFailed();
           }
         }
-        return Promise.reject(error.response);
       }
-      return error.response;
+      throw error.response || error;
     }
   );
 };
