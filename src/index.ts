@@ -42,11 +42,11 @@ export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTracking
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
-
-const DEFAULT_HOST = 'go.timetac.com';
 export { PagingParams } from './utils/params/pagingParams';
 export { RequestParams } from './utils/params/requestParams';
 export { Response } from './utils/response/response';
+
+const DEFAULT_HOST = 'go.timetac.com';
 
 export default class Api {
   public config: ApiConfig;
