@@ -11,7 +11,7 @@ export async function toApiResponse<T>(promise: RequestPromise<T>) {
     throw new Error('Promise resolve is undefined, please contact administrator.');
   }
 
-  let apiResponse = resolved.data;
+  const apiResponse = resolved.data;
 
   if (apiResponse.Success) {
     return apiResponse;
