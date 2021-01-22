@@ -5,7 +5,13 @@ import { ApiResponse } from './apiResponse';
 export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
 
 export async function toApiResponse<T>(promise: RequestPromise<T>) {
-  const apiResponse = (await promise).data;
+  const resolved = await promise;
+
+  if (resolved === undefined) {
+    throw new Error('Promise resolve is undefined, please contact administrator.');
+  }
+
+  const apiResponse = resolved.data;
 
   if (apiResponse.Success) {
     return apiResponse;

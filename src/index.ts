@@ -18,7 +18,7 @@ import { TimeTrackingsEndpoint } from './timetrackings';
 import { TodoTasksEndpoint } from './todoTasks';
 import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
-import { interceptor } from './utils/axiosSetup';
+import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -28,6 +28,7 @@ export { Tokens } from './baseApi';
 export { SyncData, SyncResource, SyncResourceField } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
+export { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus, UserStatusOverviewStatus } from './enums';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
@@ -44,6 +45,8 @@ export { UserStatusOverview } from './userStatusOverview/types';
 export { PagingParams } from './utils/params/pagingParams';
 export { RequestParams } from './utils/params/requestParams';
 export { Response } from './utils/response/response';
+
+const DEFAULT_HOST = 'go.timetac.com';
 
 export default class Api {
   public config: ApiConfig;
@@ -97,6 +100,7 @@ export default class Api {
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
+    setAxiosDefaults({ baseURL: `https://${this.config.host ?? DEFAULT_HOST}/` });
   }
 
   public setAccount(account: string) {

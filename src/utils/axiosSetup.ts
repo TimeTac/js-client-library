@@ -17,12 +17,11 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
     async (error) => {
       if (apiInstanceData.config.autoRefreshToken && error.response) {
         const untouchedRequest = error.config;
-
         if (error.response.status === 497 && untouchedRequest.url.includes('auth/oauth2/token')) {
           if (apiInstanceData.config.onTokenRefreshedFailed) {
             apiInstanceData.config.onTokenRefreshedFailed();
           }
-          return error;
+          throw error;
         }
 
         if (error.response.status === 401 && !untouchedRequest._retry) {
@@ -31,7 +30,9 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
           if (!apiInstanceData.state.refreshingToken) {
             apiInstanceData.state.refreshingToken = apiInstanceData.authentication.refreshToken();
           }
+
           const res = await apiInstanceData.state.refreshingToken;
+          apiInstanceData.state.refreshingToken = false;
 
           if (res.status === 200 && res.data.access_token) {
             const { access_token: accessToken, refresh_token: refreshToken } = res.data;
@@ -41,11 +42,19 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
               apiInstanceData.config.onTokenRefreshedCallback({ accessToken, refreshToken });
             }
             return axios(untouchedRequest);
+          } else if (apiInstanceData.config.onTokenRefreshedFailed) {
+            apiInstanceData.config.onTokenRefreshedFailed();
           }
         }
-        return Promise.reject(error.response);
       }
-      return error.response;
+      throw error.response || error;
     }
   );
+};
+
+export const setAxiosDefaults = (defaults: object) => {
+  axios.defaults = {
+    ...axios.defaults,
+    ...defaults,
+  };
 };
