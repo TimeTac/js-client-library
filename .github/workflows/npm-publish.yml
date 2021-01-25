@@ -1,2 +1,12 @@
-- name: Publish to npm
-  uses: pascalgn/npm-publish-action@1.3.6
+name: npm-publish
+on:
+  push:
+    branches:
+      - master # Change this to your default branch
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish to npm
+        uses: pascalgn/npm-publish-action@1.3.6
