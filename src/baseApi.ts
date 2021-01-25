@@ -5,7 +5,6 @@ import { ApiResponse } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
 
 const DEFAULT_API_VERSION = 3;
-const DEFAULT_HOST = 'go.timetac.com';
 
 export type Tokens = {
   accessToken: string;
@@ -20,6 +19,7 @@ export type ApiState = {
 
 export type ApiConfig = {
   host?: string;
+  https?: boolean;
   version?: number;
   account?: string;
   accessToken?: string;
