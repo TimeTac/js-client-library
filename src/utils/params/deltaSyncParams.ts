@@ -15,15 +15,15 @@ export class DeltaSyncParams {
   }
 
   since(since: string): DeltaSyncParams {
-    // TODO add if string is valid
+    // TODO check if string is iso, and cast it into the SQL
     this.criteria['_since'] = String(since);
     return this;
   }
 
   // TODO Refactor this function
   // get the values from the deltaSyncResult or get it via the RequestParams that we need to implement later
-  includes(values: string[]): DeltaSyncParams {
-    this.criteria['_includes'] = values.join(',');
+  include(values: string[]): DeltaSyncParams {
+    this.criteria['_include'] = values.join(',');
     return this;
   }
 
