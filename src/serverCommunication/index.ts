@@ -6,6 +6,9 @@ export class ServerCommunicationEndpoint extends BaseApi {
 
   async read(account: string): Promise<ServerCommunication> {
     this.setAccount(account);
+    debugger;
+    console.log('Reading server communication: ', this);
+    console.log('Reading server communication: ', account);
     const response = await this._get<ServerCommunication>(`${this.resourceName}/read`, { withCredentials: false });
     if (response.data.Success) {
       return response.data.Results;

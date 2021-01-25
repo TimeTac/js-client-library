@@ -57,4 +57,6 @@ export const setAxiosDefaults = (defaults: object) => {
     ...axios.defaults,
     ...defaults,
   };
+
+  console.log('New axios defaults: ', axios.defaults);
 };

@@ -14,6 +14,12 @@ export class TasksEndpoint extends BaseApi {
     return responseHandlers.list(response);
   }
   public readRaw(requestParams: RequestParams<Task> | PagingParams<Task>): Promise<Response<Task>> {
+    if (!requestParams.getParams) {
+      // Workaround for serialization removing any classes/functions
+      const oldRequestParams = requestParams;
+      requestParams = new RequestParams<Task>();
+      Object.assign(requestParams, oldRequestParams);
+    }
     const params = requestParams.getParams();
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return createResponse(response, requestParams);
