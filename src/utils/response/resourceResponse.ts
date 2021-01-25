@@ -6,6 +6,9 @@ export type ResourceResponse<T> = {
   success: boolean;
   status?: number;
   results: T[];
+  // TODO deleted: deltedEntry[];
+  //          id	integer
+  //          deleted_at	string
   startTime: string;
   requestParams: RequestParams<T>;
   prevPage?: PagingParams<T>;
