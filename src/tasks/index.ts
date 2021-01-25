@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { PagingParams } from '../utils/params/pagingParams';
 import { RequestParams } from '../utils/params/requestParams';
-import { createResponse, Response } from '../utils/response/response';
+import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { Task } from './types';
 
@@ -13,10 +13,10 @@ export class TasksEndpoint extends BaseApi {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
-  public readRaw(requestParams: RequestParams<Task> | PagingParams<Task>): Promise<Response<Task>> {
+  public readRaw(requestParams: RequestParams<Task> | PagingParams<Task>): Promise<ResourceResponse<Task>> {
     const params = requestParams.getParams();
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
-    return createResponse(response, requestParams);
+    return createResourceResponse(response, requestParams);
   }
   public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;

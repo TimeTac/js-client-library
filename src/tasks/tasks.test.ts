@@ -2,7 +2,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParams } from '../utils/params/requestParams';
-import { Response } from '../utils/response/response';
+import { ResourceResponse } from '../utils/response/resourceResponse';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
 
@@ -13,7 +13,7 @@ describe('Tasks', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Task[]> | null;
   let resultSingle: Promise<Task> | null;
-  let resultRaw: Promise<Response<Task>> | null;
+  let resultRaw: Promise<ResourceResponse<Task>> | null;
 
   afterEach(() => {
     mock.reset();

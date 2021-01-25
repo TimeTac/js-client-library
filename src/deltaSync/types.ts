@@ -1,23 +1,59 @@
-import { AbsenceType } from '..';
+import { AbsenceDay } from '../absenceDays/types';
+import { Absence } from '../absences/types';
+import { AbsenceType } from '../absenceTypes/types';
+import { Department } from '../departments/types';
 import { GeneralSetting } from '../generalSettings/types';
 import { Project } from '../projects/types';
 import { Task } from '../tasks/types';
+import { Team } from '../teams/types';
 import { TimesheetAccounting } from '../timesheetAccountings/types';
 import { TimeTracking } from '../timetrackings/types';
 import { User } from '../users/types';
+import { UserStatusOverview } from '../userStatusOverview/types';
+import { ResourceResponse } from '../utils/response/resourceResponse';
 
-export type SyncData = {
-  users: User[];
-  tasks: Task[];
-  projects: Project[];
-  timeTrackings: TimeTracking[];
-  absenceTypes: AbsenceType[];
-  generalSettings: GeneralSetting[];
-  timesheetAccountings: TimesheetAccounting[];
+export type DeltaSyncResult = {
+  // absenceBans?: Response<AbsenceBans>;
+  absenceDays?: ResourceResponse<AbsenceDay>;
+  // absenceReplacements?: Response<AbsenceReplacements>;
+  absences?: ResourceResponse<Absence>;
+  absenceTypes?: ResourceResponse<AbsenceType>;
+  // changeTimeTrackingRequests?: Response<ChangeTimeTrackingRequestser>;
+  // checkpoints?: Response<Checkpoints>;
+  // checkpointTrackings?: Response<CheckpointTrackings>;
+  // checkpointTranslations?: Response<CheckpointTranslations>;
+  // clients?: Response<Clients>;
+  department?: ResourceResponse<Department>;
+  generalSettings?: ResourceResponse<GeneralSetting>;
+  // holidayRequests?: Response<HolidayRequests>;
+  // messages?: Response<Messages>;
+  // multiuserToTasks?: Response<MultiuserToTasks>;
+  // nfcTransponder?: Response<NfcTransponder>;
+  // nodesToUsers?: Response<NodesToUsers>;
+  // notifications?: Response<Notifications>;
+  // notificationsTypeHtml?: Response<NotificationsTypeHtml>;
+  // notificationUrls?: Response<NotificationUrls>;
+  // permissionResolveAbsenceTypesAndUsers?: Response<PermissionResolveAbsenceTypesAndUsers>;
+  // permissionResolveDepartments?: Response<PermissionResolveDepartments>;
+  // permissionResolveHolidayRequests?: Response<PermissionResolveHolidayRequests>;
+  // permissionResolveQuestions?: Response<PermissionResolveQuestions>;
+  // permissionResolveTeams?: Response<PermissionResolveTeams>;
+  // permissionResolveUsers?: Response<PermissionResolveUsers>;
+  // permissions?: Response<Permissions>;
+  projects?: ResourceResponse<Project>;
+  // serverEvents?: Response<ServerEvents>;
+  // serverTime?: Response<ServerTime>;
+  // skills?: Response<Skills>;
+  // surveys?: Response<Surveys>;
+  tasks?: ResourceResponse<Task>;
+  teams?: ResourceResponse<Team>;
+  // timePlannings?: Response<TimePlannings>;
+  timesheetAccountings?: ResourceResponse<TimesheetAccounting>;
+  // timesheetAccountingSummaries?: Response<TimesheetAccountingSummaries>;
+  // timesheetActionLogs?: Response<TimesheetActionLogs>;
+  // timetrackingChangelogs?: Response<TimetrackingChangelogs>;
+  timeTrackings?: ResourceResponse<TimeTracking>;
+  // translations?: Response<Translations>;
+  user?: ResourceResponse<User>;
+  userStatusOverview?: ResourceResponse<UserStatusOverview>;
 };
-
-export type SyncResource = keyof SyncData;
-// Captures all string keys in the model type for the SyncResource R.
-// Eg, "tasks" => "id" | "name" | "mother_id"
-// Useful for auto-complete when one parameter is SyncResource and another parameter a field of that SyncResource
-export type SyncResourceField<R extends SyncResource> = keyof SyncData[R][0] & string;
