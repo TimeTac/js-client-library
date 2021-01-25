@@ -53,7 +53,7 @@ async() => {
       console.log(timetrackings)
     });
 
-  api.users.getMe().then(meData => {
+  api.users.readMe().then(meData => {
     console.log(meData);
   });
 
