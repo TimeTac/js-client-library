@@ -1,27 +1,30 @@
-import { PagingParams } from '../params/pagingParams';
-import { RequestParams } from '../params/requestParams';
+import { DeltaSyncResult } from '../../deltaSync/types';
+import { DeltaSyncParams } from '../params/deltaSyncParams';
 import { RequestPromise, toApiResponse } from './responseHandlers';
 
-export type Response<T> = {
+export type DeltaSyncResponse = {
   success: boolean;
   status?: number;
-  results: T[];
+  results: DeltaSyncResult;
   startTime: string;
-  requestParams: RequestParams<T>;
-  prevPage?: PagingParams<T>;
-  currentPage?: PagingParams<T>;
-  nextPage?: PagingParams<T>;
+  requestParams: DeltaSyncParams;
+  prevPage?: DeltaSyncParams;
+  currentPage?: DeltaSyncParams;
+  nextPage?: DeltaSyncParams;
 };
 
-export async function createResponse<T>(promise: RequestPromise<T[]>, params: RequestParams<T>): Promise<Response<T>> {
-  const apiResponse = await toApiResponse<T[]>(promise);
+export async function createDeltaSyncResponse(
+  promise: RequestPromise<DeltaSyncResult>,
+  params: DeltaSyncParams
+): Promise<DeltaSyncResponse> {
+  const apiResponse = await toApiResponse<DeltaSyncResult>(promise);
 
-  const response: Response<T> = {
+  const response: DeltaSyncResponse = {
     success: true,
     results: apiResponse.Results,
     startTime: apiResponse.RequestStartTime,
     requestParams: params,
-    nextPage: new PagingParams<T>(params, apiResponse),
+    // nextPage: TODO paging for deltaSync is not implement yet
   };
 
   return response;
