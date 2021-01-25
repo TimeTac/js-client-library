@@ -74,7 +74,9 @@ export default class Api {
 
   constructor(config: ApiConfig) {
     this.config = config;
-    this.config.autoRefreshToken = config.autoRefreshToken || true;
+    this.config.autoRefreshToken = config.autoRefreshToken ?? true;
+    this.config.https = config.https ?? true;
+
     this.state = {
       refreshingToken: false,
     };
@@ -100,7 +102,7 @@ export default class Api {
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
-    setAxiosDefaults({ baseURL: `https://${this.config.host ?? DEFAULT_HOST}/` });
+    setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}/` });
   }
 
   public setAccount(account: string) {
