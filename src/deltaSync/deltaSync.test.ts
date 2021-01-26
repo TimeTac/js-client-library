@@ -6,8 +6,9 @@ import { Absence } from '../absences/types';
 import { AbsenceDurationUnit } from '../enums';
 import { DeltaSyncParams } from '../utils/params/deltaSyncParams';
 import { DeltaSyncResponse } from '../utils/response/deltaSyncResponse';
+import { DeletedEntry } from '../utils/response/resourceResponse';
 import { DeltaSyncEndpoint } from './index';
-import { DeltaSyncResult } from './types';
+import { DeltaSyncResults } from './types';
 
 describe('DeltaSync', () => {
   const deltaSync: DeltaSyncEndpoint = new DeltaSyncEndpoint({ account: 'testingAccount' });
@@ -21,13 +22,13 @@ describe('DeltaSync', () => {
     result = null;
   });
 
-  test('read without Results', async () => {
+  test('read without results', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 0, Results: {} });
     result = deltaSync.read(new DeltaSyncParams());
-    await result.then((result) => expect(result).toMatchObject({ success: true, results: {}, requestParams: new DeltaSyncParams() }));
+    await result.then((result) => expect(result).toMatchObject({ success: true, results: {} }));
   });
 
-  test('read with Results', async () => {
+  test('read with one result', async () => {
     const record: Absence = {
       id: 1,
       type_id: 1,
@@ -44,22 +45,26 @@ describe('DeltaSync', () => {
 
     const absences = {
       Success: true,
-      NumResults: 10,
-      ResourceName: 'absences',
       Results: [record],
+      Deleted: [{ id: 1, deleted_at: 'deleted_at' }],
     };
 
-    const expectResults: DeltaSyncResult = {
+    const deltedRecord: DeletedEntry = {
+      id: 1,
+      deleted_at: 'deleted_at',
+    };
+
+    const expectResults: DeltaSyncResults = {
       absences: {
         success: true,
+        apiResponse: {},
         results: [record],
+        deleted: [deltedRecord],
       },
     };
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 0, Results: { absences } });
     result = deltaSync.read(new DeltaSyncParams());
-    await result.then((result) =>
-      expect(result).toMatchObject({ success: true, results: expectResults, requestParams: new DeltaSyncParams() })
-    );
+    await result.then((result) => expect(result).toMatchObject({ success: true, results: expectResults }));
   });
 });

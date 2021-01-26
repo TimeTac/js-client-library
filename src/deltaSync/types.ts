@@ -12,7 +12,7 @@ import { User } from '../users/types';
 import { UserStatusOverview } from '../userStatusOverview/types';
 import { ResourceResponse } from '../utils/response/resourceResponse';
 
-export type DeltaSyncResult = {
+export type DeltaSyncResults = {
   // absenceBans?: Response<AbsenceBans>;
   absenceDays?: ResourceResponse<AbsenceDay>;
   // absenceReplacements?: Response<AbsenceReplacements>;

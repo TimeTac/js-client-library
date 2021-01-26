@@ -1,40 +1,42 @@
+import { AxiosResponse } from 'axios';
+
 import { Absence } from '../../absences/types';
-import { DeltaSyncResult } from '../../deltaSync/types';
-import { TimeTracking } from '../../timetrackings/types';
-import { DeltaSyncParams } from '../params/deltaSyncParams';
-import { convertToResourceResponse } from './resourceResponse';
-import { RequestPromise, toApiResponse } from './responseHandlers';
+import { DeltaSyncResults } from '../../deltaSync/types';
+import { Task } from '../../tasks/types';
+import { RawApiResponse } from './rawApiResponse';
+import { ResourceResponse } from './resourceResponse';
 
 export type DeltaSyncResponse = {
   success: boolean;
-  status?: number;
-  results: DeltaSyncResult;
-  startTime: string;
-  requestParams: DeltaSyncParams; // TODO rename requestParams to something better that works for both
-  prevPage?: DeltaSyncParams;
-  currentPage?: DeltaSyncParams;
-  nextPage?: DeltaSyncParams;
+  apiResponse: RawApiResponse;
+  results: DeltaSyncResults;
 };
 
-export async function createDeltaSyncResponse(
-  promise: RequestPromise<DeltaSyncResult>,
-  params: DeltaSyncParams
-): Promise<DeltaSyncResponse> {
-  const apiResponse = await toApiResponse<DeltaSyncResult>(promise);
-
-  const response: DeltaSyncResponse = {
+export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSyncResponse {
+  const result: DeltaSyncResponse = {
     success: true,
+    apiResponse: rawApiResponse,
     results: {
-      // TODO find a better way for this copy and past hell here ... it is hard because we don't now the type
-      absences: apiResponse.Results.absences ? convertToResourceResponse<Absence>(apiResponse.Results.absences) : undefined,
-      timeTrackings: apiResponse.Results.timeTrackings
-        ? convertToResourceResponse<TimeTracking>(apiResponse.Results.timeTrackings)
-        : undefined,
+      absences: convert<Absence>(rawApiResponse, 'absences'),
+      tasks: convert<Task>(rawApiResponse, 'tasks'),
     },
-    startTime: apiResponse.RequestStartTime,
-    requestParams: params,
-    // nextPage: TODO paging for deltaSync is not implement yet
+  };
+  return result;
+}
+
+function convert<T>(deltaSyncResonse: RawApiResponse, resource: string): ResourceResponse<T> | undefined {
+  const includeResponse: RawApiResponse = deltaSyncResonse.Results[resource];
+
+  if (!includeResponse) {
+    return undefined;
+  }
+
+  const result: ResourceResponse<T> = {
+    success: includeResponse.Success ?? false,
+    apiResponse: includeResponse,
+    results: includeResponse.Results ?? [],
+    deleted: includeResponse.Deleted ?? [],
   };
 
-  return response;
+  return result;
 }

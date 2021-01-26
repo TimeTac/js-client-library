@@ -25,7 +25,7 @@ export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } 
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
-export { DeltaSyncResult } from './deltaSync/types';
+export { DeltaSyncResults as DeltaSyncResult } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
 export { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus, UserStatusOverviewStatus } from './enums';

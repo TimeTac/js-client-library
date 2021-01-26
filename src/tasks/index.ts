@@ -13,11 +13,13 @@ export class TasksEndpoint extends BaseApi {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
+  /*
   public readRaw(requestParams: RequestParams<Task> | PagingParams<Task>): Promise<ResourceResponse<Task>> {
     const params = requestParams.getParams();
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return createResourceResponse(response, requestParams);
   }
+  */
   public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, { params });
