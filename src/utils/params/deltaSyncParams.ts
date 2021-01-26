@@ -1,3 +1,5 @@
+import { DeltaSyncResult } from '../../deltaSync/types';
+
 const DEFAULT_PAGE_SIZE = 1000;
 
 // TODO add unit tests
@@ -14,15 +16,16 @@ export class DeltaSyncParams {
     return this;
   }
 
+  /**
+   * Warning: since need to be in server timezone and needs to be format as yyyy-mm-dd hh:mm:ss
+   * @param since
+   */
   since(since: string): DeltaSyncParams {
-    // TODO check if string is iso, and cast it into the SQL
     this.criteria['_since'] = String(since);
     return this;
   }
 
-  // TODO Refactor this function
-  // get the values from the deltaSyncResult or get it via the RequestParams that we need to implement later
-  include(values: string[]): DeltaSyncParams {
+  include<F extends keyof DeltaSyncResult & string>(values: F[]): DeltaSyncParams {
     this.criteria['_include'] = values.join(',');
     return this;
   }
