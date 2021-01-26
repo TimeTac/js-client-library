@@ -25,7 +25,7 @@ export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } 
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
-export { DeltaSyncResults as DeltaSyncResult } from './deltaSync/types';
+export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
 export { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus, UserStatusOverviewStatus } from './enums';
@@ -42,8 +42,10 @@ export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTracking
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
+export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { PagingParams } from './utils/params/pagingParams';
 export { RequestParams } from './utils/params/requestParams';
+export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { ResourceResponse } from './utils/response/resourceResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';

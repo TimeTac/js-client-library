@@ -1,10 +1,7 @@
-import { DeletedEntry } from './resourceResponse';
-
 export type ApiResponseOnSuccess<T> = {
   Success: true;
   NumResults: number;
   Results: T;
-  Deleted?: DeletedEntry[];
   RequestStartTime: string;
 };
 
