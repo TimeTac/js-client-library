@@ -14,7 +14,7 @@ export type ResourceResponse<T> = {
 
 export function createResourceResponse<T>(rawApiResponse: RawApiResponse): ResourceResponse<T> {
   const response: ResourceResponse<T> = {
-    success: true,
+    success: rawApiResponse.Success ?? false,
     apiResponse: rawApiResponse,
     results: rawApiResponse.Results ?? [],
     deleted: rawApiResponse.Deleted ?? [],
