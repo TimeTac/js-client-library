@@ -81,7 +81,7 @@ export default class Api {
       refreshingToken: false,
     };
 
-    setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}/` });
+    // setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}/` });
 
     this.absenceDays = new AbsenceDaysEndpoint(this.config);
     this.absences = new AbsencesEndpoint(this.config);

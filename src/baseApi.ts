@@ -4,6 +4,7 @@ import { TokenResponse } from './authentication/types';
 import { ApiResponse } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
 
+const DEFAULT_HOST = 'go.timetac.com';
 const DEFAULT_API_VERSION = 3;
 
 export type Tokens = {
@@ -78,7 +79,7 @@ export default abstract class BaseApi {
     if (!this.config.account) {
       throw 'Account is not set';
     }
-    return `${this.config.account}/`;
+    return `https://${this.config.host ?? DEFAULT_HOST}/${this.config.account}/`;
   }
 
   public setAccount(account: string): void {
