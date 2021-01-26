@@ -43,15 +43,15 @@ describe('DeltaSync', () => {
       duration: 1,
     };
 
-    const absences = {
-      Success: true,
-      Results: [record],
-      Deleted: [{ id: 1, deleted_at: 'deleted_at' }],
-    };
-
     const deltedRecord: DeletedEntry = {
       id: 1,
       deleted_at: 'deleted_at',
+    };
+
+    const absencesFromServer = {
+      Success: true,
+      Results: [record],
+      Deleted: [deltedRecord],
     };
 
     const expectResults: DeltaSyncResults = {
@@ -63,7 +63,7 @@ describe('DeltaSync', () => {
       },
     };
 
-    mock.onGet(readPath).reply(200, { Success: true, Results: { absences } });
+    mock.onGet(readPath).reply(200, { Success: true, Results: { absences: absencesFromServer } });
     result = deltaSync.read(new DeltaSyncParams());
     await result.then((result) => expect(result).toMatchObject({ success: true, results: expectResults }));
   });

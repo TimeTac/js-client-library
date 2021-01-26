@@ -19,12 +19,13 @@ export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSy
     results: {
       absences: convert<Absence>(rawApiResponse, 'absences'),
       tasks: convert<Task>(rawApiResponse, 'tasks'),
+      timeTrackings: convert(rawApiResponse, 'timeTrackings'),
     },
   };
   return result;
 }
 
-function convert<T>(deltaSyncResonse: RawApiResponse, resource: string): ResourceResponse<T> | undefined {
+function convert<T>(deltaSyncResonse: RawApiResponse, resource: keyof DeltaSyncResults & string): ResourceResponse<T> | undefined {
   const includeResponse: RawApiResponse = deltaSyncResonse.Results[resource];
 
   if (!includeResponse) {

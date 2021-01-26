@@ -2,7 +2,6 @@ import { DeltaSyncResults } from '../../deltaSync/types';
 
 const DEFAULT_PAGE_SIZE = 1000;
 
-// TODO add unit tests
 export class DeltaSyncParams {
   protected criteria: { [index: string]: string } = {};
 
