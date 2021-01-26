@@ -46,7 +46,7 @@ export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { PagingParams } from './utils/params/pagingParams';
 export { RequestParams } from './utils/params/requestParams';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
-export { ResourceResponse } from './utils/response/resourceResponse';
+export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
