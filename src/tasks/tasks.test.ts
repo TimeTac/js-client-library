@@ -40,7 +40,7 @@ describe('Tasks', () => {
     await tasks.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
-  test.skip('readRaw', async () => {
+  test.skip('readRaw [skip because function was removed]', async () => {
     // mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     // resultRaw = tasks.readRaw(new RequestParams<Task>());
     // await resultRaw.then((result) => expect(result).toMatchObject({ success: true, results: [{}], params: new RequestParams<Task>() }));
