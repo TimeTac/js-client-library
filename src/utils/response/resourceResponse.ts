@@ -16,7 +16,7 @@ export function createResourceResponse<T>(rawApiResponse: RawApiResponse): Resou
   const response: ResourceResponse<T> = {
     success: true,
     apiResponse: rawApiResponse,
-    results: rawApiResponse.Results,
+    results: rawApiResponse.Results ?? [],
     deleted: rawApiResponse.Deleted ?? [],
   };
 
