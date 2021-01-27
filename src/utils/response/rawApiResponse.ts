@@ -20,14 +20,14 @@ export type RawApiResponse = {
   ErrorExtended?: any;
 };
 
-export async function resolveAxiosResponse(promise: Promise<AxiosResponse<any>>): Promise<RawApiResponse> {
-  const resolved = await promise;
+export async function resolveAxiosResponse(promis: Promise<AxiosResponse<any>>): Promise<RawApiResponse> {
+  const axiosResponse = await promis;
 
-  if (resolved === undefined) {
+  if (axiosResponse === undefined) {
     throw new Error('General Error');
   }
 
-  const rawApiResponse: RawApiResponse = (await promise).data;
+  const rawApiResponse: RawApiResponse = axiosResponse.data;
 
   if (rawApiResponse.Success == false) {
     throw new Error('General Error');

@@ -43,7 +43,6 @@ export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
-export { PagingParams } from './utils/params/pagingParams';
 export { RequestParams } from './utils/params/requestParams';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
