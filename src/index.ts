@@ -42,9 +42,12 @@ export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTracking
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
+export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams } from './utils/params/requestParams';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
+export { RawApiResponse } from './utils/response/rawApiResponse';
+export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';
