@@ -81,8 +81,6 @@ export default class Api {
       refreshingToken: false,
     };
 
-    // setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}/` });
-
     this.absenceDays = new AbsenceDaysEndpoint(this.config);
     this.absences = new AbsencesEndpoint(this.config);
     this.absenceTypes = new AbsenceTypesEndpoint(this.config);
@@ -101,9 +99,10 @@ export default class Api {
     this.timeTrackings = new TimeTrackingsEndpoint(this.config);
     this.todoTasks = new TodoTasksEndpoint(this.config);
     this.users = new UsersEndpoint(this.config);
-
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
-    //interceptor({ state: this.state, config: this.config, authentication: this.authentication });
+
+    interceptor({ state: this.state, config: this.config, authentication: this.authentication });
+    // setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}/` });
   }
 
   public setAccount(account: string) {
