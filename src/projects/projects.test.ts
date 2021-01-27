@@ -1,7 +1,10 @@
+import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { RequestParams } from '../utils/params/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { ProjectsEndpoint } from './index';
 import { Project } from './types';
 
@@ -12,13 +15,13 @@ describe('Projects', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Project[]> | null;
   let resultSingle: Promise<Project> | null;
-  let resultRaw: Promise<ApiResponseOnSuccess<Project[]>> | null;
+  let resultReadRaw: Promise<ReadRawResponse<Project>> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
-    resultRaw = null;
+    resultReadRaw = null;
   });
 
   test('read', async () => {
@@ -39,10 +42,11 @@ describe('Projects', () => {
     await projects.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
-  test('readRaw', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultRaw = projects.readRaw();
-    await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
+  test('readRaw with no data', async () => {
+    const current = new RequestParams<Project>();
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    resultReadRaw = projects.readRaw(current);
+    await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
 
   test('readById', async () => {

@@ -46,13 +46,11 @@ describe('Tasks', () => {
     resultSingle = tasks.readById(1);
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
-
   test('readRaw with no data', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultReadRaw = tasks.readRaw(new RequestParams<Task>());
-    await resultReadRaw.then((result) =>
-      expect(result).toMatchObject({ data: {}, pages: { prev: undefined, current: new RequestParams<Task>(), next: undefined } })
-    );
+    const current = new RequestParams<Task>();
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    resultReadRaw = tasks.readRaw(current);
+    await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
 
   test('readRaw with next', async () => {
