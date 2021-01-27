@@ -2,7 +2,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParams } from '../utils/params/requestParams';
-import { Response } from '../utils/response/response';
+import { ResourceResponse } from '../utils/response/resourceResponse';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
 
@@ -13,7 +13,7 @@ describe('Tasks', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Task[]> | null;
   let resultSingle: Promise<Task> | null;
-  let resultRaw: Promise<Response<Task>> | null;
+  let resultRaw: Promise<ResourceResponse<Task>> | null;
 
   afterEach(() => {
     mock.reset();
@@ -40,12 +40,10 @@ describe('Tasks', () => {
     await tasks.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
-  test('readRaw', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultRaw = tasks.readRaw(new RequestParams<Task>());
-    await resultRaw.then((result) =>
-      expect(result).toMatchObject({ success: true, results: [{}], requestParams: new RequestParams<Task>() })
-    );
+  test.skip('readRaw [skip because function was removed]', async () => {
+    // mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    // resultRaw = tasks.readRaw(new RequestParams<Task>());
+    // await resultRaw.then((result) => expect(result).toMatchObject({ success: true, results: [{}], params: new RequestParams<Task>() }));
   });
 
   test('readById', async () => {
