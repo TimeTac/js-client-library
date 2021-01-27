@@ -2,9 +2,9 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParams } from '../utils/params/requestParams';
+import { ResourceResponse } from '../utils/response/resourceResponse';
 import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
-import { ResourceResponse } from '../utils/response/resourceResponse';
 
 describe('TimeTrackings', () => {
   const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint({ account: 'testingAccount' });
