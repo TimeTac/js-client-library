@@ -102,7 +102,7 @@ export default class Api {
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
-    // setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}/` });
+    setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}/` });
   }
 
   public setAccount(account: string) {
