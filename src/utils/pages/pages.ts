@@ -5,8 +5,8 @@ export type Pages<T> = {
   prev?: RequestParams<T>;
   current?: RequestParams<T>;
   next?: RequestParams<T>;
-  // TODO add orinalparams
-  // TODO add first requestStartTime here
+  // TODO add the first params of the paging action
+  // TODO add first requestStartTime
 };
 
 export function createPages<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): Pages<T> {
