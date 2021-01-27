@@ -1,19 +1,23 @@
 import { AxiosResponse } from 'axios';
 
 export type RawApiResponse = {
-  Host?: string;
-  Codeversion?: string;
-  Success?: boolean;
-  SuccessNested?: boolean;
+  Host: string;
+  Codeversion: string;
+  Success: boolean;
+  SuccessNested: boolean;
+  ResourceName: string;
+  RequestStartTime: string;
+  RequestEndTime: string;
+  ServerTimeZone: string;
   NumResults?: number;
   NumResultsNested?: number;
-  ResourceName?: string;
-  RequestStartTime?: string;
-  RequestEndTime?: string;
-  ServerTimeZone?: string;
   Results?: any;
   Deleted?: any;
   Affected?: any;
+  Error?: number;
+  ErrorMessage?: string;
+  ErrorInternal?: string;
+  ErrorExtended?: any;
 };
 
 export async function resolveAxiosResponse(promise: Promise<AxiosResponse<any>>): Promise<RawApiResponse> {

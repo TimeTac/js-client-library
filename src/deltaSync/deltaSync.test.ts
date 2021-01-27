@@ -49,7 +49,14 @@ describe('DeltaSync', () => {
     };
 
     const absencesFromServer = {
+      Host: 'Host',
+      Codeversion: 'Codeversion',
       Success: true,
+      SuccessNested: true,
+      ResourceName: 'ResourceName',
+      RequestStartTime: 'RequestStartTime',
+      RequestEndTime: 'RequestEndTime',
+      ServerTimeZone: 'ServerTimeZone',
       Results: [record],
       Deleted: [deltedRecord],
     };
@@ -57,7 +64,16 @@ describe('DeltaSync', () => {
     const expectResults: DeltaSyncResults = {
       absences: {
         success: true,
-        apiResponse: {},
+        apiResponse: {
+          Host: 'Host',
+          Codeversion: 'Codeversion',
+          Success: true,
+          SuccessNested: true,
+          ResourceName: 'ResourceName',
+          RequestStartTime: 'RequestStartTime',
+          RequestEndTime: 'RequestEndTime',
+          ServerTimeZone: 'ServerTimeZone',
+        },
         results: [record],
         deleted: [deltedRecord],
       },
