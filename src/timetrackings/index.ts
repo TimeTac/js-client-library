@@ -1,5 +1,6 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { ResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './types';
 
@@ -38,9 +39,10 @@ export class TimeTrackingsEndpoint extends BaseApi {
     const response = this._delete<TimeTracking[]>(`${this.getResourceName()}/delete/${id}`);
     return responseHandlers.required(response);
   }
-  public start(data: StartTimeTrackingData): Promise<TimeTracking> {
+
+  public start(data: StartTimeTrackingData): Promise<ResourceResponse<TimeTracking>> {
     const response = this._post<TimeTracking[]>(`${this.getResourceName()}/start`, data);
-    return responseHandlers.required(response);
+    return responseHandlers.toResourceResponse(response, this.resourceName);
   }
 
   public stop(data: StopTimeTrackingData): Promise<TimeTracking> {

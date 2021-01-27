@@ -4,6 +4,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { RequestParams } from '../utils/params/requestParams';
 import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
+import { ResourceResponse } from '../utils/response/resourceResponse';
 
 describe('TimeTrackings', () => {
   const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint({ account: 'testingAccount' });
@@ -17,6 +18,7 @@ describe('TimeTrackings', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<TimeTracking[]> | null;
   let resultSingle: Promise<TimeTracking> | null;
+  let resultResource: Promise<ResourceResponse<TimeTracking>> | null;
 
   afterEach(() => {
     mock.reset();
@@ -74,8 +76,20 @@ describe('TimeTrackings', () => {
 
   test('start', async () => {
     mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultSingle = timeTrackings.start({ task_id: 1, user_id: 1 });
-    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+    resultResource = timeTrackings.start({ task_id: 1, user_id: 1 });
+    await resultResource.then((result) =>
+      expect(result).toStrictEqual({
+        success: true,
+        apiResponse: {
+          NumResults: 1,
+          Results: [{}],
+          Success: true,
+        },
+        results: [{}],
+        affected: [],
+        deleted: [],
+      })
+    );
   });
 
   test('stop', async () => {
