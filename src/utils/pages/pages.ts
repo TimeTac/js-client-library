@@ -11,21 +11,21 @@ export type Pages<T> = {
 
 export function createPages<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): Pages<T> {
   let pages: Pages<T> = {
-    prev: Object.assign(new RequestParams<T>(), originalParams),
-    current: Object.assign(new RequestParams<T>(), originalParams),
-    next: Object.assign(new RequestParams<T>(), originalParams),
+    prev: new RequestParams<T>().clone(originalParams),
+    current: new RequestParams<T>().clone(originalParams),
+    next: new RequestParams<T>().clone(originalParams),
   };
 
-  if (originalParams.getOffset() < originalParams.getLimit()) {
+  if (!pages.prev || pages.prev.getOffset() < pages.prev.getLimit()) {
     pages.prev = undefined;
   } else {
-    pages.prev?.offset(originalParams.getOffset() - originalParams.getLimit());
+    pages.prev.offset(pages.prev.getOffset() - pages.prev.getLimit());
   }
 
-  if (resourceResponse.results.length < originalParams.getLimit()) {
+  if (!pages.next || resourceResponse.results.length < pages.next.getLimit()) {
     pages.next = undefined;
   } else {
-    pages.next?.offset(originalParams.getOffset() + originalParams.getLimit());
+    pages.next?.offset(pages.next.getOffset() + pages.next.getLimit());
   }
 
   return pages;

@@ -1,8 +1,9 @@
+import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParams } from '../utils/params/requestParams';
-import { ResourceResponse } from '../utils/response/resourceResponse';
+import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
 
@@ -13,13 +14,13 @@ describe('Tasks', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Task[]> | null;
   let resultSingle: Promise<Task> | null;
-  let resultRaw: Promise<ResourceResponse<Task>> | null;
+  let resultReadRaw: Promise<ReadRawResponse<Task>> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
-    resultRaw = null;
+    resultReadRaw = null;
   });
 
   test('read', async () => {
@@ -40,15 +41,38 @@ describe('Tasks', () => {
     await tasks.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
-  test.skip('readRaw [skip because function was removed]', async () => {
-    // mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    // resultRaw = tasks.readRaw(new RequestParams<Task>());
-    // await resultRaw.then((result) => expect(result).toMatchObject({ success: true, results: [{}], params: new RequestParams<Task>() }));
-  });
-
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = tasks.readById(1);
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
+  test('readRaw with no data', async () => {
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    resultReadRaw = tasks.readRaw(new RequestParams<Task>());
+    await resultReadRaw.then((result) =>
+      expect(result).toMatchObject({ data: {}, pages: { prev: undefined, current: new RequestParams<Task>(), next: undefined } })
+    );
+  });
+
+  test('readRaw with next', async () => {
+    const current = new RequestParams<Task>().limit(3);
+    const next = new RequestParams<Task>().limit(3).offset(3);
+
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
+    resultReadRaw = tasks.readRaw(current);
+    await resultReadRaw.then((result) =>
+      expect(result).toMatchObject({ data: {}, pages: { prev: undefined, current: current, next: next } })
+    );
+  });
+
+  test('readRaw with prev', async () => {
+    const prev = new RequestParams<Task>().limit(3).offset(0);
+    const current = new RequestParams<Task>().limit(3).offset(3);
+    const next = new RequestParams<Task>().limit(3).offset(6);
+
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
+    resultReadRaw = tasks.readRaw(current);
+    await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: { prev, current, next } }));
   });
 });
