@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 
-import { ApiResponse } from './apiResponse';
+import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
+import { createRawApiResponse } from './rawApiResponse';
 import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
 export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
@@ -47,6 +48,5 @@ export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
 }
 
 export async function toResourceResponse<T>(promise: RequestPromise<T[]>): Promise<ResourceResponse<T>> {
-  const response = await toApiResponse<T[]>(promise);
-  return createResourceResponse(response);
+  return createResourceResponse(await createRawApiResponse(promise));
 }

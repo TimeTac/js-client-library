@@ -8,7 +8,7 @@ export type DeletedEntry = {
 export type ResourceResponse<T> = {
   success: boolean;
   results: T[];
-  deleted?: DeletedEntry[];
+  deleted: DeletedEntry[];
   affected?: Record<string, any[]>;
   apiResponse: RawApiResponse;
 };
