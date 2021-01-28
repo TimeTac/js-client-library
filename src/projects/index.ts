@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { resolveAxiosResponse } from '../utils/response/rawApiResponse';
+import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
@@ -18,7 +18,7 @@ export class ProjectsEndpoint extends BaseApi {
   public async readRaw(requestParams: RequestParams<Project>): Promise<ReadRawResponse<Project>> {
     const params = requestParams.getParams();
     const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<Project>(createResourceResponse(await resolveAxiosResponse(response)), requestParams);
+    return createReadRawResponse<Project>(createResourceResponse(await createRawApiResponse(response)), requestParams);
   }
 
   public readById(id: number, requestParams?: RequestParams<Project> | Object): Promise<Project> {

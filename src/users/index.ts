@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { resolveAxiosResponse } from '../utils/response/rawApiResponse';
+import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
@@ -17,7 +17,7 @@ export class UsersEndpoint extends BaseApi {
   public async readRaw(requestParams: RequestParams<User>): Promise<ReadRawResponse<User>> {
     const params = requestParams.getParams();
     const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<User>(createResourceResponse(await resolveAxiosResponse(response)), requestParams);
+    return createReadRawResponse<User>(createResourceResponse(await createRawApiResponse(response)), requestParams);
   }
   public readById(id: number, requestParams?: RequestParams<User> | Object): Promise<User> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
