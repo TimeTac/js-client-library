@@ -1,5 +1,8 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { createRawApiResponse } from '../utils/response/rawApiResponse';
+import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
+import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { Task } from './types';
 
@@ -11,13 +14,13 @@ export class TasksEndpoint extends BaseApi {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
-  /* Removed because it doesn't work with deltaSync at the momement
-  public readRaw(requestParams: RequestParams<Task> | PagingParams<Task>): Promise<ResourceResponse<Task>> {
+
+  public async readRaw(requestParams: RequestParams<Task>): Promise<ReadRawResponse<Task>> {
     const params = requestParams.getParams();
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
-    return createResponse(response, requestParams);
+    return createReadRawResponse<Task>(createResourceResponse(await createRawApiResponse(response)), requestParams);
   }
-  */
+
   public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task> {
     const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
     const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, { params });

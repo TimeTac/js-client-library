@@ -1,5 +1,3 @@
-import { AxiosResponse } from 'axios';
-
 import { AbsenceDay } from '../../absenceDays/types';
 import { Absence } from '../../absences/types';
 import { AbsenceType } from '../../absenceTypes/types';
