@@ -33,7 +33,6 @@ export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
     throw new Error('There are no results.');
   }
 }
-
 /**
  * @return A promise that resolves to T or undefined if no results but Success is true.
  */
@@ -47,7 +46,7 @@ export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
   return response.Results ?? [];
 }
 
-export async function toResourceResponse<T>(promise: RequestPromise<T[]>, resourceName: string): Promise<ResourceResponse<T>> {
+export async function toResourceResponse<T>(promise: RequestPromise<T[]>): Promise<ResourceResponse<T>> {
   const response = await toApiResponse<T[]>(promise);
   return createResourceResponse(response);
 }

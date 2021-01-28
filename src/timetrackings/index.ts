@@ -42,7 +42,7 @@ export class TimeTrackingsEndpoint extends BaseApi {
 
   public start(data: StartTimeTrackingData): Promise<ResourceResponse<TimeTracking>> {
     const response = this._post<TimeTracking[]>(`${this.getResourceName()}/start`, data);
-    return responseHandlers.toResourceResponse(response, this.resourceName);
+    return responseHandlers.toResourceResponse(response);
   }
 
   public stop(data: StopTimeTrackingData): Promise<TimeTracking> {

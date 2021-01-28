@@ -75,7 +75,7 @@ describe('TimeTrackings', () => {
   });
 
   test('start', async () => {
-    mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}], Affected: [{}] });
     resultResource = timeTrackings.start({ task_id: 1, user_id: 1 });
     await resultResource.then((result) =>
       expect(result).toStrictEqual({
@@ -83,10 +83,11 @@ describe('TimeTrackings', () => {
         apiResponse: {
           NumResults: 1,
           Results: [{}],
+          Affected: [{}],
           Success: true,
         },
         results: [{}],
-        affected: [],
+        affected: [{}],
         deleted: [],
       })
     );
