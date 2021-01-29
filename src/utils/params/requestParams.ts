@@ -97,4 +97,9 @@ export class RequestParams<R extends Object> {
   getCriteria(): { [index: string]: string } {
     return this.criteria;
   }
+
+  clone(source: RequestParams<R>) {
+    Object.assign(this.criteria, source.getCriteria());
+    return this;
+  }
 }
