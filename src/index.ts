@@ -44,7 +44,7 @@ export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
-export { RequestParams } from './utils/params/requestParams';
+export { Criteria, RequestParams } from './utils/params/requestParams';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';

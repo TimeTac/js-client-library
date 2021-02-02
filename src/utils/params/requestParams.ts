@@ -1,7 +1,19 @@
 const DEFAULT_PAGE_SIZE = 100;
 
+export type Criteria<R> = Record<string, string> & { type?: R };
+
 export class RequestParams<R extends Object> {
-  protected criteria: { [index: string]: string } = {};
+  protected criteria: Criteria<R> = {};
+
+  constructor(criteria?: Criteria<R>) {
+    if (criteria) {
+      this.criteria = criteria;
+    }
+  }
+
+  static fromCriteria<R>(criteria: Criteria<R>): RequestParams<R> {
+    return new RequestParams<R>(criteria);
+  }
 
   limit(limit: number): RequestParams<R> {
     this.criteria['_limit'] = String(limit);
@@ -94,7 +106,7 @@ export class RequestParams<R extends Object> {
     return this.criteria['_offset'] ? Number(this.criteria['_offset']) : 0;
   }
 
-  getCriteria(): { [index: string]: string } {
+  getCriteria(): Criteria<R> {
     return this.criteria;
   }
 
