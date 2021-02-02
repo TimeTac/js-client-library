@@ -1,7 +1,9 @@
+import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { RequestParams } from '../utils/params/requestParams';
+import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { GeneralSettingsEndpoint } from './index';
 import { GeneralSetting } from './types';
 
@@ -12,13 +14,13 @@ describe('GeneralSettings', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<GeneralSetting[]> | null;
   let resultSingle: Promise<GeneralSetting> | null;
-  let resultRaw: Promise<ApiResponseOnSuccess<GeneralSetting[]>> | null;
+  let resultReadRaw: Promise<ReadRawResponse<GeneralSetting>> | null;
 
   afterEach(() => {
     mock.reset();
     result = null;
     resultSingle = null;
-    resultRaw = null;
+    resultReadRaw = null;
   });
 
   test('read', async () => {
@@ -53,9 +55,10 @@ describe('GeneralSettings', () => {
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 
-  test('readRaw', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultRaw = generalSettings.readRaw();
-    await resultRaw.then((result) => expect(result).toStrictEqual({ Success: true, NumResults: 1, Results: [{}] }));
+  test('readRaw with no data', async () => {
+    const current = new RequestParams<GeneralSetting>();
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    resultReadRaw = generalSettings.readRaw(current);
+    await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
 });
