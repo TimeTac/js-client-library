@@ -34,7 +34,7 @@ export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
 export { RecentTask, RecentTaskCreate } from './recentTasks/types';
 export { ServerCommunication } from './serverCommunication/types';
-export { Task } from './tasks/types';
+export { Task, TaskCreate } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';

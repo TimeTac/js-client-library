@@ -36,6 +36,12 @@ export class RequestParams<R extends Object> {
     return this;
   }
 
+  neq<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
+    this.criteria[`_op__${field}`] = 'neq';
+    this.criteria[field] = String(value);
+    return this;
+  }
+
   gt<F extends keyof R & string>(field: F, value: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'gt';
     this.criteria[field] = String(value);
