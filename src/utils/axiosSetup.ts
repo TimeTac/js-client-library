@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
 import { ApiConfig, ApiState } from '../baseApi';
@@ -52,7 +52,7 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
   );
 };
 
-export const setAxiosDefaults = (defaults: object) => {
+export const setAxiosDefaults = (defaults: AxiosRequestConfig) => {
   axios.defaults = {
     ...axios.defaults,
     ...defaults,
