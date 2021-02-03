@@ -9,6 +9,7 @@ export type ResourceResponse<T> = {
   success: boolean;
   results: T[];
   deleted: DeletedEntry[];
+  affected?: Record<string, any[]>;
   apiResponse: RawApiResponse;
 };
 
@@ -17,6 +18,7 @@ export function createResourceResponse<T>(rawApiResponse: RawApiResponse): Resou
     success: rawApiResponse.Success ?? false,
     apiResponse: rawApiResponse,
     results: rawApiResponse.Results ?? [],
+    affected: rawApiResponse.Affected ?? [],
     deleted: rawApiResponse.Deleted ?? [],
   };
 

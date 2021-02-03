@@ -33,3 +33,8 @@ export enum UserStatusOverviewStatus {
   Leave,
   CoreTimeViolation = 5,
 }
+
+export enum TimeTrackingStatus {
+  Running = 1,
+  Stopped = 2,
+}

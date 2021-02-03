@@ -27,6 +27,16 @@ describe('RequestParams', () => {
     expect(requestParams.getParams()).toStrictEqual({ id: '1', _op__id: 'eq', user_id: '2', _op__user_id: 'eq' });
   });
 
+  test('single neq', () => {
+    const requestParams = new RequestParams<Resource>().neq('id', 1);
+    expect(requestParams.getParams()).toStrictEqual({ id: '1', _op__id: 'neq' });
+  });
+
+  test('double neq', () => {
+    const requestParams = new RequestParams<Resource>().neq('id', 1).neq('user_id', 2);
+    expect(requestParams.getParams()).toStrictEqual({ id: '1', _op__id: 'neq', user_id: '2', _op__user_id: 'neq' });
+  });
+
   test('limit', () => {
     const requestParams = new RequestParams<Resource>().limit(500);
     expect(requestParams.getParams()).toStrictEqual({ _limit: '500' });
