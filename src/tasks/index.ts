@@ -4,7 +4,7 @@ import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import { Task } from './types';
+import { Task, TaskCreate } from './types';
 
 export class TasksEndpoint extends BaseApi {
   public readonly resourceName = 'tasks';
@@ -27,7 +27,7 @@ export class TasksEndpoint extends BaseApi {
     return responseHandlers.required(response);
   }
 
-  public create(data: Task): Promise<Task> {
+  public create(data: TaskCreate): Promise<Task> {
     const response = this._post<Task[]>(`${this.getResourceName()}/create`, data);
     return responseHandlers.required(response);
   }
