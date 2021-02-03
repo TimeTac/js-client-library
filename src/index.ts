@@ -77,7 +77,6 @@ export default class Api {
   public userStatusOverviews: UserStatusOverviewsEndpoint;
 
   constructor(config: ApiConfig) {
-    console.log(config);
     this.setConfig({
       ...config,
       autoRefreshToken: config.autoRefreshToken ?? true,
