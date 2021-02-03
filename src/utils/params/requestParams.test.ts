@@ -77,6 +77,11 @@ describe('RequestParams', () => {
     expect(requestParams.getParams()).toStrictEqual({ _op__status: 'in', status: '5|3' });
   });
 
+  test('nin', () => {
+    const requestParams = new RequestParams<Resource>().nin('status', [5, 3]);
+    expect(requestParams.getParams()).toStrictEqual({ _op__status: 'nin', status: '5|3' });
+  });
+
   test('fields', () => {
     const requestParams = new RequestParams<Resource>().fields(['status']);
     expect(requestParams.getParams()).toStrictEqual({ _fields: 'status' });
