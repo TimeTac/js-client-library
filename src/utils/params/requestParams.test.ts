@@ -126,4 +126,16 @@ describe('RequestParams', () => {
     const requestParams = new RequestParams<Resource>().offset(66);
     expect(requestParams.getOffset()).toBe(66);
   });
+
+  test('Construtor', () => {
+    const before = new RequestParams<Resource>().eq('id', 1);
+    const after = new RequestParams<Resource>(before.getCriteria());
+
+    expect(after.getCriteria()).toStrictEqual(before.getCriteria());
+
+    before.limit(500);
+
+    expect(before.getCriteria()).toMatchObject(after.getCriteria());
+    expect(after.getCriteria()).not.toStrictEqual(before.getCriteria());
+  });
 });
