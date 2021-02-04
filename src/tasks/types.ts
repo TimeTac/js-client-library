@@ -30,6 +30,7 @@ export type Task = {
   duration?: number;
   is_startable?: boolean;
   is_paid_non_working?: boolean;
+  last_started?: string;
 };
 
 export interface TaskCreate extends Omit<Task, 'id' | 'node_path' | 'view_id'> {}
