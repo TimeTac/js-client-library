@@ -78,6 +78,12 @@ export class RequestParams<R extends Object> {
     return this;
   }
 
+  nin<F extends keyof R & string>(field: F, values: Array<R[F]>): RequestParams<R> {
+    this.criteria[`_op__${field}`] = 'nin';
+    this.criteria[field] = values.join('|');
+    return this;
+  }
+
   between<F extends keyof R & string>(field: F, min: R[F], max: R[F]): RequestParams<R> {
     this.criteria[`_op__${field}`] = 'betw';
     this.criteria[field] = [min, max].join('|');
