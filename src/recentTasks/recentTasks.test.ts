@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParamBuilder } from '../utils/params/requestParamBuilder';
 import { RecentTasksEndpoint } from './index';
 import { RecentTask } from './types';
 
@@ -42,7 +42,7 @@ describe('RecentTasks', () => {
   test('read with RequestParmas', async () => {
     mock.onGet(readPath, { id: 1 }).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1, node_id: 2, user_id: 3 }] });
 
-    result = recentTasksEndpoint.read(new RequestParams<RecentTask>().eq('id', 1));
+    result = recentTasksEndpoint.read(new RequestParamBuilder<RecentTask>().eq('id', 1).build());
     await result.then((result) => expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]));
   });
 

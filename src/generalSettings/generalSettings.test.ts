@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParamBuilder } from '../utils/params/requestParamBuilder';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { GeneralSettingsEndpoint } from './index';
 import { GeneralSetting } from './types';
@@ -56,9 +56,9 @@ describe('GeneralSettings', () => {
   });
 
   test('readRaw with no data', async () => {
-    const current = new RequestParams<GeneralSetting>();
+    const current = new RequestParamBuilder<GeneralSetting>();
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
-    resultReadRaw = generalSettings.readRaw(current);
+    resultReadRaw = generalSettings.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
 });

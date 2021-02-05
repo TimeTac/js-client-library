@@ -1,5 +1,5 @@
 import { createPages, Pages } from '../pages/pages';
-import { RequestParams } from '../params/requestParams';
+import { RequestParams } from '../params/requestParamBuilder';
 import { ResourceResponse } from './resourceResponse';
 
 export type ReadRawResponse<T> = {
@@ -8,10 +8,8 @@ export type ReadRawResponse<T> = {
 };
 
 export function createReadRawResponse<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): ReadRawResponse<T> {
-  const response: ReadRawResponse<T> = {
+  return {
     data: resourceResponse,
     pages: createPages<T>(resourceResponse, originalParams),
   };
-
-  return response;
 }

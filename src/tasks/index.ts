@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParamBuilder';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -9,20 +9,17 @@ import { Task, TaskCreate } from './types';
 export class TasksEndpoint extends BaseApi {
   public readonly resourceName = 'tasks';
 
-  public read(requestParams?: RequestParams<Task> | Object): Promise<Task[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<Task>): Promise<Task[]> {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
 
-  public async readRaw(requestParams: RequestParams<Task>): Promise<ReadRawResponse<Task>> {
-    const params = requestParams.getParams();
+  public async readRaw(params: RequestParams<Task>): Promise<ReadRawResponse<Task>> {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<Task>(createResourceResponse(await createRawApiResponse(response)), requestParams);
+    return createReadRawResponse<Task>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
-  public readById(id: number, requestParams?: RequestParams<Task> | Object): Promise<Task> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<Task>): Promise<Task> {
     const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }

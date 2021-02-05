@@ -1,19 +1,17 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParamBuilder';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
 export class AbsencesEndpoint extends BaseApi {
   public readonly resourceName = 'absences';
 
-  public read(requestParams?: RequestParams<Absence> | Object): Promise<Absence[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<Absence> | Object): Promise<Absence[]> {
     const response = this._get<Absence[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
 
-  public readById(id: number, requestParams?: RequestParams<Absence> | Object): Promise<Absence> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<Absence> | Object): Promise<Absence> {
     const response = this._get<Absence[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }

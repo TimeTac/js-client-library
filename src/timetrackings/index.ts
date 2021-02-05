@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParams } from '../utils/params/requestParamBuilder';
 import { ResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './types';
@@ -7,20 +7,17 @@ import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTracking
 export class TimeTrackingsEndpoint extends BaseApi {
   public readonly resourceName = 'timeTrackings';
 
-  public read(requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<TimeTracking>): Promise<TimeTracking[]> {
     const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
 
-  public readById(id: number, requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<TimeTracking>): Promise<TimeTracking> {
     const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }
 
-  public current(requestParams?: RequestParams<TimeTracking> | Object): Promise<TimeTracking | undefined> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public current(params?: RequestParams<TimeTracking>): Promise<TimeTracking | undefined> {
     const response = this._get<TimeTracking[]>(`${this.getResourceName()}/current`, { params });
     return responseHandlers.optional(response);
   }

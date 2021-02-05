@@ -1,6 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { RequestParamBuilder, RequestParams } from '../utils/params/requestParamBuilder';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -10,18 +9,15 @@ import { AbsenceType } from './types';
 export class AbsenceTypesEndpoint extends BaseApi {
   public readonly resourceName = 'absenceTypes';
 
-  public read(requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<AbsenceType>): Promise<AbsenceType[]> {
     const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
-  public async readRaw(requestParams: RequestParams<AbsenceType>): Promise<ReadRawResponse<AbsenceType>> {
-    const params = requestParams.getParams();
+  public async readRaw(params: RequestParams<AbsenceType>): Promise<ReadRawResponse<AbsenceType>> {
     const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<AbsenceType>(createResourceResponse(await createRawApiResponse(response)), requestParams);
+    return createReadRawResponse<AbsenceType>(createResourceResponse(await createRawApiResponse(response)), params);
   }
-  public readById(id: number, requestParams?: RequestParams<AbsenceType> | Object): Promise<AbsenceType> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<AbsenceType>): Promise<AbsenceType> {
     const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }
