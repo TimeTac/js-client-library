@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParamBuilder, RequestParams } from '../utils/params/requestParamBuilder';
+import { RequestParams, RequestParamsBuilder } from '../utils/params/requestParams';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -25,7 +25,7 @@ export class GeneralSettingsEndpoint extends BaseApi {
   }
 
   public readBySettingType(settingType: string): Promise<GeneralSetting> {
-    const params = new RequestParamBuilder<GeneralSetting>().eq('setting_type', settingType).build();
+    const params = new RequestParamsBuilder<GeneralSetting>().eq('setting_type', settingType).build();
     const response = this._get<GeneralSetting[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.required(response);
   }

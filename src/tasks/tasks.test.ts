@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamBuilder } from '../utils/params/requestParamBuilder';
+import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
@@ -47,15 +47,15 @@ describe('Tasks', () => {
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
   test('readRaw with no data', async () => {
-    const current = new RequestParamBuilder<Task>();
+    const current = new RequestParamsBuilder<Task>();
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
     resultReadRaw = tasks.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
 
   test('readRaw with next', async () => {
-    const current = new RequestParamBuilder<Task>().limit(3).build();
-    const next = new RequestParamBuilder<Task>().limit(3).offset(3).build();
+    const current = new RequestParamsBuilder<Task>().limit(3).build();
+    const next = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
 
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
     resultReadRaw = tasks.readRaw(current);
@@ -65,9 +65,9 @@ describe('Tasks', () => {
   });
 
   test('readRaw with prev', async () => {
-    const prev = new RequestParamBuilder<Task>().limit(3).offset(0).build();
-    const current = new RequestParamBuilder<Task>().limit(3).offset(3).build();
-    const next = new RequestParamBuilder<Task>().limit(3).offset(6).build();
+    const prev = new RequestParamsBuilder<Task>().limit(3).offset(0).build();
+    const current = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
+    const next = new RequestParamsBuilder<Task>().limit(3).offset(6).build();
 
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
     resultReadRaw = tasks.readRaw(current);

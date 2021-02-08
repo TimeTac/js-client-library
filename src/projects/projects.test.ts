@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamBuilder } from '../utils/params/requestParamBuilder';
+import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { ProjectsEndpoint } from './index';
@@ -43,7 +43,7 @@ describe('Projects', () => {
   });
 
   test('readRaw with no data', async () => {
-    const current = new RequestParamBuilder<Project>();
+    const current = new RequestParamsBuilder<Project>();
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
     resultReadRaw = projects.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));

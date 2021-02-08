@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParamBuilder';
+import { RequestParams } from '../utils/params/requestParams';
 import { ResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './types';

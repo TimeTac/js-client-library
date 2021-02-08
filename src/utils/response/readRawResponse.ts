@@ -1,5 +1,5 @@
 import { createPages, Pages } from '../pages/pages';
-import { RequestParams } from '../params/requestParamBuilder';
+import { RequestParams } from '../params/requestParams';
 import { ResourceResponse } from './resourceResponse';
 
 export type ReadRawResponse<T> = {

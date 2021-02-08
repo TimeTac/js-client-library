@@ -1,4 +1,4 @@
-import { RequestParamBuilder, RequestParams } from '../params/requestParamBuilder';
+import { RequestParams, RequestParamsBuilder } from '../params/requestParams';
 import { ResourceResponse } from '../response/resourceResponse';
 
 export type Pages<T> = {
@@ -16,8 +16,8 @@ export function createPages<T>(resourceResponse: ResourceResponse<T>, originalPa
     next: { ...originalParams },
   };
 
-  const prev = new RequestParamBuilder(pages.prev);
-  const next = new RequestParamBuilder(pages.next);
+  const prev = new RequestParamsBuilder(pages.prev);
+  const next = new RequestParamsBuilder(pages.next);
 
   if (!pages.prev || prev.getOffset() < prev.getLimit()) {
     pages.prev = undefined;

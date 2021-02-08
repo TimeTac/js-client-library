@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParamBuilder, RequestParams } from '../utils/params/requestParamBuilder';
+import { RequestParams, RequestParamsBuilder } from '../utils/params/requestParams';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { TodoTask, TodoTaskCreate } from './types';
 
@@ -11,8 +11,8 @@ export class TodoTasksEndpoint extends BaseApi {
 
     return responseHandlers.list(response);
   }
-  public readById(id: number, requestParams?: RequestParamBuilder<TodoTask> | Object): Promise<TodoTask> {
-    const params = requestParams instanceof RequestParamBuilder ? requestParams.build() : requestParams;
+  public readById(id: number, requestParams?: RequestParamsBuilder<TodoTask> | Object): Promise<TodoTask> {
+    const params = requestParams instanceof RequestParamsBuilder ? requestParams.build() : requestParams;
     const response = this._get<TodoTask[]>(`${this.getResourceName()}/read/${id}`, { params });
 
     return responseHandlers.required(response);
