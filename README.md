@@ -1,6 +1,8 @@
 # TimeTac Client Library
 
-TimeTac Client Library is a thin wrapper for client to make api request. For more information please visit our [API documentation](https://api.timetac.com/).
+This library is a thin wrapper facilitating requests to the TimeTac REST API.
+For more information please visit the
+[API documentation](https://api.timetac.com/).
 
 ## Installation
 
@@ -17,6 +19,21 @@ Using npm:
 ```bash
 npm install @timetac/js-client-library
 ```
+
+## Obtaining Access Credentials
+Existing customers can activate API access or request access to a sandbox
+environment by contacting support@timetac.com. This process usually takes less
+than two business days and is currently free of charge.
+
+If you are not a customer yet, you may set up a
+[free trial](https://www.timetac.com/en/free-trial/) and contact
+support@timetac.com to obtain a `client_id` and `client_secret` for your
+personal demo account.
+
+Finally, if you just want to run a few requests, you may use the public API
+`playground` sandbox account. This account is reset to its initial state in
+regular intervals. Access credentials are available in the react playground's
+[README](https://github.com/TimeTac/react-playground#timetac-playground).
 
 ## Usage
 
@@ -190,3 +207,15 @@ yarn test
 ## License
 
 [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
+
+
+## Troubleshooting
+
+### Cross-Origin Resource Sharing (CORS)
+When experiencing issues with
+[cross-origin resource sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing),
+you will have to configure a proxy server for development.
+This can be done, for example, with
+[http-proxy-middleware](https://www.npmjs.com/package/http-proxy-middleware).
+An example configuration for a React project can be found in
+the [react playground](https://github.com/TimeTac/react-playground#proxy).
