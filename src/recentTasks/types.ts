@@ -5,4 +5,4 @@ export interface RecentTask {
   last_started: string;
 }
 
-export type RecentTaskCreate = Omit<RecentTask, 'id' | 'last_started'>
+export type RecentTaskCreate = Omit<RecentTask, 'id' | 'last_started'>;

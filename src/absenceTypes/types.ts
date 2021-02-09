@@ -124,4 +124,4 @@ export type AbsenceType = {
   is_visible_for_edit?: boolean;
 };
 
-export type AbsenceTypeCreate = Omit<AbsenceType, 'id'>
+export type AbsenceTypeCreate = Omit<AbsenceType, 'id'>;
