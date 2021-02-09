@@ -5,4 +5,4 @@ export interface TodoTask {
   _assign_to_child_nodes?: boolean;
 }
 
-export interface TodoTaskCreate extends Omit<TodoTask, 'id'> {}
+export type TodoTaskCreate = Omit<TodoTask, 'id'>

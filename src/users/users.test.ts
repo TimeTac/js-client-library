@@ -9,7 +9,7 @@ import { User } from './types';
 
 describe('Users', () => {
   const users: UsersEndpoint = new UsersEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${users.getResourcePath()}/read`;
+  const readPath = `${users.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
 
   let result: Promise<User[]> | null;

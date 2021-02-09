@@ -5,4 +5,4 @@ export interface FavouriteTask {
   _assign_to_child_nodes?: boolean;
 }
 
-export interface FavouriteTaskCreate extends Omit<FavouriteTask, 'id'> {}
+export type FavouriteTaskCreate = Omit<FavouriteTask, 'id'>

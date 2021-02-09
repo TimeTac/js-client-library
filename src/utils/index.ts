@@ -14,7 +14,7 @@ type Data = {
  * @return {string} message
  */
 export const objectCheck = (data: Data, prefix?: string, postfix?: string): string => {
-  let message: string = `${prefix || ''} `;
+  let message = `${prefix || ''} `;
 
   for (const key in data) {
     if (data[key] == undefined) {

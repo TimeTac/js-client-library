@@ -9,7 +9,7 @@ import { Task } from './types';
 
 describe('Tasks', () => {
   const tasks: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${tasks.getResourcePath()}/read`;
+  const readPath = `${tasks.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Task[]> | null;

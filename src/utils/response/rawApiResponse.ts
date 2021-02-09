@@ -20,8 +20,8 @@ export type RawApiResponse = {
   ErrorExtended?: any;
 };
 
-export async function createRawApiResponse(promise: Promise<AxiosResponse<any>>): Promise<RawApiResponse> {
-  const axiosResponse: AxiosResponse<any> = await promise;
+export async function createRawApiResponse(promise: Promise<AxiosResponse>): Promise<RawApiResponse> {
+  const axiosResponse: AxiosResponse = await promise;
 
   if (axiosResponse === undefined) {
     throw new Error('The Api response is unsuccessful');
@@ -29,7 +29,7 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse<any>>)
 
   const rawApiResponse: RawApiResponse = axiosResponse.data;
 
-  if (rawApiResponse.Success == false) {
+  if (!rawApiResponse.Success) {
     throw new Error('The Api response is unsuccessful');
   }
 

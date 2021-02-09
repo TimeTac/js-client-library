@@ -12,7 +12,7 @@ import { DeltaSyncResults } from './types';
 
 describe('DeltaSync', () => {
   const deltaSync: DeltaSyncEndpoint = new DeltaSyncEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${deltaSync.getResourcePath()}/read`;
+  const readPath = `${deltaSync.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<DeltaSyncResponse> | null;

@@ -10,7 +10,7 @@ export type Pages<T> = {
 };
 
 export function createPages<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): Pages<T> {
-  let pages: Pages<T> = {
+  const pages: Pages<T> = {
     prev: new RequestParams<T>().clone(originalParams),
     current: new RequestParams<T>().clone(originalParams),
     next: new RequestParams<T>().clone(originalParams),
@@ -25,7 +25,7 @@ export function createPages<T>(resourceResponse: ResourceResponse<T>, originalPa
   if (!pages.next || resourceResponse.results.length < pages.next.getLimit()) {
     pages.next = undefined;
   } else {
-    pages.next?.offset(pages.next.getOffset() + pages.next.getLimit());
+    pages.next.offset(pages.next.getOffset() + pages.next.getLimit());
   }
 
   return pages;

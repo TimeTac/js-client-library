@@ -33,7 +33,7 @@ export type ApiConfig = {
 };
 
 export default abstract class BaseApi {
-  public abstract readonly resourceName: String;
+  public abstract readonly resourceName: string;
 
   constructor(public config: ApiConfig) {}
 
@@ -87,11 +87,11 @@ export default abstract class BaseApi {
     this.config.account = account;
   }
 
-  public getResourceName(): String {
+  public getResourceName(): string {
     return this.resourceName;
   }
 
-  public getResourcePath(): String {
+  public getResourcePath(): string {
     return `${this.getApiPath()}${this.getResourceName()}`;
   }
 }

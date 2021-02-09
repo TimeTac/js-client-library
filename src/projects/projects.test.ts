@@ -10,7 +10,7 @@ import { Project } from './types';
 
 describe('Projects', () => {
   const projects: ProjectsEndpoint = new ProjectsEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${projects.getResourcePath()}/read`;
+  const readPath = `${projects.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Project[]> | null;

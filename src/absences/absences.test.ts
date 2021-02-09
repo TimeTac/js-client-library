@@ -30,13 +30,13 @@ describe('Absences', () => {
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
-    await absences.read().catch((result) => expect(result).toStrictEqual({ Success: false }));
+    await absences.read().catch((result) => { expect(result).toStrictEqual({ Success: false }); });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await absences.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await absences.read().catch((err) => { expect(err.message).toMatch('Request failed with status code 500'); });
   });
 
   test('readById', async () => {

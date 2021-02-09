@@ -32,4 +32,4 @@ export type Task = {
   is_paid_non_working?: boolean;
 };
 
-export interface TaskCreate extends Omit<Task, 'id' | 'node_path' | 'view_id'> {}
+export type TaskCreate = Omit<Task, 'id' | 'node_path' | 'view_id'>
