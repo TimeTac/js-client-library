@@ -6,14 +6,12 @@ import { FavouriteTask, FavouriteTaskCreate } from './types';
 export class FavouriteTasksEndpoint extends BaseApi {
   public readonly resourceName = 'favouriteTasks';
 
-  public read(requestParams?: RequestParams<FavouriteTask> | Object): Promise<FavouriteTask[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<FavouriteTask>): Promise<FavouriteTask[]> {
     const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read`, { params });
 
     return responseHandlers.list(response);
   }
-  public readById(id: number, requestParams?: RequestParams<FavouriteTask> | Object): Promise<FavouriteTask> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<FavouriteTask>): Promise<FavouriteTask> {
     const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read/${id}`, { params });
 
     return responseHandlers.required(response);

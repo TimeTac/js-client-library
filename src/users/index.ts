@@ -9,24 +9,20 @@ import { User } from './types';
 export class UsersEndpoint extends BaseApi {
   public readonly resourceName = 'users';
 
-  public read(requestParams?: RequestParams<User> | Object): Promise<User[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<User>): Promise<User[]> {
     const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
-  public async readRaw(requestParams: RequestParams<User>): Promise<ReadRawResponse<User>> {
-    const params = requestParams.getParams();
+  public async readRaw(params: RequestParams<User>): Promise<ReadRawResponse<User>> {
     const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<User>(createResourceResponse(await createRawApiResponse(response)), requestParams);
+    return createReadRawResponse<User>(createResourceResponse(await createRawApiResponse(response)), params);
   }
-  public readById(id: number, requestParams?: RequestParams<User> | Object): Promise<User> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<User>): Promise<User> {
     const response = this._get<User[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }
 
-  public readMe(requestParams?: RequestParams<User> | Object): Promise<User> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readMe(params?: RequestParams<User>): Promise<User> {
     const response = this._get<User[]>(`${this.getResourceName()}/me`, { params });
     return responseHandlers.required(response);
   }

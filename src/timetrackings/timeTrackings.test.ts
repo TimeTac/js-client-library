@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ResourceResponse } from '../utils/response/resourceResponse';
 import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
@@ -33,7 +33,7 @@ describe('TimeTrackings', () => {
 
   test('read with RequestParmas', async () => {
     mock.onGet(readPath, { params: { id: '99', _op__id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = timeTrackings.read(new RequestParams<TimeTracking>().eq('id', 99));
+    result = timeTrackings.read(new RequestParamsBuilder<TimeTracking>().eq('id', 99).build());
     await result.then((result) => expect(result).toStrictEqual([{}]));
   });
 

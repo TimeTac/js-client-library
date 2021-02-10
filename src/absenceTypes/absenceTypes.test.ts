@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { AbsenceTypesEndpoint } from './index';
 import { AbsenceType } from './types';
@@ -41,9 +41,9 @@ describe('AbsenceTypes', () => {
   });
 
   test('readRaw with no data', async () => {
-    const current = new RequestParams<AbsenceType>();
+    const current = new RequestParamsBuilder<AbsenceType>();
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
-    resultReadRaw = absenceTypes.readRaw(current);
+    resultReadRaw = absenceTypes.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
 
