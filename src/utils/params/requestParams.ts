@@ -1,6 +1,6 @@
 const DEFAULT_PAGE_SIZE = 100;
 
-export class RequestParams<R extends Object> {
+export class RequestParams<R extends Record<string, unknown>> {
   protected criteria: { [index: string]: string } = {};
 
   limit(limit: number): RequestParams<R> {
@@ -94,7 +94,7 @@ export class RequestParams<R extends Object> {
     return this;
   }
 
-  getParams() {
+  getParams(): Record<string, string> {
     return this.criteria;
   }
 
@@ -110,7 +110,7 @@ export class RequestParams<R extends Object> {
     return this.criteria;
   }
 
-  clone(source: RequestParams<R>) {
+  clone(source: RequestParams<R>): RequestParams<R> {
     Object.assign(this.criteria, source.getCriteria());
     return this;
   }
