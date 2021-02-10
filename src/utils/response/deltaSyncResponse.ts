@@ -5,7 +5,7 @@ export type DeltaSyncResponse<R extends keyof Resources & string> = ApiResponse<
   ResourceName: 'deltaSync';
 };
 
-// Just ApiResponse for the specific eg. User[] for key R eg. "users" with some properties omitted and ResourceName set to R
+// It's just ApiResponse for eg. User[] when R is "users". With some properties omitted and ResourceName set to R
 export type DeltaSyncResourceResponse<R extends keyof Resources & string> = Omit<
   ApiResponseOnSuccess<Resources[R][], undefined>,
   'Host' | 'Codeversion' | 'RequestStartTime' | 'RequestEndTime' | 'ServerTimeZone'
@@ -32,7 +32,7 @@ export type DeltaSyncResourceResponse<R extends keyof Resources & string> = Omit
       NumResults: 4,
       NumResultsNested: 4,
       Results: [{} as User],
-      // Notice the absence of fields such as RequestStartTime
+      // Notice the absence of fields such as RequestStartTime, that's the reason for the Omit<...> above
     },
     tasks: {
       Success: true,
