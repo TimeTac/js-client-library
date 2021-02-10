@@ -11,6 +11,8 @@ import { TimeTracking } from '../timetrackings/types';
 import { User } from '../users/types';
 import { UserStatusOverview } from '../userStatusOverview/types';
 
+export type Resource = keyof Resources & string;
+
 export type Resources = {
   // absenceBans?: AbsenceBan;
   absenceDays?: AbsenceDay;

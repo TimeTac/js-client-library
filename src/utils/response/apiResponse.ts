@@ -12,7 +12,7 @@ export type ApiResponseOnSuccess<R, A = unknown> = Base & {
   Success: true;
   NumResults: number;
   NumResultsNested: number;
-  Results: R;
+  Results: R[];
   Deleted?: { id: string; deleted_at: string }[];
   Affected?: Record<string, A>;
   RequestStartTime: string;

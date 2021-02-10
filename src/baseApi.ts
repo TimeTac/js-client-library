@@ -3,6 +3,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { TokenResponse } from './authentication/types';
 import { ApiResponse } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
+import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
+import { Resource } from './deltaSync/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 const DEFAULT_API_VERSION = 3;
@@ -51,6 +53,12 @@ export default abstract class BaseApi {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.get<ApiResponse<T>>(url, config);
+  }
+
+  protected _getDeltaSync<T extends Resource>(options?: AxiosRequestConfig): Promise<AxiosResponse<DeltaSyncResponse<T>>> {
+    const url = this.getApiPath() + 'deltaSync/read';
+    const config = this.getOptions(options);
+    return axios.get<DeltaSyncResponse<T>>(url, config);
   }
 
   protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {

@@ -1,12 +1,13 @@
 import { Resources } from '../..';
+import { Resource } from '../../deltaSync/types';
 import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
 
-export type DeltaSyncResponse<R extends keyof Resources & string> = ApiResponse<{ [r in R]: DeltaSyncResourceResponse<r> }> & {
+export type DeltaSyncResponse<R extends Resource> = ApiResponse<{ [r in R]: DeltaSyncResourceResponse<r> }> & {
   ResourceName: 'deltaSync';
 };
 
 // It's just ApiResponse for eg. User[] when R is "users". With some properties omitted and ResourceName set to R
-export type DeltaSyncResourceResponse<R extends keyof Resources & string> = Omit<
+export type DeltaSyncResourceResponse<R extends Resource> = Omit<
   ApiResponseOnSuccess<Resources[R][], undefined>,
   'Host' | 'Codeversion' | 'RequestStartTime' | 'RequestEndTime' | 'ServerTimeZone'
 > & { ResourceName: R };

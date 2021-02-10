@@ -1,8 +1,6 @@
 import BaseApi from '../baseApi';
-import { RequestParams, RequestParamsBuilder } from '../utils/params/requestParams';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createApiResponseWithPages, ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
-import { createResourceResponse } from '../utils/response/resourceResponse';
+import { RequestParams } from '../utils/params/requestParams';
+import { ApiResponseWithPages, createApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { AbsenceType } from './types';
 
@@ -10,15 +8,15 @@ export class AbsenceTypesEndpoint extends BaseApi {
   public readonly resourceName = 'absenceTypes';
 
   public read(params?: RequestParams<AbsenceType>): Promise<AbsenceType[]> {
-    const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
+    const response = this._get<AbsenceType>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
   public async readRaw(params: RequestParams<AbsenceType>): Promise<ApiResponseWithPages<AbsenceType>> {
-    const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read`, { params });
-    return createApiResponseWithPages<AbsenceType>(createResourceResponse(await createRawApiResponse(response)), params);
+    const response = (await this._get<AbsenceType>(`${this.getResourceName()}/read`, { params })).data;
+    return createApiResponseWithPages(response, params);
   }
   public readById(id: number, params?: RequestParams<AbsenceType>): Promise<AbsenceType> {
-    const response = this._get<AbsenceType[]>(`${this.getResourceName()}/read/${id}`, { params });
+    const response = this._get<AbsenceType>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }
   public create(): Promise<AbsenceType> {

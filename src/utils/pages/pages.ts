@@ -1,5 +1,5 @@
 import { RequestParams, RequestParamsBuilder } from '../params/requestParams';
-import { ResourceResponse } from '../response/resourceResponse';
+import { ApiResponse, ApiResponseOnSuccess } from '../response/apiResponse';
 
 export type Pages<T> = {
   prev?: RequestParams<T>;
@@ -9,7 +9,7 @@ export type Pages<T> = {
   // TODO add first requestStartTime
 };
 
-export function createPages<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): Pages<T> {
+export function createPages<T, A = unknown>(response: ApiResponse<T, A>, originalParams: RequestParams<T>): Pages<T> {
   const pages: Pages<T> = {
     prev: { ...originalParams },
     current: { ...originalParams },
@@ -25,7 +25,7 @@ export function createPages<T>(resourceResponse: ResourceResponse<T>, originalPa
     prev.offset(prev.getOffset() - prev.getLimit());
   }
 
-  if (!pages.next || resourceResponse.results.length < next.getLimit()) {
+  if (!pages.next || (response.Success && response.Results.length < next.getLimit())) {
     pages.next = undefined;
   } else {
     next.offset(next.getOffset() + next.getLimit());

@@ -12,6 +12,6 @@ export function createApiResponseWithPages<R, A>(
 ): ApiResponseWithPages<R, A> {
   return {
     ...apiResponse,
-    pages: createPages<R>(apiResponse, originalParams),
+    pages: createPages(apiResponse, originalParams),
   };
 }
