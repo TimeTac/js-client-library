@@ -6,14 +6,12 @@ import { TeamMember } from './types';
 export class TeamMembersEndpoint extends BaseApi {
   public readonly resourceName = 'teamMembers';
 
-  public read(requestParams?: RequestParams<TeamMember> | Object): Promise<TeamMember[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<TeamMember> | Object): Promise<TeamMember[]> {
     const response = this._get<TeamMember[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
 
-  public readById(id: number, requestParams?: RequestParams<TeamMember> | Object): Promise<TeamMember> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<TeamMember> | Object): Promise<TeamMember> {
     const response = this._get<TeamMember[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }

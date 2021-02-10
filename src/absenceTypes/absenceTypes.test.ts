@@ -1,14 +1,14 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { AbsenceTypesEndpoint } from './index';
 import { AbsenceType } from './types';
 
 describe('AbsenceTypes', () => {
   const absenceTypes: AbsenceTypesEndpoint = new AbsenceTypesEndpoint({ account: 'testingAccount' });
-  const readPath = `${absenceTypes.getResourcePath()}/read`;
+  const readPath: string = `${absenceTypes.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<AbsenceType[]> | null;
@@ -25,41 +25,31 @@ describe('AbsenceTypes', () => {
   test('read', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = absenceTypes.read();
-    await result.then((result) => {
-      expect(result).toStrictEqual([{}]);
-    });
+    await result.then((result) => expect(result).toStrictEqual([{}]));
   });
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
     result = absenceTypes.read();
-    await result.catch((result) => {
-      expect(result).toStrictEqual({ Success: false });
-    });
+    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await absenceTypes.read().catch((err) => {
-      expect(err.message).toMatch('Request failed with status code 500');
-    });
+    await absenceTypes.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
   });
 
   test('readRaw with no data', async () => {
-    const current = new RequestParams<AbsenceType>();
+    const current = new RequestParamsBuilder<AbsenceType>();
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
-    resultReadRaw = absenceTypes.readRaw(current);
-    await resultReadRaw.then((result) => {
-      expect(result).toMatchObject({ data: {}, pages: {} });
-    });
+    resultReadRaw = absenceTypes.readRaw(current.build());
+    await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
 
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = absenceTypes.readById(1);
-    await resultSingle.then((result) => {
-      expect(result).toStrictEqual({});
-    });
+    await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 });

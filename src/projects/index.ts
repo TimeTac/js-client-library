@@ -9,20 +9,17 @@ import { Project } from './types';
 export class ProjectsEndpoint extends BaseApi {
   public readonly resourceName = 'projects';
 
-  public read(requestParams?: RequestParams<Project> | Object): Promise<Project[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<Project>): Promise<Project[]> {
     const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
 
-  public async readRaw(requestParams: RequestParams<Project>): Promise<ReadRawResponse<Project>> {
-    const params = requestParams.getParams();
+  public async readRaw(params: RequestParams<Project>): Promise<ReadRawResponse<Project>> {
     const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<Project>(createResourceResponse(await createRawApiResponse(response)), requestParams);
+    return createReadRawResponse<Project>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
-  public readById(id: number, requestParams?: RequestParams<Project> | Object): Promise<Project> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<Project>): Promise<Project> {
     const response = this._get<Project[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }

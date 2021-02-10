@@ -1,4 +1,4 @@
-import { RequestParams } from '../params/requestParams';
+import { RequestParams, RequestParamsBuilder } from '../params/requestParams';
 import { ResourceResponse } from '../response/resourceResponse';
 
 export type Pages<T> = {
@@ -10,22 +10,25 @@ export type Pages<T> = {
 };
 
 export function createPages<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): Pages<T> {
-  const pages: Pages<T> = {
-    prev: new RequestParams<T>().clone(originalParams),
-    current: new RequestParams<T>().clone(originalParams),
-    next: new RequestParams<T>().clone(originalParams),
+  let pages: Pages<T> = {
+    prev: { ...originalParams },
+    current: { ...originalParams },
+    next: { ...originalParams },
   };
 
-  if (!pages.prev || pages.prev.getOffset() < pages.prev.getLimit()) {
+  const prev = new RequestParamsBuilder(pages.prev);
+  const next = new RequestParamsBuilder(pages.next);
+
+  if (!pages.prev || prev.getOffset() < prev.getLimit()) {
     pages.prev = undefined;
   } else {
-    pages.prev.offset(pages.prev.getOffset() - pages.prev.getLimit());
+    prev.offset(prev.getOffset() - prev.getLimit());
   }
 
-  if (!pages.next || resourceResponse.results.length < pages.next.getLimit()) {
+  if (!pages.next || resourceResponse.results.length < next.getLimit()) {
     pages.next = undefined;
   } else {
-    pages.next.offset(pages.next.getOffset() + pages.next.getLimit());
+    next.offset(next.getOffset() + next.getLimit());
   }
 
   return pages;

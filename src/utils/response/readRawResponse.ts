@@ -8,10 +8,8 @@ export type ReadRawResponse<T> = {
 };
 
 export function createReadRawResponse<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): ReadRawResponse<T> {
-  const response: ReadRawResponse<T> = {
+  return {
     data: resourceResponse,
     pages: createPages<T>(resourceResponse, originalParams),
   };
-
-  return response;
 }

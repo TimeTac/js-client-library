@@ -1,6 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
+import { RequestParams, RequestParamsBuilder } from '../utils/params/requestParams';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -10,26 +9,23 @@ import { GeneralSetting } from './types';
 export class GeneralSettingsEndpoint extends BaseApi {
   public readonly resourceName = 'generalSettings';
 
-  public read(requestParams?: RequestParams<GeneralSetting> | Object): Promise<GeneralSetting[]> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public read(params?: RequestParams<GeneralSetting>): Promise<GeneralSetting[]> {
     const response = this._get<GeneralSetting[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
 
-  public async readRaw(requestParams: RequestParams<GeneralSetting>): Promise<ReadRawResponse<GeneralSetting>> {
-    const params = requestParams.getParams();
+  public async readRaw(params: RequestParams<GeneralSetting>): Promise<ReadRawResponse<GeneralSetting>> {
     const response = this._get<GeneralSetting[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<GeneralSetting>(createResourceResponse(await createRawApiResponse(response)), requestParams);
+    return createReadRawResponse<GeneralSetting>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
-  public readById(id: number, requestParams?: RequestParams<GeneralSetting> | Object): Promise<GeneralSetting> {
-    const params = requestParams instanceof RequestParams ? requestParams.getParams() : requestParams;
+  public readById(id: number, params?: RequestParams<GeneralSetting>): Promise<GeneralSetting> {
     const response = this._get<GeneralSetting[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }
 
   public readBySettingType(settingType: string): Promise<GeneralSetting> {
-    const params = new RequestParams<GeneralSetting>().eq('setting_type', settingType).getParams();
+    const params = new RequestParamsBuilder<GeneralSetting>().eq('setting_type', settingType).build();
     const response = this._get<GeneralSetting[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.required(response);
   }
