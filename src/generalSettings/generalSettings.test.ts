@@ -3,7 +3,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
-import { ReadRawResponse } from '../utils/response/readRawResponse';
+import { ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { GeneralSettingsEndpoint } from './index';
 import { GeneralSetting } from './types';
 
@@ -14,7 +14,7 @@ describe('GeneralSettings', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<GeneralSetting[]> | null;
   let resultSingle: Promise<GeneralSetting> | null;
-  let resultReadRaw: Promise<ReadRawResponse<GeneralSetting>> | null;
+  let resultReadRaw: Promise<ApiResponseWithPages<GeneralSetting>> | null;
 
   afterEach(() => {
     mock.reset();

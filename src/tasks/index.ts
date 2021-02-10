@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
+import { createApiResponseWithPages, ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { Task, TaskCreate } from './types';
@@ -14,9 +14,9 @@ export class TasksEndpoint extends BaseApi {
     return responseHandlers.list(response);
   }
 
-  public async readRaw(params: RequestParams<Task>): Promise<ReadRawResponse<Task>> {
+  public async readRaw(params: RequestParams<Task>): Promise<ApiResponseWithPages<Task>> {
     const response = this._get<Task[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<Task>(createResourceResponse(await createRawApiResponse(response)), params);
+    return createApiResponseWithPages<Task>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
   public readById(id: number, params?: RequestParams<Task>): Promise<Task> {

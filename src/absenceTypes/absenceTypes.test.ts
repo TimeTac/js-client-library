@@ -2,7 +2,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
-import { ReadRawResponse } from '../utils/response/readRawResponse';
+import { ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { AbsenceTypesEndpoint } from './index';
 import { AbsenceType } from './types';
 
@@ -13,7 +13,7 @@ describe('AbsenceTypes', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<AbsenceType[]> | null;
   let resultSingle: Promise<AbsenceType> | null;
-  let resultReadRaw: Promise<ReadRawResponse<AbsenceType>> | null;
+  let resultReadRaw: Promise<ApiResponseWithPages<AbsenceType>> | null;
 
   afterEach(() => {
     mock.reset();

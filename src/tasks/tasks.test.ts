@@ -3,7 +3,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
-import { ReadRawResponse } from '../utils/response/readRawResponse';
+import { ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
 
@@ -14,7 +14,7 @@ describe('Tasks', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Task[]> | null;
   let resultSingle: Promise<Task> | null;
-  let resultReadRaw: Promise<ReadRawResponse<Task>> | null;
+  let resultReadRaw: Promise<ApiResponseWithPages<Task>> | null;
 
   afterEach(() => {
     mock.reset();

@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
+import { createApiResponseWithPages, ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './types';
@@ -14,9 +14,9 @@ export class TimeTrackingsEndpoint extends BaseApi {
     return responseHandlers.list(response);
   }
 
-  public async readRaw(params: RequestParams<TimeTracking>): Promise<ReadRawResponse<TimeTracking>> {
+  public async readRaw(params: RequestParams<TimeTracking>): Promise<ApiResponseWithPages<TimeTracking>> {
     const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<TimeTracking>(createResourceResponse(await createRawApiResponse(response)), params);
+    return createApiResponseWithPages<TimeTracking>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
   public readById(id: number, params?: RequestParams<TimeTracking>): Promise<TimeTracking> {

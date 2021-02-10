@@ -4,7 +4,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
-import { ReadRawResponse } from '../utils/response/readRawResponse';
+import { ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { ProjectsEndpoint } from './index';
 import { Project } from './types';
 
@@ -15,7 +15,7 @@ describe('Projects', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Project[]> | null;
   let resultSingle: Promise<Project> | null;
-  let resultReadRaw: Promise<ReadRawResponse<Project>> | null;
+  let resultReadRaw: Promise<ApiResponseWithPages<Project>> | null;
 
   afterEach(() => {
     mock.reset();

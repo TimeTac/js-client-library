@@ -25,7 +25,7 @@ export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } 
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
-export { DeltaSyncResults } from './deltaSync/types';
+export { Resources } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
 export { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus, UserStatusOverviewStatus } from './enums';
@@ -47,7 +47,7 @@ export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
-export { ReadRawResponse } from './utils/response/readRawResponse';
+export { ApiResponseWithPages } from './utils/response/apiResponseWithPages';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';

@@ -8,7 +8,7 @@ import { DeltaSyncParams } from '../utils/params/deltaSyncParams';
 import { DeltaSyncResponse } from '../utils/response/deltaSyncResponse';
 import { DeletedEntry } from '../utils/response/resourceResponse';
 import { DeltaSyncEndpoint } from './index';
-import { DeltaSyncResults } from './types';
+import { Resources } from './types';
 
 describe('DeltaSync', () => {
   const deltaSync: DeltaSyncEndpoint = new DeltaSyncEndpoint({ account: 'testingAccount' });
@@ -61,7 +61,7 @@ describe('DeltaSync', () => {
       Deleted: [deltedRecord],
     };
 
-    const expectResults: DeltaSyncResults = {
+    const expectResults: Resources = {
       absences: {
         success: true,
         apiResponse: {

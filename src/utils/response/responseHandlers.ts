@@ -6,13 +6,8 @@ import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
 export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
 
-export async function toApiResponse<T>(promise: RequestPromise<T>) {
+export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiResponseOnSuccess<T>> {
   const resolved = await promise;
-
-  if (resolved === undefined) {
-    throw new Error('Promise resolve is undefined, please contact administrator.');
-  }
-
   const apiResponse = resolved.data;
 
   if (apiResponse.Success) {
@@ -44,7 +39,7 @@ export async function optional<T>(promise: RequestPromise<T[]>): Promise<T | und
 
 export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
   const response = await toApiResponse<T[]>(promise);
-  return response.Results ?? [];
+  return response.Results;
 }
 
 export async function toResourceResponse<T>(promise: RequestPromise<T[]>): Promise<ResourceResponse<T>> {

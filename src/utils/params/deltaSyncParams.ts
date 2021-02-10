@@ -1,4 +1,4 @@
-import { DeltaSyncResults } from '../../deltaSync/types';
+import { Resources } from '../../deltaSync/types';
 
 const DEFAULT_PAGE_SIZE = 1000;
 
@@ -24,7 +24,7 @@ export class DeltaSyncParams {
     return this;
   }
 
-  include<F extends keyof DeltaSyncResults & string>(values: F[]): DeltaSyncParams {
+  include<F extends keyof Resources & string>(values: F[]): DeltaSyncParams {
     this.criteria['_include'] = values.join(',');
     return this;
   }

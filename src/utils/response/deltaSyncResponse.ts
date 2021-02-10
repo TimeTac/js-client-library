@@ -1,60 +1,46 @@
-import { AbsenceDay } from '../../absenceDays/types';
-import { Absence } from '../../absences/types';
-import { AbsenceType } from '../../absenceTypes/types';
-import { DeltaSyncResults } from '../../deltaSync/types';
-import { Department } from '../../departments/types';
-import { GeneralSetting } from '../../generalSettings/types';
-import { Project } from '../../projects/types';
-import { Task } from '../../tasks/types';
-import { Team } from '../../teams/types';
-import { TimesheetAccounting } from '../../timesheetAccountings/types';
-import { TimeTracking } from '../../timetrackings/types';
-import { User } from '../../users/types';
-import { UserStatusOverview } from '../../userStatusOverview/types';
-import { RawApiResponse } from './rawApiResponse';
-import { ResourceResponse } from './resourceResponse';
+import { Resources } from '../..';
+import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
 
-export type DeltaSyncResponse = {
-  success: boolean;
-  apiResponse: RawApiResponse;
-  results: DeltaSyncResults;
+export type DeltaSyncResponse<R extends keyof Resources & string> = ApiResponse<{ [r in R]: DeltaSyncResourceResponse<r> }> & {
+  ResourceName: 'deltaSync';
 };
 
-export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSyncResponse {
-  const result: DeltaSyncResponse = {
-    success: true,
-    apiResponse: rawApiResponse,
-    results: {
-      absenceDays: convert<AbsenceDay>(rawApiResponse, 'absenceDays'),
-      absences: convert<Absence>(rawApiResponse, 'absences'),
-      absenceTypes: convert<AbsenceType>(rawApiResponse, 'absenceTypes'),
-      department: convert<Department>(rawApiResponse, 'absenceTypes'),
-      generalSettings: convert<GeneralSetting>(rawApiResponse, 'generalSettings'),
-      projects: convert<Project>(rawApiResponse, 'projects'),
-      tasks: convert<Task>(rawApiResponse, 'tasks'),
-      teams: convert<Team>(rawApiResponse, 'teams'),
-      timesheetAccountings: convert<TimesheetAccounting>(rawApiResponse, 'timesheetAccountings'),
-      timeTrackings: convert<TimeTracking>(rawApiResponse, 'timeTrackings'),
-      users: convert<User>(rawApiResponse, 'users'),
-      userStatusOverview: convert<UserStatusOverview>(rawApiResponse, 'userStatusOverview'),
+// Just ApiResponse for the specific eg. User[] for key R eg. "users" with some properties omitted and ResourceName set to R
+export type DeltaSyncResourceResponse<R extends keyof Resources & string> = Omit<
+  ApiResponseOnSuccess<Resources[R][], undefined>,
+  'Host' | 'Codeversion' | 'RequestStartTime' | 'RequestEndTime' | 'ServerTimeZone'
+> & { ResourceName: R };
+
+/*
+ The mapping of "users" => User is provided by the Resources type to enable the "users" => Response<User[]> here.
+ ResourceName and Results (inner and outer, including keys) are type checked.
+
+ Example for Results:
+
+ ```
+ const response: DeltaSyncResponse<'users' | 'tasks'> = {
+  Success: true,
+  ResourceName: 'deltaSync',
+  RequestStartTime: '01-01-2000 00:00:00'
+  //...
+  NumResults: 5,
+  NumResultsNested: 500,
+  Results: {
+    users: {
+      Success: true,
+      ResourceName: 'users',
+      NumResults: 4,
+      NumResultsNested: 4,
+      Results: [{} as User],
+      // Notice the absence of fields such as RequestStartTime
     },
-  };
-  return result;
-}
-
-function convert<T>(deltaSyncResonse: RawApiResponse, resource: keyof DeltaSyncResults & string): ResourceResponse<T> | undefined {
-  const includeResponse: RawApiResponse = deltaSyncResonse.Results[resource];
-
-  if (!includeResponse) {
-    return undefined;
-  }
-
-  const result: ResourceResponse<T> = {
-    success: includeResponse.Success ?? false,
-    apiResponse: includeResponse,
-    results: includeResponse.Results ?? [],
-    deleted: includeResponse.Deleted ?? [],
-  };
-
-  return result;
-}
+    tasks: {
+      Success: true,
+      // ...
+      ResourceName: 'tasks',
+      Results: [{} as Task],
+    },
+  },
+};
+```
+*/
