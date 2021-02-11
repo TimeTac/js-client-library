@@ -1,5 +1,3 @@
-import { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus } from '../enums';
-
 export type TimePlanning = {
   id: number;
   user_id: number;

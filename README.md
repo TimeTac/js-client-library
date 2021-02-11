@@ -181,7 +181,7 @@ async() => {
 - [x] [teamMembers](https://api.timetac.com/doc/v3#tag/teamMembers)
 - [x] [teams](https://api.timetac.com/doc/v3#tag/teams)
 - [ ] [teamTypes](https://api.timetac.com/doc/v3#tag/teamTypes)
-- [ ] [timePlannings](https://api.timetac.com/doc/v3#tag/timePlannings)
+- [x] [timePlannings](https://api.timetac.com/doc/v3#tag/timePlannings)
 - [x] [timesheetAccountings](https://api.timetac.com/doc/v3#tag/timesheetAccountings)
 - [ ] [timesheetAccountingSummaries](https://api.timetac.com/doc/v3#tag/timesheetAccountingSummaries)
 - [ ] [timesheetActionLogs](https://api.timetac.com/doc/v3#tag/timesheetActionLogs)
