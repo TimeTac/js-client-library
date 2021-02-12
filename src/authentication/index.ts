@@ -55,11 +55,14 @@ export class AuthenticationEndpoint extends BaseApi {
       return axios.post<TokenResponse>(url, stringify(credentials), config);
     }
 
-    throw objectCheck({
-      client_id: this.config.clientId,
-      client_secret: this.config.clientSecret,
-      refresh_token: refreshToken,
-    });
+    throw objectCheck(
+      {
+        client_id: this.config.clientId,
+        client_secret: this.config.clientSecret,
+        refresh_token: refreshToken,
+      },
+      'Missing data for:'
+    );
   }
 
   async login(credentials: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
