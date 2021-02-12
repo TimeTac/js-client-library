@@ -2,8 +2,10 @@ import { Resources } from '../../deltaSync/types';
 
 const DEFAULT_PAGE_SIZE = 1000;
 
+type Criteria = { [index: string]: string };
+
 export class DeltaSyncParams {
-  protected criteria: { [index: string]: string } = {};
+  protected criteria: Criteria = {};
 
   limit(limit: number): DeltaSyncParams {
     this.criteria['_limit'] = String(limit);
@@ -29,7 +31,7 @@ export class DeltaSyncParams {
     return this;
   }
 
-  getParams() {
+  getParams(): Criteria {
     return this.criteria;
   }
 
@@ -41,7 +43,7 @@ export class DeltaSyncParams {
     return this.criteria['_offset'] ? Number(this.criteria['_offset']) : 0;
   }
 
-  getCriteria(): { [index: string]: string } {
+  getCriteria(): Criteria {
     return this.criteria;
   }
 }

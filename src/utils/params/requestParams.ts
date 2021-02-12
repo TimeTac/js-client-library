@@ -4,7 +4,7 @@ const DEFAULT_PAGE_SIZE = 100;
 // _type is unused, was added only to preserve the generic type for type checking
 export type RequestParams<R> = Record<string, string> & { _type?: R };
 
-export class RequestParamsBuilder<R extends Object> {
+export class RequestParamsBuilder<R extends Record<string, unknown>> {
   protected requestParams: RequestParams<R> = {};
 
   constructor(requestParams?: RequestParams<R>) {
@@ -104,7 +104,7 @@ export class RequestParamsBuilder<R extends Object> {
     return this;
   }
 
-  build() {
+  build(): RequestParams<R> {
     return this.requestParams;
   }
 

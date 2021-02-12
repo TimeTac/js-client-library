@@ -1,5 +1,5 @@
 import { RequestParams, RequestParamsBuilder } from '../params/requestParams';
-import { ApiResponse, ApiResponseOnSuccess } from '../response/apiResponse';
+import { ApiResponse } from '../response/apiResponse';
 
 export type Pages<T> = {
   prev?: RequestParams<T>;

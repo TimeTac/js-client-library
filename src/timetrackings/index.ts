@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { ApiResponseWithPages, createApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createApiResponseWithPages, ApiResponseWithPages } from '../utils/response/apiResponseWithPages';
 import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './types';

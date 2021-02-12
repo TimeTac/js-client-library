@@ -1,26 +1,26 @@
-import { AbsenceDaysEndpoint } from './absenceDays';
-import { AbsencesEndpoint } from './absences';
+// import { AbsenceDaysEndpoint } from './absenceDays';
+// import { AbsencesEndpoint } from './absences';
 import { AbsenceTypesEndpoint } from './absenceTypes';
 import { AuthenticationEndpoint } from './authentication';
 import { ApiConfig, ApiState } from './baseApi';
 import { DeltaSyncEndpoint } from './deltaSync';
-import { DepartmentsEndpoint } from './departments';
-import { FavouriteTasksEndpoint } from './favouriteTasks';
-import { GeneralSettingsEndpoint } from './generalSettings';
-import { ProjectsEndpoint } from './projects';
-import { RecentTasksEndpoint } from './recentTasks';
-import { ServerCommunicationEndpoint } from './serverCommunication';
-import { TasksEndpoint } from './tasks';
-import { TeamMembersEndpoint } from './teamMembers';
-import { TeamsEndpoint } from './teams';
-import { TimesheetAccountingsEndpoint } from './timesheetAccountings';
-import { TimeTrackingsEndpoint } from './timetrackings';
-import { TodoTasksEndpoint } from './todoTasks';
+// import { DepartmentsEndpoint } from './departments';
+// import { FavouriteTasksEndpoint } from './favouriteTasks';
+// import { GeneralSettingsEndpoint } from './generalSettings';
+// import { ProjectsEndpoint } from './projects';
+// import { RecentTasksEndpoint } from './recentTasks';
+// import { ServerCommunicationEndpoint } from './serverCommunication';
+// import { TasksEndpoint } from './tasks';
+// import { TeamMembersEndpoint } from './teamMembers';
+// import { TeamsEndpoint } from './teams';
+// import { TimesheetAccountingsEndpoint } from './timesheetAccountings';
+// import { TimeTrackingsEndpoint } from './timetrackings';
+// import { TodoTasksEndpoint } from './todoTasks';
 import { UsersEndpoint } from './users';
-import { UserStatusOverviewsEndpoint } from './userStatusOverview';
+// import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
 
-export { AbsenceDay } from './absenceDays/types';
+//export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
@@ -46,9 +46,9 @@ export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
-export { RawApiResponse } from './utils/response/rawApiResponse';
+// export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ApiResponseWithPages } from './utils/response/apiResponseWithPages';
-export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
+// export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -56,25 +56,25 @@ export default class Api {
   public config: ApiConfig;
   public state: ApiState;
 
-  public absenceDays: AbsenceDaysEndpoint;
-  public absences: AbsencesEndpoint;
+  // public absenceDays: AbsenceDaysEndpoint;
+  // public absences: AbsencesEndpoint;
   public absenceTypes: AbsenceTypesEndpoint;
   public authentication: AuthenticationEndpoint;
   public deltaSync: DeltaSyncEndpoint;
-  public departments: DepartmentsEndpoint;
-  public favouriteTasks: FavouriteTasksEndpoint;
-  public generalSettings: GeneralSettingsEndpoint;
-  public projects: ProjectsEndpoint;
-  public recentTasks: RecentTasksEndpoint;
-  public serverCommunication: ServerCommunicationEndpoint;
-  public tasks: TasksEndpoint;
-  public teamMembers: TeamMembersEndpoint;
-  public teams: TeamsEndpoint;
-  public timesheetAccountings: TimesheetAccountingsEndpoint;
-  public timeTrackings: TimeTrackingsEndpoint;
-  public todoTasks: TodoTasksEndpoint;
+  // public departments: DepartmentsEndpoint;
+  // public favouriteTasks: FavouriteTasksEndpoint;
+  // public generalSettings: GeneralSettingsEndpoint;
+  // public projects: ProjectsEndpoint;
+  // public recentTasks: RecentTasksEndpoint;
+  // public serverCommunication: ServerCommunicationEndpoint;
+  // public tasks: TasksEndpoint;
+  // public teamMembers: TeamMembersEndpoint;
+  // public teams: TeamsEndpoint;
+  // public timesheetAccountings: TimesheetAccountingsEndpoint;
+  // public timeTrackings: TimeTrackingsEndpoint;
+  // public todoTasks: TodoTasksEndpoint;
   public users: UsersEndpoint;
-  public userStatusOverviews: UserStatusOverviewsEndpoint;
+  // public userStatusOverviews: UserStatusOverviewsEndpoint;
 
   constructor(config: ApiConfig) {
     this.setConfig({
@@ -89,25 +89,25 @@ export default class Api {
       refreshingToken: false,
     };
 
-    this.absenceDays = new AbsenceDaysEndpoint(this.config);
-    this.absences = new AbsencesEndpoint(this.config);
+    // this.absenceDays = new AbsenceDaysEndpoint(this.config);
+    // this.absences = new AbsencesEndpoint(this.config);
     this.absenceTypes = new AbsenceTypesEndpoint(this.config);
     this.authentication = new AuthenticationEndpoint(this.config);
     this.deltaSync = new DeltaSyncEndpoint(this.config);
-    this.departments = new DepartmentsEndpoint(this.config);
-    this.favouriteTasks = new FavouriteTasksEndpoint(this.config);
-    this.generalSettings = new GeneralSettingsEndpoint(this.config);
-    this.projects = new ProjectsEndpoint(this.config);
-    this.recentTasks = new RecentTasksEndpoint(this.config);
-    this.serverCommunication = new ServerCommunicationEndpoint(this.config);
-    this.tasks = new TasksEndpoint(this.config);
-    this.teamMembers = new TeamMembersEndpoint(this.config);
-    this.teams = new TeamsEndpoint(this.config);
-    this.timesheetAccountings = new TimesheetAccountingsEndpoint(this.config);
-    this.timeTrackings = new TimeTrackingsEndpoint(this.config);
-    this.todoTasks = new TodoTasksEndpoint(this.config);
+    // this.departments = new DepartmentsEndpoint(this.config);
+    // this.favouriteTasks = new FavouriteTasksEndpoint(this.config);
+    // this.generalSettings = new GeneralSettingsEndpoint(this.config);
+    // this.projects = new ProjectsEndpoint(this.config);
+    // this.recentTasks = new RecentTasksEndpoint(this.config);
+    // this.serverCommunication = new ServerCommunicationEndpoint(this.config);
+    // this.tasks = new TasksEndpoint(this.config);
+    // this.teamMembers = new TeamMembersEndpoint(this.config);
+    // this.teams = new TeamsEndpoint(this.config);
+    // this.timesheetAccountings = new TimesheetAccountingsEndpoint(this.config);
+    // this.timeTrackings = new TimeTrackingsEndpoint(this.config);
+    // this.todoTasks = new TodoTasksEndpoint(this.config);
     this.users = new UsersEndpoint(this.config);
-    this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
+    // this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }

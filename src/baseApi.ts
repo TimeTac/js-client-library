@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { TokenResponse } from './authentication/types';
-import { ApiResponse } from './utils/response/apiResponse';
-import { RequestPromise } from './utils/response/responseHandlers';
-import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 import { Resource } from './deltaSync/types';
+import { ApiResponse } from './utils/response/apiResponse';
+import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
+import { RequestPromise } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'go.timetac.com';
 const DEFAULT_API_VERSION = 3;
