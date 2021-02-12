@@ -77,7 +77,7 @@ export default abstract class BaseApi {
 
   protected getAccountUrl(): string {
     if (!this.config.account) {
-      throw 'Account is not set';
+      throw new Error('Account is not set');
     }
 
     return `${axios.defaults.baseURL ?? DEFAULT_HOST}/${this.config.account}/`;
