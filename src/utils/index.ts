@@ -1,5 +1,5 @@
 type Data = {
-  [index: string]: any;
+  [index: string]: unknown;
 };
 
 /*
@@ -14,7 +14,7 @@ type Data = {
  * @return {string} message
  */
 export const objectCheck = (data: Data, prefix?: string, postfix?: string): string => {
-  let message: string = `${prefix || ''} `;
+  let message = ''; //: string = `${prefix || ''}`;
 
   for (const key in data) {
     if (data[key] == undefined) {
@@ -24,6 +24,9 @@ export const objectCheck = (data: Data, prefix?: string, postfix?: string): stri
 
   if (message) {
     message += `${postfix || '.'}`;
+    if (prefix) {
+      message = `${prefix} ${message}`;
+    }
   }
 
   return message;

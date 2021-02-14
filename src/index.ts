@@ -80,6 +80,7 @@ export default class Api {
   public userStatusOverviews: UserStatusOverviewsEndpoint;
 
   constructor(config: ApiConfig) {
+    this.config = {};
     this.setConfig({
       ...config,
       autoRefreshToken: config.autoRefreshToken ?? true,
@@ -116,16 +117,13 @@ export default class Api {
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
-  public setAccount(account: string) {
-    this.config.account = account;
+  public setConfig(config: any) {
+    Object.assign(this.config, config);
+    setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
   }
 
-  public setConfig(config: any) {
-    this.config = {
-      ...this.config,
-      ...config,
-    };
-    setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
+  public setAccount(account: string): void {
+    this.config.account = account;
   }
 
   public getConfig(): ApiConfig {
