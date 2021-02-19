@@ -59,5 +59,5 @@ export type Resources = {
   userStatusOverview: UserStatusOverview;
 };
 
-type Resource = keyof Resources & string;
-type Entity<R extends Resource> = Resources[R];
+export type Resource = keyof Resources & string;
+export type Entity<R extends Resource> = Resources[R];
