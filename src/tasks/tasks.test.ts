@@ -46,11 +46,33 @@ describe('Tasks', () => {
     resultSingle = tasks.readById(1);
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
+
   test('readRaw with no data', async () => {
     const current = new RequestParamsBuilder<Task>();
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = tasks.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
+  });
+
+  test('readRaw with Success false', async () => {
+    const current = new RequestParamsBuilder<Task>();
+    mock.onGet(readPath).reply(200, { Success: false, Results: [{}], _ignoreTypeGuard: true });
+    resultReadRaw = tasks.readRaw(current.build());
+    await resultReadRaw.catch((err) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
+  });
+
+  test('readRaw with no response', async () => {
+    const current = new RequestParamsBuilder<Task>();
+    mock.onGet(readPath).reply(200, undefined);
+    resultReadRaw = tasks.readRaw(current.build());
+    await resultReadRaw.catch((err) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
+  });
+
+  test('readRaw with status code 500', async () => {
+    const current = new RequestParamsBuilder<Task>();
+    mock.onGet(readPath).reply(500, undefined);
+    resultReadRaw = tasks.readRaw(current.build());
+    await resultReadRaw.catch((err) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
   });
 
   test('readRaw with next', async () => {
