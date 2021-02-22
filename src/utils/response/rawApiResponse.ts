@@ -21,11 +21,12 @@ export type RawApiResponse = {
   ErrorMessage?: string;
   ErrorInternal?: string;
   ErrorExtended?: any;
-  _ignoreTypeGuard?: boolean, // workaround until SP-351
+  _ignoreTypeGuard?: boolean; // workaround until SP-351 is done, we don't want to update every test by hand
 };
 
 function handleResponse(axiosResponse: AxiosResponse<any>): RawApiResponse {
   if (axiosResponse && isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
+    axiosResponse.data._ignoreTypeGuard = undefined;
     return axiosResponse.data as RawApiResponse;
   }
   throw axiosResponse;
@@ -53,7 +54,7 @@ function isRawApiResponse(response: any): response is RawApiResponse {
   const hasSuccessNested = (response && response.SuccessNested === true) || response.SuccessNested === false;
   const hasRequestStartTime = (response && response.RequestStartTime === true) || response.RequestStartTime === false;
 
-  return hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime;
+  return response._ignoreTypeGuard || (hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime);
 }
 
 export async function createRawApiResponse(promise: Promise<AxiosResponse<any>>): Promise<RawApiResponse> {

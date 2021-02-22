@@ -1,6 +1,6 @@
 export enum ErrorReason {
   Unkown = 'Unknow Error',
-  ReponseFailed = 'Reponse Failed'
+  ReponseFailed = 'Reponse Failed',
 }
 
 export type TimeTacApiError = {

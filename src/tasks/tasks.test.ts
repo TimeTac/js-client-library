@@ -48,7 +48,7 @@ describe('Tasks', () => {
   });
   test('readRaw with no data', async () => {
     const current = new RequestParamsBuilder<Task>();
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = tasks.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
@@ -57,7 +57,7 @@ describe('Tasks', () => {
     const current = new RequestParamsBuilder<Task>().limit(3).build();
     const next = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
 
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}], _ignoreTypeGuard: true });
     resultReadRaw = tasks.readRaw(current);
     await resultReadRaw.then((result) =>
       expect(result).toMatchObject({ data: {}, pages: { prev: undefined, current: current, next: next } })
@@ -69,7 +69,7 @@ describe('Tasks', () => {
     const current = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
     const next = new RequestParamsBuilder<Task>().limit(3).offset(6).build();
 
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}], _ignoreTypeGuard: true });
     resultReadRaw = tasks.readRaw(current);
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: { prev, current, next } }));
   });
