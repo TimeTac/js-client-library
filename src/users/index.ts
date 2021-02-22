@@ -4,7 +4,8 @@ import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import { User } from './types';
+import { createUpdateRawResponse, UpdateRawResponse } from '../utils/response/updateRawResponse';
+import { User, UserUpdate } from './types';
 
 export class UsersEndpoint extends BaseApi {
   public readonly resourceName = 'users';
@@ -31,7 +32,8 @@ export class UsersEndpoint extends BaseApi {
     throw new Error('not Implemented');
   }
 
-  public update(): Promise<User> {
-    throw new Error('not Implemented');
+  public async update(data: UserUpdate): Promise<UpdateRawResponse<User>> {
+    const response = this._put<User[]>(`${this.getResourceName()}/update`, data);
+    return createUpdateRawResponse<User>(createResourceResponse<User>(await createRawApiResponse(response)));
   }
 }

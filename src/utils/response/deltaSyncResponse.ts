@@ -54,6 +54,7 @@ function convert<T>(deltaSyncResonse: RawApiResponse, resource: keyof DeltaSyncR
     apiResponse: includeResponse,
     results: includeResponse.Results ?? [],
     deleted: includeResponse.Deleted ?? [],
+    affected: {},
   };
 
   return result;
