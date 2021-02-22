@@ -34,6 +34,6 @@ export class UsersEndpoint extends BaseApi {
 
   public async update(data: UserUpdate): Promise<UpdateRawResponse<User>> {
     const response = this._put<User[]>(`${this.getResourceName()}/update`, data);
-    return createUpdateRawResponse<User>(createResourceResponse(await createRawApiResponse(response)));
+    return createUpdateRawResponse<User>(createResourceResponse<User>(await createRawApiResponse(response)));
   }
 }
