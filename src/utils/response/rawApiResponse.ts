@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { stringify } from 'qs';
 
 import { ErrorReason, TimeTacApiError } from '../../errors/index';
 
