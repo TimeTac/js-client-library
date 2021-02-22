@@ -1,3 +1,4 @@
+import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
@@ -50,21 +51,5 @@ describe('RecentTasks', () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1 }] });
     resultSingle = recentTasksEndpoint.readById(1);
     await resultSingle.then((result) => expect(result).toStrictEqual({ id: 1 }));
-  });
-
-  test('create', async () => {
-    const results = { id: 1, node_id: 2, user_id: 3 };
-    const data = { node_id: 2, user_id: 3 };
-
-    mock.onPost(createPath, data).reply(200, { Success: true, NumResults: 1, Results: [results] });
-    resultSingle = recentTasksEndpoint.create({ node_id: 2, user_id: 3 });
-
-    await resultSingle.then((result) => expect(result).toStrictEqual(results));
-  });
-
-  test('delete', async () => {
-    mock.onDelete(`${deletePath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultSingle = recentTasksEndpoint.delete(1);
-    await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 });
