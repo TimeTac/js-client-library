@@ -76,6 +76,7 @@ describe('DeltaSync', () => {
         },
         results: [record],
         deleted: [deltedRecord],
+        affected: {},
       },
     };
 

@@ -4,17 +4,20 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
+import { UpdateRawResponse } from '../utils/response/updateRawResponse';
 import { UsersEndpoint } from './index';
 import { User } from './types';
 
 describe('Users', () => {
   const users: UsersEndpoint = new UsersEndpoint({ account: 'testingAccount' });
   const readPath: string = `${users.getResourcePath()}/read`;
+  const updatePath: string = `${users.getResourcePath()}/update`;
   const mock = new AxiosMockAdapter(axios);
 
   let result: Promise<User[]> | null;
   let resultSingle: Promise<User> | null;
   let resultReadRaw: Promise<ReadRawResponse<User>> | null;
+  let resultUpdateRaw: Promise<UpdateRawResponse<User>> | null;
 
   afterEach(() => {
     mock.reset();
@@ -52,5 +55,11 @@ describe('Users', () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = users.readById(1);
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  });
+
+  test('update', async () => {
+    mock.onPut(updatePath).reply(200, { Success: true, Results: [{}] });
+    resultUpdateRaw = users.update({ id: 1 });
+    await resultUpdateRaw.then((result) => expect(result).toMatchObject({ data: {} }));
   });
 });
