@@ -1,4 +1,7 @@
 import { AxiosResponse } from 'axios';
+import { stringify } from 'qs';
+
+import { ErrorReason, TimeTacApiError } from '../../errors/index';
 
 export type RawApiResponse = {
   Host: string;
@@ -18,20 +21,41 @@ export type RawApiResponse = {
   ErrorMessage?: string;
   ErrorInternal?: string;
   ErrorExtended?: any;
+  _ignoreTypeGuard?: boolean, // workaround until SP-351
 };
 
+function handleResponse(axiosResponse: AxiosResponse<any>): RawApiResponse {
+  if (axiosResponse && isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
+    return axiosResponse.data as RawApiResponse;
+  }
+  throw axiosResponse;
+}
+
+function handleError(error: any) {
+  let apiResponseError: TimeTacApiError = {
+    reason: ErrorReason.ReponseFailed,
+    _plainError: JSON.stringify(error),
+  };
+
+  if (error.data) {
+    apiResponseError.response = error.data;
+  }
+  if (error.response && error.response.data) {
+    apiResponseError.response = error.response.data;
+  }
+  return Promise.reject(apiResponseError);
+}
+
+function isRawApiResponse(response: any): response is RawApiResponse {
+  const hasHost = response && response.host;
+  const hasCodeversion = response && response.Codeversion;
+  const hasSuccess = (response && response.Success === true) || response.Success === false;
+  const hasSuccessNested = (response && response.SuccessNested === true) || response.SuccessNested === false;
+  const hasRequestStartTime = (response && response.RequestStartTime === true) || response.RequestStartTime === false;
+
+  return hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime;
+}
+
 export async function createRawApiResponse(promise: Promise<AxiosResponse<any>>): Promise<RawApiResponse> {
-  const axiosResponse: AxiosResponse<any> = await promise;
-
-  if (axiosResponse === undefined) {
-    throw new Error('The Api response is unsuccessful');
-  }
-
-  const rawApiResponse: RawApiResponse = axiosResponse.data;
-
-  if (rawApiResponse.Success == false) {
-    throw new Error('The Api response is unsuccessful');
-  }
-
-  return rawApiResponse;
+  return promise.then(handleResponse).catch(handleError);
 }
