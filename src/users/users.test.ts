@@ -60,6 +60,6 @@ describe('Users', () => {
   test('update', async () => {
     mock.onPut(updatePath).reply(200, { Success: true, Results: [{}] });
     resultUpdateRaw = users.update({ id: 1 });
-    await resultUpdateRaw.then((result) => expect(result).toMatchObject({ data: {} }));
+    expect(await resultUpdateRaw).toMatchObject({ data: {} });
   });
 });
