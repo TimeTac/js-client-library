@@ -3,7 +3,6 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { ProjectsEndpoint } from './index';
 import { Project } from './types';

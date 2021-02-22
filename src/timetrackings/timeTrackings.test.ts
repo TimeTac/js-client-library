@@ -2,7 +2,6 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
-import { ResourceResponse } from '../utils/response/resourceResponse';
 import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
 
