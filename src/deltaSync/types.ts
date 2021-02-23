@@ -23,7 +23,7 @@ export type DeltaSyncResults = {
   // checkpointTrackings?: Response<CheckpointTracking>;
   // checkpointTranslations?: Response<CheckpointTranslation>;
   // clients?: Response<Client>;
-  department?: ResourceResponse<Department>;
+  departments?: ResourceResponse<Department>;
   generalSettings?: ResourceResponse<GeneralSetting>;
   // holidayRequests?: Response<HolidayRequest>;
   // messages?: Response<Message>;

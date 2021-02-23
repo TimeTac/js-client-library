@@ -28,7 +28,7 @@ export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSy
       absenceDays: convert<AbsenceDay>(rawApiResponse, 'absenceDays'),
       absences: convert<Absence>(rawApiResponse, 'absences'),
       absenceTypes: convert<AbsenceType>(rawApiResponse, 'absenceTypes'),
-      department: convert<Department>(rawApiResponse, 'absenceTypes'),
+      departments: convert<Department>(rawApiResponse, 'departments'),
       generalSettings: convert<GeneralSetting>(rawApiResponse, 'generalSettings'),
       projects: convert<Project>(rawApiResponse, 'projects'),
       tasks: convert<Task>(rawApiResponse, 'tasks'),
