@@ -33,7 +33,7 @@ export { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus, UserStatusOverviewS
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
-export { RecentTask, RecentTaskCreate } from './recentTasks/types';
+export { RecentTask } from './recentTasks/types';
 export { ServerCommunication } from './serverCommunication/types';
 export { Task, TaskCreate } from './tasks/types';
 export { TeamMember } from './teamMembers/types';

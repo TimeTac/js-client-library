@@ -3,12 +3,15 @@ import { Absence } from '../../absences/types';
 import { AbsenceType } from '../../absenceTypes/types';
 import { DeltaSyncResults } from '../../deltaSync/types';
 import { Department } from '../../departments/types';
+import { FavouriteTask } from '../../favouriteTasks/types';
 import { GeneralSetting } from '../../generalSettings/types';
 import { Project } from '../../projects/types';
+import { RecentTask } from '../../recentTasks/types';
 import { Task } from '../../tasks/types';
 import { Team } from '../../teams/types';
 import { TimesheetAccounting } from '../../timesheetAccountings/types';
 import { TimeTracking } from '../../timetrackings/types';
+import { TodoTask } from '../../todoTasks/types';
 import { User } from '../../users/types';
 import { UserStatusOverview } from '../../userStatusOverview/types';
 import { RawApiResponse } from './rawApiResponse';
@@ -29,12 +32,15 @@ export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSy
       absences: convert<Absence>(rawApiResponse, 'absences'),
       absenceTypes: convert<AbsenceType>(rawApiResponse, 'absenceTypes'),
       departments: convert<Department>(rawApiResponse, 'departments'),
+      favouriteTasks: convert<FavouriteTask>(rawApiResponse, 'favouriteTasks'),
       generalSettings: convert<GeneralSetting>(rawApiResponse, 'generalSettings'),
       projects: convert<Project>(rawApiResponse, 'projects'),
+      recentTasks: convert<RecentTask>(rawApiResponse, 'recentTasks'),
       tasks: convert<Task>(rawApiResponse, 'tasks'),
       teams: convert<Team>(rawApiResponse, 'teams'),
       timesheetAccountings: convert<TimesheetAccounting>(rawApiResponse, 'timesheetAccountings'),
       timeTrackings: convert<TimeTracking>(rawApiResponse, 'timeTrackings'),
+      todoTasks: convert<TodoTask>(rawApiResponse, 'todoTasks'),
       users: convert<User>(rawApiResponse, 'users'),
       userStatusOverview: convert<UserStatusOverview>(rawApiResponse, 'userStatusOverview'),
     },
