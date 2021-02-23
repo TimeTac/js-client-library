@@ -21,6 +21,7 @@ npm install @timetac/js-client-library
 ```
 
 ## Obtaining Access Credentials
+
 Existing customers can activate API access or request access to a sandbox
 environment by contacting support@timetac.com. This process usually takes less
 than two business days and is currently free of charge.
@@ -191,7 +192,7 @@ async() => {
 - [x] [todoTasks](https://api.timetac.com/doc/v3#tag/todoTasks)
 - [ ] [translations](https://api.timetac.com/doc/v3#tag/translations)
 - [ ] [userDefinedFieldDefinitionOptions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitionOptions)
-- [ ] [userDefinedFieldDefinitions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitions)
+- [x] [userDefinedFieldDefinitions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitions)
 - [x] [users](https://api.timetac.com/doc/v3#tag/users)
 - [x] [userStatusOverview](https://api.timetac.com/doc/v3#tag/userStatusOverview)
 
@@ -209,10 +210,10 @@ yarn test
 
 [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
 
-
 ## Troubleshooting
 
 ### Cross-Origin Resource Sharing (CORS)
+
 When experiencing issues with
 [cross-origin resource sharing (CORS)](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing),
 you will have to configure a proxy server for development.
