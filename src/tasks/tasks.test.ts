@@ -1,76 +1,165 @@
-import { afterEach, describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
+import { createMock } from 'ts-auto-mock';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
 
-describe('Tasks', () => {
-  const tasks: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${tasks.getResourcePath()}/read`;
+type Resource = Task;
+const endpoint: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });
 
-  const mock = new AxiosMockAdapter(axios);
-  let result: Promise<Task[]> | null;
-  let resultSingle: Promise<Task> | null;
-  let resultReadRaw: Promise<ReadRawResponse<Task>> | null;
+describe('tasks.read', () => {
+  const readPath = `${endpoint.getResourcePath()}/read`;
 
-  afterEach(() => {
-    mock.reset();
-    result = null;
-    resultSingle = null;
-    resultReadRaw = null;
+  test('with status 200 and Success true and single result', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [record] });
+    const actual: Promise<Resource[]> = endpoint.read();
+    expect(await actual).toStrictEqual([record]);
   });
 
-  test('read', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = tasks.read();
-    await result.then((result) => expect(result).toStrictEqual([{}]));
+  test('with status 200 and Success true and more results', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 5, Results: [record, record, record, record, record] });
+    const actual: Promise<Resource[]> = endpoint.read();
+    expect(await actual).toStrictEqual([record, record, record, record, record]);
   });
 
-  test('read with Success false', async () => {
-    mock.onGet(readPath).reply(200, { Success: false });
-    result = tasks.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+  test('with status 200 and Success true and params', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const body = { params: { id: '42', _op__id: 'eq' } };
+    const requestParams = new RequestParamsBuilder<Resource>().eq('id', 42).build();
+
+    mock.onGet(readPath, body).reply(200, { Success: true, NumResults: 5, Results: [record] });
+    const actual: Promise<Resource[]> = endpoint.read(requestParams);
+    expect(await actual).toStrictEqual([record]);
   });
 
-  test('read with status code 500', async () => {
-    mock.onGet(readPath).reply(500);
-    expect.assertions(1);
-    await tasks.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+  test('with status 200 and Success false', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const apiResponse = { Success: false, NumResults: 1, Results: [record] };
+
+    mock.onGet(readPath).reply(200, apiResponse);
+    const actual: Promise<Resource[]> = endpoint.read();
+    expect(await actual.catch((err) => err)).toStrictEqual(apiResponse);
   });
 
-  test('readById', async () => {
-    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultSingle = tasks.readById(1);
-    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+  test('with status 400 and Success false', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const apiResponse = { Success: false, NumResults: 1, Results: [record] };
+
+    mock.onGet(readPath).reply(400, apiResponse);
+    const actual: Promise<Resource[]> = endpoint.read();
+    expect(await actual.catch((err) => err.message)).toMatch('Request failed with status code 400');
   });
-  test('readRaw with no data', async () => {
-    const current = new RequestParamsBuilder<Task>();
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
-    resultReadRaw = tasks.readRaw(current.build());
-    await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
+});
+
+describe('tasks.readRaw', () => {
+  const readPath = `${endpoint.getResourcePath()}/read`;
+
+  test('with status 200 and Success true and single result', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const requestParams = new RequestParamsBuilder<Resource>().build();
+
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [record] });
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const expected = {
+      data: { success: true, results: [record], deleted: [], affected: {} },
+      pages: { current: {} },
+    };
+    expect(await actual).toMatchObject(expected);
   });
 
-  test('readRaw with next', async () => {
+  test('with status 200 and Success true and more results', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const requestParams = new RequestParamsBuilder<Resource>().build();
+
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 5, Results: [record, record, record, record, record] });
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const expected = {
+      data: { success: true, results: [record, record, record, record, record], deleted: [], affected: {} },
+      pages: { current: {} },
+    };
+    expect(await actual).toMatchObject(expected);
+  });
+
+  test('with status 200 and Success true and params', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const body = { params: { id: '42', _op__id: 'eq' } };
+    const requestParams = new RequestParamsBuilder<Resource>().eq('id', 42).build();
+
+    mock.onGet(readPath, body).reply(200, { Success: true, NumResults: 5, Results: [record] });
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const expected = {
+      data: { success: true, results: [record], deleted: [], affected: {} },
+      pages: { current: { id: '42', _op__id: 'eq' } },
+    };
+    expect(await actual).toMatchObject(expected);
+  });
+
+  test('with status 200 and Success false', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const requestParams = new RequestParamsBuilder<Resource>().build();
+    const apiResponse = { Success: false, NumResults: 1, Results: [record] };
+
+    mock.onGet(readPath).reply(200, apiResponse);
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    expect(await actual.catch((err) => err.message)).toMatch('The Api response is unsuccessful');
+  });
+
+  test('with status 400 and Success false', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const requestParams = new RequestParamsBuilder<Resource>().build();
+    const apiResponse = { Success: false, NumResults: 1, Results: [record] };
+
+    mock.onGet(readPath).reply(400, apiResponse);
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    expect(await actual.catch((err) => err.message)).toMatch('Request failed with status code 400');
+  });
+
+  test('with status 200 and Success true and pages.next', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
     const current = new RequestParamsBuilder<Task>().limit(3).build();
     const next = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
 
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
-    resultReadRaw = tasks.readRaw(current);
-    await resultReadRaw.then((result) =>
-      expect(result).toMatchObject({ data: {}, pages: { prev: undefined, current: current, next: next } })
-    );
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record] });
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(current);
+    const expected = {
+      data: { success: true, results: [record, record, record], deleted: [], affected: {} },
+      pages: { current, next },
+    };
+    expect(await actual).toMatchObject(expected);
   });
 
-  test('readRaw with prev', async () => {
+  test('with status 200 and Success true and pages.next and pages.prev', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
     const prev = new RequestParamsBuilder<Task>().limit(3).offset(0).build();
     const current = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
     const next = new RequestParamsBuilder<Task>().limit(3).offset(6).build();
 
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}, {}, {}] });
-    resultReadRaw = tasks.readRaw(current);
-    await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: { prev, current, next } }));
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record] });
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(current);
+    const expected = {
+      data: { success: true, results: [record, record, record], deleted: [], affected: {} },
+      pages: { prev, current, next },
+    };
+    expect(await actual).toMatchObject(expected);
   });
 });
