@@ -6,11 +6,13 @@ import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } 
 export class AbsencesEndpoint extends BaseApi {
   public readonly resourceName = 'absences';
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   public read(params?: RequestParams<Absence> | Object): Promise<Absence[]> {
     const response = this._get<Absence[]>(`${this.getResourceName()}/read`, { params });
     return responseHandlers.list(response);
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   public readById(id: number, params?: RequestParams<Absence> | Object): Promise<Absence> {
     const response = this._get<Absence[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);

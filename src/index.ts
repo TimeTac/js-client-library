@@ -118,9 +118,10 @@ export default class Api {
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
-  public setConfig(config: any) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public setConfig(config: unknown) {
     Object.assign(this.config, config);
-    setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
+    setAxiosDefaults({ baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
   }
 
   public setAccount(account: string): void {
