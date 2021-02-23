@@ -6,7 +6,7 @@ import { TimesheetAccounting } from './types';
 
 describe('TimesheetAccountings', () => {
   const timesheetAccountings: TimesheetAccountingsEndpoint = new TimesheetAccountingsEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${timesheetAccountings.getResourcePath()}/read`;
+  const readPath = `${timesheetAccountings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
 
@@ -16,19 +16,25 @@ describe('TimesheetAccountings', () => {
 
   test('read', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    let result: Promise<TimesheetAccounting[]> = timesheetAccountings.read();
-    await result.then((result) => expect(result).toStrictEqual([{}]));
+    const result: Promise<TimesheetAccounting[]> = timesheetAccountings.read();
+    await result.then((result) => {
+      expect(result).toStrictEqual([{}]);
+    });
   });
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
-    let result: Promise<TimesheetAccounting[]> = timesheetAccountings.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+    const result: Promise<TimesheetAccounting[]> = timesheetAccountings.read();
+    await result.catch((result) => {
+      expect(result).toStrictEqual({ Success: false });
+    });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await timesheetAccountings.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await timesheetAccountings.read().catch((err) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
   });
 });

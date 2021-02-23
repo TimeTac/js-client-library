@@ -9,7 +9,7 @@ import { GeneralSetting } from './types';
 
 describe('GeneralSettings', () => {
   const generalSettings: GeneralSettingsEndpoint = new GeneralSettingsEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${generalSettings.getResourcePath()}/read`;
+  const readPath = `${generalSettings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<GeneralSetting[]> | null;
