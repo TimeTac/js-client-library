@@ -55,7 +55,7 @@ export type Absence = {
   updated: string;
 };
 
-export interface AbsenceCreate extends Omit<Absence, 'id' | 'created' | 'status' | 'duration' | 'duration_unit' | 'updated'> {}
+export type AbsenceCreate = Omit<Absence, 'id' | 'created' | 'status' | 'duration' | 'duration_unit' | 'updated'>;
 
 export interface AbsenceApprove {
   id: number;
@@ -63,7 +63,7 @@ export interface AbsenceApprove {
   substitute_enabled?: boolean;
 }
 
-export interface AbsenceReject extends AbsenceApprove {}
+export type AbsenceReject = AbsenceApprove;
 
 export interface AbsenceUpdate extends Partial<Absence> {
   id: number;

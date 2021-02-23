@@ -6,9 +6,9 @@ import { ServerCommunication as Model } from './types';
 
 describe('ServerCommunication', () => {
   const serverCommunication: ServerCommunicationEndpoint = new ServerCommunicationEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${serverCommunication.getResourcePath()}/read`;
+  const readPath = `${serverCommunication.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
-  const account: string = 'placeholder';
+  const account = 'placeholder';
 
   beforeAll(() => {
     jest.spyOn(serverCommunication, 'setAccount').mockImplementation(() => undefined);
@@ -28,7 +28,7 @@ describe('ServerCommunication', () => {
       },
     });
 
-    let result: Promise<Model> = serverCommunication.read(account);
+    const result: Promise<Model> = serverCommunication.read(account);
     await result.then((result) => {
       expect(result).toStrictEqual({
         host: 'testhost',
