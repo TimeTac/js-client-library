@@ -12,6 +12,7 @@
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
+    "import/no-unused-modules": "error",
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/no-base-to-string": "error",
     "@typescript-eslint/no-confusing-void-expression": "error",
