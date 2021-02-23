@@ -9,8 +9,6 @@ import { RecentTask } from './types';
 describe('RecentTasks', () => {
   const recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint({ account: 'testingAccount' });
   const readPath: string = `${recentTasksEndpoint.getResourcePath()}/read`;
-  const createPath: string = `${recentTasksEndpoint.getResourcePath()}/create`;
-  const deletePath: string = `${recentTasksEndpoint.getResourcePath()}/delete`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<RecentTask[]> | null;
