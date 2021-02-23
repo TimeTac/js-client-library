@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
+import { ApiResponse } from './apiResponse';
 import { createRawApiResponse } from './rawApiResponse';
 import { createResourceResponse, ResourceResponse } from './resourceResponse';
 

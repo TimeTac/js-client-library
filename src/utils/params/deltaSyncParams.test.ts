@@ -1,50 +1,62 @@
 import { describe, expect, test } from '@jest/globals';
 
 import { DeltaSyncParams } from './deltaSyncParams';
+import { RequestParamsBuilder } from './requestParams';
 
 describe('DeltaSyncParams', () => {
+  type Resource = {
+    num: number;
+    str: string;
+  };
+
   test('limit', () => {
-    const requestParams = new DeltaSyncParams().limit(500);
-    expect(requestParams.getParams()).toStrictEqual({ _limit: '500' });
+    const deltaSyncParams = new DeltaSyncParams().limit(500);
+    expect(deltaSyncParams.build()).toStrictEqual({ _limit: '500' });
   });
 
   test('offset', () => {
-    const requestParams = new DeltaSyncParams().offset(500);
-    expect(requestParams.getParams()).toStrictEqual({ _offset: '500' });
+    const deltaSyncParams = new DeltaSyncParams().offset(500);
+    expect(deltaSyncParams.build()).toStrictEqual({ _offset: '500' });
   });
 
   test('since', () => {
-    const requestParams = new DeltaSyncParams().since('time');
-    expect(requestParams.getParams()).toStrictEqual({ _since: 'time' });
+    const deltaSyncParams = new DeltaSyncParams().since('time');
+    expect(deltaSyncParams.build()).toStrictEqual({ _since: 'time' });
   });
 
   test('include', () => {
-    const requestParams = new DeltaSyncParams().include(['tasks']);
-    expect(requestParams.getParams()).toStrictEqual({ _include: 'tasks' });
+    const deltaSyncParams = new DeltaSyncParams().include(['tasks']);
+    expect(deltaSyncParams.build()).toStrictEqual({ _include: 'tasks' });
   });
 
   test('include with more', () => {
-    const requestParams = new DeltaSyncParams().include(['tasks', 'projects', 'teams']);
-    expect(requestParams.getParams()).toStrictEqual({ _include: 'tasks,projects,teams' });
+    const deltaSyncParams = new DeltaSyncParams().include(['tasks', 'projects', 'teams']);
+    expect(deltaSyncParams.build()).toStrictEqual({ _include: 'tasks,projects,teams' });
   });
 
   test('getLimit default', () => {
-    const requestParams = new DeltaSyncParams();
-    expect(requestParams.getLimit()).toBe(1000);
+    const deltaSyncParams = new DeltaSyncParams();
+    expect(deltaSyncParams.getLimit()).toBe(1000);
   });
 
   test('getLimit', () => {
-    const requestParams = new DeltaSyncParams().limit(55);
-    expect(requestParams.getLimit()).toBe(55);
+    const deltaSyncParams = new DeltaSyncParams().limit(55);
+    expect(deltaSyncParams.getLimit()).toBe(55);
   });
 
   test('getOffset default', () => {
-    const requestParams = new DeltaSyncParams();
-    expect(requestParams.getOffset()).toBe(0);
+    const deltaSyncParams = new DeltaSyncParams();
+    expect(deltaSyncParams.getOffset()).toBe(0);
   });
 
   test('getOffset', () => {
-    const requestParams = new DeltaSyncParams().offset(66);
-    expect(requestParams.getOffset()).toBe(66);
+    const deltaSyncParams = new DeltaSyncParams().offset(66);
+    expect(deltaSyncParams.getOffset()).toBe(66);
+  });
+
+  test('addIncludeParams', () => {
+    const includeParams = new RequestParamsBuilder<Resource>().eq('num', 1).build();
+    const deltaSyncParams = new DeltaSyncParams().addIncludeParams('teams', includeParams);
+    expect(deltaSyncParams.build()).toStrictEqual({ teams__num: '1', teams___op__num: 'eq' });
   });
 });

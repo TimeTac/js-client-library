@@ -7,7 +7,7 @@ export class DeltaSyncEndpoint extends BaseApi {
   public readonly resourceName = 'deltaSync';
 
   async read(requestParams: DeltaSyncParams): Promise<DeltaSyncResponse> {
-    const params = requestParams.getParams();
+    const params = requestParams.build();
     const response = this._get<any>(`${this.getResourceName()}/read`, { params });
     return createDeltaSyncResponse(await createRawApiResponse(response));
   }
