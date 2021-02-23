@@ -5,6 +5,6 @@ export enum ErrorReason {
 
 export type TimeTacApiError = {
   reason: ErrorReason;
-  response?: any;
+  response?: unknown;
   _plainError?: string;
 };

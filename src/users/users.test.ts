@@ -63,7 +63,7 @@ describe('Users', () => {
   });
 
   test('update', async () => {
-    mock.onPut(updatePath).reply(200, { Success: true, Results: [{}] });
+    mock.onPut(updatePath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultUpdateRaw = users.update({ id: 1 });
     expect(await resultUpdateRaw).toMatchObject({ data: {} });
   });

@@ -2,6 +2,7 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { TimeTacApiError } from '../errors';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { TasksEndpoint } from './index';
@@ -63,21 +64,21 @@ describe('Tasks', () => {
     const current = new RequestParamsBuilder<Task>();
     mock.onGet(readPath).reply(200, { Success: false, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = tasks.readRaw(current.build());
-    await resultReadRaw.catch((err) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
+    await resultReadRaw.catch((err: TimeTacApiError) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
   });
 
   test('readRaw with no response', async () => {
     const current = new RequestParamsBuilder<Task>();
     mock.onGet(readPath).reply(200, undefined);
     resultReadRaw = tasks.readRaw(current.build());
-    await resultReadRaw.catch((err) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
+    await resultReadRaw.catch((err: TimeTacApiError) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
   });
 
   test('readRaw with status code 500', async () => {
     const current = new RequestParamsBuilder<Task>();
     mock.onGet(readPath).reply(500, undefined);
     resultReadRaw = tasks.readRaw(current.build());
-    await resultReadRaw.catch((err) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
+    await resultReadRaw.catch((err: TimeTacApiError) => expect(err).toMatchObject({ reason: 'Reponse Failed' }));
   });
 
   test('readRaw with next', async () => {
