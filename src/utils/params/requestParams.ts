@@ -4,6 +4,7 @@ const DEFAULT_PAGE_SIZE = 100;
 // _type is unused, was added only to preserve the generic type for type checking
 export type RequestParams<R> = Record<string, string> & { _type?: R };
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export class RequestParamsBuilder<R extends Object> {
   protected requestParams: RequestParams<R> = {};
 
@@ -104,6 +105,7 @@ export class RequestParamsBuilder<R extends Object> {
     return this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   build() {
     return this.requestParams;
   }

@@ -10,7 +10,9 @@ export type ApiResponseOnFailure = {
   RequestStartTime: string;
   ErrorMessage: string;
   ErrorExtended?: {
+    // eslint-disable-next-line @typescript-eslint/ban-types
     aErrorTranslationConstants: object;
+    // eslint-disable-next-line @typescript-eslint/ban-types
     data: object;
     errorString?: string;
     errorCode?: string;

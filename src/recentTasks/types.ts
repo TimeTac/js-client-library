@@ -4,5 +4,3 @@ export interface RecentTask {
   node_id: number;
   last_started: string;
 }
-
-export interface RecentTaskCreate extends Omit<RecentTask, 'id' | 'last_started'> {}
