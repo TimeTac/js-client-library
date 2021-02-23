@@ -32,13 +32,18 @@ describe('GeneralSettings', () => {
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
     result = generalSettings.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+    await result.catch((result) => {
+      expect(result).toStrictEqual({ Success: false });
+    });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await generalSettings.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await generalSettings.read().catch((err) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
   });
 
   test('readById', async () => {

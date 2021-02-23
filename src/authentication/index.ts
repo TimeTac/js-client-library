@@ -12,6 +12,7 @@ export class AuthenticationEndpoint extends BaseApi {
     this.config.clientId = clientId;
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setTokens({ accessToken, refreshToken }: { accessToken?: string; refreshToken?: string }) {
     this.config.accessToken = accessToken;
     this.config.refreshToken = refreshToken;
@@ -37,6 +38,7 @@ export class AuthenticationEndpoint extends BaseApi {
   async refreshToken(): Promise<AxiosResponse<TokenResponse>> {
     const { refreshToken } = this.getTokens();
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (this.config.clientId && this.config.clientSecret && refreshToken) {
       const credentials: Credentials = {
         grant_type: 'refresh_token',
@@ -67,10 +69,14 @@ export class AuthenticationEndpoint extends BaseApi {
 
   async login(credentials: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
     this.config.clientId = credentials.client_id || this.config.clientId;
-    this.config.clientSecret = credentials.client_secret || this.config.clientSecret;
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    this.config.clientSecret = credentials.client_secret ?? this.config.clientSecret;
     const response = await this.requestTokens(credentials);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.setTokens({ accessToken, refreshToken });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     return { accessToken, refreshToken };
   }
 }

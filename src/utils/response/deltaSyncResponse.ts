@@ -24,7 +24,7 @@ export type DeltaSyncResponse = {
 };
 
 export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSyncResponse {
-  const result: DeltaSyncResponse = {
+  return {
     success: true,
     apiResponse: rawApiResponse,
     results: {
@@ -45,23 +45,26 @@ export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSy
       userStatusOverview: convert<UserStatusOverview>(rawApiResponse, 'userStatusOverview'),
     },
   };
-  return result;
 }
 
 function convert<T>(deltaSyncResonse: RawApiResponse, resource: keyof DeltaSyncResults & string): ResourceResponse<T> | undefined {
+  // @ts-expect-error unknown type used
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const includeResponse: RawApiResponse = deltaSyncResonse.Results[resource];
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,@typescript-eslint/strict-boolean-expressions
   if (!includeResponse) {
     return undefined;
   }
 
-  const result: ResourceResponse<T> = {
+  return {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     success: includeResponse.Success ?? false,
     apiResponse: includeResponse,
+    // @ts-expect-error unknown type used
     results: includeResponse.Results ?? [],
+    // @ts-expect-error unknown type used
     deleted: includeResponse.Deleted ?? [],
     affected: {},
   };
-
-  return result;
 }

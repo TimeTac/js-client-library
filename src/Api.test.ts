@@ -1,7 +1,7 @@
 import Api from './index';
 
 describe('Api', () => {
-  test('Check setConfig mutation', async () => {
+  test('Check setConfig mutation', () => {
     const testAccName = 'Lorem Ipsum';
     const api = new Api({
       account: testAccName,
@@ -23,7 +23,7 @@ describe('Api', () => {
     expect(api.getConfig().account).toStrictEqual(testAccName3);
   });
 
-  test('Check setAccount reference to right config', async () => {
+  test('Check setAccount reference to right config', () => {
     const testAccName = 'Humus';
     const api = new Api({
       account: testAccName,

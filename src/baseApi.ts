@@ -40,7 +40,7 @@ export default abstract class BaseApi {
   private getOptions(options?: AxiosRequestConfig) {
     return {
       headers: {
-        Authorization: `Bearer ${this.config.accessToken}`,
+        Authorization: `Bearer ${this.config.accessToken ?? ''}`,
         'Content-type': 'application/json',
       },
       ...options,
@@ -53,12 +53,14 @@ export default abstract class BaseApi {
     return axios.get<ApiResponse<T>>(url, config);
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
     return axios.post<ApiResponse<T>>(url, data, config);
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   protected _put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
@@ -76,7 +78,7 @@ export default abstract class BaseApi {
   }
 
   protected getAccountUrl(): string {
-    if (!this.config.account) {
+    if (this.config.account == null) {
       throw new Error('Account is not set');
     }
 

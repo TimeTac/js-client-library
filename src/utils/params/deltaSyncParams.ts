@@ -5,7 +5,7 @@ const DEFAULT_PAGE_SIZE = 1000;
 export class DeltaSyncParams {
   protected requestParams: RequestParams<unknown> = {};
 
-  build(): RequestParams<any> {
+  build(): RequestParams<unknown> {
     return this.requestParams;
   }
 
