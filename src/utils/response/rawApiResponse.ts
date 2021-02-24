@@ -36,6 +36,7 @@ function handleError(error: any) {
   const apiResponseError: TimeTacApiError = {
     reason: ErrorReason.ReponseFailed,
     _plainError: JSON.stringify(error),
+    response: undefined,
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -54,19 +55,13 @@ function handleError(error: any) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isRawApiResponse(response: any): response is RawApiResponse {
-  const hasResponse = Boolean(response);
+  const hasHost = 'Host' in response;
+  const hasCodeversion = 'Codeversion' in response;
+  const hasSuccess = 'Success' in response;
+  const hasSuccessNested = 'SuccessNested' in response;
+  const hasRequestStartTime = 'RequestStartTime' in response;
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const hasHost = Boolean(hasResponse && response.host);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const hasCodeversion = Boolean(hasResponse && response.Codeversion);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const hasSuccess = Boolean((hasResponse && response.Success === true) || response.Success === false);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const hasSuccessNested = Boolean((hasResponse && response.SuccessNested === true) || response.SuccessNested === false);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const hasRequestStartTime = Boolean((hasResponse && response.RequestStartTime === true) || response.RequestStartTime === false);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  const hasIgnoreTypeGuard = Boolean(hasResponse && response._ignoreTypeGuard);
+  const hasIgnoreTypeGuard = '_ignoreTypeGuard' in response && response._ignoreTypeGuard === true;
 
   return hasIgnoreTypeGuard || (hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime);
 }
