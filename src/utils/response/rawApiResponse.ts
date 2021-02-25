@@ -53,14 +53,12 @@ function handleError(error: any) {
   return Promise.reject(apiResponseError);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isRawApiResponse(response: any): response is RawApiResponse {
+function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
   const hasHost = 'Host' in response;
   const hasCodeversion = 'Codeversion' in response;
   const hasSuccess = 'Success' in response;
   const hasSuccessNested = 'SuccessNested' in response;
   const hasRequestStartTime = 'RequestStartTime' in response;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   const hasIgnoreTypeGuard = '_ignoreTypeGuard' in response && response._ignoreTypeGuard === true;
 
   return hasIgnoreTypeGuard || (hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime);
