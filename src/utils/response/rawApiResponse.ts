@@ -31,23 +31,18 @@ function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
   throw axiosResponse;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function handleError(error: any) {
+function handleError(error: { data?: unknown } | { response?: { data?: unknown } }) {
   const apiResponseError: TimeTacApiError = {
     reason: ErrorReason.ReponseFailed,
     _plainError: JSON.stringify(error),
     response: undefined,
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  if (error.data !== undefined) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if ('data' in error) {
     apiResponseError.response = error.data;
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  if (Boolean(error.response) && Boolean(error.response.data)) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    apiResponseError.response = error.response.data;
+  if ('response' in error) {
+    apiResponseError.response = error.response?.data;
   }
 
   return Promise.reject(apiResponseError);
