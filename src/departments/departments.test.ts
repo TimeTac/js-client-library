@@ -37,8 +37,7 @@ describe('Departments', () => {
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await departments.read().catch((err) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    await departments.read().catch((err: { message: string }) => {
       expect(err.message).toMatch('Request failed with status code 500');
     });
   });

@@ -1,5 +1,6 @@
 {
-    "compilerOptions": {
+  "include": ["./src/index.ts"],
+  "compilerOptions": {
       "target": "ES6",
       "module": "commonjs",
       "lib": [
@@ -12,7 +13,12 @@
       "declaration": true,
       "moduleResolution": "node",
       "sourceMap": true,
-      "removeComments": true
-      },
-      "include": ["./src/index.ts"]
-  }
+      "removeComments": true,
+      "plugins": [
+        {
+          "transform": "ts-auto-mock/transformer",
+          "cacheBetweenTests": false,
+        }
+      ]
+  },
+}
