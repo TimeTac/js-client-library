@@ -90,7 +90,7 @@ describe('TimeTrackings', () => {
   });
 
   test('start', async () => {
-    mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}], Affected: [{}] });
+    mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}], Affected: [{}], _ignoreTypeGuard: true });
     const result = await timeTrackings.start({ task_id: 1, user_id: 1 });
     expect(result).toStrictEqual({
       success: true,
@@ -99,6 +99,7 @@ describe('TimeTrackings', () => {
         Results: [{}],
         Affected: [{}],
         Success: true,
+        _ignoreTypeGuard: undefined,
       },
       results: [{}],
       affected: [{}],

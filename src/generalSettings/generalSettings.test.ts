@@ -62,7 +62,7 @@ describe('GeneralSettings', () => {
 
   test('readRaw with no data', async () => {
     const current = new RequestParamsBuilder<GeneralSetting>();
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = generalSettings.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
