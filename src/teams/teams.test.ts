@@ -26,8 +26,7 @@ describe('Teams', () => {
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false, ErrorMessage: 'No data' });
     expect.assertions(1);
-    await teams.read().catch((err) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    await teams.read().catch((err: { ErrorMessage: string }) => {
       expect(err.ErrorMessage).toMatch('No data');
     });
   });
@@ -35,8 +34,7 @@ describe('Teams', () => {
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await teams.read().catch((err) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    await teams.read().catch((err: { message: string }) => {
       expect(err.message).toMatch('Request failed with status code 500');
     });
   });

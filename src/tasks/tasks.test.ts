@@ -61,8 +61,7 @@ describe('tasks.read', () => {
 
     mock.onGet(readPath).reply(400, apiResponse);
     const actual: Promise<Resource[]> = endpoint.read();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
-    expect(await actual.catch((err) => err.message)).toMatch('Request failed with status code 400');
+    expect(await actual.catch((err: { message: string }) => err.message)).toMatch('Request failed with status code 400');
   });
 });
 
