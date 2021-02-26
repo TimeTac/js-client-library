@@ -51,8 +51,7 @@ describe('tasks.read', () => {
 
     mock.onGet(readPath).reply(200, apiResponse);
     const actual: Promise<Resource[]> = endpoint.read();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
-    expect(await actual.catch((err) => err)).toStrictEqual(apiResponse);
+    expect(await actual.catch((err: typeof apiResponse) => err)).toStrictEqual(apiResponse);
   });
 
   test('with status 400 and Success false', async () => {
