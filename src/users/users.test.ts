@@ -51,7 +51,7 @@ describe('Users', () => {
 
   test('readRaw with no data', async () => {
     const current = new RequestParamsBuilder<User>();
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = users.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });
@@ -63,7 +63,7 @@ describe('Users', () => {
   });
 
   test('update', async () => {
-    mock.onPut(updatePath).reply(200, { Success: true, Results: [{}] });
+    mock.onPut(updatePath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultUpdateRaw = users.update({ id: 1 });
     expect(await resultUpdateRaw).toMatchObject({ data: {} });
   });
