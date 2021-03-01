@@ -10,6 +10,7 @@ export class ServerCommunicationEndpoint extends BaseApi {
     if (response.data.Success) {
       return response.data.Results;
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       throw response.data ?? response;
     }
   }

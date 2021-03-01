@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 
+import { ErrorReason, TimeTacApiError } from '../../errors/index';
+
 export type RawApiResponse = {
   Host: string;
   Codeversion: string;
@@ -11,27 +13,52 @@ export type RawApiResponse = {
   ServerTimeZone: string;
   NumResults?: number;
   NumResultsNested?: number;
-  Results?: any;
-  Deleted?: any;
-  Affected?: any;
+  Results?: unknown;
+  Deleted?: unknown;
+  Affected?: unknown;
   Error?: number;
   ErrorMessage?: string;
   ErrorInternal?: string;
-  ErrorExtended?: any;
+  ErrorExtended?: unknown;
+  _ignoreTypeGuard?: boolean; // workaround until SP-351 is done, we don't want to update every test by hand
 };
 
-export async function createRawApiResponse(promise: Promise<AxiosResponse<any>>): Promise<RawApiResponse> {
-  const axiosResponse: AxiosResponse<any> = await promise;
+function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
+  if (isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
+    axiosResponse.data._ignoreTypeGuard = undefined;
+    return axiosResponse.data;
+  }
+  throw axiosResponse;
+}
 
-  if (axiosResponse === undefined) {
-    throw new Error('The Api response is unsuccessful');
+function handleError(error: { data?: unknown } | { response?: { data?: unknown } }) {
+  const apiResponseError: TimeTacApiError = {
+    reason: ErrorReason.ReponseFailed,
+    _plainError: JSON.stringify(error),
+    response: undefined,
+  };
+
+  if ('data' in error) {
+    apiResponseError.response = error.data;
+  }
+  if ('response' in error) {
+    apiResponseError.response = error.response?.data;
   }
 
-  const rawApiResponse: RawApiResponse = axiosResponse.data;
+  return Promise.reject(apiResponseError);
+}
 
-  if (rawApiResponse.Success == false) {
-    throw new Error('The Api response is unsuccessful');
-  }
+function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
+  const hasHost = 'Host' in response;
+  const hasCodeversion = 'Codeversion' in response;
+  const hasSuccess = 'Success' in response;
+  const hasSuccessNested = 'SuccessNested' in response;
+  const hasRequestStartTime = 'RequestStartTime' in response;
+  const hasIgnoreTypeGuard = '_ignoreTypeGuard' in response && response._ignoreTypeGuard === true;
 
-  return rawApiResponse;
+  return hasIgnoreTypeGuard || (hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime);
+}
+
+export async function createRawApiResponse(promise: Promise<AxiosResponse>): Promise<RawApiResponse> {
+  return promise.then(handleResponse).catch(handleError);
 }

@@ -6,7 +6,7 @@ import { Team } from './types';
 
 describe('Teams', () => {
   const teams: TeamsEndpoint = new TeamsEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${teams.getResourcePath()}/read`;
+  const readPath = `${teams.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Team[]>;
@@ -18,18 +18,24 @@ describe('Teams', () => {
   test('read', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = teams.read();
-    await result.then((result) => expect(result).toStrictEqual([{}]));
+    await result.then((result) => {
+      expect(result).toStrictEqual([{}]);
+    });
   });
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false, ErrorMessage: 'No data' });
     expect.assertions(1);
-    await teams.read().catch((err) => expect(err.ErrorMessage).toMatch('No data'));
+    await teams.read().catch((err: { ErrorMessage: string }) => {
+      expect(err.ErrorMessage).toMatch('No data');
+    });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await teams.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await teams.read().catch((err: { message: string }) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
   });
 });

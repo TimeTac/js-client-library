@@ -10,7 +10,7 @@ export type Pages<T> = {
 };
 
 export function createPages<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): Pages<T> {
-  let pages: Pages<T> = {
+  const pages: Pages<T> = {
     prev: { ...originalParams },
     current: { ...originalParams },
     next: { ...originalParams },

@@ -12,7 +12,7 @@ import { DeltaSyncResults } from './types';
 
 describe('DeltaSync', () => {
   const deltaSync: DeltaSyncEndpoint = new DeltaSyncEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${deltaSync.getResourcePath()}/read`;
+  const readPath = `${deltaSync.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<DeltaSyncResponse> | null;
@@ -23,7 +23,7 @@ describe('DeltaSync', () => {
   });
 
   test('read without results', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, Results: {} });
+    mock.onGet(readPath).reply(200, { Success: true, Results: {}, _ignoreTypeGuard: true });
     result = deltaSync.read(new DeltaSyncParams());
     await result.then((result) => expect(result).toMatchObject({ success: true, results: {} }));
   });
@@ -76,10 +76,11 @@ describe('DeltaSync', () => {
         },
         results: [record],
         deleted: [deltedRecord],
+        affected: {},
       },
     };
 
-    mock.onGet(readPath).reply(200, { Success: true, Results: { absences: absencesFromServer } });
+    mock.onGet(readPath).reply(200, { Success: true, Results: { absences: absencesFromServer }, _ignoreTypeGuard: true });
     result = deltaSync.read(new DeltaSyncParams());
     await result.then((result) => expect(result).toMatchObject({ success: true, results: expectResults }));
   });

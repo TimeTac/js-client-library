@@ -9,7 +9,7 @@ import { GeneralSetting } from './types';
 
 describe('GeneralSettings', () => {
   const generalSettings: GeneralSettingsEndpoint = new GeneralSettingsEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${generalSettings.getResourcePath()}/read`;
+  const readPath = `${generalSettings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<GeneralSetting[]> | null;
@@ -32,13 +32,17 @@ describe('GeneralSettings', () => {
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
     result = generalSettings.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+    await result.catch((result) => {
+      expect(result).toStrictEqual({ Success: false });
+    });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await generalSettings.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await generalSettings.read().catch((err: { message: string }) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
   });
 
   test('readById', async () => {
@@ -57,7 +61,7 @@ describe('GeneralSettings', () => {
 
   test('readRaw with no data', async () => {
     const current = new RequestParamsBuilder<GeneralSetting>();
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = generalSettings.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });

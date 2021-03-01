@@ -1,14 +1,16 @@
 import { AxiosResponse } from 'axios';
 
-import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
+import { ApiResponse } from './apiResponse';
 import { createRawApiResponse } from './rawApiResponse';
 import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
 export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export async function toApiResponse<T>(promise: RequestPromise<T>) {
   const resolved = await promise;
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (resolved === undefined) {
     throw new Error('Promise resolve is undefined, please contact administrator.');
   }
@@ -44,6 +46,7 @@ export async function optional<T>(promise: RequestPromise<T[]>): Promise<T | und
 
 export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
   const response = await toApiResponse<T[]>(promise);
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   return response.Results ?? [];
 }
 

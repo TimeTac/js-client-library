@@ -7,9 +7,9 @@ import { FavouriteTask } from './types';
 
 describe('FavouriteTasks', () => {
   const favouriteTasksEndpoint: FavouriteTasksEndpoint = new FavouriteTasksEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${favouriteTasksEndpoint.getResourcePath()}/read`;
-  const createPath: string = `${favouriteTasksEndpoint.getResourcePath()}/create`;
-  const deletePath: string = `${favouriteTasksEndpoint.getResourcePath()}/delete`;
+  const readPath = `${favouriteTasksEndpoint.getResourcePath()}/read`;
+  const createPath = `${favouriteTasksEndpoint.getResourcePath()}/create`;
+  const deletePath = `${favouriteTasksEndpoint.getResourcePath()}/delete`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<FavouriteTask[]> | null;
@@ -24,32 +24,42 @@ describe('FavouriteTasks', () => {
   test('read', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     result = favouriteTasksEndpoint.read();
-    await result.then((result) => expect(result).toStrictEqual([{}]));
+    await result.then((result) => {
+      expect(result).toStrictEqual([{}]);
+    });
   });
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
     result = favouriteTasksEndpoint.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+    await result.catch((result) => {
+      expect(result).toStrictEqual({ Success: false });
+    });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await favouriteTasksEndpoint.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await favouriteTasksEndpoint.read().catch((err: { message: string }) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
   });
 
   test('read with RequestParmas', async () => {
     mock.onGet(readPath, { id: 1 }).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1, node_id: 2, user_id: 3 }] });
 
     result = favouriteTasksEndpoint.read(new RequestParamsBuilder<FavouriteTask>().eq('id', 1).build());
-    await result.then((result) => expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]));
+    await result.then((result) => {
+      expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]);
+    });
   });
 
   test('readById', async () => {
     mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1 }] });
     resultSingle = favouriteTasksEndpoint.readById(1);
-    await resultSingle.then((result) => expect(result).toStrictEqual({ id: 1 }));
+    await resultSingle.then((result) => {
+      expect(result).toStrictEqual({ id: 1 });
+    });
   });
 
   test('create', async () => {
@@ -59,12 +69,16 @@ describe('FavouriteTasks', () => {
     mock.onPost(createPath, data).reply(200, { Success: true, NumResults: 1, Results: [results] });
     resultSingle = favouriteTasksEndpoint.create({ node_id: 2, user_id: 3 });
 
-    await resultSingle.then((result) => expect(result).toStrictEqual(results));
+    await resultSingle.then((result) => {
+      expect(result).toStrictEqual(results);
+    });
   });
 
   test('delete', async () => {
     mock.onDelete(`${deletePath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
     resultSingle = favouriteTasksEndpoint.delete(1);
-    await resultSingle.then((result) => expect(result).toStrictEqual({}));
+    await resultSingle.then((result) => {
+      expect(result).toStrictEqual({});
+    });
   });
 });

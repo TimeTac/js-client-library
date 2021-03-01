@@ -30,11 +30,11 @@ export { Tokens } from './baseApi';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
-export { AbsenceDayType, AbsenceDurationUnit, AbsenceStatus, UserStatusOverviewStatus } from './enums';
+export * from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
-export { RecentTask, RecentTaskCreate } from './recentTasks/types';
+export { RecentTask } from './recentTasks/types';
 export { ServerCommunication } from './serverCommunication/types';
 export { Task, TaskCreate } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
@@ -44,7 +44,7 @@ export { TimesheetAccounting } from './timesheetAccountings/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './timetrackings/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
-export { User } from './users/types';
+export { User, UserUpdate } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
@@ -53,6 +53,7 @@ export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
+export { UpdateRawResponse } from './utils/response/updateRawResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -121,9 +122,10 @@ export default class Api {
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
-  public setConfig(config: any) {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public setConfig(config: unknown) {
     Object.assign(this.config, config);
-    setAxiosDefaults({ baseURL: `${this.config.https ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
+    setAxiosDefaults({ baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
   }
 
   public setAccount(account: string): void {

@@ -3,14 +3,13 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestParamsBuilder } from '../utils/params/requestParams';
-import { ApiResponseOnSuccess } from '../utils/response/apiResponse';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { ProjectsEndpoint } from './index';
 import { Project } from './types';
 
 describe('Projects', () => {
   const projects: ProjectsEndpoint = new ProjectsEndpoint({ account: 'testingAccount' });
-  const readPath: string = `${projects.getResourcePath()}/read`;
+  const readPath = `${projects.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Project[]> | null;
@@ -33,18 +32,22 @@ describe('Projects', () => {
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
     result = projects.read();
-    await result.catch((result) => expect(result).toStrictEqual({ Success: false }));
+    await result.catch((result) => {
+      expect(result).toStrictEqual({ Success: false });
+    });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await projects.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await projects.read().catch((err: { message: string }) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
   });
 
   test('readRaw with no data', async () => {
     const current = new RequestParamsBuilder<Project>();
-    mock.onGet(readPath).reply(200, { Success: true, Results: [{}] });
+    mock.onGet(readPath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = projects.readRaw(current.build());
     await resultReadRaw.then((result) => expect(result).toMatchObject({ data: {}, pages: {} }));
   });

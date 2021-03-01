@@ -95,3 +95,7 @@ export type User = {
   time_tracking_ex_post_earliest_working_time?: string;
   show_status_overview?: boolean;
 };
+
+export interface UserUpdate extends Partial<User> {
+  id: number;
+}

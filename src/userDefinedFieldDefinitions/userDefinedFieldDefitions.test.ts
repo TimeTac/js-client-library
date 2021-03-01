@@ -23,12 +23,16 @@ describe('User defined field definitions', () => {
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
-    await userDefinedFieldDefinitions.read().catch((result) => expect(result).toStrictEqual({ Success: false }));
+    await userDefinedFieldDefinitions.read().catch((result) => {
+      expect(result).toStrictEqual({ Success: false });
+    });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
     expect.assertions(1);
-    await userDefinedFieldDefinitions.read().catch((err) => expect(err.message).toMatch('Request failed with status code 500'));
+    await userDefinedFieldDefinitions.read().catch((err: { message: string }) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
   });
 });
