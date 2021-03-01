@@ -43,7 +43,7 @@ export { TimePlanning } from './timeplannings/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './timetrackings/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
-export { UserDefinedFieldDefinitions } from './userDefinedFieldDefinitions/types';
+export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { User } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export { Pages } from './utils/pages/pages';

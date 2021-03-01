@@ -50,6 +50,17 @@ export interface TimeTracking {
   max_hours_alert?: boolean;
   input_type?: number;
   t_iv_1?: string;
+  t_iv_2?: string;
+  t_iv_3?: string;
+  t_iv_4?: string;
+  t_iv_5?: string;
+  t_iv_6?: string;
+  u_iv_1?: string;
+  u_iv_2?: string;
+  u_iv_3?: string;
+  u_iv_4?: string;
+  u_iv_5?: string;
+  u_iv_6?: string;
   /**
    * if 1, admin has approved time tracking entry (no change possible)
    */
