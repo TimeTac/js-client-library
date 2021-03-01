@@ -86,6 +86,7 @@ export interface TimeTracking {
   is_billable?: boolean;
   is_nonworking?: boolean;
   is_paid_non_working?: boolean;
+  _temp_record_id?: string;
 }
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
 export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id'> {
