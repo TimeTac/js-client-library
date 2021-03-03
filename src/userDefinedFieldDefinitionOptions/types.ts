@@ -1,6 +1,6 @@
 export type UserDefinedFieldDefinitionOptions = {
   id: number;
-  field_id?: string;
+  field_id: string;
   field_option_id?: number;
   field_option_value?: string;
   /**
@@ -10,5 +10,5 @@ export type UserDefinedFieldDefinitionOptions = {
   /**
    * Sort order of user defined field if combobox.
    */
-  sort_order?: number;
+  sort_order: number;
 };
