@@ -191,7 +191,7 @@ async() => {
 - [ ] [timezones](https://api.timetac.com/doc/v3#tag/timezones)
 - [x] [todoTasks](https://api.timetac.com/doc/v3#tag/todoTasks)
 - [ ] [translations](https://api.timetac.com/doc/v3#tag/translations)
-- [ ] [userDefinedFieldDefinitionOptions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitionOptions)
+- [x] [userDefinedFieldDefinitionOptions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitionOptions)
 - [x] [userDefinedFieldDefinitions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitions)
 - [x] [users](https://api.timetac.com/doc/v3#tag/users)
 - [x] [userStatusOverview](https://api.timetac.com/doc/v3#tag/userStatusOverview)
