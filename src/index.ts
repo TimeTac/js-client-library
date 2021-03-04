@@ -31,7 +31,6 @@ export { Tokens } from './baseApi';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
-export * from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
@@ -48,6 +47,7 @@ export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionO
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { User, UserUpdate } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
+export * from './utils/errors';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
