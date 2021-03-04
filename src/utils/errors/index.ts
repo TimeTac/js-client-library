@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { RawApiResponse } from '../..';
+import { RawApiResponse } from '../response/rawApiResponse';
 
 export enum TimeTacErrorType {
   InteralError,
