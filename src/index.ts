@@ -17,6 +17,8 @@ import { TimePlanningsEndpoint } from './timeplannings';
 import { TimesheetAccountingsEndpoint } from './timesheetAccountings';
 import { TimeTrackingsEndpoint } from './timetrackings';
 import { TodoTasksEndpoint } from './todoTasks';
+import { UserDefinedFieldDefinitionOptionsEndpoint } from './userDefinedFieldDefinitionOptions';
+import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitions';
 import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
@@ -42,6 +44,8 @@ export { TimePlanning } from './timeplannings/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './timetrackings/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
+export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
+export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { User, UserUpdate } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export { Pages } from './utils/pages/pages';
@@ -79,6 +83,8 @@ export default class Api {
   public todoTasks: TodoTasksEndpoint;
   public users: UsersEndpoint;
   public userStatusOverviews: UserStatusOverviewsEndpoint;
+  public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
+  public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = {};
@@ -114,6 +120,8 @@ export default class Api {
     this.todoTasks = new TodoTasksEndpoint(this.config);
     this.users = new UsersEndpoint(this.config);
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
+    this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
+    this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
