@@ -47,7 +47,7 @@ export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionO
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { User, UserUpdate } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
-export * from './utils/errors';
+export { TimeTacApiError, TimeTacErrorType } from './utils/errors';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
