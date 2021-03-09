@@ -5,7 +5,7 @@ import { createMock } from 'ts-auto-mock';
 
 import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { TimeTacApiError, TimeTacErrorType } from '../utils/errors';
-import { ReadRawResponse } from '../utils/response/readRawResponse';
+import { GetResponse } from '../utils/response/getResponse';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
 
@@ -19,8 +19,8 @@ describe('tasks.read', () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
 
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [record] });
-    const actual: Promise<Resource[]> = endpoint.read();
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [record], _ignoreTypeGuard: true });
+    const actual: Promise<Resource[]> = endpoint.read(new RequestConfigBuilder<Resource>().build());
     expect(await actual).toStrictEqual([record]);
   });
 
@@ -28,8 +28,10 @@ describe('tasks.read', () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
 
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 5, Results: [record, record, record, record, record] });
-    const actual: Promise<Resource[]> = endpoint.read();
+    mock
+      .onGet(readPath)
+      .reply(200, { Success: true, NumResults: 5, Results: [record, record, record, record, record], _ignoreTypeGuard: true });
+    const actual: Promise<Resource[]> = endpoint.read(new RequestConfigBuilder<Resource>().build());
     expect(await actual).toStrictEqual([record, record, record, record, record]);
   });
 
@@ -39,7 +41,7 @@ describe('tasks.read', () => {
     const body = { params: { id: '42', _op__id: 'eq' } };
     const requestParams = new RequestConfigBuilder<Resource>().eq('id', 42).build();
 
-    mock.onGet(readPath, body).reply(200, { Success: true, NumResults: 5, Results: [record] });
+    mock.onGet(readPath, body).reply(200, { Success: true, NumResults: 5, Results: [record], _ignoreTypeGuard: true });
     const actual: Promise<Resource[]> = endpoint.read(requestParams);
     expect(await actual).toStrictEqual([record]);
   });
@@ -47,21 +49,21 @@ describe('tasks.read', () => {
   test('with status 200 and Success false', async () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
-    const apiResponse = { Success: false, NumResults: 1, Results: [record] };
+    const apiResponse = { Success: false, NumResults: 1, Results: [record], _ignoreTypeGuard: true };
 
     mock.onGet(readPath).reply(200, apiResponse);
-    const actual: Promise<Resource[]> = endpoint.read();
-    expect(await actual.catch((err: typeof apiResponse) => err)).toStrictEqual(apiResponse);
+    const actual: Promise<Resource[]> = endpoint.read(new RequestConfigBuilder<Resource>().build());
+    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ errorType: TimeTacErrorType.FailedRequest });
   });
 
   test('with status 400 and Success false', async () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
-    const apiResponse = { Success: false, NumResults: 1, Results: [record] };
+    const apiResponse = { Success: false, NumResults: 1, Results: [record], _ignoreTypeGuard: true };
 
     mock.onGet(readPath).reply(400, apiResponse);
-    const actual: Promise<Resource[]> = endpoint.read();
-    expect(await actual.catch((err: { message: string }) => err.message)).toMatch('Request failed with status code 400');
+    const actual: Promise<Resource[]> = endpoint.read(new RequestConfigBuilder<Resource>().build());
+    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ errorType: TimeTacErrorType.FailedRequest });
   });
 });
 
@@ -74,7 +76,7 @@ describe('tasks.readRaw', () => {
     const requestParams = new RequestConfigBuilder<Resource>().build();
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [record], _ignoreTypeGuard: true });
-    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(requestParams);
     const expected = {
       data: { success: true, results: [record], deleted: [], affected: {} },
       pages: { current: {} },
@@ -90,7 +92,7 @@ describe('tasks.readRaw', () => {
     mock
       .onGet(readPath)
       .reply(200, { Success: true, NumResults: 5, Results: [record, record, record, record, record], _ignoreTypeGuard: true });
-    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(requestParams);
     const expected = {
       data: { success: true, results: [record, record, record, record, record], deleted: [], affected: {} },
       pages: { current: {} },
@@ -105,7 +107,7 @@ describe('tasks.readRaw', () => {
     const requestParams = new RequestConfigBuilder<Resource>().eq('id', 42).build();
 
     mock.onGet(readPath, body).reply(200, { Success: true, NumResults: 5, Results: [record], _ignoreTypeGuard: true });
-    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(requestParams);
     const expected = {
       data: { success: true, results: [record], deleted: [], affected: {} },
       pages: { current: { params: { id: '42', _op__id: 'eq' } } },
@@ -120,7 +122,7 @@ describe('tasks.readRaw', () => {
     const apiResponse = { Success: false, NumResults: 1, Results: [record], _ignoreTypeGuard: true };
 
     mock.onGet(readPath).reply(200, apiResponse);
-    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(requestParams);
     expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ errorType: TimeTacErrorType.FailedRequest });
   });
 
@@ -131,18 +133,18 @@ describe('tasks.readRaw', () => {
     const apiResponse = { Success: false, NumResults: 1, Results: [record], _ignoreTypeGuard: true };
 
     mock.onGet(readPath).reply(400, apiResponse);
-    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(requestParams);
     expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ errorType: TimeTacErrorType.FailedRequest });
   });
 
   test('with status 200 and Success true and pages.next', async () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
-    const current = new RequestConfigBuilder<Task>().limit(3).build();
-    const next = new RequestConfigBuilder<Task>().limit(3).offset(3).build();
+    const current = new RequestConfigBuilder<Resource>().limit(3).build();
+    const next = new RequestConfigBuilder<Resource>().limit(3).offset(3).build();
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record], _ignoreTypeGuard: true });
-    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(current);
+    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(current);
     const expected = {
       data: { success: true, results: [record, record, record], deleted: [], affected: {} },
       pages: { current, next },
@@ -153,12 +155,12 @@ describe('tasks.readRaw', () => {
   test('with status 200 and Success true and pages.next and pages.prev', async () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
-    const prev = new RequestConfigBuilder<Task>().limit(3).offset(0).build();
-    const current = new RequestConfigBuilder<Task>().limit(3).offset(3).build();
-    const next = new RequestConfigBuilder<Task>().limit(3).offset(6).build();
+    const prev = new RequestConfigBuilder<Resource>().limit(3).offset(0).build();
+    const current = new RequestConfigBuilder<Resource>().limit(3).offset(3).build();
+    const next = new RequestConfigBuilder<Resource>().limit(3).offset(6).build();
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record], _ignoreTypeGuard: true });
-    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(current);
+    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(current);
     const expected = {
       data: { success: true, results: [record, record, record], deleted: [], affected: {} },
       pages: { prev, current, next },

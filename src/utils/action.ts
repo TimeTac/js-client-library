@@ -1,7 +1,13 @@
 export enum Action {
-  Read = 'read',
+  Approve = 'approve',
+  Cancel = 'cancel',
   Create = 'create',
-  Update = 'update',
   Delete = 'delete',
   Me = 'me',
+  Read = 'read',
+  Reject = 'reject',
+  Start = 'start',
+  Stop = 'stop',
+  Update = 'update',
+  Validate = 'validate',
 }

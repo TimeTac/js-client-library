@@ -4,8 +4,8 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { TimeTacApiError, TimeTacErrorType } from '../utils/errors';
-import { ReadRawResponse } from '../utils/response/readRawResponse';
-import { UpdateRawResponse } from '../utils/response/updateRawResponse';
+import { GetResponse } from '../utils/response/getResponse';
+import { PutResponse } from '../utils/response/putResponse';
 import { UsersEndpoint } from './index';
 import { User } from './types';
 
@@ -17,8 +17,8 @@ describe('Users', () => {
 
   let result: Promise<User[]> | null;
   let resultSingle: Promise<User> | null;
-  let resultReadRaw: Promise<ReadRawResponse<User>> | null;
-  let resultUpdateRaw: Promise<UpdateRawResponse<User>> | null;
+  let resultReadRaw: Promise<GetResponse<User>> | null;
+  let resultUpdateRaw: Promise<PutResponse<User>> | null;
 
   afterEach(() => {
     mock.reset();

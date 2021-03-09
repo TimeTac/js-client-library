@@ -52,11 +52,12 @@ export { RequestConfig } from './utils/configs/requestConfig';
 export { RequestConfigBuilder as RequestParamsBuilder } from './utils/configs/requestConfigBuilder';
 export { TimeTacApiError, TimeTacErrorType } from './utils/errors';
 export { Pages } from './utils/pages/pages';
+export { DeleteResponse } from './utils/response/deleteResponse';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
-export { RawApiResponse } from './utils/response/rawApiResponse';
-export { ReadRawResponse } from './utils/response/readRawResponse';
+export { GetResponse } from './utils/response/getResponse';
+export { PostResponse } from './utils/response/postResponse';
+export { PutResponse } from './utils/response/putResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
-export { UpdateRawResponse } from './utils/response/updateRawResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';
 

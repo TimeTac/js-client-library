@@ -3,7 +3,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
-import { ReadRawResponse } from '../utils/response/readRawResponse';
+import { GetResponse } from '../utils/response/getResponse';
 import { ProjectsEndpoint } from './index';
 import { Project } from './types';
 
@@ -14,7 +14,7 @@ describe('Projects', () => {
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<Project[]> | null;
   let resultSingle: Promise<Project> | null;
-  let resultReadRaw: Promise<ReadRawResponse<Project>> | null;
+  let resultReadRaw: Promise<GetResponse<Project>> | null;
 
   afterEach(() => {
     mock.reset();

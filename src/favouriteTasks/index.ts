@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestConfig } from '../utils/configs/requestConfig';
+import { creatGetResponse, GetResponse } from '../utils/response/getResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { FavouriteTask, FavouriteTaskCreate } from './types';
@@ -19,9 +19,9 @@ export class FavouriteTasksEndpoint extends BaseApi {
 
     return responseHandlers.required(response);
   }
-  public async readRaw(config: RequestConfig<FavouriteTask>): Promise<ReadRawResponse<FavouriteTask>> {
+  public async readRaw(config: RequestConfig<FavouriteTask>): Promise<GetResponse<FavouriteTask>> {
     const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read`, config);
-    return createReadRawResponse<FavouriteTask>(createResourceResponse(await createRawApiResponse(response)), config);
+    return creatGetResponse<FavouriteTask>(createResourceResponse(await createRawApiResponse(response)), config);
   }
   public create(data: FavouriteTaskCreate): Promise<FavouriteTask> {
     const response = this._post<FavouriteTask[]>(`${this.getResourceName()}/create`, data);

@@ -1,13 +1,17 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import BaseApi from '../baseApi';
+import { createDeleteResponse, DeleteResponse } from '../utils/response/deleteResponse';
+import { createPostResponse, PostResponse } from '../utils/response/postResponse';
 import { Action } from './action';
+import { DeltaSyncRequestConfig } from './configs/deltaSyncRequestConfig';
 import { RequestConfig } from './configs/requestConfig';
 import { ApiResponse } from './response/apiResponse';
+import { createDeltaSyncResponse, DeltaSyncResponse } from './response/deltaSyncResponse';
+import { creatGetResponse, GetResponse } from './response/getResponse';
+import { createPutResponse, PutResponse } from './response/putResponse';
 import { createRawApiResponse } from './response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from './response/readRawResponse';
 import { createResourceResponse } from './response/resourceResponse';
-import { createUpdateRawResponse, UpdateRawResponse } from './response/updateRawResponse';
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class RequestMaker {
@@ -15,31 +19,34 @@ export class RequestMaker {
     throw new Error('This calls has no constructor');
   }
 
-  static async get<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>): Promise<ReadRawResponse<T>> {
+  static async get<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>): Promise<GetResponse<T>> {
     const response = axios.get<ApiResponse<T>>(endpoint.getResourcePathWithAciton(action), createConfig(endpoint, config));
-    return createReadRawResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
+    return creatGetResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
-  static async getById<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, id: number): Promise<ReadRawResponse<T>> {
+  static async getById<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, id: number): Promise<GetResponse<T>> {
     const response = axios.get<ApiResponse<T>>(`${endpoint.getResourcePathWithAciton(action)}/${id}`, createConfig(endpoint, config));
-    return createReadRawResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
+    return creatGetResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
-  static async post<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, data: unknown): Promise<unknown> {
-    const _response = axios.post<ApiResponse<T>>(endpoint.getResourcePathWithAciton(action), data, createConfig(endpoint, config));
-    await _response;
-    throw new Error('Implementation is missing');
+  static async post<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, data: unknown): Promise<PostResponse<T>> {
+    const response = axios.post<ApiResponse<T>>(endpoint.getResourcePathWithAciton(action), data, createConfig(endpoint, config));
+    return createPostResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
-  static async put<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, data: unknown): Promise<UpdateRawResponse<T>> {
+  static async put<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, data: unknown): Promise<PutResponse<T>> {
     const response = axios.put<ApiResponse<T>>(endpoint.getResourcePathWithAciton(action), data, createConfig(endpoint, config));
-    return createUpdateRawResponse<T>(createResourceResponse(await createRawApiResponse(response)));
+    return createPutResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
-  static async delete<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>): Promise<unknown> {
-    const _response = axios.delete<ApiResponse<T>>(endpoint.getResourcePathWithAciton(action), createConfig(endpoint, config));
-    await _response;
-    throw new Error('Implementation is missing');
+  static async delete<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, id: number): Promise<DeleteResponse<T>> {
+    const response = axios.delete<ApiResponse<T>>(`${endpoint.getResourcePathWithAciton(action)}/${id}`, createConfig(endpoint, config));
+    return createDeleteResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
+  }
+
+  static async deltaSync(endpoint: BaseApi, action: Action, config: DeltaSyncRequestConfig): Promise<DeltaSyncResponse> {
+    const response = axios.get<ApiResponse<unknown>>(endpoint.getResourcePathWithAciton(action), createConfig(endpoint, config));
+    return createDeltaSyncResponse(await createRawApiResponse(response));
   }
 }
 

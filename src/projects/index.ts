@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestConfig } from '../utils/configs/requestConfig';
+import { creatGetResponse, GetResponse } from '../utils/response/getResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { Project } from './types';
@@ -14,9 +14,9 @@ export class ProjectsEndpoint extends BaseApi {
     return responseHandlers.list(response);
   }
 
-  public async readRaw(config: RequestConfig<Project>): Promise<ReadRawResponse<Project>> {
+  public async readRaw(config: RequestConfig<Project>): Promise<GetResponse<Project>> {
     const response = this._get<Project[]>(`${this.getResourceName()}/read`, config);
-    return createReadRawResponse<Project>(createResourceResponse(await createRawApiResponse(response)), config);
+    return creatGetResponse<Project>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
   public readById(id: number, config?: RequestConfig<Project>): Promise<Project> {

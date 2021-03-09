@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestConfig } from '../utils/configs/requestConfig';
+import { creatGetResponse, GetResponse } from '../utils/response/getResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { RecentTask } from './types';
@@ -19,8 +19,8 @@ export class RecentTasksEndpoint extends BaseApi {
 
     return responseHandlers.required(response);
   }
-  public async readRaw(config: RequestConfig<RecentTask>): Promise<ReadRawResponse<RecentTask>> {
+  public async readRaw(config: RequestConfig<RecentTask>): Promise<GetResponse<RecentTask>> {
     const response = this._get<RecentTask[]>(`${this.getResourceName()}/read`, config);
-    return createReadRawResponse<RecentTask>(createResourceResponse(await createRawApiResponse(response)), config);
+    return creatGetResponse<RecentTask>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 }

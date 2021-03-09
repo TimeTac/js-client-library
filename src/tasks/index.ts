@@ -1,39 +1,37 @@
 import BaseApi from '../baseApi';
+import { Action } from '../utils/action';
 import { RequestConfig } from '../utils/configs/requestConfig';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
-import { createResourceResponse } from '../utils/response/resourceResponse';
-import * as responseHandlers from '../utils/response/responseHandlers';
-import { Task, TaskCreate } from './types';
+import { RequestMaker } from '../utils/requestMaker';
+import { DeleteResponse } from '../utils/response/deleteResponse';
+import { GetResponse } from '../utils/response/getResponse';
+import { PostResponse } from '../utils/response/postResponse';
+import { PutResponse } from '../utils/response/putResponse';
+import { Task } from './types';
 
-export class TasksEndpoint extends BaseApi {
+export class TasksEndpoint<R = Task> extends BaseApi {
   public readonly resourceName = 'tasks';
 
-  public read(config?: RequestConfig<Task>): Promise<Task[]> {
-    const response = this._get<Task[]>(`${this.getResourceName()}/read`, config);
-    return responseHandlers.list(response);
+  public read(config: RequestConfig<R>): Promise<R[]> {
+    return RequestMaker.get<R>(this, Action.Read, config).then((response) => response.data.results);
   }
 
-  public async readRaw(config: RequestConfig<Task>): Promise<ReadRawResponse<Task>> {
-    const response = this._get<Task[]>(`${this.getResourceName()}/read`, config);
-    return createReadRawResponse<Task>(createResourceResponse(await createRawApiResponse(response)), config);
+  public readRaw(config: RequestConfig<R>): Promise<GetResponse<R>> {
+    return RequestMaker.get<R>(this, Action.Read, config);
   }
 
-  public readById(id: number, config?: RequestConfig<Task>): Promise<Task> {
-    const response = this._get<Task[]>(`${this.getResourceName()}/read/${id}`, config);
-    return responseHandlers.required(response);
+  public readById(id: number, config: RequestConfig<R>): Promise<R> {
+    return RequestMaker.getById<R>(this, Action.Read, config, id).then((response) => response.data.results[0]);
   }
 
-  public create(data: TaskCreate): Promise<Task> {
-    const response = this._post<Task[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
+  public create(data: Partial<R>, config: RequestConfig<R>): Promise<PostResponse<R>> {
+    return RequestMaker.post<R>(this, Action.Create, config, data);
   }
 
-  public update(): Promise<Task> {
-    throw new Error('not Implemented');
+  public update(data: Partial<R>, config: RequestConfig<R>): Promise<PutResponse<R>> {
+    return RequestMaker.put<R>(this, Action.Update, config, data);
   }
 
-  public delete(): Promise<Task> {
-    throw new Error('not Implemented');
+  public delete(id: number, config: RequestConfig<R>): Promise<DeleteResponse<R>> {
+    return RequestMaker.delete<R>(this, Action.Read, config, id);
   }
 }

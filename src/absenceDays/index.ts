@@ -1,18 +1,22 @@
 import BaseApi from '../baseApi';
+import { Action } from '../utils/action';
 import { RequestConfig } from '../utils/configs/requestConfig';
-import * as responseHandlers from '../utils/response/responseHandlers';
+import { RequestMaker } from '../utils/requestMaker';
+import { GetResponse } from '../utils/response/getResponse';
 import { AbsenceDay } from './types';
 
-export class AbsenceDaysEndpoint extends BaseApi {
+export class AbsenceDaysEndpoint<R = AbsenceDay> extends BaseApi {
   public readonly resourceName = 'absenceDays';
 
-  public read(config?: RequestConfig<AbsenceDay>): Promise<AbsenceDay[]> {
-    const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read`, config);
-    return responseHandlers.list(response);
+  public read(config: RequestConfig<R>): Promise<R[]> {
+    return RequestMaker.get<R>(this, Action.Read, config).then((response) => response.data.results);
   }
 
-  public readById(id: number, config?: RequestConfig<AbsenceDay>): Promise<AbsenceDay> {
-    const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read/${id}`, config);
-    return responseHandlers.required(response);
+  public readRaw(config: RequestConfig<R>): Promise<GetResponse<R>> {
+    return RequestMaker.get<R>(this, Action.Read, config);
+  }
+
+  public readById(id: number, config: RequestConfig<R>): Promise<R> {
+    return RequestMaker.getById<R>(this, Action.Read, config, id).then((response) => response.data.results[0]);
   }
 }
