@@ -24,11 +24,6 @@ export class RequestMaker {
     return creatGetResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
-  static async getById<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, id: number): Promise<GetResponse<T>> {
-    const response = axios.get<ApiResponse<T>>(`${endpoint.getResourcePathWithAciton(action)}/${id}`, createConfig(endpoint, config));
-    return creatGetResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
-  }
-
   static async post<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, data: unknown): Promise<PostResponse<T>> {
     const response = axios.post<ApiResponse<T>>(endpoint.getResourcePathWithAciton(action), data, createConfig(endpoint, config));
     return createPostResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
@@ -44,13 +39,18 @@ export class RequestMaker {
     return createDeleteResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
+  static async getById<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>, id: number): Promise<GetResponse<T>> {
+    const response = axios.get<ApiResponse<T>>(`${endpoint.getResourcePathWithAciton(action)}/${id}`, createConfig(endpoint, config));
+    return creatGetResponse<T>(createResourceResponse(await createRawApiResponse(response)), config);
+  }
+
   static async deltaSync(endpoint: BaseApi, action: Action, config: DeltaSyncRequestConfig): Promise<DeltaSyncResponse> {
     const response = axios.get<ApiResponse<unknown>>(endpoint.getResourcePathWithAciton(action), createConfig(endpoint, config));
     return createDeltaSyncResponse(await createRawApiResponse(response));
   }
 }
 
-// TODO add other stuff from config to result. Like header and client-request-id.
+// TODO add other stuff from config to result like header fields and client-request-id.
 function createConfig(endpoint: BaseApi, config: RequestConfig<unknown>): AxiosRequestConfig {
   const result: AxiosRequestConfig = {
     headers: {
