@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { TokenResponse } from './authentication/types';
+import { Action } from './utils/action';
 import { ApiResponse } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
 
@@ -89,11 +90,19 @@ export default abstract class BaseApi {
     this.config.account = account;
   }
 
+  public getAccessTokem(): string {
+    return this.config.accessToken ?? '';
+  }
+
   public getResourceName(): string {
     return this.resourceName;
   }
 
   public getResourcePath(): string {
     return `${this.getApiPath()}${this.getResourceName()}`;
+  }
+
+  public getResourcePathWithAciton(action: Action): string {
+    return `${this.getResourcePath()}/${action}`;
   }
 }
