@@ -14,6 +14,7 @@ import { TimeTracking } from '../../timetrackings/types';
 import { TodoTask } from '../../todoTasks/types';
 import { User } from '../../users/types';
 import { UserStatusOverview } from '../../userStatusOverview/types';
+import { DeltaSyncRequestConfig } from '../configs/deltaSyncRequestConfig';
 import { RawApiResponse } from './rawApiResponse';
 import { ResourceResponse } from './resourceResponse';
 
@@ -23,7 +24,8 @@ export type DeltaSyncResponse = {
   results: DeltaSyncResults;
 };
 
-export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSyncResponse {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function createDeltaSyncResponse(rawApiResponse: RawApiResponse, _config: DeltaSyncRequestConfig): DeltaSyncResponse {
   return {
     success: true,
     apiResponse: rawApiResponse,

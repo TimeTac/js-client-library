@@ -46,7 +46,7 @@ export class RequestMaker {
 
   static async deltaSync(endpoint: BaseApi, action: Action, config: DeltaSyncRequestConfig): Promise<DeltaSyncResponse> {
     const response = axios.get<ApiResponse<unknown>>(endpoint.getResourcePathWithAciton(action), createConfig(endpoint, config));
-    return createDeltaSyncResponse(await createRawApiResponse(response));
+    return createDeltaSyncResponse(await createRawApiResponse(response), config);
   }
 }
 
