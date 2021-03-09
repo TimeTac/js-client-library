@@ -1,6 +1,6 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
-import { ErrorReason, TimeTacApiError } from '../../errors/index';
+import { createError, TimeTacApiError, TimeTacErrorType } from '../errors/index';
 
 export type RawApiResponse = {
   Host: string;
@@ -28,24 +28,18 @@ function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
     axiosResponse.data._ignoreTypeGuard = undefined;
     return axiosResponse.data;
   }
-  throw axiosResponse;
+  throw createError('Request failed with Success false', axiosResponse.config, null, axiosResponse.request, axiosResponse);
 }
 
-function handleError(error: { data?: unknown } | { response?: { data?: unknown } }) {
-  const apiResponseError: TimeTacApiError = {
-    reason: ErrorReason.ReponseFailed,
-    _plainError: JSON.stringify(error),
-    response: undefined,
+function handleError(axiosError: AxiosError) {
+  const timeTacApiError: TimeTacApiError = {
+    errorType: TimeTacErrorType.FailedRequest,
+    message: axiosError.message,
+    response: axiosError.response as Partial<RawApiResponse>,
+    axiosError: axiosError.toJSON() as Record<string, unknown>,
   };
 
-  if ('data' in error) {
-    apiResponseError.response = error.data;
-  }
-  if ('response' in error) {
-    apiResponseError.response = error.response?.data;
-  }
-
-  return Promise.reject(apiResponseError);
+  return Promise.reject(timeTacApiError);
 }
 
 function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {

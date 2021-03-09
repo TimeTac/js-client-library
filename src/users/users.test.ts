@@ -3,6 +3,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
+import { TimeTacApiError, TimeTacErrorType } from '../utils/errors';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { UpdateRawResponse } from '../utils/response/updateRawResponse';
 import { UsersEndpoint } from './index';
@@ -27,25 +28,21 @@ describe('Users', () => {
   });
 
   test('read', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = users.read();
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}], _ignoreTypeGuard: true });
+    result = users.read(new RequestConfigBuilder<User>().build());
     await result.then((result) => expect(result).toStrictEqual([{}]));
   });
 
   test('read with Success false', async () => {
-    mock.onGet(readPath).reply(200, { Success: false });
-    result = users.read();
-    await result.catch((result) => {
-      expect(result).toStrictEqual({ Success: false });
-    });
+    mock.onGet(readPath).reply(200, { Success: false, _ignoreTypeGuard: true });
+    result = users.read(new RequestConfigBuilder<User>().build());
+    expect(await result.catch((err: TimeTacApiError) => err)).toMatchObject({ errorType: TimeTacErrorType.FailedRequest });
   });
 
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
-    expect.assertions(1);
-    await users.read().catch((err: { message: string }) => {
-      expect(err.message).toMatch('Request failed with status code 500');
-    });
+    result = users.read(new RequestConfigBuilder<User>().build());
+    expect(await result.catch((err: TimeTacApiError) => err)).toMatchObject({ errorType: TimeTacErrorType.FailedRequest });
   });
 
   test('readRaw with no data', async () => {
@@ -56,14 +53,14 @@ describe('Users', () => {
   });
 
   test('readById', async () => {
-    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultSingle = users.readById(1);
+    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}], _ignoreTypeGuard: true });
+    resultSingle = users.readById(1, new RequestConfigBuilder<User>().build());
     await resultSingle.then((result) => expect(result).toStrictEqual({}));
   });
 
   test('update', async () => {
     mock.onPut(updatePath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
-    resultUpdateRaw = users.update({ id: 1 });
+    resultUpdateRaw = users.update({ id: 1 }, new RequestConfigBuilder<User>().build());
     expect(await resultUpdateRaw).toMatchObject({ data: {} });
   });
 });
