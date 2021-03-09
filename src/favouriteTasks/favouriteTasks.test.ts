@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { FavouriteTasksEndpoint } from './index';
 import { FavouriteTask } from './types';
 
@@ -48,7 +48,7 @@ describe('FavouriteTasks', () => {
   test('read with RequestParmas', async () => {
     mock.onGet(readPath, { id: 1 }).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1, node_id: 2, user_id: 3 }] });
 
-    result = favouriteTasksEndpoint.read(new RequestParamsBuilder<FavouriteTask>().eq('id', 1).build());
+    result = favouriteTasksEndpoint.read(new RequestConfigBuilder<FavouriteTask>().eq('id', 1).build());
     await result.then((result) => {
       expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]);
     });

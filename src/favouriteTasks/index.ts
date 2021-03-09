@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -9,19 +9,19 @@ import { FavouriteTask, FavouriteTaskCreate } from './types';
 export class FavouriteTasksEndpoint extends BaseApi {
   public readonly resourceName = 'favouriteTasks';
 
-  public read(params?: RequestParams<FavouriteTask>): Promise<FavouriteTask[]> {
-    const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<FavouriteTask>): Promise<FavouriteTask[]> {
+    const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read`, config);
 
     return responseHandlers.list(response);
   }
-  public readById(id: number, params?: RequestParams<FavouriteTask>): Promise<FavouriteTask> {
-    const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read/${id}`, { params });
+  public readById(id: number, config?: RequestConfig<FavouriteTask>): Promise<FavouriteTask> {
+    const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read/${id}`, config);
 
     return responseHandlers.required(response);
   }
-  public async readRaw(params: RequestParams<FavouriteTask>): Promise<ReadRawResponse<FavouriteTask>> {
-    const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<FavouriteTask>(createResourceResponse(await createRawApiResponse(response)), params);
+  public async readRaw(config: RequestConfig<FavouriteTask>): Promise<ReadRawResponse<FavouriteTask>> {
+    const response = this._get<FavouriteTask[]>(`${this.getResourceName()}/read`, config);
+    return createReadRawResponse<FavouriteTask>(createResourceResponse(await createRawApiResponse(response)), config);
   }
   public create(data: FavouriteTaskCreate): Promise<FavouriteTask> {
     const response = this._post<FavouriteTask[]>(`${this.getResourceName()}/create`, data);

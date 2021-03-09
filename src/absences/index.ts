@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
@@ -7,14 +7,14 @@ export class AbsencesEndpoint extends BaseApi {
   public readonly resourceName = 'absences';
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  public read(params?: RequestParams<Absence> | Object): Promise<Absence[]> {
-    const response = this._get<Absence[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<Absence> | Object): Promise<Absence[]> {
+    const response = this._get<Absence[]>(`${this.getResourceName()}/read`, config);
     return responseHandlers.list(response);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  public readById(id: number, params?: RequestParams<Absence> | Object): Promise<Absence> {
-    const response = this._get<Absence[]>(`${this.getResourceName()}/read/${id}`, { params });
+  public readById(id: number, config?: RequestConfig<Absence> | Object): Promise<Absence> {
+    const response = this._get<Absence[]>(`${this.getResourceName()}/read/${id}`, config);
     return responseHandlers.required(response);
   }
 

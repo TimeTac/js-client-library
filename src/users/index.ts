@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -10,21 +10,21 @@ import { User, UserUpdate } from './types';
 export class UsersEndpoint extends BaseApi {
   public readonly resourceName = 'users';
 
-  public read(params?: RequestParams<User>): Promise<User[]> {
-    const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<User>): Promise<User[]> {
+    const response = this._get<User[]>(`${this.getResourceName()}/read`, config);
     return responseHandlers.list(response);
   }
-  public async readRaw(params: RequestParams<User>): Promise<ReadRawResponse<User>> {
-    const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<User>(createResourceResponse(await createRawApiResponse(response)), params);
+  public async readRaw(config: RequestConfig<User>): Promise<ReadRawResponse<User>> {
+    const response = this._get<User[]>(`${this.getResourceName()}/read`, config);
+    return createReadRawResponse<User>(createResourceResponse(await createRawApiResponse(response)), config);
   }
-  public readById(id: number, params?: RequestParams<User>): Promise<User> {
-    const response = this._get<User[]>(`${this.getResourceName()}/read/${id}`, { params });
+  public readById(id: number, config?: RequestConfig<User>): Promise<User> {
+    const response = this._get<User[]>(`${this.getResourceName()}/read/${id}`, config);
     return responseHandlers.required(response);
   }
 
-  public readMe(params?: RequestParams<User>): Promise<User> {
-    const response = this._get<User[]>(`${this.getResourceName()}/me`, { params });
+  public readMe(config?: RequestConfig<User>): Promise<User> {
+    const response = this._get<User[]>(`${this.getResourceName()}/me`, config);
     return responseHandlers.required(response);
   }
 

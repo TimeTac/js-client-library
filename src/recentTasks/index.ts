@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -9,18 +9,18 @@ import { RecentTask } from './types';
 export class RecentTasksEndpoint extends BaseApi {
   public readonly resourceName = 'recentTasks';
 
-  public read(params?: RequestParams<RecentTask>): Promise<RecentTask[]> {
-    const response = this._get<RecentTask[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<RecentTask>): Promise<RecentTask[]> {
+    const response = this._get<RecentTask[]>(`${this.getResourceName()}/read`, config);
 
     return responseHandlers.list(response);
   }
-  public readById(id: number, params?: RequestParams<RecentTask>): Promise<RecentTask> {
-    const response = this._get<RecentTask[]>(`${this.getResourceName()}/read/${id}`, { params });
+  public readById(id: number, config?: RequestConfig<RecentTask>): Promise<RecentTask> {
+    const response = this._get<RecentTask[]>(`${this.getResourceName()}/read/${id}`, config);
 
     return responseHandlers.required(response);
   }
-  public async readRaw(params: RequestParams<RecentTask>): Promise<ReadRawResponse<RecentTask>> {
-    const response = this._get<RecentTask[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<RecentTask>(createResourceResponse(await createRawApiResponse(response)), params);
+  public async readRaw(config: RequestConfig<RecentTask>): Promise<ReadRawResponse<RecentTask>> {
+    const response = this._get<RecentTask[]>(`${this.getResourceName()}/read`, config);
+    return createReadRawResponse<RecentTask>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 }

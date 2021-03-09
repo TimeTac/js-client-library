@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { AbsenceTypesEndpoint } from './index';
 import { AbsenceType } from './types';
@@ -47,7 +47,7 @@ describe('AbsenceTypes', () => {
   });
 
   test('readRaw with no data', async () => {
-    const current = new RequestParamsBuilder<AbsenceType>();
+    const current = new RequestConfigBuilder<AbsenceType>();
     mock.onGet(readPath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultReadRaw = absenceTypes.readRaw(current.build());
     await resultReadRaw.then((result) => {

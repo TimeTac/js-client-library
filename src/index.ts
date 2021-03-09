@@ -48,9 +48,10 @@ export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionO
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { User, UserUpdate } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
+export { DeltaSyncConfigBuilder as DeltaSyncParamsBuilder } from './utils/configs/deltaSyncRequestConfigBuilder';
+export { RequestConfig } from './utils/configs/requestConfig';
+export { RequestConfigBuilder as RequestParamsBuilder } from './utils/configs/requestConfigBuilder';
 export { Pages } from './utils/pages/pages';
-export { DeltaSyncParams } from './utils/params/deltaSyncParams';
-export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';

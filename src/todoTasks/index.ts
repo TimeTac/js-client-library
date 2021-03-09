@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -9,19 +9,19 @@ import { TodoTask, TodoTaskCreate } from './types';
 export class TodoTasksEndpoint extends BaseApi {
   public readonly resourceName = 'todoTasks';
 
-  public read(params?: RequestParams<TodoTask>): Promise<TodoTask[]> {
-    const response = this._get<TodoTask[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<TodoTask>): Promise<TodoTask[]> {
+    const response = this._get<TodoTask[]>(`${this.getResourceName()}/read`, config);
 
     return responseHandlers.list(response);
   }
-  public readById(id: number, params?: RequestParams<TodoTask>): Promise<TodoTask> {
-    const response = this._get<TodoTask[]>(`${this.getResourceName()}/read/${id}`, { params });
+  public readById(id: number, config?: RequestConfig<TodoTask>): Promise<TodoTask> {
+    const response = this._get<TodoTask[]>(`${this.getResourceName()}/read/${id}`, config);
 
     return responseHandlers.required(response);
   }
-  public async readRaw(params: RequestParams<TodoTask>): Promise<ReadRawResponse<TodoTask>> {
-    const response = this._get<TodoTask[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<TodoTask>(createResourceResponse(await createRawApiResponse(response)), params);
+  public async readRaw(config: RequestConfig<TodoTask>): Promise<ReadRawResponse<TodoTask>> {
+    const response = this._get<TodoTask[]>(`${this.getResourceName()}/read`, config);
+    return createReadRawResponse<TodoTask>(createResourceResponse(await createRawApiResponse(response)), config);
   }
   public create(data: TodoTaskCreate): Promise<TodoTask> {
     const response = this._post<TodoTask[]>(`${this.getResourceName()}/create`, data);

@@ -1,34 +1,27 @@
-import { RequestParams, RequestParamsBuilder } from '../params/requestParams';
+import { RequestConfig } from '../configs/requestConfig';
+import { RequestConfigBuilder } from '../configs/requestConfigBuilder';
 import { ResourceResponse } from '../response/resourceResponse';
 
 export type Pages<T> = {
-  prev?: RequestParams<T>;
-  current?: RequestParams<T>;
-  next?: RequestParams<T>;
+  prev?: RequestConfig<T>;
+  current?: RequestConfig<T>;
+  next?: RequestConfig<T>;
   // TODO add the first params of the paging action
   // TODO add first requestStartTime
 };
 
-export function createPages<T>(resourceResponse: ResourceResponse<T>, originalParams: RequestParams<T>): Pages<T> {
-  const pages: Pages<T> = {
-    prev: { ...originalParams },
-    current: { ...originalParams },
-    next: { ...originalParams },
-  };
+export function createPages<T>(resourceResponse: ResourceResponse<T>, originalconfig: RequestConfig<T>): Pages<T> {
+  const currentBuilder = RequestConfigBuilder.from(originalconfig);
+  const pages: Pages<T> = { current: currentBuilder.build() };
 
-  const prev = new RequestParamsBuilder(pages.prev);
-  const next = new RequestParamsBuilder(pages.next);
-
-  if (!pages.prev || prev.getOffset() < prev.getLimit()) {
-    pages.prev = undefined;
-  } else {
-    prev.offset(prev.getOffset() - prev.getLimit());
+  if (currentBuilder.getOffset() >= currentBuilder.getLimit()) {
+    const prevBuilder = RequestConfigBuilder.from(originalconfig).offset(currentBuilder.getOffset() - currentBuilder.getLimit());
+    pages.prev = prevBuilder.build();
   }
 
-  if (!pages.next || resourceResponse.results.length < next.getLimit()) {
-    pages.next = undefined;
-  } else {
-    next.offset(next.getOffset() + next.getLimit());
+  if (resourceResponse.results.length >= currentBuilder.getLimit()) {
+    const nextBuilder = RequestConfigBuilder.from(originalconfig).offset(currentBuilder.getOffset() + currentBuilder.getLimit());
+    pages.next = nextBuilder.build();
   }
 
   return pages;

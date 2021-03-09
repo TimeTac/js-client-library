@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { TodoTasksEndpoint } from './index';
 import { TodoTask } from './types';
 
@@ -56,7 +56,7 @@ describe('TodoTasks', () => {
   test('read with RequestParmas', async () => {
     mock.onGet(readPath, { id: 1 }).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1, node_id: 2, user_id: 3 }] });
 
-    result = todoTasksEndpoint.read(new RequestParamsBuilder<TodoTask>().eq('id', 1).build());
+    result = todoTasksEndpoint.read(new RequestConfigBuilder<TodoTask>().eq('id', 1).build());
     await result.then((result) => {
       expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]);
     });

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { TimePlanningsEndpoint } from './index';
 import { TimePlanning } from './types';
 
@@ -45,7 +45,7 @@ describe('TimePlannings', () => {
 
   test('read with RequestParams', async () => {
     mock.onGet(readPath, { params: { user_id: '1', _op__user_id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = timePlannings.read(new RequestParamsBuilder<TimePlanning>().eq('user_id', 1).build());
+    result = timePlannings.read(new RequestConfigBuilder<TimePlanning>().eq('user_id', 1).build());
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -53,7 +53,7 @@ describe('TimePlannings', () => {
     mock
       .onGet(readPath, { params: { user_id: '1', _op__user_id: 'eq', start_date: '2020-01-01', _op__start_date: 'gteq' } })
       .reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = timePlannings.read(new RequestParamsBuilder<TimePlanning>().eq('user_id', 1).gteq('start_date', '2020-01-01').build());
+    result = timePlannings.read(new RequestConfigBuilder<TimePlanning>().eq('user_id', 1).gteq('start_date', '2020-01-01').build());
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -61,7 +61,7 @@ describe('TimePlannings', () => {
 
   test('read with params object', async () => {
     mock.onGet(readPath, { params: { user_id: '1' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = timePlannings.read({ user_id: '1' });
+    result = timePlannings.read({ params: { user_id: '1' } });
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -71,7 +71,7 @@ describe('TimePlannings', () => {
     mock
       .onGet(readPath, { params: { user_id: '1', date: '2020-01-01', _op__date: 'gteq' } })
       .reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = timePlannings.read({ user_id: '1', date: '2020-01-01', _op__date: 'gteq' });
+    result = timePlannings.read({ params: { user_id: '1', date: '2020-01-01', _op__date: 'gteq' } });
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });

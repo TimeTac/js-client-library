@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { AbsenceDaysEndpoint } from './index';
 import { AbsenceDay } from './types';
 
@@ -45,7 +45,7 @@ describe('AbsenceDays', () => {
 
   test('read with RequestParams', async () => {
     mock.onGet(readPath, { params: { user_id: '1', _op__user_id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = absenceDays.read(new RequestParamsBuilder<AbsenceDay>().eq('user_id', 1).build());
+    result = absenceDays.read(new RequestConfigBuilder<AbsenceDay>().eq('user_id', 1).build());
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -55,7 +55,7 @@ describe('AbsenceDays', () => {
     mock
       .onGet(readPath, { params: { user_id: '1', _op__user_id: 'eq', date: '2020-01-01', _op__date: 'gteq' } })
       .reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = absenceDays.read(new RequestParamsBuilder<AbsenceDay>().eq('user_id', 1).gteq('date', '2020-01-01').build());
+    result = absenceDays.read(new RequestConfigBuilder<AbsenceDay>().eq('user_id', 1).gteq('date', '2020-01-01').build());
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -63,7 +63,7 @@ describe('AbsenceDays', () => {
 
   test('read with params object', async () => {
     mock.onGet(readPath, { params: { user_id: '1' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = absenceDays.read({ user_id: '1' });
+    result = absenceDays.read({ params: { user_id: '1' } });
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -73,7 +73,7 @@ describe('AbsenceDays', () => {
     mock
       .onGet(readPath, { params: { user_id: '1', date: '2020-01-01', _op__date: 'gteq' } })
       .reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    result = absenceDays.read({ user_id: '1', date: '2020-01-01', _op__date: 'gteq' });
+    result = absenceDays.read({ params: { user_id: '1', date: '2020-01-01', _op__date: 'gteq' } });
     await result.then((result) => {
       expect(result).toStrictEqual([{}]);
     });

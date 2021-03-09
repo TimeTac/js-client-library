@@ -76,7 +76,7 @@ async() => {
   });
 
   api.absenceDays.read(
-    new RequestParamsBuilder<AbsenceDay>()
+    new RequestConfigBuilder<AbsenceDay>()
     .eq('user_id', 1)
     .gteq('date', '2020-01-01')
     .build()

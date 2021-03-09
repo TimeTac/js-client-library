@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -9,15 +9,15 @@ import { UserDefinedFieldDefinitionOptions } from './types';
 export class UserDefinedFieldDefinitionOptionsEndpoint extends BaseApi {
   public readonly resourceName = 'userDefinedFieldDefinitionOptions';
 
-  public read(params?: RequestParams<UserDefinedFieldDefinitionOptions>): Promise<UserDefinedFieldDefinitionOptions[]> {
-    const response = this._get<UserDefinedFieldDefinitionOptions[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<UserDefinedFieldDefinitionOptions>): Promise<UserDefinedFieldDefinitionOptions[]> {
+    const response = this._get<UserDefinedFieldDefinitionOptions[]>(`${this.getResourceName()}/read`, config);
     return responseHandlers.list(response);
   }
 
   public async readRaw(
-    params: RequestParams<UserDefinedFieldDefinitionOptions>
+    config: RequestConfig<UserDefinedFieldDefinitionOptions>
   ): Promise<ReadRawResponse<UserDefinedFieldDefinitionOptions>> {
-    const response = this._get<UserDefinedFieldDefinitionOptions[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<UserDefinedFieldDefinitionOptions>(createResourceResponse(await createRawApiResponse(response)), params);
+    const response = this._get<UserDefinedFieldDefinitionOptions[]>(`${this.getResourceName()}/read`, config);
+    return createReadRawResponse<UserDefinedFieldDefinitionOptions>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 }

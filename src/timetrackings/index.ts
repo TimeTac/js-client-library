@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
@@ -9,23 +9,23 @@ import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTracking
 export class TimeTrackingsEndpoint extends BaseApi {
   public readonly resourceName = 'timeTrackings';
 
-  public read(params?: RequestParams<TimeTracking>): Promise<TimeTracking[]> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<TimeTracking>): Promise<TimeTracking[]> {
+    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, config);
     return responseHandlers.list(response);
   }
 
-  public async readRaw(params: RequestParams<TimeTracking>): Promise<ReadRawResponse<TimeTracking>> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<TimeTracking>(createResourceResponse(await createRawApiResponse(response)), params);
+  public async readRaw(config: RequestConfig<TimeTracking>): Promise<ReadRawResponse<TimeTracking>> {
+    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, config);
+    return createReadRawResponse<TimeTracking>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
-  public readById(id: number, params?: RequestParams<TimeTracking>): Promise<TimeTracking> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read/${id}`, { params });
+  public readById(id: number, config?: RequestConfig<TimeTracking>): Promise<TimeTracking> {
+    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read/${id}`, config);
     return responseHandlers.required(response);
   }
 
-  public current(params?: RequestParams<TimeTracking>): Promise<TimeTracking | undefined> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/current`, { params });
+  public current(config?: RequestConfig<TimeTracking>): Promise<TimeTracking | undefined> {
+    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/current`, config);
     return responseHandlers.optional(response);
   }
 

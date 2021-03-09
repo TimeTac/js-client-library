@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
+import { RequestConfig } from '../utils/configs/requestConfig';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -9,18 +9,18 @@ import { Project } from './types';
 export class ProjectsEndpoint extends BaseApi {
   public readonly resourceName = 'projects';
 
-  public read(params?: RequestParams<Project>): Promise<Project[]> {
-    const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
+  public read(config?: RequestConfig<Project>): Promise<Project[]> {
+    const response = this._get<Project[]>(`${this.getResourceName()}/read`, config);
     return responseHandlers.list(response);
   }
 
-  public async readRaw(params: RequestParams<Project>): Promise<ReadRawResponse<Project>> {
-    const response = this._get<Project[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<Project>(createResourceResponse(await createRawApiResponse(response)), params);
+  public async readRaw(config: RequestConfig<Project>): Promise<ReadRawResponse<Project>> {
+    const response = this._get<Project[]>(`${this.getResourceName()}/read`, config);
+    return createReadRawResponse<Project>(createResourceResponse(await createRawApiResponse(response)), config);
   }
 
-  public readById(id: number, params?: RequestParams<Project>): Promise<Project> {
-    const response = this._get<Project[]>(`${this.getResourceName()}/read/${id}`, { params });
+  public readById(id: number, config?: RequestConfig<Project>): Promise<Project> {
+    const response = this._get<Project[]>(`${this.getResourceName()}/read/${id}`, config);
     return responseHandlers.required(response);
   }
 

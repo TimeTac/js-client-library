@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
-import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { RequestConfigBuilder } from '../utils/configs/requestConfigBuilder';
 import { RecentTasksEndpoint } from './index';
 import { RecentTask } from './types';
 
@@ -45,7 +45,7 @@ describe('RecentTasks', () => {
   test('read with RequestParmas', async () => {
     mock.onGet(readPath, { id: 1 }).reply(200, { Success: true, NumResults: 1, Results: [{ id: 1, node_id: 2, user_id: 3 }] });
 
-    result = recentTasksEndpoint.read(new RequestParamsBuilder<RecentTask>().eq('id', 1).build());
+    result = recentTasksEndpoint.read(new RequestConfigBuilder<RecentTask>().eq('id', 1).build());
     await result.then((result) => expect(result).toStrictEqual([{ id: 1, node_id: 2, user_id: 3 }]));
   });
 
