@@ -16,7 +16,7 @@ import { createResourceResponse } from './response/resourceResponse';
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class RequestMaker {
   constructor() {
-    throw new Error('This calls has no constructor');
+    throw new Error('This class constructor should be never called.');
   }
 
   static async get<T>(endpoint: BaseApi, action: Action, config: RequestConfig<T>): Promise<GetResponse<T>> {
