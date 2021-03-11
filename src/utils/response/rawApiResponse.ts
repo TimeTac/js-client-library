@@ -24,11 +24,16 @@ export type RawApiResponse = {
 };
 
 function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
-  if (isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
-    axiosResponse.data._ignoreTypeGuard = undefined;
-    return axiosResponse.data;
+  if (!isRawApiResponse(axiosResponse.data)) {
+    throw createError('Request failed because of the type guard check', axiosResponse.config, null, axiosResponse.request, axiosResponse);
   }
-  throw createError('Request failed with Success false', axiosResponse.config, null, axiosResponse.request, axiosResponse);
+
+  if (!axiosResponse.data.Success) {
+    throw createError('Request failed with Success false', axiosResponse.config, null, axiosResponse.request, axiosResponse);
+  }
+
+  axiosResponse.data._ignoreTypeGuard = undefined;
+  return axiosResponse.data;
 }
 
 function handleError(axiosError: AxiosError) {
