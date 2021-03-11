@@ -1,4 +1,5 @@
 export type DeltaSyncRequestConfig = {
-  originalRequestStartTime?: string;
   params: Record<string, string>;
+  clientRequestId?: string;
+  originalRequestStartTime?: string;
 };

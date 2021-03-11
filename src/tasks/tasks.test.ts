@@ -144,12 +144,17 @@ describe('tasks.readRaw', () => {
     const next = new RequestConfigBuilder<Resource>().limit(3).offset(3).build();
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record], _ignoreTypeGuard: true });
-    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(current);
+    const actualPromise: Promise<GetResponse<Resource>> = endpoint.readRaw(current);
+    const actual = await actualPromise;
+
     const expected = {
       data: { success: true, results: [record, record, record], deleted: [], affected: {} },
       pages: { current, next },
     };
-    expect(await actual).toMatchObject(expected);
+    expect(actual.data).toMatchObject(expected.data);
+    expect(actual.pages.prev).toBe(undefined);
+    expect(actual.pages.current?.params).toMatchObject(expected.pages.current.params);
+    expect(actual.pages.next?.params).toMatchObject(expected.pages.next.params);
   });
 
   test('with status 200 and Success true and pages.next and pages.prev', async () => {
@@ -160,11 +165,17 @@ describe('tasks.readRaw', () => {
     const next = new RequestConfigBuilder<Resource>().limit(3).offset(6).build();
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record], _ignoreTypeGuard: true });
-    const actual: Promise<GetResponse<Resource>> = endpoint.readRaw(current);
+    const actualPromise: Promise<GetResponse<Resource>> = endpoint.readRaw(current);
+    const actual = await actualPromise;
+
     const expected = {
       data: { success: true, results: [record, record, record], deleted: [], affected: {} },
       pages: { prev, current, next },
     };
-    expect(await actual).toMatchObject(expected);
+
+    expect(actual.data).toMatchObject(expected.data);
+    expect(actual.pages.prev?.params).toMatchObject(expected.pages.prev.params);
+    expect(actual.pages.current?.params).toMatchObject(expected.pages.current.params);
+    expect(actual.pages.next?.params).toMatchObject(expected.pages.next.params);
   });
 });

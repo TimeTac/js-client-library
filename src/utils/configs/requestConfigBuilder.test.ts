@@ -132,15 +132,15 @@ describe('RequestParamsBuilder', () => {
     expect(requestParams.getOffset()).toBe(66);
   });
 
-  test('Two builder operating on the same requestParams share the same requestParams', () => {
+  test('Two builder operating on the same requestParams do not share the same requestParams', () => {
     const before = new RequestConfigBuilder<Resource>().eq('id', 1);
     const after = new RequestConfigBuilder<Resource>(before.build());
 
-    expect(after.build()).toStrictEqual(before.build());
+    expect(after.build().params).toStrictEqual(before.build().params);
 
     before.limit(500);
 
-    expect(before.build()).toMatchObject(after.build());
-    expect(after.build()).toStrictEqual(before.build());
+    expect(before.build().params).toMatchObject(after.build().params);
+    expect(after.build().params).not.toStrictEqual(before.build().params);
   });
 });

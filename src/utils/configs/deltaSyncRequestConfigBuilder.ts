@@ -1,3 +1,6 @@
+import { cloneDeep } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+
 import { DeltaSyncResults } from '../../deltaSync/types';
 import { DeltaSyncRequestConfig } from './deltaSyncRequestConfig';
 import { RequestConfig } from './requestConfig';
@@ -7,8 +10,18 @@ const DEFAULT_PAGE_SIZE = 1000;
 export class DeltaSyncConfigBuilder {
   protected requestConfig: DeltaSyncRequestConfig = { params: {} };
 
-  build(): DeltaSyncRequestConfig {
-    return this.requestConfig;
+  constructor(requestConfig?: DeltaSyncRequestConfig) {
+    if (requestConfig) {
+      this.requestConfig = requestConfig;
+    }
+  }
+
+  static from(params: DeltaSyncRequestConfig): DeltaSyncConfigBuilder {
+    return new DeltaSyncConfigBuilder(cloneDeep(params));
+  }
+
+  build(clientRequestId?: string): DeltaSyncRequestConfig {
+    return { ...cloneDeep(this.requestConfig), clientRequestId: clientRequestId ?? uuidv4() };
   }
 
   limit(limit: number): DeltaSyncConfigBuilder {

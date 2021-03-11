@@ -1,3 +1,6 @@
+import { cloneDeep } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+
 import { RequestConfig } from './requestConfig';
 
 const DEFAULT_PAGE_SIZE = 100;
@@ -13,10 +16,11 @@ export class RequestConfigBuilder<R extends Object> {
   }
 
   static from<R>(params: RequestConfig<R>): RequestConfigBuilder<R> {
-    // TODO replace json copy with a real deep copy from some library.
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const cloned = JSON.parse(JSON.stringify(params));
-    return new RequestConfigBuilder<R>(cloned);
+    return new RequestConfigBuilder<R>(cloneDeep(params));
+  }
+
+  build(clientRequestId?: string): RequestConfig<R> {
+    return { ...cloneDeep(this.requestConfig), clientRequestId: clientRequestId ?? uuidv4() };
   }
 
   limit(limit: number): RequestConfigBuilder<R> {
@@ -108,11 +112,6 @@ export class RequestConfigBuilder<R extends Object> {
   aggregate<F extends keyof R & string>(field: F, func: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'group_concat'): RequestConfigBuilder<R> {
     this.requestConfig.params[`_aggregate__${field}`] = func;
     return this;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  build() {
-    return this.requestConfig;
   }
 
   getLimit(): number {
