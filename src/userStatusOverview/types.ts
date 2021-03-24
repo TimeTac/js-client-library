@@ -27,5 +27,5 @@ export type UserStatusOverview = {
   status: UserStatusOverviewStatus;
   profile_picture: string;
   user_fullname: string;
-  alert_maximum_timer_violation?: boolean;
+  alert_maximum_timer_violation: boolean;
 };

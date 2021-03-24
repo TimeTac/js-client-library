@@ -66,7 +66,15 @@ describe('TimeTrackings', () => {
 
   test('create', async () => {
     mock.onPost(createPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
-    resultSingle = timeTrackings.create({ task_id: 1, user_id: 1 });
+    //'user_id' | 'task_id' | 'start_time' | 'end_time' | 'start_time_timezone_id' | 'end_time_timezone_id'
+    resultSingle = timeTrackings.create({
+      task_id: 1,
+      user_id: 1,
+      start_time: 'PLACE_HOLDER',
+      end_time: 'PLACE_HOLDER',
+      start_time_timezone_id: 999,
+      end_time_timezone_id: 999,
+    });
     await resultSingle.then((result) => {
       expect(result).toStrictEqual({});
     });

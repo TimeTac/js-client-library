@@ -2,108 +2,106 @@ export interface TimeTracking {
   id: number;
   user_id: number;
   task_id: number;
-  start_time?: string; // dateTimeString ??
-  end_time?: string; // dateTimeString ??
+  start_time: string; // dateTimeString ??
+  end_time: string; // dateTimeString ??
   /**
    * Timezone, eg. Europe/Vienna, that is mandatory if action is CREATE
    */
-  start_time_timezone?: string;
+  start_time_timezone: string | null;
   /**
    * Timezone id for start_time
    */
-  start_time_timezone_id?: number;
+  start_time_timezone_id: number | null;
   /**
    * Timezone needs to be set if end_time field value is set
    */
-  end_time_timezone?: string;
+  end_time_timezone: string | null;
   /**
    * Timezone id for end_time
    */
-  end_time_timezone_id?: number;
+  end_time_timezone_id: number | null;
   /**
    * The department id to which the timetrackings user (pm_time_tracking.user_id)
    * was assigned at the time start_date of the timeTracking.
    */
-  department_id?: number;
+  department_id: number;
   /**
    * The department role id to which the timetrackings user (pm_time_tracking.user_id)
    * was assigned at the time start_date of the timeTracking.
    */
-  department_role_id?: number;
-  start_time_offset?: number;
-  end_time_offset?: number;
-  timezone?: string;
+  department_role_id: number;
+  start_time_offset: number | null;
+  end_time_offset: number | null;
+  timezone: string;
   /**
    * Whether the start of the timer was booked live or not
    */
-  is_start_live?: boolean;
+  is_start_live: boolean;
   /**
    * Whether the end of the timer was booked live or not
    */
-  is_end_live?: boolean;
-  time?: string;
-  duration?: number;
-  status?: number;
-  start_ip?: string;
-  end_ip?: string;
-  is_statistic_countable?: boolean;
-  max_hours_alert?: boolean;
-  input_type?: number;
-  t_iv_1?: string;
-  t_iv_2?: string;
-  t_iv_3?: string;
-  t_iv_4?: string;
-  t_iv_5?: string;
-  t_iv_6?: string;
-  u_iv_1?: string;
-  u_iv_2?: string;
-  u_iv_3?: string;
-  u_iv_4?: string;
-  u_iv_5?: string;
-  u_iv_6?: string;
+  is_end_live: boolean;
+  time: string;
+  duration: number;
+  status: number;
+  start_ip: string;
+  end_ip: string;
+  is_statistic_countable: boolean;
+  max_hours_alert: boolean;
+  input_type: number;
+  t_iv_1: string;
+  t_iv_2: string;
+  t_iv_3: string;
+  t_iv_4: string;
+  t_iv_5: string;
+  t_iv_6: string;
+  u_iv_1: string;
+  u_iv_2: string;
+  u_iv_3: string;
+  u_iv_4: string;
+  u_iv_5: string;
+  u_iv_6: string;
   /**
    * if 1, admin has approved time tracking entry (no change possible)
    */
-  approved_by_admin?: boolean;
-  geo_start_lat?: number;
-  geo_start_long?: number;
-  geo_start_accuracy?: number;
-  geo_end_lat?: number;
-  geo_end_long?: number;
-  geo_end_accuracy?: number;
-  geo_lat?: number;
-  geo_long?: number;
-  geo_accuracy?: number;
-  updated?: string;
+  approved_by_admin: boolean;
+  geo_start_lat: number | null;
+  geo_start_long: number | null;
+  geo_start_accuracy: number | null;
+  geo_end_lat: number | null;
+  geo_end_long: number | null;
+  geo_end_accuracy: number | null;
+  geo_lat: number | null;
+  geo_long: number | null;
+  geo_accuracy: number | null;
+  updated: string;
   /**
    * Id of latest time tracking change request
    */
-  last_change_time_tracking_request_id?: number;
+  last_change_time_tracking_request_id: number;
   /**
    * Special unique case: If a to-be-inserted value is not null and exists already,
    * the create action should successfully return the existing row instead of creating
    * (and no unique error)
    */
-  client_unique_id?: string;
+  client_unique_id: string;
   /**
    * 0 = post-dated, 1 = live, 2 = nfc
    */
-  start_type_id?: number;
+  start_type_id: number | null;
   /**
    * 0 = post-dated, 1 = live, 2 = nfc
    */
-  end_type_id?: number;
-  notes?: string;
-  is_billable?: boolean;
-  is_nonworking?: boolean;
-  is_paid_non_working?: boolean;
-  _temp_record_id?: string;
+  end_type_id: number | null;
+  notes: string;
+  is_billable: boolean;
+  is_nonworking: boolean;
+  is_paid_non_working: boolean;
+  _temp_record_id: string;
 }
-export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
-export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id'> {
-  task_id?: number;
-}
+export type TimeTrackingCreate = Partial<TimeTracking> &
+  Pick<TimeTracking, 'user_id' | 'task_id' | 'start_time' | 'end_time' | 'start_time_timezone_id' | 'end_time_timezone_id'>;
+export type StartTimeTrackingData = Partial<TimeTracking> & Pick<TimeTracking, 'user_id'>;
+export type StopTimeTrackingData = Partial<TimeTracking> & Pick<TimeTracking, 'user_id'>;
 
-export interface StopTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id' | 'end_time_timezone'> {
-  end_time_timezone: string;
-}
+export type TimeTrackingUpdate = Partial<TimeTracking> & Pick<TimeTracking, 'id'>;

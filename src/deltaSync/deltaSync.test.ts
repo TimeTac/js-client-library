@@ -41,6 +41,21 @@ describe('DeltaSync', () => {
       to_date: 'to_date',
       duration_unit: AbsenceDurationUnit.Days,
       duration: 1,
+      replacement_user_id: 999,
+      request_user_department_id: 999,
+      request_user_role_id: 999,
+      granted_user_id: 999,
+      granted_timestamp: 'granted_timestamp',
+      request_comment: 'request_comment',
+      granted_comment: 'granted_comment',
+      request_partial_begin_duration: 999,
+      request_partial_end_duration: 999,
+      begin: 'begin',
+      granted_as_substitute_user_id: null,
+      substitute_enabled: true,
+      individual_value_1: 'individual_value_1',
+      is_multistage_request: true,
+      chain_level: 999,
     };
 
     const deltedRecord: DeletedEntry = {
