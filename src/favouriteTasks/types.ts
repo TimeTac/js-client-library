@@ -5,4 +5,4 @@ export interface FavouriteTask {
   _assign_to_child_nodes?: boolean;
 }
 
-export type FavouriteTaskCreate = Omit<FavouriteTask, 'id'>;
+export type FavouriteTaskCreate = Partial<FavouriteTask> & Pick<FavouriteTask, 'user_id' | 'node_id'>;

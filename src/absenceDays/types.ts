@@ -9,11 +9,11 @@ export type AbsenceDay = {
   type: AbsenceDayType;
   value: number;
   value_unit: AbsenceDurationUnit;
-  request_id: number;
+  request_id: number | null;
   status: AbsenceStatus;
   comment: string;
-  begin: string;
-  updated: string | null;
+  begin: string | null;
+  updated: string;
   type_id: number;
   subtype_id: number;
 };
