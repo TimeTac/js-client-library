@@ -30,6 +30,7 @@ export type ApiConfig = {
   onTokenRefreshedCallback?: onTokenRefreshedCallback;
   onTokenRefreshedFailed?: () => void;
   autoRefreshToken?: boolean;
+  timeout?: number;
 };
 
 export default abstract class BaseApi {

@@ -126,10 +126,13 @@ export default class Api {
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public setConfig(config: unknown) {
+  public setConfig(config: ApiConfig): void {
     Object.assign(this.config, config);
-    setAxiosDefaults({ baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
+    setAxiosDefaults({
+      baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}`,
+      // Read timeout, doesn't work as connect timeout, so that doesn't apply when we can't connect at all
+      timeout: config.timeout,
+    });
   }
 
   public setAccount(account: string): void {

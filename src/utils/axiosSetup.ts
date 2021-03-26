@@ -11,6 +11,13 @@ type interceptorParams = {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const interceptor = (apiInstanceData: interceptorParams) => {
+  axios.interceptors.request.use((config) => {
+    console.log('Request config: ', config);
+    // TODO: check why setting that timout outside doesn't work
+    config.timeout = 500;
+    return config;
+  });
+
   axios.interceptors.response.use(
     (res) => {
       return res;
