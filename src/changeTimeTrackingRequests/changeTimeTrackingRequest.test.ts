@@ -9,8 +9,8 @@ import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { ChangeTimeTrackingRequestEndpoint } from './index';
 import { ChangeTimeTrackingRequest } from './types';
 
-type Resource = ChangeTimeTrackingRequestEndpoint;
-const endpoint: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });
+type Resource = ChangeTimeTrackingRequest;
+const endpoint: ChangeTimeTrackingRequestEndpoint = new ChangeTimeTrackingRequestEndpoint({ account: 'testingAccount' });
 
 describe('tasks.read', () => {
   const readPath = `${endpoint.getResourcePath()}/read`;
@@ -138,8 +138,8 @@ describe('tasks.readRaw', () => {
   test('with status 200 and Success true and pages.next', async () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
-    const current = new RequestParamsBuilder<Task>().limit(3).build();
-    const next = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
+    const current = new RequestParamsBuilder<Resource>().limit(3).build();
+    const next = new RequestParamsBuilder<Resource>().limit(3).offset(3).build();
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record], _ignoreTypeGuard: true });
     const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(current);
@@ -153,9 +153,9 @@ describe('tasks.readRaw', () => {
   test('with status 200 and Success true and pages.next and pages.prev', async () => {
     const mock = new AxiosMockAdapter(axios);
     const record = createMock<Resource>();
-    const prev = new RequestParamsBuilder<Task>().limit(3).offset(0).build();
-    const current = new RequestParamsBuilder<Task>().limit(3).offset(3).build();
-    const next = new RequestParamsBuilder<Task>().limit(3).offset(6).build();
+    const prev = new RequestParamsBuilder<Resource>().limit(3).offset(0).build();
+    const current = new RequestParamsBuilder<Resource>().limit(3).offset(3).build();
+    const next = new RequestParamsBuilder<Resource>().limit(3).offset(6).build();
 
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: [record, record, record], _ignoreTypeGuard: true });
     const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(current);

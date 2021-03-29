@@ -3,6 +3,7 @@ import { AbsencesEndpoint } from './absences';
 import { AbsenceTypesEndpoint } from './absenceTypes';
 import { AuthenticationEndpoint } from './authentication';
 import { ApiConfig, ApiState } from './baseApi';
+import { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
 import { DeltaSyncEndpoint } from './deltaSync';
 import { DepartmentsEndpoint } from './departments';
 import { FavouriteTasksEndpoint } from './favouriteTasks';
@@ -56,6 +57,7 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
+export { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -85,6 +87,7 @@ export default class Api {
   public userStatusOverviews: UserStatusOverviewsEndpoint;
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
+  public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = {};
@@ -122,6 +125,7 @@ export default class Api {
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
+    this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }

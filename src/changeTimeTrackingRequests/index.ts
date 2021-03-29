@@ -23,19 +23,4 @@ export class ChangeTimeTrackingRequestEndpoint extends BaseApi {
     const response = this._get<ChangeTimeTrackingRequest[]>(`${this.getResourceName()}/read/${id}`, { params });
     return responseHandlers.required(response);
   }
-
-  public create(data: ChangeTimeTrackingRequestCreate): Promise<ChangeTimeTrackingRequest> {
-    const response = this._post<ChangeTimeTrackingRequest[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
-  }
-
-  public update(): Promise<ChangeTimeTrackingRequest> {
-    throw new Error('not Implemented');
-  }
-
-  public delete(): Promise<ChangeTimeTrackingRequest> {
-    throw new Error(
-      'not Implemented. changeTimeTracking requests can be rejected (this is through the update endpoint), but cannot be deleted.'
-    );
-  }
 }
