@@ -29,6 +29,7 @@ export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } 
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
+export { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
@@ -57,7 +58,6 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
-export { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
 
 const DEFAULT_HOST = 'go.timetac.com';
 

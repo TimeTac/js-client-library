@@ -4,10 +4,10 @@ import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import { ChangeTimeTrackingRequest, ChangeTimeTrackingRequestCreate } from './types';
+import { ChangeTimeTrackingRequest } from './types';
 
 export class ChangeTimeTrackingRequestEndpoint extends BaseApi {
-  public readonly resourceName = 'changetimetrackingrequests';
+  public readonly resourceName = 'changeTimeTrackingRequests';
 
   public read(params?: RequestParams<ChangeTimeTrackingRequest>): Promise<ChangeTimeTrackingRequest[]> {
     const response = this._get<ChangeTimeTrackingRequest[]>(`${this.getResourceName()}/read`, { params });
