@@ -128,10 +128,9 @@ export default class Api {
 
   public setConfig(config: ApiConfig): void {
     Object.assign(this.config, config);
+    console.log('setConfig: ', config.timeout);
     setAxiosDefaults({
       baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}`,
-      // Read timeout, doesn't work as connect timeout, so that doesn't apply when we can't connect at all
-      timeout: config.timeout,
     });
   }
 

@@ -12,9 +12,8 @@ type interceptorParams = {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const interceptor = (apiInstanceData: interceptorParams) => {
   axios.interceptors.request.use((config) => {
-    console.log('Request config: ', config);
-    // TODO: check why setting that timout outside doesn't work
-    config.timeout = 500;
+    // TODO: Investigate why axios.defaults do not automatically apply here
+    config.timeout = axios.defaults.timeout;
     return config;
   });
 
@@ -73,5 +72,11 @@ export const setAxiosDefaults = (defaults: AxiosRequestConfig) => {
   axios.defaults = {
     ...axios.defaults,
     ...defaults,
+    httpAgent: 'ourFancyTestHeader',
+    headers: {
+      oasnehuoentu: 'oneuthoesnuh',
+    },
   };
+
+  console.log('Axios defaults: ', axios.defaults);
 };
