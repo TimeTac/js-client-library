@@ -12,7 +12,7 @@ import { ChangeTimeTrackingRequest } from './types';
 type Resource = ChangeTimeTrackingRequest;
 const endpoint: ChangeTimeTrackingRequestEndpoint = new ChangeTimeTrackingRequestEndpoint({ account: 'testingAccount' });
 
-describe('tasks.read', () => {
+describe('changeTimeTrackingRequest.read', () => {
   const readPath = `${endpoint.getResourcePath()}/read`;
 
   test('with status 200 and Success true and single result', async () => {
@@ -65,7 +65,7 @@ describe('tasks.read', () => {
   });
 });
 
-describe('tasks.readRaw', () => {
+describe('changeTimeTrackingRequestRead.readRaw', () => {
   const readPath = `${endpoint.getResourcePath()}/read`;
 
   test('with status 200 and Success true and single result', async () => {
