@@ -3,6 +3,7 @@ import { AbsencesEndpoint } from './absences';
 import { AbsenceTypesEndpoint } from './absenceTypes';
 import { AuthenticationEndpoint } from './authentication';
 import { ApiConfig, ApiState } from './baseApi';
+import { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
 import { DeltaSyncEndpoint } from './deltaSync';
 import { DepartmentsEndpoint } from './departments';
 import { FavouriteTasksEndpoint } from './favouriteTasks';
@@ -28,6 +29,7 @@ export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } 
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
+export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
@@ -85,6 +87,7 @@ export default class Api {
   public userStatusOverviews: UserStatusOverviewsEndpoint;
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
+  public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = {};
@@ -122,6 +125,7 @@ export default class Api {
     this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
+    this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
