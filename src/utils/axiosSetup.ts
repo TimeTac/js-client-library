@@ -14,7 +14,6 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
   axios.interceptors.request.use((config) => {
     config.timeout = axios.defaults.timeout;
     // TODO: Investigate why axios.defaults do not automatically apply here
-    console.log('Timeout in interceptor: ', config.timeout);
     return config;
   });
 
