@@ -51,6 +51,7 @@ export { UserStatusOverview } from './userStatusOverview/types';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
+export { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess } from './utils/response/apiResponse';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
@@ -128,9 +129,11 @@ export default class Api {
 
   public setConfig(config: ApiConfig): void {
     Object.assign(this.config, config);
+    debugger;
     console.log('setConfig: ', config.timeout);
     setAxiosDefaults({
       baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}`,
+      timeout: config.timeout,
     });
   }
 
