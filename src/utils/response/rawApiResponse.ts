@@ -31,18 +31,23 @@ function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
   throw axiosResponse;
 }
 
-function handleError(error: { data?: unknown } | { response?: { data?: unknown } }) {
+function handleError(error: Record<string, unknown>) {
   const apiResponseError: TimeTacApiError = {
-    reason: ErrorReason.ReponseFailed,
-    _plainError: JSON.stringify(error),
+    reason: ErrorReason.ResponseFailed,
     response: undefined,
   };
 
-  if ('data' in error) {
+  if (typeof error === 'object' && error.data !== null && 'data' in error) {
     apiResponseError.response = error.data;
   }
-  if ('response' in error) {
-    apiResponseError.response = error.response?.data;
+  if (typeof error === 'object' && typeof error.response === 'object' && error.response !== null && 'data' in error.response) {
+    apiResponseError.response = (error.response as { data: unknown }).data;
+  }
+  if (error.message !== undefined) {
+    apiResponseError.response = { ErrorMessage: error.message };
+  }
+  if (typeof error === 'object' && typeof error.status === 'number') {
+    apiResponseError.response = { ErrorMessage: error.statusText };
   }
 
   return Promise.reject(apiResponseError);
