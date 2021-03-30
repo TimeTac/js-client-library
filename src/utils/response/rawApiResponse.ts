@@ -54,6 +54,10 @@ function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
 // }
 
 function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
+  if (response === undefined) {
+    return false;
+  }
+
   const hasHost = 'Host' in response;
   const hasCodeversion = 'Codeversion' in response;
   const hasSuccess = 'Success' in response;
@@ -62,4 +66,8 @@ function isRawApiResponse(response: Record<string, unknown>): response is RawApi
   const hasIgnoreTypeGuard = '_ignoreTypeGuard' in response && response._ignoreTypeGuard === true;
 
   return hasIgnoreTypeGuard || (hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime);
+}
+
+export async function createRawApiResponse(promise: Promise<AxiosResponse>): Promise<RawApiResponse> {
+  return promise.then(handleResponse);
 }

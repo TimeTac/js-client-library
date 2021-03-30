@@ -31,7 +31,11 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
           if (apiInstanceData.config.onTokenRefreshedFailed) {
             apiInstanceData.config.onTokenRefreshedFailed();
           }
-          throw error;
+          throw {
+            statusCode: error.response.status,
+            message: error.response.statusText,
+            raw: error,
+          };
         }
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
@@ -61,8 +65,21 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
           }
         }
       }
+
+      if (error.response === undefined && error.message !== undefined) {
+        return {
+          statusCode: undefined,
+          message: error.message,
+          raw: error,
+        };
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
-      throw error.response || error;
+      throw {
+        statusCode: undefined,
+        message: undefined,
+        raw: error,
+      };
     }
   );
 };
