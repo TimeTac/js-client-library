@@ -1,6 +1,6 @@
+import { RawApiResponse } from '..';
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
@@ -18,6 +18,9 @@ export class UserDefinedFieldDefinitionOptionsEndpoint extends BaseApi {
     params: RequestParams<UserDefinedFieldDefinitionOptions>
   ): Promise<ReadRawResponse<UserDefinedFieldDefinitionOptions>> {
     const response = this._get<UserDefinedFieldDefinitionOptions[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<UserDefinedFieldDefinitionOptions>(createResourceResponse(await createRawApiResponse(response)), params);
+    return createReadRawResponse<UserDefinedFieldDefinitionOptions>(
+      createResourceResponse(((await response) as unknown) as RawApiResponse),
+      params
+    );
   }
 }

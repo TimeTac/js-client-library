@@ -1,6 +1,6 @@
+import { RawApiResponse } from '..';
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
@@ -21,7 +21,7 @@ export class TodoTasksEndpoint extends BaseApi {
   }
   public async readRaw(params: RequestParams<TodoTask>): Promise<ReadRawResponse<TodoTask>> {
     const response = this._get<TodoTask[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<TodoTask>(createResourceResponse(await createRawApiResponse(response)), params);
+    return createReadRawResponse<TodoTask>(createResourceResponse(((await response) as unknown) as RawApiResponse), params);
   }
   public create(data: TodoTaskCreate): Promise<TodoTask> {
     const response = this._post<TodoTask[]>(`${this.getResourceName()}/create`, data);

@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { RequestParams, RequestParamsBuilder } from '../utils/params/requestParams';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
+import { RawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
@@ -16,7 +16,7 @@ export class GeneralSettingsEndpoint extends BaseApi {
 
   public async readRaw(params: RequestParams<GeneralSetting>): Promise<ReadRawResponse<GeneralSetting>> {
     const response = this._get<GeneralSetting[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<GeneralSetting>(createResourceResponse(await createRawApiResponse(response)), params);
+    return createReadRawResponse<GeneralSetting>(createResourceResponse(((await response) as unknown) as RawApiResponse), params);
   }
 
   public readById(id: number, params?: RequestParams<GeneralSetting>): Promise<GeneralSetting> {
