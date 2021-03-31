@@ -121,7 +121,7 @@ describe('changeTimeTrackingRequestRead.readRaw', () => {
 
     mock.onGet(readPath).reply(200, apiResponse);
     const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
-    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ reason: ErrorReason.ReponseFailed });
+    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ reason: ErrorReason.ResponseFailed });
   });
 
   test('with status 400 and Success false', async () => {
@@ -132,7 +132,7 @@ describe('changeTimeTrackingRequestRead.readRaw', () => {
 
     mock.onGet(readPath).reply(400, apiResponse);
     const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
-    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ reason: ErrorReason.ReponseFailed });
+    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ reason: ErrorReason.ResponseFailed });
   });
 
   test('with status 200 and Success true and pages.next', async () => {

@@ -1,7 +1,5 @@
 import { AxiosResponse } from 'axios';
 
-import { ErrorReason, TimeTacApiError } from '../../errors/index';
-
 export type RawApiResponse = {
   Host: string;
   Codeversion: string;
@@ -31,33 +29,7 @@ function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
   throw axiosResponse;
 }
 
-// function handleError(error: Record<string, unknown>) {
-//   const apiResponseError: TimeTacApiError = {
-//     reason: ErrorReason.ResponseFailed,
-//     response: undefined,
-//   };
-//
-//   if (typeof error === 'object' && error.data !== null && 'data' in error) {
-//     apiResponseError.response = error.data;
-//   }
-//   if (typeof error === 'object' && typeof error.response === 'object' && error.response !== null && 'data' in error.response) {
-//     apiResponseError.response = (error.response as { data: unknown }).data;
-//   }
-//   if (error.message !== undefined) {
-//     apiResponseError.response = { ErrorMessage: error.message };
-//   }
-//   if (typeof error === 'object' && typeof error.status === 'number') {
-//     apiResponseError.response = { ErrorMessage: error.statusText };
-//   }
-//
-//   return Promise.reject(apiResponseError);
-// }
-
 function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
-  if (response === undefined) {
-    return false;
-  }
-
   const hasHost = 'Host' in response;
   const hasCodeversion = 'Codeversion' in response;
   const hasSuccess = 'Success' in response;

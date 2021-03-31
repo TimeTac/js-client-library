@@ -1,6 +1,6 @@
-import { RawApiResponse } from '..';
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
@@ -16,7 +16,7 @@ export class UsersEndpoint extends BaseApi {
   }
   public async readRaw(params: RequestParams<User>): Promise<ReadRawResponse<User>> {
     const response = this._get<User[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<User>(createResourceResponse(((await response) as unknown) as RawApiResponse), params);
+    return createReadRawResponse<User>(createResourceResponse(await createRawApiResponse(response)), params);
   }
   public readById(id: number, params?: RequestParams<User>): Promise<User> {
     const response = this._get<User[]>(`${this.getResourceName()}/read/${id}`, { params });
@@ -34,6 +34,6 @@ export class UsersEndpoint extends BaseApi {
 
   public async update(data: UserUpdate): Promise<UpdateRawResponse<User>> {
     const response = this._put<User[]>(`${this.getResourceName()}/update`, data);
-    return createUpdateRawResponse<User>(createResourceResponse<User>(((await response) as unknown) as RawApiResponse));
+    return createUpdateRawResponse<User>(createResourceResponse<User>(await createRawApiResponse(response)));
   }
 }

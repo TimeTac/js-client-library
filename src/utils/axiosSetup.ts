@@ -39,7 +39,7 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
         }
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
-        if (error.response.status === 401 && !untouchedRequest._retry) {
+        if (error.response.status === 401 && !untouchedRequest._retry && !error.response.config.url?.includes('oauth2')) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           untouchedRequest._retry = true;
 
@@ -66,18 +66,9 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
         }
       }
 
-      if (error.response === undefined && error.message !== undefined) {
-        return {
-          statusCode: undefined,
-          message: error.message,
-          raw: error,
-        };
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
       throw {
         statusCode: undefined,
-        message: undefined,
+        message: error.message,
         raw: error,
       };
     }
