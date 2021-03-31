@@ -135,7 +135,7 @@ export default class Api {
     Object.assign(this.config, config);
     setAxiosDefaults({
       baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}`,
-      ...(config?.timeout && { timeout: config?.timeout }),
+      ...(config.timeout !== undefined && { timeout: config.timeout }),
     });
   }
 

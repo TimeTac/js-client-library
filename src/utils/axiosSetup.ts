@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
 import { ApiConfig, ApiState } from '../baseApi';
@@ -21,13 +21,13 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
     (res) => {
       return res;
     },
-    async (error) => {
+    async (error: AxiosError) => {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions,@typescript-eslint/no-unsafe-member-access
       if (apiInstanceData.config.autoRefreshToken && error.response) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-        const untouchedRequest = error.config;
+        const untouchedRequest = error.config as AxiosRequestConfig & { _retry: boolean };
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call,@typescript-eslint/strict-boolean-expressions
-        if (error.response.status === 497 && untouchedRequest.url.includes('auth/oauth2/token')) {
+        if (error.response.status === 497 && untouchedRequest.url?.includes('auth/oauth2/token')) {
           if (apiInstanceData.config.onTokenRefreshedFailed) {
             apiInstanceData.config.onTokenRefreshedFailed();
           }
