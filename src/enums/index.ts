@@ -44,3 +44,8 @@ export enum ChangeTimetrackingRequestsStatus {
   Granted = 'GRANTED',
   Declined = 'DECLINED',
 }
+
+export enum ChangeTimetrackingRequestsType {
+  Add = 'ADD',
+  Change = 'CHANGE',
+}
