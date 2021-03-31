@@ -8,3 +8,9 @@ export type TimeTacApiError = {
   response?: unknown;
   _plainError?: string;
 };
+
+export type TTError = {
+  statusCode: number | undefined;
+  message: string | undefined;
+  raw: unknown;
+};
