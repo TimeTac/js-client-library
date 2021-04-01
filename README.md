@@ -48,7 +48,7 @@ const environment = {
   //Callback, called on refresh of the token. object of access token and refresh {accessToken, refreshTOken}  token are passed as parameter
   onTokenRefreshedCallback: (tokens) => console.log(`${tokens.accessToken} ${tokens.refreshToken}`),
   //Callback called when refresh of the token fails.
-  onTokenRefreshedFailed: () => { console.log('Intended action, such as logout')},
+  onTokenRefreshFailed: () => { console.log('Intended action, such as logout')},
   //If true, it tries to refresh token on failed request. Default true.
   autoRefreshToken: <BOOLEAN>
 }
