@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
+import { TokenResponse } from '../authentication/types';
 import { ApiConfig, ApiState } from '../baseApi';
 
 export type InterceptorParams = {
@@ -45,7 +46,20 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
         interceptorParams.state.refreshingToken = interceptorParams.authentication.refreshToken();
       }
 
-      const res = await interceptorParams.state.refreshingToken;
+      let res: AxiosResponse<TokenResponse>;
+      try {
+        res = await interceptorParams.state.refreshingToken;
+      } catch (error: unknown) {
+        // Check if refresh token expired, call tokenRefreshFailed() and then re-throw error
+        const status = (error as { raw?: { response?: { status?: number } } }).raw?.response?.status;
+        if (status === 497) {
+          if (interceptorParams.config.onTokenRefreshFailed != null) {
+            interceptorParams.config.onTokenRefreshFailed();
+          }
+        }
+        throw error;
+      }
+
       interceptorParams.state.refreshingToken = false;
 
       if (res.status === 200 && res.data.access_token) {
@@ -57,8 +71,6 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
           interceptorParams.config.onTokenRefreshedCallback({ accessToken, refreshToken });
         }
         return axios(untouchedRequest);
-      } else if (interceptorParams.config.onTokenRefreshFailed) {
-        interceptorParams.config.onTokenRefreshFailed();
       }
     }
   }
