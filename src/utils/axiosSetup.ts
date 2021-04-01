@@ -24,17 +24,6 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
   if (interceptorParams.config.autoRefreshToken && error.response) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
     const untouchedRequest = error.config as AxiosRequestConfig & { _retry: boolean };
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call,@typescript-eslint/strict-boolean-expressions
-    if (error.response.status === 497 && untouchedRequest.url?.includes('auth/oauth2/token')) {
-      if (interceptorParams.config.onTokenRefreshFailed) {
-        interceptorParams.config.onTokenRefreshFailed();
-      }
-      throw {
-        statusCode: error.response.status,
-        message: error.response.statusText,
-        raw: error,
-      };
-    }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
     if (error.response.status === 401 && !untouchedRequest._retry && !error.response.config.url?.includes('oauth2')) {
