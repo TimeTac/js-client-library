@@ -1,3 +1,5 @@
+import { ApiConfig } from '../baseApi';
+
 type Data = {
   [index: string]: unknown;
 };
@@ -33,3 +35,22 @@ export const objectCheck = (data: Data, prefix?: string, postfix?: string): stri
 
   return message;
 };
+
+export class ConfigProvider {
+  private _config: ApiConfig;
+  constructor(config: ApiConfig) {
+    this._config = config;
+  }
+
+  get data(): ApiConfig {
+    return this._config;
+  }
+
+  set data(newConfig: ApiConfig) {
+    this._config = newConfig;
+  }
+
+  public setFields(newConfigFields: Partial<ApiConfig>): void {
+    this._config = { ...this._config, ...newConfigFields };
+  }
+}

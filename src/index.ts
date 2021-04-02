@@ -22,6 +22,7 @@ import { UserDefinedFieldDefinitionOptionsEndpoint } from './userDefinedFieldDef
 import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitions';
 import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
+import { ConfigProvider } from './utils';
 import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
 
 export { AbsenceDay } from './absenceDays/types';
@@ -62,7 +63,7 @@ export { UpdateRawResponse } from './utils/response/updateRawResponse';
 const DEFAULT_HOST = 'go.timetac.com';
 
 export default class Api {
-  public config: ApiConfig;
+  public config: ConfigProvider;
   public state: ApiState;
 
   public absenceDays: AbsenceDaysEndpoint;
@@ -90,14 +91,11 @@ export default class Api {
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
 
   constructor(config: ApiConfig) {
-    this.config = {};
-    this.setConfig({
+    this.config = new ConfigProvider({
       ...config,
       autoRefreshToken: config.autoRefreshToken ?? true,
       https: config.https ?? true,
     });
-
-    this.config = this.getConfig();
 
     this.state = {
       refreshingToken: false,
@@ -133,14 +131,10 @@ export default class Api {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public setConfig(config: unknown) {
     Object.assign(this.config, config);
-    setAxiosDefaults({ baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}` });
+    setAxiosDefaults({ baseURL: `${this.config.data.https == true ? 'https' : 'http'}://${this.config.data.host ?? DEFAULT_HOST}` });
   }
 
   public setAccount(account: string): void {
-    this.config.account = account;
-  }
-
-  public getConfig(): ApiConfig {
-    return this.config;
+    this.config.data.account = account;
   }
 }
