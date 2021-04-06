@@ -1,11 +1,14 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { UserStatusOverviewsEndpoint } from './index';
 import { UserStatusOverview } from './types';
 
 describe('UserStatusOverview', () => {
-  const userStatusOverviews: UserStatusOverviewsEndpoint = new UserStatusOverviewsEndpoint({ account: 'testingAccount' });
+  const userStatusOverviews: UserStatusOverviewsEndpoint = new UserStatusOverviewsEndpoint(
+    new ConfigProvider({ account: 'testingAccount' })
+  );
   const readPath = `${userStatusOverviews.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
 

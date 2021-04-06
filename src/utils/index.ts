@@ -42,11 +42,11 @@ export class ConfigProvider {
     this._config = config;
   }
 
-  get data(): ApiConfig {
+  get settings(): ApiConfig {
     return this._config;
   }
 
-  set data(newConfig: ApiConfig) {
+  set settings(newConfig: ApiConfig) {
     this._config = newConfig;
   }
 

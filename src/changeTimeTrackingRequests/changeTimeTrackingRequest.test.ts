@@ -4,13 +4,16 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { createMock } from 'ts-auto-mock';
 
 import { ErrorReason, TimeTacApiError } from '../errors';
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { ChangeTimeTrackingRequestEndpoint } from './index';
 import { ChangeTimeTrackingRequest } from './types';
 
 type Resource = ChangeTimeTrackingRequest;
-const endpoint: ChangeTimeTrackingRequestEndpoint = new ChangeTimeTrackingRequestEndpoint({ account: 'testingAccount' });
+const endpoint: ChangeTimeTrackingRequestEndpoint = new ChangeTimeTrackingRequestEndpoint(
+  new ConfigProvider({ account: 'testingAccount' })
+);
 
 describe('changeTimeTrackingRequest.read', () => {
   const readPath = `${endpoint.getResourcePath()}/read`;

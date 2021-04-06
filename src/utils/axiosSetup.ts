@@ -18,13 +18,13 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
     },
     async (error) => {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions,@typescript-eslint/no-unsafe-member-access
-      if (apiInstanceData.config.data.autoRefreshToken && error.response) {
+      if (apiInstanceData.config.settings.autoRefreshToken && error.response) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
         const untouchedRequest = error.config;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call,@typescript-eslint/strict-boolean-expressions
         if (error.response.status === 497 && untouchedRequest.url.includes('auth/oauth2/token')) {
-          if (apiInstanceData.config.data.onTokenRefreshedFailed) {
-            apiInstanceData.config.data.onTokenRefreshedFailed();
+          if (apiInstanceData.config.settings.onTokenRefreshedFailed) {
+            apiInstanceData.config.settings.onTokenRefreshedFailed();
           }
           throw error;
         }
@@ -47,12 +47,12 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
             apiInstanceData.authentication.setTokens({ accessToken, refreshToken });
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
-            if (apiInstanceData.config.data.onTokenRefreshedCallback) {
-              apiInstanceData.config.data.onTokenRefreshedCallback({ accessToken, refreshToken });
+            if (apiInstanceData.config.settings.onTokenRefreshedCallback) {
+              apiInstanceData.config.settings.onTokenRefreshedCallback({ accessToken, refreshToken });
             }
             return axios(untouchedRequest);
-          } else if (apiInstanceData.config.data.onTokenRefreshedFailed) {
-            apiInstanceData.config.data.onTokenRefreshedFailed();
+          } else if (apiInstanceData.config.settings.onTokenRefreshedFailed) {
+            apiInstanceData.config.settings.onTokenRefreshedFailed();
           }
         }
       }

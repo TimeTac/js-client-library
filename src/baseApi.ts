@@ -41,7 +41,7 @@ export default abstract class BaseApi {
   private getOptions(options?: AxiosRequestConfig) {
     return {
       headers: {
-        Authorization: `Bearer ${this.config.data.accessToken ?? ''}`,
+        Authorization: `Bearer ${this.config.settings.accessToken ?? ''}`,
         'Content-type': 'application/json',
       },
       ...options,
@@ -75,19 +75,19 @@ export default abstract class BaseApi {
   }
 
   protected getApiPath(): string {
-    return `${this.getAccountUrl()}userapi/v${this.config.data.version ?? DEFAULT_API_VERSION}/`;
+    return `${this.getAccountUrl()}userapi/v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
   }
 
   protected getAccountUrl(): string {
-    if (this.config.data.account == null) {
+    if (this.config.settings.account == null) {
       throw new Error('Account is not set');
     }
 
-    return `${axios.defaults.baseURL ?? DEFAULT_HOST}/${this.config.data.account}/`;
+    return `${axios.defaults.baseURL ?? DEFAULT_HOST}/${this.config.settings.account}/`;
   }
 
   public setAccount(account: string): void {
-    this.config.data.account = account;
+    this.config.settings.account = account;
   }
 
   public getResourceName(): string {

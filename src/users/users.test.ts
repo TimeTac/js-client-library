@@ -2,6 +2,7 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { UpdateRawResponse } from '../utils/response/updateRawResponse';
@@ -9,7 +10,7 @@ import { UsersEndpoint } from './index';
 import { User } from './types';
 
 describe('Users', () => {
-  const users: UsersEndpoint = new UsersEndpoint({ account: 'testingAccount' });
+  const users: UsersEndpoint = new UsersEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${users.getResourcePath()}/read`;
   const updatePath = `${users.getResourcePath()}/update`;
   const mock = new AxiosMockAdapter(axios);

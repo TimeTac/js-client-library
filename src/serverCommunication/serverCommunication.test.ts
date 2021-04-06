@@ -1,11 +1,14 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { ServerCommunicationEndpoint } from './index';
 import { ServerCommunication as Model } from './types';
 
 describe('ServerCommunication', () => {
-  const serverCommunication: ServerCommunicationEndpoint = new ServerCommunicationEndpoint({ account: 'testingAccount' });
+  const serverCommunication: ServerCommunicationEndpoint = new ServerCommunicationEndpoint(
+    new ConfigProvider({ account: 'testingAccount' })
+  );
   const readPath = `${serverCommunication.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);
   const account = 'placeholder';

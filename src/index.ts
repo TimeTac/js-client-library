@@ -97,6 +97,8 @@ export default class Api {
       https: config.https ?? true,
     });
 
+    this.setBaseUrl();
+
     this.state = {
       refreshingToken: false,
     };
@@ -129,12 +131,13 @@ export default class Api {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public setConfig(config: unknown) {
-    Object.assign(this.config, config);
-    setAxiosDefaults({ baseURL: `${this.config.data.https == true ? 'https' : 'http'}://${this.config.data.host ?? DEFAULT_HOST}` });
+  public setBaseUrl() {
+    setAxiosDefaults({
+      baseURL: `${this.config.settings.https == true ? 'https' : 'http'}://${this.config.settings.host ?? DEFAULT_HOST}`,
+    });
   }
 
   public setAccount(account: string): void {
-    this.config.data.account = account;
+    this.config.settings.account = account;
   }
 }
