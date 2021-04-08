@@ -122,7 +122,7 @@ async() => {
 - [ ] [acPaymentTypes](https://api.timetac.com/doc/v3#tag/acPaymentTypes)
 - [ ] [acSuppliers](https://api.timetac.com/doc/v3#tag/acSuppliers)
 - [ ] [acTaxrates](https://api.timetac.com/doc/v3#tag/acTaxrates)
-- [ ] [changeTimeTrackingRequests](https://api.timetac.com/doc/v3#tag/changeTimeTrackingRequests)
+- [x] [changeTimeTrackingRequests](https://api.timetac.com/doc/v3#tag/changeTimeTrackingRequests)
 - [ ] [checkpoints](https://api.timetac.com/doc/v3#tag/checkpoints)
 - [ ] [checkpointTrackings](https://api.timetac.com/doc/v3#tag/checkpointTrackings)
 - [ ] [clients](https://api.timetac.com/doc/v3#tag/clients)

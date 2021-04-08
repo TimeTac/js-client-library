@@ -38,3 +38,14 @@ export enum TimeTrackingStatus {
   Running = 1,
   Stopped = 2,
 }
+
+export enum ChangeTimetrackingRequestsStatus {
+  Pending = 'PENDING',
+  Granted = 'GRANTED',
+  Declined = 'DECLINED',
+}
+
+export enum ChangeTimetrackingRequestsType {
+  Add = 'ADD',
+  Change = 'CHANGE',
+}
