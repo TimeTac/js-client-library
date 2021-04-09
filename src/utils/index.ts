@@ -50,8 +50,8 @@ export class ConfigProvider {
     this._config = newConfig;
   }
 
-  public setFields(newConfigFields: Partial<ApiConfig>): ApiConfig {
+  public setFields(newConfigFields: Partial<ApiConfig>): ConfigProvider {
     this._config = { ...this._config, ...newConfigFields };
-    return this._config;
+    return this;
   }
 }
