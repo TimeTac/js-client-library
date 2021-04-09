@@ -11,7 +11,7 @@ export type InterceptorParams = {
 };
 
 const requestInterceptor = (config: AxiosRequestConfig) => {
-  // TODO: Investigate why axios.defaults do not automatically apply here
+  // axios.defaults do not automatically apply here, so set timeout manually
   config.timeout = axios.defaults.timeout;
   return config;
 };
@@ -65,7 +65,7 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
   }
 
   throw {
-    statusCode: undefined,
+    statusCode: error.code,
     message: error.message,
     raw: error,
   };

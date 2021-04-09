@@ -33,7 +33,7 @@ export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
-export { ErrorReason, TTError } from './errors';
+export { TTError } from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
@@ -135,7 +135,7 @@ export default class Api {
     Object.assign(this.config, config);
     setAxiosDefaults({
       baseURL: `${this.config.https == true ? 'https' : 'http'}://${this.config.host ?? DEFAULT_HOST}`,
-      ...(config.timeout !== undefined && { timeout: config.timeout }),
+      timeout: config.timeout,
     });
   }
 
