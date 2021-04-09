@@ -7,20 +7,20 @@ describe('Api', () => {
       account: testAccName,
     });
 
-    expect(api.getConfig().account).toStrictEqual(testAccName);
-    expect(api.serverCommunication.config.account).toStrictEqual(api.getConfig().account);
+    expect(api.config.settings.account).toStrictEqual(testAccName);
+    expect(api.serverCommunication.config.settings.account).toStrictEqual(api.config.settings.account);
 
     const testAccName2 = 'Ingens Ursus';
-    api.serverCommunication.config.account = testAccName2;
-    expect(api.serverCommunication.config.account).toStrictEqual(testAccName2);
-    expect(api.getConfig().account).toStrictEqual(testAccName2);
+    api.serverCommunication.config.settings.account = testAccName2;
+    expect(api.serverCommunication.config.settings.account).toStrictEqual(testAccName2);
+    expect(api.config.settings.account).toStrictEqual(testAccName2);
 
     const testAccName3 = 'Collum';
-    api.setConfig({
+    api.config.setFields({
       account: testAccName3,
     });
-    expect(api.serverCommunication.config.account).toStrictEqual(testAccName3);
-    expect(api.getConfig().account).toStrictEqual(testAccName3);
+    expect(api.serverCommunication.config.settings.account).toStrictEqual(testAccName3);
+    expect(api.config.settings.account).toStrictEqual(testAccName3);
   });
 
   test('Check setAccount reference to right config', () => {
@@ -30,7 +30,7 @@ describe('Api', () => {
     });
 
     api.serverCommunication.setAccount(testAccName);
-    expect(api.serverCommunication.config.account).toStrictEqual(testAccName);
-    expect(api.getConfig().account).toStrictEqual(testAccName);
+    expect(api.serverCommunication.config.settings.account).toStrictEqual(testAccName);
+    expect(api.config.settings.account).toStrictEqual(testAccName);
   });
 });

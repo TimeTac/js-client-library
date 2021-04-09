@@ -1,11 +1,12 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { UserDefinedFieldDefinitionsEndpoint } from './index';
 import { UserDefinedFieldDefinitions } from './types';
 
 describe('User defined field definitions', () => {
-  const userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint({ account: 'testingAccount' });
+  const userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
 
   const readPath = `${userDefinedFieldDefinitions.getResourcePath()}/read`;
 

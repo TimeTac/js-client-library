@@ -1,13 +1,14 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { AbsenceTypesEndpoint } from './index';
 import { AbsenceType } from './types';
 
 describe('AbsenceTypes', () => {
-  const absenceTypes: AbsenceTypesEndpoint = new AbsenceTypesEndpoint({ account: 'testingAccount' });
+  const absenceTypes: AbsenceTypesEndpoint = new AbsenceTypesEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${absenceTypes.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

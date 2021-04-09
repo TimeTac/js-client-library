@@ -1,11 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
-import { ApiConfig, ApiState } from '../baseApi';
+import { ApiState } from '../baseApi';
+import { ConfigProvider } from '.';
 
 type interceptorParams = {
   state: ApiState;
-  config: ApiConfig;
+  config: ConfigProvider;
   authentication: AuthenticationEndpoint;
 };
 
@@ -17,13 +18,13 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
     },
     async (error) => {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions,@typescript-eslint/no-unsafe-member-access
-      if (apiInstanceData.config.autoRefreshToken && error.response) {
+      if (apiInstanceData.config.settings.autoRefreshToken && error.response) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
         const untouchedRequest = error.config;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call,@typescript-eslint/strict-boolean-expressions
         if (error.response.status === 497 && untouchedRequest.url.includes('auth/oauth2/token')) {
-          if (apiInstanceData.config.onTokenRefreshedFailed) {
-            apiInstanceData.config.onTokenRefreshedFailed();
+          if (apiInstanceData.config.settings.onTokenRefreshedFailed) {
+            apiInstanceData.config.settings.onTokenRefreshedFailed();
           }
           throw error;
         }
@@ -46,12 +47,12 @@ export const interceptor = (apiInstanceData: interceptorParams) => {
             apiInstanceData.authentication.setTokens({ accessToken, refreshToken });
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
-            if (apiInstanceData.config.onTokenRefreshedCallback) {
-              apiInstanceData.config.onTokenRefreshedCallback({ accessToken, refreshToken });
+            if (apiInstanceData.config.settings.onTokenRefreshedCallback) {
+              apiInstanceData.config.settings.onTokenRefreshedCallback({ accessToken, refreshToken });
             }
             return axios(untouchedRequest);
-          } else if (apiInstanceData.config.onTokenRefreshedFailed) {
-            apiInstanceData.config.onTokenRefreshedFailed();
+          } else if (apiInstanceData.config.settings.onTokenRefreshedFailed) {
+            apiInstanceData.config.settings.onTokenRefreshedFailed();
           }
         }
       }

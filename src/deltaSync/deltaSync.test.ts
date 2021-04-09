@@ -4,6 +4,7 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { Absence } from '../absences/types';
 import { AbsenceDurationUnit } from '../enums';
+import { ConfigProvider } from '../utils';
 import { DeltaSyncParams } from '../utils/params/deltaSyncParams';
 import { DeltaSyncResponse } from '../utils/response/deltaSyncResponse';
 import { DeletedEntry } from '../utils/response/resourceResponse';
@@ -11,7 +12,7 @@ import { DeltaSyncEndpoint } from './index';
 import { DeltaSyncResults } from './types';
 
 describe('DeltaSync', () => {
-  const deltaSync: DeltaSyncEndpoint = new DeltaSyncEndpoint({ account: 'testingAccount' });
+  const deltaSync: DeltaSyncEndpoint = new DeltaSyncEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${deltaSync.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

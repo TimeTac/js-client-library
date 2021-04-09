@@ -1,11 +1,12 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { TeamsEndpoint } from './index';
 import { Team } from './types';
 
 describe('Teams', () => {
-  const teams: TeamsEndpoint = new TeamsEndpoint({ account: 'testingAccount' });
+  const teams: TeamsEndpoint = new TeamsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${teams.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
