@@ -2,13 +2,14 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { GeneralSettingsEndpoint } from './index';
 import { GeneralSetting } from './types';
 
 describe('GeneralSettings', () => {
-  const generalSettings: GeneralSettingsEndpoint = new GeneralSettingsEndpoint({ account: 'testingAccount' });
+  const generalSettings: GeneralSettingsEndpoint = new GeneralSettingsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${generalSettings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

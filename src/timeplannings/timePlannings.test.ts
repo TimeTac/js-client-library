@@ -1,12 +1,13 @@
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { TimePlanningsEndpoint } from './index';
 import { TimePlanning } from './types';
 
 describe('TimePlannings', () => {
-  const timePlannings: TimePlanningsEndpoint = new TimePlanningsEndpoint({ account: 'testingAccount' });
+  const timePlannings: TimePlanningsEndpoint = new TimePlanningsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${timePlannings.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

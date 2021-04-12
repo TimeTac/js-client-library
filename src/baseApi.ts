@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { TokenResponse } from './authentication/types';
+import { ConfigProvider } from './utils';
 import { ApiResponse } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
 
@@ -36,12 +37,12 @@ export type ApiConfig = {
 export default abstract class BaseApi {
   public abstract readonly resourceName: string;
 
-  constructor(public config: ApiConfig) {}
+  constructor(public config: ConfigProvider) {}
 
   private getOptions(options?: AxiosRequestConfig) {
     return {
       headers: {
-        Authorization: `Bearer ${this.config.accessToken ?? ''}`,
+        Authorization: `Bearer ${this.config.settings.accessToken ?? ''}`,
         'Content-type': 'application/json',
       },
       ...options,
@@ -75,19 +76,19 @@ export default abstract class BaseApi {
   }
 
   protected getApiPath(): string {
-    return `${this.getAccountUrl()}userapi/v${this.config.version ?? DEFAULT_API_VERSION}/`;
+    return `${this.getAccountUrl()}userapi/v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
   }
 
   protected getAccountUrl(): string {
-    if (this.config.account == null) {
+    if (this.config.settings.account == null) {
       throw new Error('Account is not set');
     }
 
-    return `${axios.defaults.baseURL ?? DEFAULT_HOST}/${this.config.account}/`;
+    return `${axios.defaults.baseURL ?? DEFAULT_HOST}/${this.config.settings.account}/`;
   }
 
   public setAccount(account: string): void {
-    this.config.account = account;
+    this.config.settings.account = account;
   }
 
   public getResourceName(): string {

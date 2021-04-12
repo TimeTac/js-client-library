@@ -3,13 +3,14 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { createMock } from 'ts-auto-mock';
 
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { TasksEndpoint } from './index';
 import { Task } from './types';
 
 type Resource = Task;
-const endpoint: TasksEndpoint = new TasksEndpoint({ account: 'testingAccount' });
+const endpoint: TasksEndpoint = new TasksEndpoint(new ConfigProvider({ account: 'testingAccount' }));
 
 describe('tasks.read', () => {
   const readPath = `${endpoint.getResourcePath()}/read`;

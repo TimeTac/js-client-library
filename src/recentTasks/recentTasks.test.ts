@@ -2,12 +2,13 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { RecentTasksEndpoint } from './index';
 import { RecentTask } from './types';
 
 describe('RecentTasks', () => {
-  const recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint({ account: 'testingAccount' });
+  const recentTasksEndpoint: RecentTasksEndpoint = new RecentTasksEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${recentTasksEndpoint.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);

@@ -9,19 +9,21 @@ export class AuthenticationEndpoint extends BaseApi {
   public readonly resourceName = '';
 
   setClientId(clientId: string): void {
-    this.config.clientId = clientId;
+    this.config.settings.clientId = clientId;
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   setTokens({ accessToken, refreshToken }: { accessToken?: string; refreshToken?: string }) {
-    this.config.accessToken = accessToken;
-    this.config.refreshToken = refreshToken;
+    this.config.setFields({
+      accessToken: accessToken,
+      refreshToken: refreshToken,
+    });
   }
 
   getTokens(): { accessToken: string | undefined; refreshToken: string | undefined } {
     return {
-      accessToken: this.config.accessToken,
-      refreshToken: this.config.refreshToken,
+      accessToken: this.config.settings.accessToken,
+      refreshToken: this.config.settings.refreshToken,
     };
   }
 
@@ -39,11 +41,11 @@ export class AuthenticationEndpoint extends BaseApi {
     const { refreshToken } = this.getTokens();
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (this.config.clientId && this.config.clientSecret && refreshToken) {
+    if (this.config.settings.clientId && this.config.settings.clientSecret && refreshToken) {
       const credentials: Credentials = {
         grant_type: 'refresh_token',
-        client_id: this.config.clientId,
-        client_secret: this.config.clientSecret,
+        client_id: this.config.settings.clientId,
+        client_secret: this.config.settings.clientSecret,
         refresh_token: refreshToken,
       };
 
@@ -59,8 +61,8 @@ export class AuthenticationEndpoint extends BaseApi {
 
     throw objectCheck(
       {
-        client_id: this.config.clientId,
-        client_secret: this.config.clientSecret,
+        client_id: this.config.settings.clientId,
+        client_secret: this.config.settings.clientSecret,
         refresh_token: refreshToken,
       },
       'Missing data for:'
@@ -68,9 +70,9 @@ export class AuthenticationEndpoint extends BaseApi {
   }
 
   async login(credentials: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
-    this.config.clientId = credentials.client_id || this.config.clientId;
+    this.config.settings.clientId = credentials.client_id || this.config.settings.clientId;
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    this.config.clientSecret = credentials.client_secret ?? this.config.clientSecret;
+    this.config.settings.clientSecret = credentials.client_secret ?? this.config.settings.clientSecret;
     const response = await this.requestTokens(credentials);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { access_token: accessToken, refresh_token: refreshToken } = response.data;

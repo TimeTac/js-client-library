@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
+import { ConfigProvider } from '.';
 import { InterceptorParams, responseRejectedInterceptor } from './axiosSetup';
 
 describe('axiosSetup', () => {
@@ -20,10 +21,10 @@ describe('axiosSetup', () => {
       version: 1,
     };
 
-    const mockAuthenticationEndpoint = new AuthenticationEndpoint(mockConfig);
+    const mockAuthenticationEndpoint = new AuthenticationEndpoint(new ConfigProvider(mockConfig));
 
     const mockInterceptorParams: InterceptorParams = {
-      config: mockConfig,
+      config: new ConfigProvider(mockConfig),
       state: {
         refreshingToken: false,
       },
@@ -81,7 +82,7 @@ describe('axiosSetup', () => {
 
     // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockAuthenticationEndpoint.refreshToken).toHaveBeenCalledTimes(1);
-    expect(mockInterceptorParams.config.onTokenRefreshFailed).toHaveBeenCalledTimes(1);
+    expect(mockInterceptorParams.config.settings.onTokenRefreshFailed).toHaveBeenCalledTimes(1);
     done();
   });
 });

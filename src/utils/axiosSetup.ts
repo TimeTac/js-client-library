@@ -2,12 +2,13 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
 import { TokenResponse } from '../authentication/types';
-import { ApiConfig, ApiState } from '../baseApi';
+import { ApiState } from '../baseApi';
 import { ErrorFormat } from '../errors';
+import { ConfigProvider } from '.';
 
 export type InterceptorParams = {
   state: ApiState;
-  config: ApiConfig;
+  config: ConfigProvider;
   authentication: AuthenticationEndpoint;
 };
 
@@ -22,7 +23,7 @@ const responseFulfilledInterceptor = (res: AxiosResponse) => res;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const responseRejectedInterceptor = (interceptorParams: InterceptorParams) => async (error: AxiosError) => {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions,@typescript-eslint/no-unsafe-member-access
-  if (interceptorParams.config.autoRefreshToken && error.response) {
+  if (interceptorParams.config.settings.autoRefreshToken && error.response) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
     const untouchedRequest = error.config as AxiosRequestConfig & { _retry: boolean };
 
@@ -43,8 +44,8 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
         // Check if refresh token expired, call tokenRefreshFailed() and then re-throw error
         const status = (error as { raw?: { response?: { status?: number } } }).raw?.response?.status;
         if (status === 497) {
-          if (interceptorParams.config.onTokenRefreshFailed != null) {
-            interceptorParams.config.onTokenRefreshFailed();
+          if (interceptorParams.config.settings.onTokenRefreshFailed != null) {
+            interceptorParams.config.settings.onTokenRefreshFailed();
           }
         }
         const errorAsAxiosError = error as { code?: number; message?: string };
@@ -65,8 +66,8 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
         interceptorParams.authentication.setTokens({ accessToken, refreshToken });
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
-        if (interceptorParams.config.onTokenRefreshedCallback) {
-          interceptorParams.config.onTokenRefreshedCallback({ accessToken, refreshToken });
+        if (interceptorParams.config.settings.onTokenRefreshedCallback) {
+          interceptorParams.config.settings.onTokenRefreshedCallback({ accessToken, refreshToken });
         }
         return axios(untouchedRequest);
       }
