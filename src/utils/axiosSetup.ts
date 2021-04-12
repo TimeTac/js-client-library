@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AuthenticationEndpoint } from '../authentication';
 import { TokenResponse } from '../authentication/types';
 import { ApiConfig, ApiState } from '../baseApi';
+import { ErrorFormat } from '../errors';
 
 export type InterceptorParams = {
   state: ApiState;
@@ -46,7 +47,15 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
             interceptorParams.config.onTokenRefreshFailed();
           }
         }
-        throw error;
+        const errorAsAxiosError = error as { code?: number; message?: string };
+
+        const toThrow: ErrorFormat = {
+          statusCode: errorAsAxiosError.code,
+          message: errorAsAxiosError.message,
+          raw: error,
+        };
+
+        throw toThrow;
       }
 
       interceptorParams.state.refreshingToken = false;
@@ -64,11 +73,13 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
     }
   }
 
-  throw {
-    statusCode: error.code,
+  const toThrow: ErrorFormat = {
+    statusCode: error.code != null && error.code.length > 0 ? parseInt(error.code) : undefined,
     message: error.message,
     raw: error,
   };
+
+  throw toThrow;
 };
 
 export const interceptor = (interceptorParams: InterceptorParams): void => {

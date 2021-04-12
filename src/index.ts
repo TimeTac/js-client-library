@@ -33,7 +33,7 @@ export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
-export { TTError } from './errors';
+export { ErrorFormat } from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Project } from './projects/types';
