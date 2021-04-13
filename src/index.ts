@@ -23,7 +23,7 @@ import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitio
 import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { ConfigProvider } from './utils';
-import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
+import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -94,7 +94,7 @@ export default class Api {
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
       ...config,
-      autoRefreshToken: config.autoRefreshToken ?? true,
+      shouldAutoRefreshToken: config.shouldAutoRefreshToken ?? true,
       https: config.https ?? true,
     });
 
@@ -128,7 +128,7 @@ export default class Api {
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
 
-    interceptor({ state: this.state, config: this.config, authentication: this.authentication });
+    useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

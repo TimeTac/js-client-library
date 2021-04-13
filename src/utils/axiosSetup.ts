@@ -21,16 +21,16 @@ const requestInterceptor = (config: AxiosRequestConfig) => {
 const responseFulfilledInterceptor = (res: AxiosResponse) => res;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const responseRejectedInterceptor = (interceptorParams: InterceptorParams) => async (error: AxiosError) => {
+export const createResponseRejectedInterceptor = (interceptorParams: InterceptorParams) => async (error: AxiosError) => {
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions,@typescript-eslint/no-unsafe-member-access
-  if (interceptorParams.config.settings.autoRefreshToken && error.response) {
+  if (interceptorParams.config.settings.shouldAutoRefreshToken && error.response) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-    const untouchedRequest = error.config as AxiosRequestConfig & { _retry: boolean };
+    const untouchedRequest = error.config as AxiosRequestConfig & { _shouldRetry: boolean };
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
-    if (error.response.status === 401 && !untouchedRequest._retry && !error.response.config.url?.includes('oauth2')) {
+    if (error.response.status === 401 && !untouchedRequest._shouldRetry && !error.response.config.url?.includes('oauth2')) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      untouchedRequest._retry = true;
+      untouchedRequest._shouldRetry = true;
 
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!interceptorParams.state.refreshingToken) {
@@ -74,18 +74,31 @@ export const responseRejectedInterceptor = (interceptorParams: InterceptorParams
     }
   }
 
-  const toThrow: ErrorFormat = {
-    statusCode: error.code != null && error.code.length > 0 ? parseInt(error.code) : undefined,
-    message: error.message,
-    raw: error,
-  };
+  let toThrow: ErrorFormat;
+  if (error.code != null && error.code.length > 0) {
+    if (!Number.isSafeInteger(error.code)) {
+      throw new Error('error.code not an integer: ' + JSON.stringify(error));
+    }
+
+    toThrow = {
+      statusCode: parseInt(error.code),
+      message: error.message,
+      raw: error,
+    };
+  } else {
+    toThrow = {
+      statusCode: undefined,
+      message: error.message,
+      raw: error,
+    };
+  }
 
   throw toThrow;
 };
 
-export const interceptor = (interceptorParams: InterceptorParams): void => {
+export const useInterceptors = (interceptorParams: InterceptorParams): void => {
   axios.interceptors.request.use(requestInterceptor);
-  axios.interceptors.response.use(responseFulfilledInterceptor, responseRejectedInterceptor(interceptorParams));
+  axios.interceptors.response.use(responseFulfilledInterceptor, createResponseRejectedInterceptor(interceptorParams));
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

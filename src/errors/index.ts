@@ -1,5 +1,5 @@
 export type ErrorFormat = {
-  statusCode: number | undefined;
-  message: string | undefined;
+  statusCode?: number;
+  message?: string;
   raw: unknown;
 };

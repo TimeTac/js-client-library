@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
 import { ConfigProvider } from '.';
-import { InterceptorParams, responseRejectedInterceptor } from './axiosSetup';
+import { createResponseRejectedInterceptor, InterceptorParams } from './axiosSetup';
 
 describe('axiosSetup', () => {
   test('interceptor calls onTokenRefreshFailed', async (done) => {
@@ -69,7 +69,7 @@ describe('axiosSetup', () => {
       toJSON: () => ({}),
     };
 
-    const interceptor = responseRejectedInterceptor(mockInterceptorParams);
+    const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 
     // The token refresh goes through the interceptor too, so we emulate that here
     mockAuthenticationEndpoint.refreshToken = jest.fn(() => interceptor(mockErrorRefreshFailed));

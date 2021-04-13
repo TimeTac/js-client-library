@@ -30,7 +30,7 @@ export type ApiConfig = {
   clientSecret?: string;
   onTokenRefreshedCallback?: onTokenRefreshedCallback;
   onTokenRefreshFailed?: () => void;
-  autoRefreshToken?: boolean;
+  shouldAutoRefreshToken?: boolean;
   timeout?: number;
 };
 
