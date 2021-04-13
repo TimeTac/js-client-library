@@ -1,3 +1,5 @@
+import { ProjectStatus } from '../enums';
+
 export type Project = {
   id: number;
   mother_id: number;
@@ -30,7 +32,7 @@ export type Project = {
   translate_task_name: number;
   allow_task_project_edit: boolean;
   allow_task_project_delete: boolean;
-  status: number;
+  status: ProjectStatus;
   external_id: string;
   is_restricted: boolean;
   project_leader_id: number;

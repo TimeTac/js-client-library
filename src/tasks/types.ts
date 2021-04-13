@@ -1,4 +1,4 @@
-import { TaskStatus } from "../enums";
+import { TaskStatus } from '../enums';
 
 export type Task = {
   id: number;
@@ -50,4 +50,7 @@ export type Task = {
   is_nonworking: boolean;
 };
 
-export type TaskCreate = Omit<Task, 'id' | 'node_path' | 'view_id'>;
+export type TaskCreate = Omit<
+  Partial<Task>,
+  'id' | 'node_path' | 'view_id' | 'ultimate_mother_id' | 'view_order' | 'icon_name' | 'object_type'
+> & { mother_id: number; name: string };
