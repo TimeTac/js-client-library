@@ -31,7 +31,7 @@ describe('axiosSetup', () => {
       authentication: mockAuthenticationEndpoint,
     };
 
-    const mockErrorUnauthenticated: AxiosError = {
+    const mockErrorUnauthenticated: AxiosError = ({
       code: '401',
       response: {
         status: 401,
@@ -47,10 +47,9 @@ describe('axiosSetup', () => {
       isAxiosError: true,
       message: 'unauthorized',
       name: 'the name',
-      toJSON: () => ({}),
-    };
+    } as unknown) as AxiosError;
 
-    const mockErrorRefreshFailed: AxiosError = {
+    const mockErrorRefreshFailed: AxiosError = ({
       code: '497',
       response: {
         status: 497,
@@ -66,8 +65,7 @@ describe('axiosSetup', () => {
       isAxiosError: true,
       message: 'refresh token request failed',
       name: 'the name',
-      toJSON: () => ({}),
-    };
+    } as unknown) as AxiosError;
 
     const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 

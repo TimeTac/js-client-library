@@ -76,7 +76,7 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
 
   let toThrow: ErrorFormat;
   if (error.code != null && error.code.length > 0) {
-    if (!Number.isSafeInteger(error.code)) {
+    if (isNaN(+error.code)) {
       throw new Error('error.code not an integer: ' + JSON.stringify(error));
     }
 
