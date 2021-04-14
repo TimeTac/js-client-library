@@ -24,6 +24,7 @@ import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { ConfigProvider } from './utils';
 import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
+import { TimezonesEndpoint } from './timezones';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -59,6 +60,7 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
+export { Timezone } from './timezones/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -89,6 +91,7 @@ export default class Api {
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
+  public timezones: TimezonesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -126,6 +129,7 @@ export default class Api {
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
+    this.timezones = new TimezonesEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });
   }
