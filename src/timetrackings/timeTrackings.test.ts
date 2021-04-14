@@ -14,6 +14,11 @@ describe('TimeTrackings', () => {
   const deletePath = `${timeTrackings.getResourcePath()}/delete`;
   const startPath = `${timeTrackings.getResourcePath()}/start`;
   const stopPath = `${timeTrackings.getResourcePath()}/stop`;
+  const togglePath = `${timeTrackings.getResourcePath()}/toggle`;
+  const timezones: { [key: string]: string } = {
+    Vienna: 'Europe/Vienna',
+    London: 'Europe/London',
+  };
 
   const mock = new AxiosMockAdapter(axios);
   let result: Promise<TimeTracking[]> | null;
@@ -112,6 +117,54 @@ describe('TimeTrackings', () => {
     resultSingle = timeTrackings.stop({ user_id: 1, end_time_timezone: 'foo' });
     await resultSingle.then((result) => {
       expect(result).toStrictEqual({});
+    });
+  });
+
+  test('start with toggle', async () => {
+    mock.onPost(togglePath).reply(200, {
+      Success: true,
+      NumResults: 1,
+      Results: [{ start_time_timezone: timezones['Vienna'] }],
+      Affected: [{}],
+      _ignoreTypeGuard: true,
+    });
+    const result = await timeTrackings.toggle({ timezone: timezones['Vienna'], user_id: 1 });
+    expect(result).toEqual({
+      success: true,
+      apiResponse: {
+        NumResults: 1,
+        Results: [{ start_time_timezone: timezones['Vienna'] }],
+        Affected: [{}],
+        Success: true,
+        _ignoreTypeGuard: undefined,
+      },
+      results: [{ start_time_timezone: timezones['Vienna'] }],
+      affected: [{}],
+      deleted: [],
+    });
+  });
+
+  test('stop with toggle', async () => {
+    mock.onPost(togglePath).reply(200, {
+      Success: true,
+      NumResults: 1,
+      Results: [{ end_time_timezone: timezones['Vienna'] }],
+      Affected: [{}],
+      _ignoreTypeGuard: true,
+    });
+    const result = await timeTrackings.toggle({ timezone: timezones['Vienna'], user_id: 1 });
+    expect(result).toEqual({
+      success: true,
+      apiResponse: {
+        NumResults: 1,
+        Results: [{ end_time_timezone: timezones['Vienna'] }],
+        Affected: [{}],
+        Success: true,
+        _ignoreTypeGuard: undefined,
+      },
+      results: [{ end_time_timezone: timezones['Vienna'] }],
+      affected: [{}],
+      deleted: [],
     });
   });
 });
