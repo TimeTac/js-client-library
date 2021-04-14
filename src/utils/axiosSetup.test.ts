@@ -1,36 +1,37 @@
 import { AxiosError } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
+import { ApiConfig } from '../baseApi';
 import { ConfigProvider } from '.';
 import { createResponseRejectedInterceptor, InterceptorParams } from './axiosSetup';
 
+const mockConfig: ApiConfig = {
+  shouldAutoRefreshToken: true,
+  onTokenRefreshFailed: jest.fn(),
+  timeout: 100,
+  accessToken: 'the access token',
+  refreshToken: 'the refresh token',
+  account: 'the account',
+  clientId: 'the client id',
+  clientSecret: 'the client secret',
+  host: 'the host',
+  https: true,
+  onTokenRefreshedCallback: jest.fn(),
+  version: 1,
+};
+
+const mockAuthenticationEndpoint = new AuthenticationEndpoint(new ConfigProvider(mockConfig));
+
+const mockInterceptorParams: InterceptorParams = {
+  config: new ConfigProvider(mockConfig),
+  state: {
+    refreshingToken: false,
+  },
+  authentication: mockAuthenticationEndpoint,
+};
+
 describe('axiosSetup', () => {
   test('interceptor calls onTokenRefreshFailed', async (done) => {
-    const mockConfig = {
-      autoRefreshToken: true,
-      onTokenRefreshFailed: jest.fn(),
-      timeout: 100,
-      accessToken: 'the access token',
-      refreshToken: 'the refresh token',
-      account: 'the account',
-      clientId: 'the client id',
-      clientSecret: 'the client secret',
-      host: 'the host',
-      https: true,
-      onTokenRefreshedCallback: jest.fn(),
-      version: 1,
-    };
-
-    const mockAuthenticationEndpoint = new AuthenticationEndpoint(new ConfigProvider(mockConfig));
-
-    const mockInterceptorParams: InterceptorParams = {
-      config: new ConfigProvider(mockConfig),
-      state: {
-        refreshingToken: false,
-      },
-      authentication: mockAuthenticationEndpoint,
-    };
-
     const mockErrorUnauthenticated: AxiosError = ({
       code: '401',
       response: {
@@ -81,6 +82,37 @@ describe('axiosSetup', () => {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockAuthenticationEndpoint.refreshToken).toHaveBeenCalledTimes(1);
     expect(mockInterceptorParams.config.settings.onTokenRefreshFailed).toHaveBeenCalledTimes(1);
+    done();
+  });
+  test('interceptor throws error without status code', async (done) => {
+    const mockErrorUnauthenticated: AxiosError = ({
+      message: 'Request failed with status code 504',
+    } as unknown) as AxiosError;
+
+    const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
+
+    await interceptor(mockErrorUnauthenticated).catch((error) => {
+      expect(error).toMatchObject({ statusCode: undefined, message: 'Request failed with status code 504' });
+    });
+
+    expect.assertions(1);
+
+    done();
+  });
+  test('interceptor gets error with status code typed as string', async (done) => {
+    const mockErrorUnauthenticated: AxiosError = ({
+      code: '500',
+      message: 'Request failed with status code 500',
+    } as unknown) as AxiosError;
+
+    const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
+
+    await interceptor(mockErrorUnauthenticated).catch((error) => {
+      expect(error).toMatchObject({ statusCode: 500, message: 'Request failed with status code 500' });
+    });
+
+    expect.assertions(1);
+
     done();
   });
 });
