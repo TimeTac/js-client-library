@@ -1,20 +1,23 @@
-import { AxiosError } from 'axios';
+import { expect } from '@jest/globals';
+import axios, { AxiosError } from 'axios';
+import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { AuthenticationEndpoint } from '../authentication';
 import { ApiConfig } from '../baseApi';
+import Api from '../index';
 import { ConfigProvider } from '.';
 import { createResponseRejectedInterceptor, InterceptorParams } from './axiosSetup';
 
 const mockConfig: ApiConfig = {
   shouldAutoRefreshToken: true,
   onTokenRefreshFailed: jest.fn(),
-  timeout: 100,
+  timeout: 30000,
   accessToken: 'the access token',
   refreshToken: 'the refresh token',
-  account: 'the account',
+  account: 'test_account',
   clientId: 'the client id',
   clientSecret: 'the client secret',
-  host: 'the host',
+  host: 'test_host',
   https: true,
   onTokenRefreshedCallback: jest.fn(),
   version: 1,
@@ -113,6 +116,29 @@ describe('axiosSetup', () => {
 
     expect.assertions(1);
 
+    done();
+  });
+
+  test('error handling on network timeout', async (done) => {
+    let thrownError;
+    const t = async () => {
+      const mock = new AxiosMockAdapter(axios);
+      const api = new Api(mockConfig);
+      const readPath = `${api.tasks.getResourcePath()}/read`;
+      mock.onGet(readPath).timeout();
+      await api.tasks.read();
+    };
+
+    try {
+      await t();
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      thrownError = error;
+    }
+
+    expect(thrownError).toMatchObject({ statusCode: NaN, message: 'timeout of 30000ms exceeded' });
+
+    expect.assertions(1);
     done();
   });
 });

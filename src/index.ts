@@ -99,6 +99,7 @@ export default class Api {
     });
 
     this.setBaseUrl();
+    this.setTimeout(config.timeout ?? 30000);
 
     this.state = {
       refreshingToken: false,
@@ -135,7 +136,13 @@ export default class Api {
   public setBaseUrl() {
     setAxiosDefaults({
       baseURL: `${this.config.settings.https == true ? 'https' : 'http'}://${this.config.settings.host ?? DEFAULT_HOST}`,
-      timeout: this.config.settings.timeout,
+    });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public setTimeout(timeout: number) {
+    setAxiosDefaults({
+      timeout: timeout,
     });
   }
 
