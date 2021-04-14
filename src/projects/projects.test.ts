@@ -2,13 +2,14 @@ import { afterEach, describe, expect, test } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
+import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
 import { ProjectsEndpoint } from './index';
 import { Project } from './types';
 
 describe('Projects', () => {
-  const projects: ProjectsEndpoint = new ProjectsEndpoint({ account: 'testingAccount' });
+  const projects: ProjectsEndpoint = new ProjectsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${projects.getResourcePath()}/read`;
 
   const mock = new AxiosMockAdapter(axios);
