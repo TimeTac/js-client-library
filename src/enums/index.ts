@@ -49,3 +49,15 @@ export enum ChangeTimetrackingRequestsType {
   Add = 'ADD',
   Change = 'CHANGE',
 }
+
+export enum TaskStatus {
+  InProgress = 1,
+  Finished = 2,
+}
+
+export enum ProjectStatus {
+  Planning = 1,
+  Active = 2,
+  Inactive = 3,
+  Closed = 4,
+}
