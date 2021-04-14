@@ -118,25 +118,16 @@ describe('axiosSetup', () => {
 
     done();
   });
-
   test('error handling on network timeout', async (done) => {
-    let thrownError;
-    const t = async () => {
+    try {
       const mock = new AxiosMockAdapter(axios);
       const api = new Api(mockConfig);
       const readPath = `${api.tasks.getResourcePath()}/read`;
       mock.onGet(readPath).timeout();
       await api.tasks.read();
-    };
-
-    try {
-      await t();
     } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      thrownError = error;
+      expect(error).toMatchObject({ statusCode: NaN, message: 'timeout of 30000ms exceeded' });
     }
-
-    expect(thrownError).toMatchObject({ statusCode: NaN, message: 'timeout of 30000ms exceeded' });
 
     expect.assertions(1);
     done();
