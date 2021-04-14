@@ -17,6 +17,7 @@ import { TeamsEndpoint } from './teams';
 import { TimePlanningsEndpoint } from './timeplannings';
 import { TimesheetAccountingsEndpoint } from './timesheetAccountings';
 import { TimeTrackingsEndpoint } from './timetrackings';
+import { TimezonesEndpoint } from './timezones';
 import { TodoTasksEndpoint } from './todoTasks';
 import { UserDefinedFieldDefinitionOptionsEndpoint } from './userDefinedFieldDefinitionOptions';
 import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitions';
@@ -24,7 +25,6 @@ import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { ConfigProvider } from './utils';
 import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
-import { TimezonesEndpoint } from './timezones';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -47,6 +47,7 @@ export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './timetrackings/types';
+export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
@@ -60,7 +61,6 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
-export { Timezone } from './timezones/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
