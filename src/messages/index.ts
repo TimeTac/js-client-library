@@ -2,7 +2,7 @@ import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
-import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
+import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { Message, MessageCreate } from './types';
 
