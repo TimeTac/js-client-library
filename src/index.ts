@@ -139,8 +139,7 @@ export default class Api {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  public setTimeout(timeout: number) {
+  public setTimeout(timeout: number): void {
     setAxiosDefaults({
       timeout: timeout,
     });
