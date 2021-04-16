@@ -144,7 +144,7 @@ async() => {
 - [ ] [legalDocumentAcceptanceLog](https://api.timetac.com/doc/v3#tag/legalDocumentAcceptanceLog)
 - [ ] [legalDocuments](https://api.timetac.com/doc/v3#tag/legalDocuments)
 - [ ] [legalDocumentTypes](https://api.timetac.com/doc/v3#tag/legalDocumentTypes)
-- [ ] [messages](https://api.timetac.com/doc/v3#tag/messages)
+- [x] [messages](https://api.timetac.com/doc/v3#tag/messages)
 - [ ] [multiuserToTasks](https://api.timetac.com/doc/v3#tag/multiuserToTasks)
 - [ ] [multiuserToUsers](https://api.timetac.com/doc/v3#tag/multiuserToUsers)
 - [ ] [nfcTransponder](https://api.timetac.com/doc/v3#tag/nfcTransponder)
