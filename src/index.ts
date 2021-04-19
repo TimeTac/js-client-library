@@ -7,6 +7,7 @@ import { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests'
 import { DeltaSyncEndpoint } from './deltaSync';
 import { DepartmentsEndpoint } from './departments';
 import { FavouriteTasksEndpoint } from './favouriteTasks';
+import { FeedbackEndpoint } from './feedback';
 import { GeneralSettingsEndpoint } from './generalSettings';
 import { ProjectsEndpoint } from './projects';
 import { RecentTasksEndpoint } from './recentTasks';
@@ -75,6 +76,7 @@ export default class Api {
   public deltaSync: DeltaSyncEndpoint;
   public departments: DepartmentsEndpoint;
   public favouriteTasks: FavouriteTasksEndpoint;
+  public feedbacks: FeedbackEndpoint;
   public generalSettings: GeneralSettingsEndpoint;
   public projects: ProjectsEndpoint;
   public recentTasks: RecentTasksEndpoint;
@@ -113,6 +115,7 @@ export default class Api {
     this.deltaSync = new DeltaSyncEndpoint(this.config);
     this.departments = new DepartmentsEndpoint(this.config);
     this.favouriteTasks = new FavouriteTasksEndpoint(this.config);
+    this.feedbacks = new FeedbackEndpoint(this.config);
     this.generalSettings = new GeneralSettingsEndpoint(this.config);
     this.projects = new ProjectsEndpoint(this.config);
     this.recentTasks = new RecentTasksEndpoint(this.config);
