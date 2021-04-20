@@ -4,7 +4,7 @@ import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import { Message, MessageCreate } from './types';
+import { Message, MessageCreate, MessageUpdate } from './types';
 
 export class MessagesEndpoint extends BaseApi {
   public readonly resourceName = 'messages';
@@ -29,7 +29,7 @@ export class MessagesEndpoint extends BaseApi {
     return responseHandlers.required(response);
   }
 
-  public update(data: Message): Promise<Message> {
+  public update(data: MessageUpdate): Promise<Message> {
     const response = this._put<Message[]>(`${this.getResourceName()}/update`, data);
     return responseHandlers.required(response);
   }
