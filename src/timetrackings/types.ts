@@ -32,6 +32,12 @@ export interface TimeTracking {
   department_role_id?: number;
   start_time_offset?: number;
   end_time_offset?: number;
+
+  /**
+   * Used for toggle action.
+   * If there is no running time tracking, start_time_timezone will be started in this timezone
+   * If there is a running time tracking, end_time_timezone will be stopped in this timezone
+   */
   timezone?: string;
   /**
    * Whether the start of the timer was booked live or not
@@ -106,4 +112,8 @@ export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_i
 
 export interface StopTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id' | 'end_time_timezone'> {
   end_time_timezone: string;
+}
+
+export interface ToggleTimeTrackingData extends Pick<TimeTracking, 'user_id' | 'timezone'> {
+  timezone: string;
 }

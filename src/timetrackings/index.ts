@@ -4,7 +4,7 @@ import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './types';
+import { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate, ToggleTimeTrackingData } from './types';
 
 export class TimeTrackingsEndpoint extends BaseApi {
   public readonly resourceName = 'timeTrackings';
@@ -52,5 +52,10 @@ export class TimeTrackingsEndpoint extends BaseApi {
   public stop(data: StopTimeTrackingData): Promise<TimeTracking> {
     const response = this._put<TimeTracking[]>(`${this.getResourceName()}/stop`, data);
     return responseHandlers.required(response);
+  }
+
+  public toggle(data: ToggleTimeTrackingData): Promise<ResourceResponse<TimeTracking>> {
+    const response = this._post<TimeTracking[]>(`${this.getResourceName()}/toggle`, data);
+    return responseHandlers.toResourceResponse(response);
   }
 }

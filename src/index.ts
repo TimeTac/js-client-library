@@ -17,6 +17,7 @@ import { TeamsEndpoint } from './teams';
 import { TimePlanningsEndpoint } from './timeplannings';
 import { TimesheetAccountingsEndpoint } from './timesheetAccountings';
 import { TimeTrackingsEndpoint } from './timetrackings';
+import { TimezonesEndpoint } from './timezones';
 import { TodoTasksEndpoint } from './todoTasks';
 import { UserDefinedFieldDefinitionOptionsEndpoint } from './userDefinedFieldDefinitionOptions';
 import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitions';
@@ -46,6 +47,7 @@ export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './timetrackings/types';
+export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
@@ -90,6 +92,7 @@ export default class Api {
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
+  public timezones: TimezonesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -128,6 +131,7 @@ export default class Api {
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
+    this.timezones = new TimezonesEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
