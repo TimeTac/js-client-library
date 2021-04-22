@@ -38,8 +38,8 @@ export class UsersEndpoint extends BaseApi {
   }
 
   //endpoint returns empty array in Results
-  public async resetPassword(data: UserResetPassword): Promise<UpdateRawResponse<User>> {
+  public resetPassword(data: UserResetPassword): Promise<User[]> {
     const response = this._put<User[]>(`${this.getResourceName()}/resetPassword`, data);
-    return createUpdateRawResponse<User>(createResourceResponse<User>(await createRawApiResponse(response)));
+    return responseHandlers.list(response);
   }
 }
