@@ -99,3 +99,7 @@ export type User = {
 export interface UserUpdate extends Partial<User> {
   id: number;
 }
+
+export interface UserResetPassword extends Partial<User> {
+  username: string;
+}
