@@ -48,15 +48,8 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
             interceptorParams.config.settings.onTokenRefreshFailed();
           }
         }
-        const errorAsAxiosError = error as { code?: number; message?: string };
 
-        const toThrow: ErrorFormat = {
-          statusCode: errorAsAxiosError.code,
-          message: errorAsAxiosError.message,
-          raw: error,
-        };
-
-        throw toThrow;
+        throw error;
       }
 
       interceptorParams.state.refreshingToken = false;
