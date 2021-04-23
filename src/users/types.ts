@@ -100,6 +100,6 @@ export interface UserUpdate extends Partial<User> {
   id: number;
 }
 
-export interface UserResetPassword extends Partial<User> {
+export interface UserResetPassword {
   username: string;
 }
