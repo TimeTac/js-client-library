@@ -53,6 +53,7 @@ export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionO
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { User, UserUpdate } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
+export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
