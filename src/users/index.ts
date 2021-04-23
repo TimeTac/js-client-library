@@ -5,7 +5,7 @@ import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRa
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { createUpdateRawResponse, UpdateRawResponse } from '../utils/response/updateRawResponse';
-import { User, UserUpdate } from './types';
+import { User, UserResetPassword, UserUpdate } from './types';
 
 export class UsersEndpoint extends BaseApi {
   public readonly resourceName = 'users';
@@ -35,5 +35,11 @@ export class UsersEndpoint extends BaseApi {
   public async update(data: UserUpdate): Promise<UpdateRawResponse<User>> {
     const response = this._put<User[]>(`${this.getResourceName()}/update`, data);
     return createUpdateRawResponse<User>(createResourceResponse<User>(await createRawApiResponse(response)));
+  }
+
+  //endpoint returns empty array in Results
+  public resetPassword(data: UserResetPassword): Promise<User[]> {
+    const response = this._put<User[]>(`${this.getResourceName()}/resetPassword`, data);
+    return responseHandlers.list(response);
   }
 }
