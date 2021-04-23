@@ -8,6 +8,7 @@ export type ApiResponseOnSuccess<T> = {
 export type ApiResponseOnFailure = {
   Success: false;
   RequestStartTime: string;
+  Error?: number;
   ErrorMessage: string;
   ErrorExtended?: {
     // eslint-disable-next-line @typescript-eslint/ban-types
