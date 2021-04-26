@@ -69,3 +69,5 @@ export const setAxiosDefaults = (defaults: AxiosRequestConfig) => {
     ...defaults,
   };
 };
+
+export const testAxiosObject = axios;
