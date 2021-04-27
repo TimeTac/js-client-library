@@ -3,6 +3,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { createMock } from 'ts-auto-mock';
 
+import { ErrorFormat } from '../errors';
 import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
@@ -55,6 +56,16 @@ describe('changeTimeTrackingRequest.read', () => {
     const actual: Promise<Resource[]> = endpoint.read();
     expect(await actual.catch((err: typeof apiResponse) => err)).toStrictEqual(apiResponse);
   });
+
+  test('with status 400 and Success false', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const apiResponse = { Success: false, NumResults: 1, Results: [record] };
+
+    mock.onGet(readPath).reply(400, apiResponse);
+    const actual: Promise<Resource[]> = endpoint.read();
+    expect(await actual.catch((err: { message: string }) => err.message)).toMatch('Request failed with status code 400');
+  });
 });
 
 describe('changeTimeTrackingRequestRead.readRaw', () => {
@@ -103,6 +114,33 @@ describe('changeTimeTrackingRequestRead.readRaw', () => {
       pages: { current: { id: '42', _op__id: 'eq' } },
     };
     expect(await actual).toMatchObject(expected);
+  });
+
+  test('with status 200 and Success false', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const requestParams = new RequestParamsBuilder<Resource>().build();
+    const apiResponse = { Success: false, NumResults: 1, Results: [record], _ignoreTypeGuard: true };
+
+    mock.onGet(readPath).reply(200, apiResponse);
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    expect(await actual.catch((err: ErrorFormat) => err)).toEqual(
+      expect.objectContaining({
+        status: 200,
+        data: apiResponse,
+      })
+    );
+  });
+
+  test('with status 400 and Success false', async () => {
+    const mock = new AxiosMockAdapter(axios);
+    const record = createMock<Resource>();
+    const requestParams = new RequestParamsBuilder<Resource>().build();
+    const apiResponse = { Success: false, NumResults: 1, Results: [record], _ignoreTypeGuard: true };
+
+    mock.onGet(readPath).reply(400, apiResponse);
+    const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
+    expect(await actual.catch((err: Error) => err.message)).toEqual('Request failed with status code 400');
   });
 
   test('with status 200 and Success true and pages.next', async () => {
