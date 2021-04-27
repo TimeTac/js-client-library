@@ -30,7 +30,7 @@ export async function toApiResponse<T>(promise: RequestPromise<T>) {
 export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
   const response = await toApiResponse<T[]>(promise);
 
-  if (response.NumResults > 0) {
+  if (response.Results && response.NumResults > 0) {
     return response.Results[0];
   } else {
     throw new Error('There are no results.');
@@ -41,7 +41,7 @@ export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
  */
 export async function optional<T>(promise: RequestPromise<T[]>): Promise<T | undefined> {
   const response = await toApiResponse<T[]>(promise);
-  return (response.NumResults > 0 && response.Results[0]) || undefined;
+  return (response.Results && response.NumResults > 0 && response.Results[0]) || undefined;
 }
 
 export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
