@@ -25,7 +25,7 @@ import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitio
 import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { ConfigProvider } from './utils';
-import { interceptor, setAxiosDefaults } from './utils/axiosSetup';
+import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -36,7 +36,7 @@ export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department } from './departments/types';
 export * from './enums';
-export * from './errors';
+export { ErrorFormat } from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Message, MessageCreate } from './messages/types';
@@ -59,6 +59,7 @@ export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
+export { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess } from './utils/response/apiResponse';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
@@ -100,11 +101,12 @@ export default class Api {
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
       ...config,
-      autoRefreshToken: config.autoRefreshToken ?? true,
+      shouldAutoRefreshToken: config.shouldAutoRefreshToken ?? true,
       https: config.https ?? true,
     });
 
     this.setBaseUrl();
+    this.setTimeout(config.timeout ?? 30000);
 
     this.state = {
       refreshingToken: false,
@@ -136,13 +138,19 @@ export default class Api {
     this.messages = new MessagesEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
 
-    interceptor({ state: this.state, config: this.config, authentication: this.authentication });
+    useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public setBaseUrl() {
     setAxiosDefaults({
       baseURL: `${this.config.settings.https == true ? 'https' : 'http'}://${this.config.settings.host ?? DEFAULT_HOST}`,
+    });
+  }
+
+  public setTimeout(timeout: number): void {
+    setAxiosDefaults({
+      timeout: timeout,
     });
   }
 

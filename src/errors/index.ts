@@ -1,10 +1,5 @@
-export enum ErrorReason {
-  Unkown = 'Unknow Error',
-  ReponseFailed = 'Response Failed',
-}
-
-export type TimeTacApiError = {
-  reason: ErrorReason;
-  response?: unknown;
-  _plainError?: string;
+export type ErrorFormat = {
+  statusCode?: number;
+  message?: string;
+  raw: unknown;
 };
