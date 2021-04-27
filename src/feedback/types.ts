@@ -1,13 +1,7 @@
 export type FeedbackCreate = {
-  type: string;
-  user: string;
-  account: string;
-  route: string;
-  timestamp: string;
-  browser: string;
-  viewport: string;
+  message: string;
 };
 
 export type FeedbackResponse = {
-  SuccessfullyPosted: boolean;
+  message: string;
 };
