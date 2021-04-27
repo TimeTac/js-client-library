@@ -39,6 +39,7 @@ export { Department } from './departments/types';
 export * from './enums';
 export * from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
+export { FeedbackCreate } from './feedback/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Message, MessageCreate } from './messages/types';
 export { Project } from './projects/types';
