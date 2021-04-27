@@ -3,7 +3,6 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { createMock } from 'ts-auto-mock';
 
-import { ErrorFormat } from '../errors';
 import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
@@ -122,7 +121,7 @@ describe('tasks.readRaw', () => {
 
     mock.onGet(readPath).reply(200, apiResponse);
     const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
-    expect(await actual.catch((err: ErrorFormat) => err)).toEqual(
+    expect(await actual.catch((err: Error) => err)).toEqual(
       expect.objectContaining({
         status: 200,
         data: apiResponse,
