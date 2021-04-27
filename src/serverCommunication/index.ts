@@ -7,11 +7,10 @@ export class ServerCommunicationEndpoint extends BaseApi {
   async read(account: string): Promise<ServerCommunication> {
     this.setAccount(account);
     const response = await this._get<ServerCommunication>(`${this.resourceName}/read`, { withCredentials: false });
-    if (response.data.Success) {
+    if (response.data.Success && response.data.Results !== undefined) {
       return response.data.Results;
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      throw response.data ?? response;
     }
+
+    throw 'Connection problem';
   }
 }

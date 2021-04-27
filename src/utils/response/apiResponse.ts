@@ -5,6 +5,11 @@ export type ApiResponseOnSuccess<T> = {
   RequestStartTime: string;
 };
 
+export type ApiResponseErrorPage = {
+  Success: true;
+  Results: undefined;
+};
+
 export type ApiResponseOnFailure = {
   Success: false;
   RequestStartTime: string;
@@ -22,4 +27,4 @@ export type ApiResponseOnFailure = {
   ErrorInternal?: string;
 };
 
-export type ApiResponse<T> = ApiResponseOnSuccess<T> | ApiResponseOnFailure;
+export type ApiResponse<T> = ApiResponseOnSuccess<T> | ApiResponseOnFailure | ApiResponseErrorPage;
