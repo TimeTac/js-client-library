@@ -9,6 +9,7 @@ import { DepartmentsEndpoint } from './departments';
 import { FavouriteTasksEndpoint } from './favouriteTasks';
 import { FeedbackEndpoint } from './feedback';
 import { GeneralSettingsEndpoint } from './generalSettings';
+import { MessagesEndpoint } from './messages';
 import { ProjectsEndpoint } from './projects';
 import { RecentTasksEndpoint } from './recentTasks';
 import { ServerCommunicationEndpoint } from './serverCommunication';
@@ -39,6 +40,7 @@ export * from './enums';
 export * from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { GeneralSetting } from './generalSettings/types';
+export { Message, MessageCreate } from './messages/types';
 export { Project } from './projects/types';
 export { RecentTask } from './recentTasks/types';
 export { ServerCommunication } from './serverCommunication/types';
@@ -54,6 +56,7 @@ export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionO
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { User, UserUpdate } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
+export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
@@ -93,6 +96,7 @@ export default class Api {
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
+  public messages: MessagesEndpoint;
   public timezones: TimezonesEndpoint;
 
   constructor(config: ApiConfig) {
@@ -132,6 +136,7 @@ export default class Api {
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
+    this.messages = new MessagesEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
 
     interceptor({ state: this.state, config: this.config, authentication: this.authentication });

@@ -13,6 +13,7 @@ describe('Users', () => {
   const users: UsersEndpoint = new UsersEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${users.getResourcePath()}/read`;
   const updatePath = `${users.getResourcePath()}/update`;
+  const resetPasswordPath = `${users.getResourcePath()}/resetPassword`;
   const mock = new AxiosMockAdapter(axios);
 
   let result: Promise<User[]> | null;
@@ -66,5 +67,12 @@ describe('Users', () => {
     mock.onPut(updatePath).reply(200, { Success: true, Results: [{}], _ignoreTypeGuard: true });
     resultUpdateRaw = users.update({ id: 1 });
     expect(await resultUpdateRaw).toMatchObject({ data: {} });
+  });
+
+  test('reset password', async () => {
+    const aParams = { username: 'DummyUsername' };
+    mock.onPut(resetPasswordPath).reply(200, { Success: true, Results: [] });
+    const result = await users.resetPassword(aParams);
+    expect(result).toEqual([]);
   });
 });
