@@ -33,7 +33,7 @@ export class AuthenticationEndpoint extends BaseApi {
         'Content-type': 'application/x-www-form-urlencoded',
       },
     };
-    return axios.post<Credentials>(url, credentials, config);
+    return axios.post<Credentials>(url, new URLSearchParams(credentials), config);
   }
 
   async refreshToken(): Promise<AxiosResponse<TokenResponse>> {
@@ -55,7 +55,7 @@ export class AuthenticationEndpoint extends BaseApi {
         },
       };
 
-      return axios.post<TokenResponse>(url, credentials, config);
+      return axios.post<TokenResponse>(url, new URLSearchParams(credentials), config);
     }
 
     throw objectCheck(
