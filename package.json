@@ -35,9 +35,7 @@
     "prepare": "tsc"
   },
   "dependencies": {
-    "@types/qs": "^6.9.6",
     "axios": "0.21.1",
-    "qs": "^6.9.6",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
