@@ -3,7 +3,6 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { createMock } from 'ts-auto-mock';
 
-import { ErrorReason, TimeTacApiError } from '../errors';
 import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ReadRawResponse } from '../utils/response/readRawResponse';
@@ -122,7 +121,12 @@ describe('tasks.readRaw', () => {
 
     mock.onGet(readPath).reply(200, apiResponse);
     const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
-    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ reason: ErrorReason.ReponseFailed });
+    expect(await actual.catch((err: Error) => err)).toEqual(
+      expect.objectContaining({
+        status: 200,
+        data: apiResponse,
+      })
+    );
   });
 
   test('with status 400 and Success false', async () => {
@@ -133,7 +137,7 @@ describe('tasks.readRaw', () => {
 
     mock.onGet(readPath).reply(400, apiResponse);
     const actual: Promise<ReadRawResponse<Resource>> = endpoint.readRaw(requestParams);
-    expect(await actual.catch((err: TimeTacApiError) => err)).toMatchObject({ reason: ErrorReason.ReponseFailed });
+    expect(await actual.catch((err: Error) => err.message)).toEqual('Request failed with status code 400');
   });
 
   test('with status 200 and Success true and pages.next', async () => {
