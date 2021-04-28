@@ -16,7 +16,7 @@ export type ResourceResponse<T> = {
 export function createResourceResponse<T>(rawApiResponse: RawApiResponse): ResourceResponse<T> {
   return {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    success: rawApiResponse.Success ?? false,
+    success: rawApiResponse?.Success ?? false,
     apiResponse: rawApiResponse,
     // @ts-expect-error unknown type used
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
