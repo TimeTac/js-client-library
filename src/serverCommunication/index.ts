@@ -8,7 +8,6 @@ export class ServerCommunicationEndpoint extends BaseApi {
     this.setAccount(account);
     const response = await this._get<ServerCommunication>(`${this.resourceName}/read`, { withCredentials: false });
     if (response.data.Success && response.data.Results !== undefined) {
-      console.log('api', response.data.Results);
       return response.data.Results;
     }
 
