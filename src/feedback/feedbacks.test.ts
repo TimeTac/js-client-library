@@ -20,8 +20,6 @@ describe('feedbacks', () => {
     mock.onPost(createPath, data).reply(200, { Success: true, NumResults: 1, Results: [result] });
     const request = endpoint.create(data);
 
-    await request.then((result: FeedbackResponse) => {
-      expect(result).toStrictEqual(result);
-    });
+    expect(await request).toStrictEqual(result);
   });
 });
