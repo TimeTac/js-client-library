@@ -30,6 +30,9 @@ describe('TimeTrackings', () => {
 
   test('read', async () => {
     mock.onGet(readPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+
+    expect.assertions(1);
+
     await timeTrackings.read().then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -37,6 +40,9 @@ describe('TimeTrackings', () => {
 
   test('read with RequestParmas', async () => {
     mock.onGet(readPath, { params: { id: '99', _op__id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+
+    expect.assertions(1);
+
     await timeTrackings.read(new RequestParamsBuilder<TimeTracking>().eq('id', 99).build()).then((result) => {
       expect(result).toStrictEqual([{}]);
     });
@@ -44,10 +50,15 @@ describe('TimeTrackings', () => {
 
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
+
+    expect.assertions(5);
+
     await timeTrackings
       .read()
       .catch(
         (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.code).toBe(200);
+          expect(error.message).toBe('Unsuccessful response');
           expect(error.response).toMatchObject({ Success: false });
           expect(error._plainError).toMatchObject({ status: 200, data: { Success: false } });
           expect(typeof error.stack).toBe('string');
@@ -59,6 +70,9 @@ describe('TimeTrackings', () => {
     mock.onGet(readPath).reply(() => {
       throw new Error('The network request failed with this message.');
     });
+
+    expect.assertions(5);
+
     await timeTrackings
       .read()
       .catch(
@@ -113,6 +127,27 @@ describe('TimeTrackings', () => {
         (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
           expect(error.code).toBe(422);
           expect(error.message).toBe('Unprocessable entity');
+          expect(error.response).toMatchObject({ Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
+          expect(error._plainError).toMatchObject({
+            status: 200,
+            data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
+          });
+          expect(typeof error.stack).toBe('string');
+        }
+      );
+  });
+
+  test('create with Success false without ErrorMessage in response', async () => {
+    mock.onPost(createPath).reply(200, { Success: false });
+
+    expect.assertions(5);
+
+    await timeTrackings
+      .create({ task_id: 1, user_id: 1 })
+      .catch(
+        (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.code).toBe(200);
+          expect(error.message).toBe('Unsuccessful response');
           expect(error.response).toMatchObject({ Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
           expect(error._plainError).toMatchObject({
             status: 200,
