@@ -35,7 +35,7 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
 
   throw {
     response: apiResponse,
-    _plainError: apiResponse,
+    _plainError: resolved,
     message: apiResponse.ErrorMessage,
     code: apiResponse.Error,
     stack: new Error().stack,

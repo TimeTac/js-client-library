@@ -1,8 +1,10 @@
+import { expect } from '@jest/globals';
 import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { ApiResponseOnFailure } from '../utils/response/apiResponse';
 import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
 
@@ -49,9 +51,29 @@ describe('TimeTrackings', () => {
   test('read with Success false', async () => {
     mock.onGet(readPath).reply(200, { Success: false });
     result = timeTrackings.read();
-    await result.catch((result) => {
-      expect(result).toMatchObject({ response: { Success: false }, _plainError: { Success: false } });
+    await result.catch(
+      (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+        expect(error.response).toMatchObject({ Success: false });
+        expect(error._plainError).toMatchObject({ status: 200, data: { Success: false } });
+        expect(typeof error.stack).toBe('string');
+      }
+    );
+  });
+
+  test('read with thrown error', async () => {
+    mock.onGet(readPath).reply(() => {
+      throw new Error('The network request failed with this message.');
     });
+    result = timeTrackings.read();
+    await result.catch(
+      (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+        expect(error.message).toBe('The network request failed with this message.');
+        expect(error.code).toBeUndefined();
+        expect(error.response).toBeUndefined();
+        expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
+        expect(typeof error.stack).toBe('string');
+      }
+    );
   });
 
   test('read with status code 500', async () => {
@@ -76,6 +98,22 @@ describe('TimeTrackings', () => {
     await resultSingle.then((result) => {
       expect(result).toStrictEqual({});
     });
+  });
+
+  test('create with Success false', async () => {
+    mock.onPost(createPath).reply(200, { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
+    resultSingle = timeTrackings.create({ task_id: 1, user_id: 1 });
+    await resultSingle.catch(
+      (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+        expect(error).toMatchObject({ code: 422, message: 'Unprocessable entity' });
+        expect(error.response).toMatchObject({ Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
+        expect(error._plainError).toMatchObject({
+          status: 200,
+          data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
+        });
+        expect(typeof error.stack).toBe('string');
+      }
+    );
   });
 
   test('update', async () => {
