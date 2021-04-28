@@ -105,7 +105,8 @@ describe('TimeTrackings', () => {
     resultSingle = timeTrackings.create({ task_id: 1, user_id: 1 });
     await resultSingle.catch(
       (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
-        expect(error).toMatchObject({ code: 422, message: 'Unprocessable entity' });
+        expect(error.code).toBe(422);
+        expect(error.message).toBe('Unprocessable entity');
         expect(error.response).toMatchObject({ Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
         expect(error._plainError).toMatchObject({
           status: 200,
