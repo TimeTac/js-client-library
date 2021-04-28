@@ -28,6 +28,7 @@ describe('ServerCommunication', () => {
       Results: {
         host: 'testhost',
         authentication_type: 'AUTHORIZATION_CODE_GRANT',
+        force_sso: true,
       },
     });
 
@@ -36,6 +37,7 @@ describe('ServerCommunication', () => {
       expect(result).toStrictEqual({
         host: 'testhost',
         authentication_type: 'AUTHORIZATION_CODE_GRANT',
+        force_sso: true,
       });
     });
   });
