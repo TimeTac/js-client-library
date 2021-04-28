@@ -1,27 +1,45 @@
 import { AxiosResponse } from 'axios';
 
-import { ApiResponse } from './apiResponse';
+import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
 import { createRawApiResponse } from './rawApiResponse';
 import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
 export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function toApiResponse<T>(promise: RequestPromise<T>) {
-  const resolved = await promise;
+export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiResponseOnSuccess<T>> {
+  let resolved: AxiosResponse<ApiResponse<T>> | undefined;
+  try {
+    resolved = await promise;
+  } catch (e) {
+    const error = e as Error;
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (resolved === undefined) {
-    throw new Error('Promise resolve is undefined, please contact administrator.');
+    throw {
+      response: resolved?.data,
+      _plainError: error,
+      message: error.message,
+      code: resolved?.status,
+      stack: error.stack ?? new Error().stack,
+    };
   }
 
   const apiResponse = resolved.data;
+
+  // Workaround for serverCommunication endpoint returning Success: true despite an error
+  if (apiResponse.Success && apiResponse.Results == null) {
+    (apiResponse as ApiResponse<T>).Success = false;
+  }
 
   if (apiResponse.Success) {
     return apiResponse;
   }
 
-  throw apiResponse;
+  throw {
+    response: apiResponse,
+    _plainError: apiResponse,
+    message: apiResponse.ErrorMessage,
+    code: apiResponse.Error,
+    stack: new Error().stack,
+  };
 }
 
 /**
@@ -30,8 +48,18 @@ export async function toApiResponse<T>(promise: RequestPromise<T>) {
 export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
   const response = await toApiResponse<T[]>(promise);
 
-  if (response.Results && response.NumResults > 0) {
+  if (response.NumResults > 0) {
     return response.Results[0];
+  } else {
+    throw new Error('There are no results.');
+  }
+}
+
+export async function requiredSingle<T>(promise: RequestPromise<T>): Promise<T> {
+  const response = await toApiResponse<T>(promise);
+
+  if (response.NumResults > 0) {
+    return response.Results;
   } else {
     throw new Error('There are no results.');
   }
@@ -41,7 +69,7 @@ export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
  */
 export async function optional<T>(promise: RequestPromise<T[]>): Promise<T | undefined> {
   const response = await toApiResponse<T[]>(promise);
-  return (response.Results && response.NumResults > 0 && response.Results[0]) || undefined;
+  return (response.NumResults > 0 && response.Results[0]) || undefined;
 }
 
 export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {

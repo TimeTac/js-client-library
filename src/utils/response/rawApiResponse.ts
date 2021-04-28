@@ -1,5 +1,7 @@
 import { AxiosResponse } from 'axios';
 
+import { ApiResponseOnFailure } from './apiResponse';
+
 export type RawApiResponse = {
   Host: string;
   Codeversion: string;
@@ -26,7 +28,17 @@ function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
     axiosResponse.data._ignoreTypeGuard = undefined;
     return axiosResponse.data;
   }
-  throw axiosResponse;
+
+  // We are trying to match the structure in `toApiResponse` here. RawApiResponse should be removed in the future.
+  const optionalResponse = axiosResponse.data as ApiResponseOnFailure | undefined;
+
+  throw {
+    response: optionalResponse,
+    _plainError: axiosResponse,
+    message: optionalResponse?.ErrorMessage ?? axiosResponse.statusText,
+    code: optionalResponse?.Error ?? axiosResponse.status,
+    stack: new Error().stack,
+  };
 }
 
 function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
