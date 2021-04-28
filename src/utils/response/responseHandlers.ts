@@ -36,8 +36,8 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
   throw {
     response: apiResponse,
     _plainError: resolved,
-    message: apiResponse.ErrorMessage,
-    code: apiResponse.Error,
+    message: (apiResponse.ErrorMessage as string | undefined) ?? (resolved.status != 200 ? resolved.statusText : 'Unsuccessful response'),
+    code: apiResponse.Error ?? resolved.status,
     stack: new Error().stack,
   };
 }

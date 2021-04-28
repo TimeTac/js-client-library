@@ -148,10 +148,10 @@ describe('TimeTrackings', () => {
         (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
           expect(error.code).toBe(200);
           expect(error.message).toBe('Unsuccessful response');
-          expect(error.response).toMatchObject({ Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
+          expect(error.response).toMatchObject({ Success: false });
           expect(error._plainError).toMatchObject({
             status: 200,
-            data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
+            data: { Success: false },
           });
           expect(typeof error.stack).toBe('string');
         }
@@ -197,6 +197,48 @@ describe('TimeTrackings', () => {
       affected: [{}],
       deleted: [],
     });
+  });
+
+  test('start with Success false without ErrorMessage in response', async () => {
+    mock.onPost(startPath).reply(200, { Success: false });
+
+    expect.assertions(5);
+
+    await timeTrackings
+      .start({ task_id: 1, user_id: 1 })
+      .catch(
+        (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.code).toBe(200);
+          expect(error.message).toBe('Unsuccessful response');
+          expect(error.response).toMatchObject({ Success: false });
+          expect(error._plainError).toMatchObject({
+            status: 200,
+            data: { Success: false },
+          });
+          expect(typeof error.stack).toBe('string');
+        }
+      );
+  });
+
+  test('start with Success false', async () => {
+    mock.onPost(startPath).reply(200, { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
+
+    expect.assertions(5);
+
+    await timeTrackings
+      .start({ task_id: 1, user_id: 1 })
+      .catch(
+        (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.code).toBe(422);
+          expect(error.message).toBe('Unprocessable entity');
+          expect(error.response).toMatchObject({ Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' });
+          expect(error._plainError).toMatchObject({
+            status: 200,
+            data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
+          });
+          expect(typeof error.stack).toBe('string');
+        }
+      );
   });
 
   test('stop', async () => {

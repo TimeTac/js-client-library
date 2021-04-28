@@ -35,7 +35,7 @@ function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
   throw {
     response: optionalResponse,
     _plainError: axiosResponse,
-    message: optionalResponse?.ErrorMessage ?? axiosResponse.statusText,
+    message: optionalResponse?.ErrorMessage ?? (axiosResponse.status != 200 ? axiosResponse.statusText : 'Unsuccessful response'),
     code: optionalResponse?.Error ?? axiosResponse.status,
     stack: new Error().stack,
   };
