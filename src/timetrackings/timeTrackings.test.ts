@@ -50,7 +50,7 @@ describe('TimeTrackings', () => {
     mock.onGet(readPath).reply(200, { Success: false });
     result = timeTrackings.read();
     await result.catch((result) => {
-      expect(result).toStrictEqual({ Success: false });
+      expect(result).toMatchObject({ response: { Success: false }, _plainError: { Success: false } });
     });
   });
 
