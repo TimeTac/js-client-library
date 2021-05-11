@@ -20,14 +20,6 @@ const genericAccessDeniedResponse = {
   Error: 403,
   ErrorMessage: 'Generic access denied for user: 17 | Action:start | Resource: TimeTac\\ORM\\Entity\\TimeTracking',
   ErrorInternal: 'Generic access denied for user: 17 | Action:start | Resource: TimeTac\\ORM\\Entity\\TimeTracking',
-  DebugData: {
-    ExecutionTime: '0.11098003387451 seconds',
-    PhpOutput: '',
-    ResourceController: 'TimeTac\\Api\\V1\\Controller\\TimeTrackingsController',
-    ApiController: 'TimeTac\\Api\\V2\\Controller\\BasicApiController',
-    ParameterParser: 'TimeTac\\Api\\V1\\JsonRequestParameterParser',
-    ApiConfig: 'TimeTac\\Api\\V1\\MergingApiConfig',
-  },
 };
 
 describe('TimeTrackings', () => {
