@@ -54,7 +54,6 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse>): Pro
     }
   }
 
-  // Successful request
   if (isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
     axiosResponse.data._ignoreTypeGuard = undefined;
     return axiosResponse.data;
