@@ -163,7 +163,7 @@ describe('TimeTrackings', () => {
 
     expect.assertions(1);
 
-    await timeTrackings.update({ id: 1, task_id: 1, user_id: 1 }).then((result) => {
+    await timeTrackings.update({ id: 1, task_id: 1 }).then((result) => {
       expect(result).toStrictEqual({});
     });
   });

@@ -109,7 +109,41 @@ export interface TimeTracking {
   _temp_record_id?: string;
 }
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
-export type TimeTrackingUpdate = Partial<TimeTracking> & Pick<TimeTracking, 'id'>;
+export type TimeTrackingUpdate = Pick<TimeTracking, 'id'> &
+  Partial<
+    Omit<
+      TimeTracking,
+      | 'user_id'
+      | 'department_id'
+      | 'department_role_id'
+      | 'start_date'
+      | 'start_time__timezone_hours_to_add'
+      | 'end_time__timezone_hours_to_add'
+      | 'timezon'
+      | 'is_start_live'
+      | 'is_end_live'
+      | 'time'
+      | 'duration'
+      | 'status'
+      | 'start_ip'
+      | 'end_ip'
+      | 'is_statistic_countable'
+      | 'input_type'
+      | 'is_nonworking'
+      | 'status_invoicing'
+      | 'invoice_id'
+      | 'geo_lat'
+      | 'geo_long'
+      | 'geo_accuracy'
+      | 'updated'
+      | 'last_change_time_tracking_request_id'
+      | 'client_unique_id'
+      | 'is_paid_non_working'
+      | 'inherited_user_ids'
+      | 'grantedUserComment'
+      | 'entityToCreateOnSplit'
+    >
+  >;
 export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id'> {
   task_id?: number;
 }
