@@ -95,7 +95,7 @@ describe('axiosSetup', () => {
     const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 
     await interceptor(mockErrorUnauthenticated).catch((error) => {
-      expect(error).toMatchObject({ statusCode: undefined, message: 'Request failed with status code 504' });
+      expect(error).toMatchObject({ message: 'Request failed with status code 504' });
     });
 
     expect.assertions(1);
@@ -111,7 +111,7 @@ describe('axiosSetup', () => {
     const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 
     await interceptor(mockErrorUnauthenticated).catch((error) => {
-      expect(error).toMatchObject({ statusCode: 500, message: 'Request failed with status code 500' });
+      expect(error).toMatchObject({ code: '500', message: 'Request failed with status code 500' });
     });
 
     expect.assertions(1);
