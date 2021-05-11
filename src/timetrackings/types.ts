@@ -1,4 +1,7 @@
 export interface TimeTracking {
+  /**
+   * Mandatory if action in UPDATE
+   */
   id: number;
   user_id: number;
   task_id: number;
@@ -106,6 +109,7 @@ export interface TimeTracking {
   _temp_record_id?: string;
 }
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
+export type TimeTrackingUpdate = Partial<TimeTracking> & Pick<TimeTracking, 'id'>;
 export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id'> {
   task_id?: number;
 }

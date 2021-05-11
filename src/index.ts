@@ -50,7 +50,7 @@ export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
-export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate } from './timetrackings/types';
+export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate, TimeTrackingUpdate } from './timetrackings/types';
 export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
