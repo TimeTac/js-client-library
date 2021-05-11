@@ -8,6 +8,28 @@ import { ApiResponseOnFailure } from '../utils/response/apiResponse';
 import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
 
+const genericAccessDeniedResponse = {
+  Host: 'go-dev.timetac.com',
+  Codeversion: '7.17.0',
+  Success: false,
+  SuccessNested: false,
+  ResourceName: 'timeTrackings',
+  RequestStartTime: '2021-05-11 11:37:30',
+  RequestEndTime: '2021-05-11 11:37:30',
+  ServerTimeZone: 'Europe/Vienna',
+  Error: 403,
+  ErrorMessage: 'Generic access denied for user: 17 | Action:start | Resource: TimeTac\\ORM\\Entity\\TimeTracking',
+  ErrorInternal: 'Generic access denied for user: 17 | Action:start | Resource: TimeTac\\ORM\\Entity\\TimeTracking',
+  DebugData: {
+    ExecutionTime: '0.11098003387451 seconds',
+    PhpOutput: '',
+    ResourceController: 'TimeTac\\Api\\V1\\Controller\\TimeTrackingsController',
+    ApiController: 'TimeTac\\Api\\V2\\Controller\\BasicApiController',
+    ParameterParser: 'TimeTac\\Api\\V1\\JsonRequestParameterParser',
+    ApiConfig: 'TimeTac\\Api\\V1\\MergingApiConfig',
+  },
+};
+
 describe('TimeTrackings', () => {
   const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${timeTrackings.getResourcePath()}/read`;
@@ -86,12 +108,72 @@ describe('TimeTrackings', () => {
       );
   });
 
+  test('create with thrown error', async () => {
+    mock.onPost(createPath).reply(() => {
+      throw new Error('The network request failed with this message.');
+    });
+
+    expect.assertions(5);
+
+    await timeTrackings
+      .create({ task_id: 5, user_id: 5 })
+      .catch(
+        (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.message).toBe('The network request failed with this message.');
+          expect(error.code).toBeUndefined();
+          expect(error.response).toBeUndefined();
+          expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
+          expect(typeof error.stack).toBe('string');
+        }
+      );
+  });
+
+  test('start with thrown error', async () => {
+    mock.onPost(startPath).reply(() => {
+      throw new Error('The network request failed with this message.');
+    });
+
+    expect.assertions(5);
+
+    await timeTrackings
+      .start({ task_id: 5, user_id: 5 })
+      .catch(
+        (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.message).toBe('The network request failed with this message.');
+          expect(error.code).toBeUndefined();
+          expect(error.response).toBeUndefined();
+          expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
+          expect(typeof error.stack).toBe('string');
+        }
+      );
+  });
+
   test('read with status code 500', async () => {
     mock.onGet(readPath).reply(500);
 
     expect.assertions(1);
 
     await timeTrackings.read().catch((err: { message: string }) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
+  });
+
+  test('create with status code 500', async () => {
+    mock.onPost(createPath).reply(500);
+
+    expect.assertions(1);
+
+    await timeTrackings.create({ task_id: 5, user_id: 5 }).catch((err: { message: string }) => {
+      expect(err.message).toMatch('Request failed with status code 500');
+    });
+  });
+
+  test('start with status code 500', async () => {
+    mock.onPost(startPath).reply(500);
+
+    expect.assertions(1);
+
+    await timeTrackings.start({ task_id: 5, user_id: 5 }).catch((err: { message: string }) => {
       expect(err.message).toMatch('Request failed with status code 500');
     });
   });
@@ -152,6 +234,48 @@ describe('TimeTrackings', () => {
           expect(error._plainError).toMatchObject({
             status: 200,
             data: { Success: false },
+          });
+          expect(typeof error.stack).toBe('string');
+        }
+      );
+  });
+
+  test('Start uses ErrorMessage from response', async () => {
+    mock.onPost(startPath).reply(403, genericAccessDeniedResponse);
+
+    expect.assertions(5);
+
+    await timeTrackings
+      .start({ task_id: 1, user_id: 1 })
+      .catch(
+        (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.code).toBe(403);
+          expect(error.message).toBe('Generic access denied for user: 17 | Action:start | Resource: TimeTac\\ORM\\Entity\\TimeTracking');
+          expect(error.response).toMatchObject(genericAccessDeniedResponse);
+          expect(error._plainError).toMatchObject({
+            status: 403,
+            data: genericAccessDeniedResponse,
+          });
+          expect(typeof error.stack).toBe('string');
+        }
+      );
+  });
+
+  test('Create uses ErrorMessage from response', async () => {
+    mock.onPost(createPath).reply(403, genericAccessDeniedResponse);
+
+    expect.assertions(5);
+
+    await timeTrackings
+      .create({ task_id: 1, user_id: 1 })
+      .catch(
+        (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
+          expect(error.code).toBe(403);
+          expect(error.message).toBe('Generic access denied for user: 17 | Action:start | Resource: TimeTac\\ORM\\Entity\\TimeTracking');
+          expect(error.response).toMatchObject(genericAccessDeniedResponse);
+          expect(error._plainError).toMatchObject({
+            status: 403,
+            data: genericAccessDeniedResponse,
           });
           expect(typeof error.stack).toBe('string');
         }

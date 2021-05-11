@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { ApiResponseOnFailure } from './apiResponse';
 
@@ -23,24 +23,6 @@ export type RawApiResponse = {
   _ignoreTypeGuard?: boolean; // workaround until SP-351 is done, we don't want to update every test by hand
 };
 
-function handleResponse(axiosResponse: AxiosResponse): RawApiResponse {
-  if (isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
-    axiosResponse.data._ignoreTypeGuard = undefined;
-    return axiosResponse.data;
-  }
-
-  // We are trying to match the structure in `toApiResponse` here. RawApiResponse should be removed in the future.
-  const optionalResponse = axiosResponse.data as ApiResponseOnFailure | undefined;
-
-  throw {
-    response: optionalResponse,
-    _plainError: axiosResponse,
-    message: optionalResponse?.ErrorMessage ?? (axiosResponse.status != 200 ? axiosResponse.statusText : 'Unsuccessful response'),
-    code: optionalResponse?.Error ?? axiosResponse.status,
-    stack: new Error().stack,
-  };
-}
-
 function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
   const hasHost = 'Host' in response;
   const hasCodeversion = 'Codeversion' in response;
@@ -53,5 +35,38 @@ function isRawApiResponse(response: Record<string, unknown>): response is RawApi
 }
 
 export async function createRawApiResponse(promise: Promise<AxiosResponse>): Promise<RawApiResponse> {
-  return promise.then(handleResponse);
+  // We are trying to match the structure in `toApiResponse` here. RawApiResponse should be removed in the future.
+  let axiosResponse: AxiosResponse;
+
+  try {
+    axiosResponse = await promise;
+  } catch (e) {
+    const error = e as AxiosError;
+    if (error.response?.data != null && 'Success' in error.response.data) {
+      axiosResponse = error.response;
+    } else {
+      throw {
+        _plainError: error,
+        message: error.message,
+        code: error.response?.status,
+        stack: error.stack ?? new Error().stack,
+      };
+    }
+  }
+
+  // Successful request
+  if (isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
+    axiosResponse.data._ignoreTypeGuard = undefined;
+    return axiosResponse.data;
+  } else {
+    const optionalResponse = axiosResponse.data as ApiResponseOnFailure | undefined;
+
+    throw {
+      response: optionalResponse,
+      _plainError: axiosResponse,
+      message: optionalResponse?.ErrorMessage ?? (axiosResponse.status != 200 ? axiosResponse.statusText : 'Unsuccessful response'),
+      code: optionalResponse?.Error ?? axiosResponse.status,
+      stack: new Error().stack,
+    };
+  }
 }
