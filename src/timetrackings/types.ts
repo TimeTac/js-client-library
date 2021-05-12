@@ -134,7 +134,6 @@ export type TimeTrackingRead = Partial<
     | '_writePermissionType'
   >
 >;
-//grantedUserComment
 export type TimeTrackingUpdate = Pick<TimeTracking, 'id'> &
   Partial<
     Omit<
