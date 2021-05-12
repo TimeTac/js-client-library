@@ -1,10 +1,10 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import * as responseHandlers from '../utils/response/responseHandlers';
-import { Department } from './types';
+import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
+import * as responseHandlers from '../utils/response/responseHandlers';
+import { Department } from './types';
 
 export class DepartmentsEndpoint extends BaseApi {
   public readonly resourceName = 'departments';

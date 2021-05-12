@@ -35,7 +35,7 @@ const mockInterceptorParams: InterceptorParams = {
 
 describe('axiosSetup', () => {
   test('interceptor calls onTokenRefreshFailed', async (done) => {
-    const mockErrorUnauthenticated: AxiosError = {
+    const mockErrorUnauthenticated: AxiosError = ({
       code: '401',
       response: {
         status: 401,
@@ -51,9 +51,9 @@ describe('axiosSetup', () => {
       isAxiosError: true,
       message: 'unauthorized',
       name: 'the name',
-    } as unknown as AxiosError;
+    } as unknown) as AxiosError;
 
-    const mockErrorRefreshFailed: AxiosError = {
+    const mockErrorRefreshFailed: AxiosError = ({
       code: '497',
       response: {
         status: 497,
@@ -69,7 +69,7 @@ describe('axiosSetup', () => {
       isAxiosError: true,
       message: 'refresh token request failed',
       name: 'the name',
-    } as unknown as AxiosError;
+    } as unknown) as AxiosError;
 
     const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 
@@ -88,9 +88,9 @@ describe('axiosSetup', () => {
     done();
   });
   test('interceptor throws error without status code', async (done) => {
-    const mockErrorUnauthenticated: AxiosError = {
+    const mockErrorUnauthenticated: AxiosError = ({
       message: 'Request failed with status code 504',
-    } as unknown as AxiosError;
+    } as unknown) as AxiosError;
 
     const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 
@@ -103,10 +103,10 @@ describe('axiosSetup', () => {
     done();
   });
   test('interceptor gets error with status code typed as string', async (done) => {
-    const mockErrorUnauthenticated: AxiosError = {
+    const mockErrorUnauthenticated: AxiosError = ({
       code: '500',
       message: 'Request failed with status code 500',
-    } as unknown as AxiosError;
+    } as unknown) as AxiosError;
 
     const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 
