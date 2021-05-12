@@ -40,10 +40,10 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
       try {
         res = await interceptorParams.state.refreshingToken;
       } catch (e) {
-        const error: AxiosError = e;
+        const error = e as AxiosError;
         // Check if refresh token expired, call tokenRefreshFailed() and then re-throw error
         const status = error.code;
-        if (status === 497) {
+        if (status === '497') {
           if (interceptorParams.config.settings.onTokenRefreshFailed != null) {
             interceptorParams.config.settings.onTokenRefreshFailed();
           }
