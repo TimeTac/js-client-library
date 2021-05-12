@@ -12,13 +12,11 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
   try {
     resolved = await promise;
   } catch (e) {
-    console.warn('Catch of response handler');
     const error = e as AxiosError;
 
     if (error.response?.data != null && 'Success' in error.response.data) {
       resolved = error.response;
     } else {
-      console.warn('Fallback throw of response handler');
       throw {
         _plainError: error,
         message: error.message,
@@ -28,7 +26,6 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
     }
   }
 
-  console.warn('toapiResponse accessing data of ', resolved);
   const apiResponse = resolved.data;
 
   // Workaround for serverCommunication endpoint returning Success: true despite an error

@@ -39,17 +39,12 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse>): Pro
   let axiosResponse: AxiosResponse;
 
   try {
-    console.log('Awaiting');
     axiosResponse = await promise;
-    console.log('Fulfilled: ', axiosResponse);
   } catch (e) {
-    console.warn('Catch of RAW');
     const error = e as AxiosError;
-    console.warn(error);
     if (error.response?.data != null && 'Success' in error.response.data) {
       axiosResponse = error.response;
     } else {
-      console.warn('Fallback throw of RAW');
       throw {
         _plainError: error,
         message: error.message,
@@ -58,8 +53,6 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse>): Pro
       };
     }
   }
-
-  console.warn('Create raw accessing data of ', axiosResponse);
 
   if (isRawApiResponse(axiosResponse.data) && axiosResponse.data.Success) {
     axiosResponse.data._ignoreTypeGuard = undefined;
