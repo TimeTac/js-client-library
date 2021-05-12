@@ -88,6 +88,10 @@ export interface TimeTracking {
   start_time__timezone_hours_to_add?: string;
   end_time__timezone_hours_to_add?: string;
   invoice_id?: string;
+  is_offline_tracking?: boolean;
+  insertIntoConflicting?: string;
+  entityToCreateOnSplit?: string;
+  _writePermissionType?: string;
 
   /**
    * Id of latest time tracking change request
@@ -127,7 +131,7 @@ export type TimeTrackingRead = Partial<
     | 'isOfflineLiveTracking'
     | 'insertIntoConflicting'
     | 'entityToCreateOnSplit'
-    | '_writePErmissionType'
+    | '_writePermissionType'
   >
 >;
 //grantedUserComment
