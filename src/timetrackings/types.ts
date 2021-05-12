@@ -1,6 +1,6 @@
 export interface TimeTracking {
   /**
-   * Mandatory if action in UPDATE
+   * Mandatory if action is UPDATE
    */
   id: number;
   user_id: number;
@@ -84,6 +84,11 @@ export interface TimeTracking {
   geo_long?: number;
   geo_accuracy?: number;
   updated?: string;
+  status_invoicing?: string;
+  start_time__timezone_hours_to_add?: string;
+  end_time__timezone_hours_to_add?: string;
+  invoice_id?: string;
+
   /**
    * Id of latest time tracking change request
    */
@@ -109,6 +114,23 @@ export interface TimeTracking {
   _temp_record_id?: string;
 }
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
+export type TimeTrackingRead = Partial<
+  Omit<
+    TimeTracking,
+    | 'start_date'
+    | 'timezone'
+    | 'time'
+    | 'geo_long'
+    | 'geo_accuracy'
+    | 'grantedUserComment'
+    | 'requestUserComment'
+    | 'isOfflineLiveTracking'
+    | 'insertIntoConflicting'
+    | 'entityToCreateOnSplit'
+    | '_writePErmissionType'
+  >
+>;
+//grantedUserComment
 export type TimeTrackingUpdate = Pick<TimeTracking, 'id'> &
   Partial<
     Omit<
