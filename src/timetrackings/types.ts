@@ -84,7 +84,7 @@ export interface TimeTracking {
   geo_long?: number;
   geo_accuracy?: number;
   updated?: string;
-  status_invoicing?: string;
+  status_invoicing?: number;
   start_time__timezone_hours_to_add?: string;
   end_time__timezone_hours_to_add?: string;
   invoice_id?: string;
