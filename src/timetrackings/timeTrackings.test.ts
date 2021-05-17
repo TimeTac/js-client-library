@@ -1,12 +1,12 @@
 import { expect } from '@jest/globals';
 import axios from 'axios';
-import AxiosMockAdapter from 'axios-mock-adapter';
 
+import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { ApiResponseOnFailure } from '../utils/response/apiResponse';
-import { TimeTrackingsEndpoint } from './index';
 import { TimeTracking } from './types';
+import { TimeTrackingsEndpoint } from './';
 
 describe('TimeTrackings', () => {
   const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
