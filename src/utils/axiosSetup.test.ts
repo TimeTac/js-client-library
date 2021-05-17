@@ -54,22 +54,21 @@ describe('axiosSetup', () => {
     } as unknown as AxiosError;
 
     const mockErrorRefreshFailed: AxiosError = {
-      code: '497',
-      response: {
-        status: 497,
-        config: { url: 'someurl' },
-        data: {
-          error_description: 'The provided refresh token is invalid.',
-          error: 'invalid_grant',
-        },
-        statusText: '',
-        headers: {},
-      },
       config: {},
+      request: {},
+      response: {
+        data: { error_description: 'The provided refresh token is invalid.', error: 'invalid_grant' },
+        status: 497,
+        statusText: 'unknown status',
+        headers: {},
+        config: {},
+        request: {},
+      },
       isAxiosError: true,
-      message: 'refresh token request failed',
-      name: 'the name',
-    } as unknown as AxiosError;
+      message: 'Request failed with status code 497',
+      name: 'Error',
+      toJSON: () => ({ toJSON: 'toJSON' }),
+    };
 
     const interceptor = createResponseRejectedInterceptor(mockInterceptorParams);
 
@@ -79,7 +78,7 @@ describe('axiosSetup', () => {
     expect.assertions(3);
 
     await interceptor(mockErrorUnauthenticated).catch((error) => {
-      expect(error).toMatchObject({ message: 'refresh token request failed' });
+      expect(error).toMatchObject({ message: 'Request failed with status code 497', response: { status: 497 } });
     });
 
     // eslint-disable-next-line @typescript-eslint/unbound-method
@@ -87,6 +86,7 @@ describe('axiosSetup', () => {
     expect(mockInterceptorParams.config.settings.onTokenRefreshFailed).toHaveBeenCalledTimes(1);
     done();
   });
+
   test('interceptor throws error without status code', async (done) => {
     const mockErrorUnauthenticated: AxiosError = {
       message: 'Request failed with status code 504',
