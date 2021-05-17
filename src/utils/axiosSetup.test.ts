@@ -4,9 +4,9 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { AuthenticationEndpoint } from '../authentication';
 import { ApiConfig } from '../baseApi';
-import Api from '../index';
-import { ConfigProvider } from '.';
+import Api from '../';
 import { createResponseRejectedInterceptor, InterceptorParams } from './axiosSetup';
+import { ConfigProvider } from '.';
 
 const mockConfig: ApiConfig = {
   shouldAutoRefreshToken: true,
