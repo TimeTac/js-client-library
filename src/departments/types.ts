@@ -1,5 +1,5 @@
 export type Department = {
-  id?: number;
+  id: number;
   department_name?: string;
   active?: boolean;
   supervisor_id?: number;

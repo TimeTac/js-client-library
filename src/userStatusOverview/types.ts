@@ -2,6 +2,7 @@ import { UserStatusOverviewStatus } from '../enums';
 
 export type UserStatusOverview = {
   user_id: number;
+  department_id?: number;
   /**
    * Time tracking id of a running task
    */
