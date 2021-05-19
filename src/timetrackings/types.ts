@@ -87,7 +87,7 @@ export interface TimeTracking {
   status_invoicing?: number;
   start_time__timezone_hours_to_add?: string;
   end_time__timezone_hours_to_add?: string;
-  invoice_id?: string;
+  invoice_id?: number;
   is_offline_tracking?: boolean;
   insertIntoConflicting?: string;
   entityToCreateOnSplit?: string;
