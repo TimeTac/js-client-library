@@ -2,8 +2,8 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { ConfigProvider } from '../utils';
-import { ServerCommunicationEndpoint } from './index';
 import { ServerCommunication as Model } from './types';
+import { ServerCommunicationEndpoint } from './';
 
 describe('ServerCommunication', () => {
   const serverCommunication: ServerCommunicationEndpoint = new ServerCommunicationEndpoint(

@@ -8,8 +8,8 @@ import { ConfigProvider } from '../utils';
 import { DeltaSyncParams } from '../utils/params/deltaSyncParams';
 import { DeltaSyncResponse } from '../utils/response/deltaSyncResponse';
 import { DeletedEntry } from '../utils/response/resourceResponse';
-import { DeltaSyncEndpoint } from './index';
 import { DeltaSyncResults } from './types';
+import { DeltaSyncEndpoint } from './';
 
 describe('DeltaSync', () => {
   const deltaSync: DeltaSyncEndpoint = new DeltaSyncEndpoint(new ConfigProvider({ account: 'testingAccount' }));
