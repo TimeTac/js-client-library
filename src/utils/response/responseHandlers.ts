@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
 import { createRawApiResponse } from './rawApiResponse';
@@ -8,18 +8,22 @@ export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
 
 export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiResponseOnSuccess<T>> {
   let resolved: AxiosResponse<ApiResponse<T>> | undefined;
+
   try {
     resolved = await promise;
   } catch (e) {
-    const error = e as Error;
+    const error = e as AxiosError;
 
-    throw {
-      response: resolved?.data,
-      _plainError: error,
-      message: error.message,
-      code: resolved?.status,
-      stack: error.stack ?? new Error().stack,
-    };
+    if (error.response?.data != null && 'Success' in error.response.data) {
+      resolved = error.response;
+    } else {
+      throw {
+        _plainError: error,
+        message: error.message,
+        code: error.response?.status,
+        stack: error.stack ?? new Error().stack,
+      };
+    }
   }
 
   const apiResponse = resolved.data;

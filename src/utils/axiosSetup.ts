@@ -3,7 +3,6 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AuthenticationEndpoint } from '../authentication';
 import { TokenResponse } from '../authentication/types';
 import { ApiState } from '../baseApi';
-import { ErrorFormat } from '../errors';
 import { ConfigProvider } from '.';
 
 export type InterceptorParams = {
@@ -40,9 +39,10 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
       let res: AxiosResponse<TokenResponse>;
       try {
         res = await interceptorParams.state.refreshingToken;
-      } catch (error: unknown) {
+      } catch (e) {
+        const error = e as AxiosError;
         // Check if refresh token expired, call tokenRefreshFailed() and then re-throw error
-        const status = (error as { raw?: { response?: { status?: number } } }).raw?.response?.status;
+        const status = error.response?.status;
         if (status === 497) {
           if (interceptorParams.config.settings.onTokenRefreshFailed != null) {
             interceptorParams.config.settings.onTokenRefreshFailed();
@@ -66,23 +66,7 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
       }
     }
   }
-
-  let toThrow: ErrorFormat;
-  if (error.code != null && error.code.length > 0) {
-    toThrow = {
-      statusCode: parseInt(error.code),
-      message: error.message,
-      raw: error,
-    };
-  } else {
-    toThrow = {
-      statusCode: undefined,
-      message: error.message,
-      raw: error,
-    };
-  }
-
-  throw toThrow;
+  throw error;
 };
 
 export const useInterceptors = (interceptorParams: InterceptorParams): void => {
