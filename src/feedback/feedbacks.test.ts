@@ -4,8 +4,8 @@ import AxiosMockAdapter from 'axios-mock-adapter';
 import { createMock } from 'ts-auto-mock';
 
 import { ConfigProvider } from '../utils';
-import { FeedbackEndpoint } from './index';
 import { FeedbackCreate, FeedbackResponse } from './types';
+import { FeedbackEndpoint } from './';
 
 const endpoint: FeedbackEndpoint = new FeedbackEndpoint(new ConfigProvider({ account: 'testingAccount' }));
 
