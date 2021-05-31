@@ -103,3 +103,8 @@ export interface UserUpdate extends Partial<User> {
 export interface UserResetPassword {
   username: string;
 }
+
+export interface UserUpdatePassword {
+  id: number;
+  password: string;
+}
