@@ -94,6 +94,8 @@ export type User = {
   request_substitute_user_id?: number;
   time_tracking_ex_post_earliest_working_time?: string;
   show_status_overview?: boolean;
+  renew_password?: boolean;
+  last_login?: string;
 };
 
 export interface UserUpdate extends Partial<User> {
