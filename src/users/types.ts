@@ -111,8 +111,3 @@ export interface UserUpdatePassword {
   id: number;
   password: string;
 }
-
-export interface UserUpdatePassword {
-  id: number;
-  password: string;
-}
