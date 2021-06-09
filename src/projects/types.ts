@@ -9,14 +9,14 @@ export type Project = {
   node_path: string;
   ultimate_mother_id: number;
   is_done: boolean;
-  view_order: number | null;
+  view_order: number;
   icon_name: string;
   custom_icon_name: string;
   initial_duration: number;
   target_duration: number;
   begin: string | null;
   deadline: string | null;
-  object_type: string;
+  object_type: 'subproject';
   notes: string;
   client_id: number;
   t_iv_1: string | null;

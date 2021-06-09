@@ -10,7 +10,7 @@ export type Task = {
   sort_order: number;
   ultimate_mother_id: number;
   is_done: boolean;
-  view_order: number | null;
+  view_order: number;
   icon_name: string;
   custom_icon_name: string;
   initial_duration: number;
