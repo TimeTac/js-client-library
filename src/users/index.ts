@@ -43,6 +43,12 @@ export class UsersEndpoint extends BaseApi {
     return responseHandlers.list(response);
   }
 
+  //endpoint returns empty array in Results
+  public forgotPassword(data: UserResetPassword): Promise<User[]> {
+    const response = this._put<User[]>(`${this.getResourceName()}/forgotPassword`, data);
+    return responseHandlers.list(response);
+  }
+
   public updatePassword(data: UserUpdatePassword): Promise<User[]> {
     const response = this._put<User[]>(`${this.getResourceName()}/updatePassword`, data);
     return responseHandlers.requiredSingle(response);
