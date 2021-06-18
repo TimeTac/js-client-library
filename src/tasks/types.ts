@@ -48,6 +48,7 @@ export type Task = {
   external_id: string;
   is_billable: boolean;
   is_nonworking: boolean;
+  name_path: string;
 };
 
 export type TaskCreate = Omit<
