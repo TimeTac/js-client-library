@@ -39,4 +39,5 @@ export type Project = {
   budget: number;
   last_started: string | null;
   target_duration_sum_up_by_task: boolean;
+  name_path: string;
 };
