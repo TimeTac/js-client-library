@@ -14,7 +14,7 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
   } catch (e) {
     const error = e as AxiosError;
 
-    if (error.response?.data != null && 'Success' in error.response.data) {
+    if (error.response?.data != null && typeof error.response.data !== 'string' && 'Success' in error.response.data) {
       resolved = error.response;
     } else {
       throw {

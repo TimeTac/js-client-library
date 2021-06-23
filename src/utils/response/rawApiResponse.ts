@@ -24,6 +24,7 @@ export type RawApiResponse = {
 };
 
 function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
+  if (typeof response.data === 'string') return false;
   const hasHost = 'Host' in response;
   const hasCodeversion = 'Codeversion' in response;
   const hasSuccess = 'Success' in response;
@@ -42,7 +43,7 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse>): Pro
     axiosResponse = await promise;
   } catch (e) {
     const error = e as AxiosError;
-    if (error.response?.data != null && 'Success' in error.response.data) {
+    if (error.response?.data != null && typeof error.response.data !== 'string' && 'Success' in error.response.data) {
       axiosResponse = error.response;
     } else {
       throw {
