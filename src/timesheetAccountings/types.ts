@@ -95,7 +95,6 @@ export type TimesheetAccounting = {
   user_defined_day_8?: number;
   comment?: string;
   data_changed?: string;
-  break_law_check?: number;
   workday: boolean;
   weekday?: number;
   /**
@@ -110,4 +109,10 @@ export type TimesheetAccounting = {
    * Meant to allow grouping by week
    */
   week?: number;
+  law_limit_daily_hours: boolean;
+  law_limit_weekly_hours: boolean;
+  core_time: boolean;
+  break_law_check: number; // its a special one, has to be number
+  rest_period_check: boolean;
+  rest_period_weekly_check: boolean;
 };
