@@ -116,6 +116,7 @@ export interface TimeTracking {
   is_nonworking?: boolean;
   is_paid_non_working?: boolean;
   _temp_record_id?: string;
+  absence_request_id?: number;
 }
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
 export type TimeTrackingRead = Partial<
