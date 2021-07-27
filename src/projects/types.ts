@@ -40,4 +40,5 @@ export type Project = {
   last_started: string | null;
   target_duration_sum_up_by_task: boolean;
   name_path: string;
+  is_paid_non_working: boolean;
 };
