@@ -14,11 +14,11 @@ import { TodoTask } from '../todoTasks/types';
 import { User } from '../users/types';
 import { UserStatusOverview } from '../userStatusOverview/types';
 import { ResourceResponse } from '../utils/response/resourceResponse';
+import { ChangeTimeTrackingRequest } from '../changeTimeTrackingRequests/types';
 
 export type DeltaSyncResults = {
   // absenceBans?: Response<AbsenceBan>;
   // absenceReplacements?: Response<AbsenceReplacement>;
-  // changeTimeTrackingRequests?: Response<ChangeTimeTrackingRequestser>;
   // checkpoints?: Response<Checkpoint>;
   // checkpointTrackings?: Response<CheckpointTracking>;
   // checkpointTranslations?: Response<CheckpointTranslation>;
@@ -50,6 +50,7 @@ export type DeltaSyncResults = {
   absenceDays?: ResourceResponse<AbsenceDay>;
   absences?: ResourceResponse<Absence>;
   absenceTypes?: ResourceResponse<AbsenceType>;
+  changeTimeTrackingRequests?: ResourceResponse<ChangeTimeTrackingRequest>;
   departments?: ResourceResponse<Department>;
   favouriteTasks?: ResourceResponse<FavouriteTask>;
   generalSettings?: ResourceResponse<GeneralSetting>;
