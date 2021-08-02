@@ -14,6 +14,7 @@ import { TimeTracking } from '../../timetrackings/types';
 import { TodoTask } from '../../todoTasks/types';
 import { User } from '../../users/types';
 import { UserStatusOverview } from '../../userStatusOverview/types';
+import { ChangeTimeTrackingRequest } from '../../changeTimeTrackingRequests/types';
 import { RawApiResponse } from './rawApiResponse';
 import { ResourceResponse } from './resourceResponse';
 
@@ -31,6 +32,7 @@ export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSy
       absenceDays: convert<AbsenceDay>(rawApiResponse, 'absenceDays'),
       absences: convert<Absence>(rawApiResponse, 'absences'),
       absenceTypes: convert<AbsenceType>(rawApiResponse, 'absenceTypes'),
+      changeTimeTrackingRequests: convert<ChangeTimeTrackingRequest>(rawApiResponse, 'changeTimeTrackingRequests'),
       departments: convert<Department>(rawApiResponse, 'departments'),
       favouriteTasks: convert<FavouriteTask>(rawApiResponse, 'favouriteTasks'),
       generalSettings: convert<GeneralSetting>(rawApiResponse, 'generalSettings'),
