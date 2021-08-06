@@ -1,8 +1,7 @@
 export type UserRead = {
+  id: number;
   profile_picture: string;
   department_id_valid_from: string;
-
-  id: number;
   internal_user_group: number;
   active: boolean;
   hr_manager: boolean;

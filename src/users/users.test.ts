@@ -185,7 +185,6 @@ describe('Users', () => {
     expect.assertions(3);
 
     await users.update(MockData.userUpdateData).catch((err: Error) => {
-      console.log(JSON.stringify(err, null, 4));
       const errUnwrapped = err as unknown as { response: { Success: boolean }; _plainError: { status: number }; message: string };
       expect(errUnwrapped.response).toBeTruthy();
       expect(errUnwrapped._plainError).toBeTruthy();
