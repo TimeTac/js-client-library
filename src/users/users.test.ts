@@ -186,7 +186,7 @@ describe('Users', () => {
 
     await users.update(MockData.userUpdateData).catch((err: Error) => {
       console.log(JSON.stringify(err, null, 4));
-      let errUnwrapped = err as unknown as { response: {}; _plainError: {}; message: String };
+      const errUnwrapped = err as unknown as { response: { Success: boolean }; _plainError: { status: number }; message: string };
       expect(errUnwrapped.response).toBeTruthy();
       expect(errUnwrapped._plainError).toBeTruthy();
       expect(errUnwrapped.message).toBe('Unsuccessful response');
