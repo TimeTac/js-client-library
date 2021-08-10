@@ -72,6 +72,8 @@ export default abstract class BaseApi {
   protected _delete<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
+    //Delete requests send no content
+    config.headers['Content-type'] = '';
     return axios.delete<ApiResponse<T>>(url, config);
   }
 
