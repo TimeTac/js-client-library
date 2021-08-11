@@ -108,7 +108,6 @@ const MockData: {
       request_substitute_user_id: 0,
       time_tracking_ex_post_earliest_working_time: '08:00:00',
       show_status_overview: true,
-      last_login: '2021-07-28 09:12:17',
     },
   ],
   userCreateData: {
