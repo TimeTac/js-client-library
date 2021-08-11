@@ -39,7 +39,7 @@ export default abstract class BaseApi {
 
   constructor(public config: ConfigProvider) {}
 
-  private getOptions(options?: AxiosRequestConfig) {
+  private getOptions(options?: AxiosRequestConfig): AxiosRequestConfig {
     return {
       headers: {
         Authorization: `Bearer ${this.config.settings.accessToken ?? ''}`,
@@ -72,6 +72,9 @@ export default abstract class BaseApi {
   protected _delete<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
     const url = this.getApiPath() + endpoint;
     const config = this.getOptions(options);
+    //Delete requests send no content
+    // eslint-disable-next-line
+    config.headers['Content-type'] = '';
     return axios.delete<ApiResponse<T>>(url, config);
   }
 
