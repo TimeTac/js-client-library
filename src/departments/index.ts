@@ -26,6 +26,6 @@ export class DepartmentsEndpoint extends BaseApi {
 
   public create(data: DepartmentCreate): Promise<Department> {
     const response = this._post<Department[]>(`${this.getResourceName()}/create`, data);
-    return createUpdateRawResponse<Department>(createResourceResponse<DepartmentCreate>(createRawApiResponse(response)));
+    return responseHandlers.required(response);
   }
 }

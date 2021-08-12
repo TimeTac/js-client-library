@@ -2,9 +2,9 @@ import { expect } from '@jest/globals';
 import axios from 'axios';
 
 import AxiosMockAdapter from 'axios-mock-adapter';
-import { DepartmentsEndpoint } from './';
 import { ConfigProvider } from '../utils';
-import { Departments, DepartmentCreate } from './types';
+import { Department } from './types';
+import { DepartmentsEndpoint } from './';
 
 const MockData = {
   departmentsReadResult: [
@@ -51,9 +51,8 @@ const MockData = {
 
 describe('Departments', () => {
   const departments: DepartmentsEndpoint = new DepartmentsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
-  const readPath = `${departments.getsResourcePath()}/read`;
-  const createPath = `${departments.getsResourcePath()}/create`;
-  const updatePath = `${departments.getsResourcePath()}/update`;
+  const readPath = `${departments.getResourcePath()}/read`;
+  const createPath = `${departments.getResourcePath()}/create`;
 
   const mock = new AxiosMockAdapter(axios);
 
@@ -72,21 +71,11 @@ describe('Departments', () => {
   });
 
   test('create', async () => {
-    mock.onPost(createPath).reply(200, { Success: true, NumResults: 1, Results: MockData.departmentsReadResult[0] });
+    mock.onPost(createPath).reply(200, { Success: true, NumResults: 1, Results: MockData.departmentsReadResult });
 
     expect.assertions(1);
 
     await departments.create(MockData.departmentCreateData).then((results: Department) => {
-      expect(results).toStrictEqual(MockData.departmentsReadResult[0]);
-    });
-  });
-
-  test('update', async () => {
-    mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: MockData.departmentsReadResult[0] });
-
-    expect.assertions(1);
-
-    await departments.update(MockData.departmentUpdateData).then((results: Department) => {
       expect(results).toStrictEqual(MockData.departmentsReadResult[0]);
     });
   });
