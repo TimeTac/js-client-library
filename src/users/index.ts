@@ -23,8 +23,8 @@ export class UsersEndpoint extends BaseApi {
     return responseHandlers.required(response);
   }
 
-  public readMe(params?: RequestParams<UserReadMe>): Promise<UserRead> {
-    const response = this._get<UserRead[]>(`${this.getResourceName()}/me`, { params });
+  public readMe(params?: RequestParams<UserReadMe>): Promise<UserReadMe> {
+    const response = this._get<UserReadMe[]>(`${this.getResourceName()}/me`, { params });
     return responseHandlers.required(response);
   }
 
