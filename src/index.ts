@@ -36,7 +36,7 @@ export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
 export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
 export { DeltaSyncResults } from './deltaSync/types';
-export { Department } from './departments/types';
+export { Department, DepartmentCreate } from './departments/types';
 export * from './enums';
 export { ErrorFormat } from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
