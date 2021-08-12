@@ -93,7 +93,6 @@ export type UserRead = {
   request_substitute_user_id: number;
   time_tracking_ex_post_earliest_working_time: string;
   show_status_overview: boolean;
-  last_login: string;
 };
 
 export type User = UserRead;
@@ -107,6 +106,11 @@ export interface UserCreate extends Partial<UserRead> {
   password: string;
   language_id: number;
   public_holiday_template_id: number;
+}
+
+export interface UserReadMe extends UserRead {
+  renew_password: boolean;
+  last_login: string;
 }
 
 export interface UserUpdate extends Partial<UserRead> {

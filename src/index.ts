@@ -57,7 +57,7 @@ export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
-export { User, UserUpdate } from './users/types';
+export { User, UserUpdate, UserRead, UserCreate, UserReadMe, UserResetPassword, UserUpdatePassword } from './users/types';
 export { UserStatusOverview } from './userStatusOverview/types';
 export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';

@@ -5,7 +5,7 @@ import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRa
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { createUpdateRawResponse, UpdateRawResponse } from '../utils/response/updateRawResponse';
-import { UserRead, UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword } from './types';
+import { UserRead, UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe } from './types';
 
 export class UsersEndpoint extends BaseApi {
   public readonly resourceName = 'users';
@@ -23,7 +23,7 @@ export class UsersEndpoint extends BaseApi {
     return responseHandlers.required(response);
   }
 
-  public readMe(params?: RequestParams<UserRead>): Promise<UserRead> {
+  public readMe(params?: RequestParams<UserReadMe>): Promise<UserRead> {
     const response = this._get<UserRead[]>(`${this.getResourceName()}/me`, { params });
     return responseHandlers.required(response);
   }
