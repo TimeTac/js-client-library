@@ -4,6 +4,8 @@ const DEFAULT_PAGE_SIZE = 100;
 // _type is unused, was added only to preserve the generic type for type checking
 export type RequestParams<R> = Record<string, string> & { _type?: R };
 
+type NestedParams = { [key: string]: undefined | Array<NestedParams> };
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class RequestParamsBuilder<R extends Object> {
   protected requestParams: RequestParams<R> = {};
@@ -116,5 +118,10 @@ export class RequestParamsBuilder<R extends Object> {
 
   getOffset(): number {
     return this.requestParams['_offset'] ? Number(this.requestParams['_offset']) : 0;
+  }
+
+  nestedEntities(NestedParams: NestedParams): RequestParamsBuilder<R> {
+    this.requestParams['nestedEntities'] = JSON.stringify(NestedParams);
+    return this;
   }
 }
