@@ -8,3 +8,8 @@ export type Department = {
   view_order?: number;
   node_path?: string;
 };
+
+export type DepartmentCreate = Omit<Department, 'id'> & {
+  department_name: string;
+  mother_id: number;
+};
