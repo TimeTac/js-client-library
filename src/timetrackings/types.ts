@@ -1,3 +1,5 @@
+type TimeTrackingPossibleNestedEntities = 'changeTimeTrackingRequests';
+
 export interface TimeTracking {
   /**
    * Mandatory if action is UPDATE
@@ -117,6 +119,9 @@ export interface TimeTracking {
   is_paid_non_working?: boolean;
   _temp_record_id?: string;
   absence_request_id?: number;
+  nestedEntities?: {
+    [key in TimeTrackingPossibleNestedEntities]: Array<Record<string, unknown>>;
+  };
 }
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
 export type TimeTrackingRead = Partial<
