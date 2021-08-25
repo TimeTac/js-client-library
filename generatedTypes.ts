@@ -1561,9 +1561,7 @@ export interface components {
     };
     users: {
       id?: number;
-      internal_user_group?: number;
       active?: boolean;
-      hr_manager?: boolean;
       department_id?: number;
       department_id_valid_from?: string;
       role_id?: number;
@@ -1575,18 +1573,9 @@ export interface components {
       fullname?: string;
       abbrevation?: string;
       restrict_to_ip?: boolean;
-      permission_change_all_timers?: boolean;
-      permission_change_assigned_user_timers?: boolean;
-      permission_change_own_timers?: boolean;
-      permission_statistic_for_all_users?: boolean;
-      permission_hr_statistic_for_all_users?: boolean;
       permission_show_tt_ex_post_one_employees?: boolean;
-      permission_show_tt_ex_post_more_employees?: boolean;
       permission_show_assign_favourites?: boolean;
       permission_show_assign_todos?: boolean;
-      permission_edit_tasks_projects?: boolean;
-      permission_show_settings_pm_skills?: boolean;
-      permission_show_settings_client_list?: boolean;
       internal_cost_per_hour?: number;
       revenue_per_hour?: number;
       password?: string;
@@ -1609,7 +1598,6 @@ export interface components {
       u_iv_6_valid_from?: string;
       mobile_allowed?: boolean;
       pin_code?: string;
-      gender?: string;
       country_id?: number;
       allowed_ips?: string;
       payroll_accounting_starts_at?: string;
@@ -1619,9 +1607,6 @@ export interface components {
       manual_timetracking?: boolean;
       automatic_tracker_writing_task_id?: number;
       cost_acc_non_working_task_id?: number;
-      allow_start_task?: boolean;
-      allow_cancel_holiday_request?: boolean;
-      salutation_id?: number;
       phone_1?: string;
       phone_2?: string;
       birthday?: string;
@@ -1632,7 +1617,6 @@ export interface components {
       address_1?: string;
       address_2?: string;
       zip?: string;
-      allow_to_see_other_user_leave_type?: boolean;
       permission_show_edit_user_user_settings?: boolean;
       terminal_transponder_nr?: string;
       external_id?: string;
@@ -1654,7 +1638,6 @@ export interface components {
       leave_note?: string;
       request_substitute_user_id?: number;
       time_tracking_ex_post_earliest_working_time?: string;
-      show_status_overview?: boolean;
     };
     userStatusOverview: {
       user_id?: number;
@@ -4240,9 +4223,7 @@ export interface components {
       aggregation_type?: string;
     };
     users_create: {
-      internal_user_group: number;
       active?: boolean;
-      hr_manager?: boolean;
       department_id: number;
       start_task_at_login?: number;
       username: string;
@@ -4251,18 +4232,9 @@ export interface components {
       firstname: string;
       abbrevation?: string;
       restrict_to_ip?: boolean;
-      permission_change_all_timers?: boolean;
-      permission_change_assigned_user_timers?: boolean;
-      permission_change_own_timers?: boolean;
-      permission_statistic_for_all_users?: boolean;
-      permission_hr_statistic_for_all_users?: boolean;
       permission_show_tt_ex_post_one_employees?: boolean;
-      permission_show_tt_ex_post_more_employees?: boolean;
       permission_show_assign_favourites?: boolean;
       permission_show_assign_todos?: boolean;
-      permission_edit_tasks_projects?: boolean;
-      permission_show_settings_pm_skills?: boolean;
-      permission_show_settings_client_list?: boolean;
       internal_cost_per_hour?: number;
       revenue_per_hour?: number;
       password: string;
@@ -4293,9 +4265,6 @@ export interface components {
       manual_timetracking?: boolean;
       automatic_tracker_writing_task_id?: number;
       cost_acc_non_working_task_id?: number;
-      allow_start_task?: boolean;
-      allow_cancel_holiday_request?: boolean;
-      salutation_id?: number;
       phone_1?: string;
       phone_2?: string;
       birthday?: string;
@@ -4306,7 +4275,6 @@ export interface components {
       address_1?: string;
       address_2?: string;
       zip?: string;
-      allow_to_see_other_user_leave_type?: boolean;
       permission_show_edit_user_user_settings?: boolean;
       terminal_transponder_nr?: string;
       external_id?: string;
@@ -4324,13 +4292,10 @@ export interface components {
       leave_note?: string;
       request_substitute_user_id?: number;
       time_tracking_ex_post_earliest_working_time?: string;
-      show_status_overview?: boolean;
     };
     users_read: {
       id?: number;
-      internal_user_group?: number;
       active?: boolean;
-      hr_manager?: boolean;
       department_id?: number;
       department_id_valid_from?: string;
       role_id?: number;
@@ -4342,18 +4307,9 @@ export interface components {
       fullname?: string;
       abbrevation?: string;
       restrict_to_ip?: boolean;
-      permission_change_all_timers?: boolean;
-      permission_change_assigned_user_timers?: boolean;
-      permission_change_own_timers?: boolean;
-      permission_statistic_for_all_users?: boolean;
-      permission_hr_statistic_for_all_users?: boolean;
       permission_show_tt_ex_post_one_employees?: boolean;
-      permission_show_tt_ex_post_more_employees?: boolean;
       permission_show_assign_favourites?: boolean;
       permission_show_assign_todos?: boolean;
-      permission_edit_tasks_projects?: boolean;
-      permission_show_settings_pm_skills?: boolean;
-      permission_show_settings_client_list?: boolean;
       internal_cost_per_hour?: number;
       revenue_per_hour?: number;
       email_address?: string;
@@ -4374,7 +4330,6 @@ export interface components {
       u_iv_6?: string;
       u_iv_6_valid_from?: string;
       mobile_allowed?: boolean;
-      gender?: string;
       country_id?: number;
       allowed_ips?: string;
       payroll_accounting_starts_at?: string;
@@ -4384,9 +4339,6 @@ export interface components {
       manual_timetracking?: boolean;
       automatic_tracker_writing_task_id?: number;
       cost_acc_non_working_task_id?: number;
-      allow_start_task?: boolean;
-      allow_cancel_holiday_request?: boolean;
-      salutation_id?: number;
       phone_1?: string;
       phone_2?: string;
       birthday?: string;
@@ -4397,7 +4349,6 @@ export interface components {
       address_1?: string;
       address_2?: string;
       zip?: string;
-      allow_to_see_other_user_leave_type?: boolean;
       permission_show_edit_user_user_settings?: boolean;
       terminal_transponder_nr?: string;
       external_id?: string;
@@ -4419,14 +4370,11 @@ export interface components {
       leave_note?: string;
       request_substitute_user_id?: number;
       time_tracking_ex_post_earliest_working_time?: string;
-      show_status_overview?: boolean;
     };
     users_resetPassword: { id?: number; username?: string };
     users_update: {
       id: number;
-      internal_user_group?: number;
       active?: boolean;
-      hr_manager?: boolean;
       department_id?: number;
       department_id_valid_from?: string;
       role_id?: number;
@@ -4437,18 +4385,9 @@ export interface components {
       firstname?: string;
       abbrevation?: string;
       restrict_to_ip?: boolean;
-      permission_change_all_timers?: boolean;
-      permission_change_assigned_user_timers?: boolean;
-      permission_change_own_timers?: boolean;
-      permission_statistic_for_all_users?: boolean;
-      permission_hr_statistic_for_all_users?: boolean;
       permission_show_tt_ex_post_one_employees?: boolean;
-      permission_show_tt_ex_post_more_employees?: boolean;
       permission_show_assign_favourites?: boolean;
       permission_show_assign_todos?: boolean;
-      permission_edit_tasks_projects?: boolean;
-      permission_show_settings_pm_skills?: boolean;
-      permission_show_settings_client_list?: boolean;
       internal_cost_per_hour?: number;
       revenue_per_hour?: number;
       password?: string;
@@ -4480,9 +4419,6 @@ export interface components {
       manual_timetracking?: boolean;
       automatic_tracker_writing_task_id?: number;
       cost_acc_non_working_task_id?: number;
-      allow_start_task?: boolean;
-      allow_cancel_holiday_request?: boolean;
-      salutation_id?: number;
       phone_1?: string;
       phone_2?: string;
       birthday?: string;
@@ -4493,7 +4429,6 @@ export interface components {
       address_1?: string;
       address_2?: string;
       zip?: string;
-      allow_to_see_other_user_leave_type?: boolean;
       permission_show_edit_user_user_settings?: boolean;
       terminal_transponder_nr?: string;
       external_id?: string;
@@ -4511,7 +4446,6 @@ export interface components {
       leave_note?: string;
       request_substitute_user_id?: number;
       time_tracking_ex_post_earliest_working_time?: string;
-      show_status_overview?: boolean;
     };
     users_updatePassword: { id: number; password: string };
     userStatusOverview_read: {
