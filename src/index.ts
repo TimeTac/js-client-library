@@ -28,6 +28,7 @@ import { UsersEndpoint } from './users';
 import { UserStatusOverviewsEndpoint } from './userStatusOverview';
 import { ConfigProvider } from './utils';
 import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
+import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -69,6 +70,7 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
+export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -103,6 +105,7 @@ export default class Api {
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public messages: MessagesEndpoint;
   public timezones: TimezonesEndpoint;
+  public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -145,6 +148,7 @@ export default class Api {
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
+    this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
