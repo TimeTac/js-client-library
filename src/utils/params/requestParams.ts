@@ -120,8 +120,8 @@ export class RequestParamsBuilder<R extends Object> {
     return this.requestParams['_offset'] ? Number(this.requestParams['_offset']) : 0;
   }
 
-  nestedEntities(NestedParams: NestedParams): RequestParamsBuilder<R> {
-    this.requestParams['nestedEntities'] = JSON.stringify(NestedParams);
+  nestedEntities(nestedParams: NestedParams): RequestParamsBuilder<R> {
+    this.requestParams['nestedEntities'] = JSON.stringify(nestedParams);
     return this;
   }
 }
