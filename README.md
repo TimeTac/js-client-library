@@ -43,14 +43,21 @@ import Api from "@timetac/js-client-library"
 //Only account name is required.
 const environment = {
   host: 'go.timetac.com',
+  https?: boolean;
   account: <ACCOUNT_NAME>,
   version: 3,
+  account?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  clientId?: string;
+  clientSecret?: string;
   //Callback, called on refresh of the token. object of access token and refresh {accessToken, refreshTOken}  token are passed as parameter
   onTokenRefreshedCallback: (tokens) => console.log(`${tokens.accessToken} ${tokens.refreshToken}`),
   //Callback called when refresh of the token fails.
   onTokenRefreshFailed: () => { console.log('Intended action, such as logout')},
   //If true, it tries to refresh token on failed request. Default true.
-  autoRefreshToken: <BOOLEAN>
+  shouldAutoRefreshToken?: boolean;
+  timeout?: number;  
 }
 
 const authCredentials = {
@@ -184,7 +191,7 @@ async() => {
 - [ ] [teamTypes](https://api.timetac.com/doc/v3#tag/teamTypes)
 - [x] [timePlannings](https://api.timetac.com/doc/v3#tag/timePlannings)
 - [x] [timesheetAccountings](https://api.timetac.com/doc/v3#tag/timesheetAccountings)
-- [ ] [timesheetAccountingSummaries](https://api.timetac.com/doc/v3#tag/timesheetAccountingSummaries)
+- [x] [timesheetAccountingSummaries](https://api.timetac.com/doc/v3#tag/timesheetAccountingSummaries)
 - [ ] [timesheetActionLogs](https://api.timetac.com/doc/v3#tag/timesheetActionLogs)
 - [ ] [timeTrackingChangelogs](https://api.timetac.com/doc/v3#tag/timeTrackingChangelogs)
 - [x] [timeTrackings](https://api.timetac.com/doc/v3#tag/timeTrackings)
