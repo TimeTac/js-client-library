@@ -49,6 +49,8 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
           }
         }
 
+        // Make sure we clear that promise, otherwise there won't be any further token requests
+        interceptorParams.state.refreshingToken = false;
         throw error;
       }
 
