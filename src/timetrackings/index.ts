@@ -13,6 +13,9 @@ import {
   ToggleTimeTrackingData,
 } from './types';
 
+
+}
+
 export class TimeTrackingsEndpoint extends BaseApi {
   public readonly resourceName = 'timeTrackings';
 
