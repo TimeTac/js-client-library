@@ -37,7 +37,7 @@ export class DeltaSyncParams {
    * Also there is no check if the resource is included in the deltaSyncParams
    */
   addIncludeParams<F extends keyof DeltaSyncResults & string>(resource: F, includeParams: RequestParams<unknown>): DeltaSyncParams {
-    for (const [k, v] of Object.entries(includeParams)) {
+    for (const [k, v] of Object.entries<string>(includeParams)) {
       this.requestParams[`${resource}__${k}`] = v;
     }
     return this;
