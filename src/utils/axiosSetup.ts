@@ -28,7 +28,7 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
 
     // Axios transforms the request body to string automatically, parse it back to JSON to avoid sending a string instead of JSON when retrying the request
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (untouchedRequest.headers['Content-Type'] === 'application/json' && typeof untouchedRequest.data === 'string') {
+    if (untouchedRequest.headers?.['Content-Type'] === 'application/json' && typeof untouchedRequest.data === 'string') {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       untouchedRequest.data = JSON.parse(untouchedRequest.data);
     }
