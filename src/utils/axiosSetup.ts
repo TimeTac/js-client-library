@@ -26,13 +26,6 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
     const untouchedRequest = error.config as AxiosRequestConfig & { _shouldRetry: boolean };
 
-    // Axios transforms the request body to string automatically, parse it back to JSON to avoid sending a string instead of JSON when retrying the request
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (untouchedRequest.headers?.['Content-Type'] === 'application/json' && typeof untouchedRequest.data === 'string') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      untouchedRequest.data = JSON.parse(untouchedRequest.data);
-    }
-
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
     if (error.response.status === 401 && !untouchedRequest._shouldRetry && !error.response.config.url?.includes('oauth2')) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -70,6 +63,13 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
         untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
         if (interceptorParams.config.settings.onTokenRefreshedCallback) {
           interceptorParams.config.settings.onTokenRefreshedCallback({ accessToken, refreshToken });
+        }
+
+        // Axios transforms the request body to string automatically, parse it back to JSON to avoid sending a string instead of JSON when retrying the request
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        if (untouchedRequest.headers?.['Content-Type'] === 'application/json' && typeof untouchedRequest.data === 'string') {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          untouchedRequest.data = JSON.parse(untouchedRequest.data);
         }
         return axios(untouchedRequest);
       }
