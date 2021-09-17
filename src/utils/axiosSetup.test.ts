@@ -34,7 +34,7 @@ const mockInterceptorParams: InterceptorParams = {
 };
 
 describe('axiosSetup', () => {
-  test('interceptor calls onTokenRefreshFailed', async (done) => {
+  test('interceptor calls onTokenRefreshFailed', async () => {
     const mockErrorUnauthenticated: AxiosError = {
       code: '401',
       response: {
@@ -84,10 +84,9 @@ describe('axiosSetup', () => {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockAuthenticationEndpoint.refreshToken).toHaveBeenCalledTimes(1);
     expect(mockInterceptorParams.config.settings.onTokenRefreshFailed).toHaveBeenCalledTimes(1);
-    done();
   });
 
-  test('interceptor throws error without status code', async (done) => {
+  test('interceptor throws error without status code', async () => {
     const mockErrorUnauthenticated: AxiosError = {
       message: 'Request failed with status code 504',
     } as unknown as AxiosError;
@@ -99,10 +98,8 @@ describe('axiosSetup', () => {
     });
 
     expect.assertions(1);
-
-    done();
   });
-  test('interceptor gets error with status code typed as string', async (done) => {
+  test('interceptor gets error with status code typed as string', async () => {
     const mockErrorUnauthenticated: AxiosError = {
       code: '500',
       message: 'Request failed with status code 500',
@@ -115,10 +112,8 @@ describe('axiosSetup', () => {
     });
 
     expect.assertions(1);
-
-    done();
   });
-  test('error handling on network timeout', async (done) => {
+  test('error handling on network timeout', async () => {
     try {
       const mock = new AxiosMockAdapter(axios);
       const api = new Api(mockConfig);
@@ -130,6 +125,5 @@ describe('axiosSetup', () => {
     }
 
     expect.assertions(1);
-    done();
   });
 });
