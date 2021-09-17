@@ -20,10 +20,11 @@ export type TimesheetAccountingSummaries = {
     holiday_requested: number;
     holiday_granted: number;
     holiday_available: number;
+    period_from: string;
+    period_to: string;
   };
   next_period: {
-    show_period: false;
-    period_from: number;
+    show_period: boolean;
     header_from_to_text: string;
     claim_from_last_period: number;
     expiration_tooltip: string;
@@ -33,6 +34,7 @@ export type TimesheetAccountingSummaries = {
     holiday_requested: number;
     holiday_granted: number;
     holiday_available: number;
+    period_from: string;
   };
   overtime: {
     overtime_header: string;
