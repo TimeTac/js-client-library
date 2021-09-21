@@ -55,7 +55,8 @@ export type Absence = {
   updated: string;
 };
 
-export type AbsenceCreate = Omit<Absence, 'id' | 'created' | 'status' | 'duration_unit' | 'updated'>;
+export type AbsenceCreate = Omit<Absence, 'id' | 'created' | 'status' | 'duration_unit' | 'updated' | 'duration'> &
+  Partial<Pick<Absence, 'duration'>>;
 
 export interface AbsenceApprove {
   id: number;
