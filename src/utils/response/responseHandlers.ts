@@ -1,13 +1,17 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
+import { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess, ResourceNames } from './apiResponse';
 import { createRawApiResponse } from './rawApiResponse';
 import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
-export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
+export type RequestPromise<ResourceName extends ResourceNames> =
+  Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
-export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiResponseOnSuccess<T>> {
-  let resolved: AxiosResponse<ApiResponse<T>> | undefined;
+export async function toApiResponse<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<ApiResponseOnSuccess<ResourceName>> {
+  // let resolved: AxiosResponse<ApiResponse<T>> | undefined;
+  let resolved: AxiosResponse<ApiResponse<ResourceName>> | undefined;
 
   try {
     resolved = await promise;
@@ -26,12 +30,12 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
     }
   }
 
-  const apiResponse = resolved.data;
+  const apiResponse: ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure = resolved.data;
 
   // Workaround for serverCommunication endpoint returning Success: true despite an error
-  if (apiResponse.Success && apiResponse.Results == null) {
-    (apiResponse as ApiResponse<T>).Success = false;
-  }
+  // if (apiResponse.Success && apiResponse.Results == null) {
+  //   (apiResponse as ApiResponse<T>).Success = false;
+  // }
 
   if (apiResponse.Success) {
     return apiResponse;
@@ -49,8 +53,8 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
 /**
  * @return A promise that resolves to T or rejects if no results
  */
-export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
-  const response = await toApiResponse<T[]>(promise);
+export async function required<ResourceName extends ResourceNames>(promise: RequestPromise<T[]>): Promise<T> {
+  const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
     return response.Results[0];
@@ -59,7 +63,7 @@ export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
   }
 }
 
-export async function requiredSingle<T>(promise: RequestPromise<T>): Promise<T> {
+export async function requiredSingle<ResourceName extends ResourceNames>(promise: RequestPromise<T>): Promise<T> {
   const response = await toApiResponse<T>(promise);
 
   if (response.NumResults > 0) {
@@ -71,15 +75,32 @@ export async function requiredSingle<T>(promise: RequestPromise<T>): Promise<T> 
 /**
  * @return A promise that resolves to T or undefined if no results but Success is true.
  */
-export async function optional<T>(promise: RequestPromise<T[]>): Promise<T | undefined> {
-  const response = await toApiResponse<T[]>(promise);
-  return (response.NumResults > 0 && response.Results[0]) || undefined;
+export async function optional<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<ApiResponseOnSuccess<ResourceName>>  {
+  const response = await toApiResponse<ResourceName>(promise);
+
+  return {
+    Success: response.Success,
+    Results: response.Results,
+    NumResults: response.NumResults,
+    Affected: response.Affected ?? {},
+    Deleted: response.Deleted ?? {},
+  };
 }
 
-export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
-  const response = await toApiResponse<T[]>(promise);
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return response.Results ?? [];
+export async function list<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<ApiResponseOnSuccess<ResourceName>> {
+  const response = await toApiResponse<ResourceName>(promise);
+
+  return {
+    Success: response.Success,
+    Results: response.Results,
+    NumResults: response.NumResults,
+    Affected: response.Affected ?? {},
+    Deleted: response.Deleted ?? {},
+  };
 }
 
 export async function toResourceResponse<T>(promise: RequestPromise<T[]>): Promise<ResourceResponse<T>> {

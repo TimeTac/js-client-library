@@ -1,5 +1,6 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { ApiResponse } from '../utils/response/apiResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
@@ -13,11 +14,13 @@ import {
   ToggleTimeTrackingData,
 } from './types';
 
-export class TimeTrackingsEndpoint extends BaseApi {
-  public readonly resourceName = 'timeTrackings';
+const resourceName = 'timeTrackings';
 
-  public read(params?: RequestParams<TimeTracking>): Promise<TimeTracking[]> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, { params });
+export class TimeTrackingsEndpoint extends BaseApi<typeof resourceName>{
+  public readonly resourceName = resourceName;
+
+  public read(params?: RequestParams<TimeTracking>): Promise<ApiResponse<typeof resourceName>> {
+    const response = this._get<typeof resourceName>('read', { params });
     return responseHandlers.list(response);
   }
 

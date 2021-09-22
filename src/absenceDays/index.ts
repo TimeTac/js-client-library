@@ -1,18 +1,21 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { ApiResponse } from '../utils/response/apiResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { AbsenceDay } from './types';
 
-export class AbsenceDaysEndpoint extends BaseApi {
-  public readonly resourceName = 'absenceDays';
+const resourceName = 'absenceDays';
 
-  public read(params?: RequestParams<AbsenceDay>): Promise<AbsenceDay[]> {
-    const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
+export class AbsenceDaysEndpoint extends BaseApi<typeof resourceName> {
+  public readonly resourceName = resourceName;
+
+  public read(params?: RequestParams<AbsenceDay>): Promise<ApiResponse<typeof resourceName>> {
+    const response = this._get<typeof resourceName>('read', { params });
+    return responseHandlers.list<typeof resourceName>(response);
   }
 
   public readById(id: number, params?: RequestParams<AbsenceDay>): Promise<AbsenceDay> {
-    const response = this._get<AbsenceDay[]>(`${this.getResourceName()}/read/${id}`, { params });
+    const response = this._get<typeof resourceName>(`read`, { params });
     return responseHandlers.required(response);
   }
 }

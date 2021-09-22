@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
-import { ApiResponse } from './utils/response/apiResponse';
+import { ApiResponse, Resource, ResourceNames } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'go.timetac.com';
@@ -34,8 +34,8 @@ export type ApiConfig = {
   timeout?: number;
 };
 
-export default abstract class BaseApi {
-  public abstract readonly resourceName: string;
+export default abstract class BaseApi<ResourceName extends ResourceNames> {
+  public abstract readonly resourceName: ResourceName;
 
   constructor(public config: ConfigProvider) {}
 
@@ -48,11 +48,12 @@ export default abstract class BaseApi {
       ...options,
     };
   }
-
-  protected _get<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  //Promise<AxiosResponse<ApiResponse<ResourceName, Resources[ResourceName][]>>>
+  //Promise<AxiosResponse<ApiResponse<T, Resources[T][]>>>
+  protected _get<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.get<ApiResponse<T>>(url, config);
+    return axios.get<ApiResponse<ResourceName>>(url, config);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -78,7 +79,12 @@ export default abstract class BaseApi {
     return axios.delete<ApiResponse<T>>(url, config);
   }
 
+  protected getBaseEndpointUrl(): string {
+    return `${this.getApiPath()}${this.getResourceName()}/`;
+  }
+
   protected getApiPath(): string {
+
     return `${this.getAccountUrl()}userapi/v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
   }
 
@@ -94,7 +100,7 @@ export default abstract class BaseApi {
     this.config.settings.account = account;
   }
 
-  public getResourceName(): string {
+  public getResourceName(): ResourceName {
     return this.resourceName;
   }
 
