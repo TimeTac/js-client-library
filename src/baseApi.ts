@@ -2,10 +2,10 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
-import { ApiResponse, Resource, ResourceNames } from './utils/response/apiResponse';
+import { ApiResponse, ResourceNames } from './utils/response/apiResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
 
-const DEFAULT_HOST = 'go.timetac.com';
+const DEFAULT_HOST = 'gox.timetac.com';
 const DEFAULT_API_VERSION = 3;
 
 export type Tokens = {
@@ -57,26 +57,26 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  protected _post<ResourceName extends ResourceNames>(slug: string, data?: object, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.post<ApiResponse<T>>(url, data, config);
+    return axios.post<ApiResponse<ResourceName>>(url, data, config);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  protected _put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  protected _put<ResourceName extends ResourceNames>(slug: string, data?: object, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.put<ApiResponse<T>>(url, data, config);
+    return axios.put<ApiResponse<ResourceName>>(url, data, config);
   }
 
-  protected _delete<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  protected _delete<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     //Delete requests send no content
     // eslint-disable-next-line
     config.headers['Content-type'] = '';
-    return axios.delete<ApiResponse<T>>(url, config);
+    return axios.delete<ApiResponse<ResourceName>>(url, config);
   }
 
   protected getBaseEndpointUrl(): string {

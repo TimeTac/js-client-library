@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
-import { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess, ResourceNames } from './apiResponse';
+import { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess, LibraryReturn, ResourceNames, Resources } from './apiResponse';
 import { createRawApiResponse } from './rawApiResponse';
 import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
@@ -53,37 +53,48 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
 /**
  * @return A promise that resolves to T or rejects if no results
  */
-export async function required<ResourceName extends ResourceNames>(promise: RequestPromise<T[]>): Promise<T> {
+export async function required<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<LibraryReturn<Resources[ResourceName][]>>  {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
-    return response.Results[0];
+    return {
+      Results: response.Results,
+      Affected: response.Affected ?? {},
+      Deleted: response.Deleted ?? {},
+    };
   } else {
     throw new Error('There are no results.');
   }
 }
 
-export async function requiredSingle<ResourceName extends ResourceNames>(promise: RequestPromise<T>): Promise<T> {
-  const response = await toApiResponse<T>(promise);
+export async function requiredSingle<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<LibraryReturn<Resources[ResourceName]>>  {
+  const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
-    return response.Results;
+    return {
+      Results: response.Results[0],
+      Affected: response.Affected ?? {},
+      Deleted: response.Deleted ?? {},
+    };
   } else {
     throw new Error('There are no results.');
   }
 }
+
 /**
- * @return A promise that resolves to T or undefined if no results but Success is true.
+ * @return A promise that resolves to Results T or undefined if no results but Success is true.
  */
 export async function optional<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<ApiResponseOnSuccess<ResourceName>>  {
+): Promise<LibraryReturn<Resources[ResourceName] | undefined>>  {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {
-    Success: response.Success,
-    Results: response.Results,
-    NumResults: response.NumResults,
+    Results: response.Results.length ? response.Results[0] : undefined,
     Affected: response.Affected ?? {},
     Deleted: response.Deleted ?? {},
   };
@@ -91,18 +102,12 @@ export async function optional<ResourceName extends ResourceNames>(
 
 export async function list<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<ApiResponseOnSuccess<ResourceName>> {
+): Promise<LibraryReturn<Resources[ResourceName][]>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {
-    Success: response.Success,
     Results: response.Results,
-    NumResults: response.NumResults,
     Affected: response.Affected ?? {},
     Deleted: response.Deleted ?? {},
   };
-}
-
-export async function toResourceResponse<T>(promise: RequestPromise<T[]>): Promise<ResourceResponse<T>> {
-  return createResourceResponse(await createRawApiResponse(promise));
 }

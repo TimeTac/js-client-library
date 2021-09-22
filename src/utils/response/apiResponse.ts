@@ -97,8 +97,8 @@ export type BaseApiResponse<ResourceName extends ResourceNames> = {
 export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
   (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
 
-export type LibraryReturn<ResourceName extends ResourceNames> = {
-  Results: Resources[ResourceName][];
+export type LibraryReturn<Results> = {
+  Results: Results;
   Deleted: DeletedAffected;
   Affected: DeletedAffected;
 }

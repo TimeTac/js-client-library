@@ -72,7 +72,7 @@ export { DeletedEntry, ResourceResponse } from './utils/response/resourceRespons
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 
-const DEFAULT_HOST = 'go.timetac.com';
+const DEFAULT_HOST = 'gox.timetac.com';
 
 export default class Api {
   public config: ConfigProvider;
