@@ -132,7 +132,6 @@ describe('Users', () => {
   const users: UsersEndpoint = new UsersEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${users.getResourcePath()}/read`;
   const createPath = `${users.getResourcePath()}/create`;
-  const updatePath = `${users.getResourcePath()}/update`;
 
   const mock = new AxiosMockAdapter(axios);
 

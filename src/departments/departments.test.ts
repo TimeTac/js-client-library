@@ -3,9 +3,9 @@ import axios from 'axios';
 
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
+import { LibraryReturn } from '../utils/response/apiResponse';
 import { Department } from './types';
 import { DepartmentsEndpoint } from './';
-import { LibraryReturn } from '../utils/response/apiResponse';
 
 const MockData = {
   departmentsReadResult: [

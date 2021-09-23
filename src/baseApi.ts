@@ -67,9 +67,9 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return axios.get<DeltaSyncResponse>(url, config);
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
   protected _post<ResourceName extends ResourceNames>(
     slug: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
     options?: AxiosRequestConfig
   ): RequestPromise<ResourceName> {
@@ -78,9 +78,9 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return axios.post<ApiResponse<ResourceName>>(url, data, config);
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
   protected _put<ResourceName extends ResourceNames>(
     slug: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
     options?: AxiosRequestConfig
   ): RequestPromise<ResourceName> {
