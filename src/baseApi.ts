@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
 import { ApiResponse, ResourceNames } from './utils/response/apiResponse';
+import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 import { RequestPromise } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'gox.timetac.com';
@@ -54,6 +55,12 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     return axios.get<ApiResponse<ResourceName>>(url, config);
+  }
+
+  protected _getDeltaSync(slug: string, options: AxiosRequestConfig): Promise<AxiosResponse<DeltaSyncResponse>> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
+    const config = this.getOptions(options);
+    return axios.get<DeltaSyncResponse>(url, config);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types

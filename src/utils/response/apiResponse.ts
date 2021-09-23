@@ -12,6 +12,7 @@ import { Absence } from '../../absences/types';
 import { AbsenceDay } from '../../absenceDays/types';
 import { TimesheetAccountingSummaries } from '../../timesheetAccountingSummaries/types';
 import { ServerCommunication } from '../../serverCommunication/types';
+import { Feedback } from '../../feedback/types';
 
 export type Resources = {
   // absenceBans: AbsenceBan;
@@ -59,20 +60,23 @@ export type Resources = {
   // translations: Translation;
   users: User;
   userStatusOverview: UserStatusOverview;
+  feedback: Feedback;
 };
 
 export type ResourceNames = keyof Resources & string;
 export type Entity<R extends ResourceNames> = Resources[R];
 
-type DeletedAffected = { [resourceName in ResourceNames]?: Resources[resourceName][] };
+type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
 export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
   Success: true;
   NumResults: number;
   Results: Results;
-  Deleted?: DeletedAffected;
-  Affected?: DeletedAffected;
+  Deleted?: ListOfAllResources;
+  Affected?: ListOfAllResources;
 };
+
+export type ApiResponseOnSuccessDeltaSync<ResourceName extends ResourceNames> = ApiResponseOnSuccess<ResourceName, ListOfAllResources>;
 
 export type ApiResponseOnFailureServerCommunication = Omit<ApiResponseOnFailure, 'Success'> & {
   Success: true;
@@ -106,6 +110,6 @@ export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<Re
 
 export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
   Results: Results;
-  Deleted: DeletedAffected;
-  Affected: DeletedAffected;
+  Deleted: ListOfAllResources;
+  Affected: ListOfAllResources;
 }

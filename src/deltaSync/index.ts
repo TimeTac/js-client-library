@@ -3,12 +3,14 @@ import { DeltaSyncParams } from '../utils/params/deltaSyncParams';
 import { createDeltaSyncResponse, DeltaSyncResponse } from '../utils/response/deltaSyncResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 
-export class DeltaSyncEndpoint extends BaseApi {
-  public readonly resourceName = 'deltaSync';
+const resourceName = 'deltaSync'
+
+export class DeltaSyncEndpoint extends BaseApi<typeof resourceName> {
+  public readonly resourceName = resourceName;
 
   async read(requestParams: DeltaSyncParams): Promise<DeltaSyncResponse> {
     const params = requestParams.build();
-    const response = this._get<unknown>(`${this.getResourceName()}/read`, { params });
+    const response = this._getDeltaSync('read', { params });
     return createDeltaSyncResponse(await createRawApiResponse(response));
   }
 }

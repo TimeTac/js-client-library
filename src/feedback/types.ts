@@ -1,7 +1,3 @@
-export type FeedbackCreate = {
-  message: string;
-};
-
-export type FeedbackResponse = {
+export type Feedback = {
   message: string;
 };
