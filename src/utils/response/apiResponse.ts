@@ -11,6 +11,7 @@ import { AbsenceType } from '../../absenceTypes/types';
 import { Absence } from '../../absences/types';
 import { AbsenceDay } from '../../absenceDays/types';
 import { TimesheetAccountingSummaries } from '../../timesheetAccountingSummaries/types';
+import { ServerCommunication } from '../../serverCommunication/types';
 
 export type Resources = {
   // absenceBans: AbsenceBan;
@@ -48,6 +49,7 @@ export type Resources = {
   // surveys: Survey;
   tasks: Task;
   teams: Team;
+  serverCommunication: ServerCommunication;
   // timePlannings: TimePlanning;
   timesheetAccountings: TimesheetAccounting;
   timesheetAccountingSummaries: TimesheetAccountingSummaries;
@@ -64,13 +66,18 @@ export type Entity<R extends ResourceNames> = Resources[R];
 
 type DeletedAffected = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
-export type ApiResponseOnSuccess<ResourceName extends ResourceNames> = {
+export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
   Success: true;
   NumResults: number;
-  Results: Resources[ResourceName][];
+  Results: Results;
   Deleted?: DeletedAffected;
   Affected?: DeletedAffected;
 };
+
+export type ApiResponseOnFailureServerCommunication = Omit<ApiResponseOnFailure, 'Success'> & {
+  Success: true;
+  Results: null;
+}
 
 export type ApiResponseOnFailure = {
   Success: false;
@@ -97,7 +104,7 @@ export type BaseApiResponse<ResourceName extends ResourceNames> = {
 export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
   (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
 
-export type LibraryReturn<Results> = {
+export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
   Results: Results;
   Deleted: DeletedAffected;
   Affected: DeletedAffected;

@@ -1,8 +1,9 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import { ServerCommunication } from '../../serverCommunication/types';
 
-import { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess, LibraryReturn, ResourceNames, Resources } from './apiResponse';
-import { createRawApiResponse } from './rawApiResponse';
-import { createResourceResponse, ResourceResponse } from './resourceResponse';
+import { ApiResponse, ApiResponseOnFailure, ApiResponseOnFailureServerCommunication, ApiResponseOnSuccess, LibraryReturn, ResourceNames, Resources } from './apiResponse';
+// import { createRawApiResponse } from './rawApiResponse';
+// import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> =
   Promise<AxiosResponse<ApiResponse<ResourceName>>>;
@@ -10,7 +11,6 @@ export type RequestPromise<ResourceName extends ResourceNames> =
 export async function toApiResponse<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
 ): Promise<ApiResponseOnSuccess<ResourceName>> {
-  // let resolved: AxiosResponse<ApiResponse<T>> | undefined;
   let resolved: AxiosResponse<ApiResponse<ResourceName>> | undefined;
 
   try {
@@ -30,12 +30,12 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
     }
   }
 
-  const apiResponse: ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure = resolved.data;
-
+  const apiResponse: ApiResponseOnFailureServerCommunication | ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure | ApiResponseOnSuccess<ResourceName, ServerCommunication>= resolved.data;
   // Workaround for serverCommunication endpoint returning Success: true despite an error
-  // if (apiResponse.Success && apiResponse.Results == null) {
-  //   (apiResponse as ApiResponse<T>).Success = false;
-  // }
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (apiResponse.Success && apiResponse.Results == null) {
+    (apiResponse as ApiResponseOnFailure).Success = false;
+  }
 
   if (apiResponse.Success) {
     return apiResponse;
@@ -51,11 +51,11 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
 }
 
 /**
- * @return A promise that resolves to T or rejects if no results
+ * @return A promise that resolves to Type or rejects if no results
  */
 export async function required<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<Resources[ResourceName][]>>  {
+): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>>  {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
@@ -71,7 +71,7 @@ export async function required<ResourceName extends ResourceNames>(
 
 export async function requiredSingle<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<Resources[ResourceName]>>  {
+): Promise<LibraryReturn<ResourceName>>  {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
@@ -85,16 +85,32 @@ export async function requiredSingle<ResourceName extends ResourceNames>(
   }
 }
 
+export async function serverCommunication<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<LibraryReturn<ResourceName, ServerCommunication>>  {
+  const response = await toApiResponse<ResourceName>(promise) as unknown as ApiResponseOnSuccess<ResourceName, ServerCommunication>;
+
+  if (response.Results.host) {
+    return {
+      Results: response.Results,
+      Affected: response.Affected ?? {},
+      Deleted: response.Deleted ?? {},
+    };
+  } else {
+    throw new Error('There are no results.');
+  }
+}
+
 /**
  * @return A promise that resolves to Results T or undefined if no results but Success is true.
  */
 export async function optional<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<Resources[ResourceName] | undefined>>  {
+): Promise<LibraryReturn<ResourceName, never[] | Resources[ResourceName]>>  {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {
-    Results: response.Results.length ? response.Results[0] : undefined,
+    Results: response.Results.length ? response.Results[0] : [],
     Affected: response.Affected ?? {},
     Deleted: response.Deleted ?? {},
   };
@@ -102,7 +118,7 @@ export async function optional<ResourceName extends ResourceNames>(
 
 export async function list<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<Resources[ResourceName][]>> {
+): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {

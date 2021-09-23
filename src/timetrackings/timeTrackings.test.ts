@@ -177,7 +177,7 @@ describe('TimeTrackings', () => {
 
     await timeTrackings.readById(1).then((result) => {
       expect(result).toStrictEqual({
-        Results: undefined,
+        Results: [],
         Affected: {},
         Deleted: {},
       });
