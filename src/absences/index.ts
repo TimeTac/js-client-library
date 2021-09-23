@@ -1,55 +1,40 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
-import * as responseHandlers from '../utils/response/responseHandlers';
-import { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
+import { Resources } from '../utils/response/apiResponse';
+import { required, Required } from '../utils/response/responseHandlers';
+import { AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
-export class AbsencesEndpoint extends BaseApi {
-  public readonly resourceName = 'absences';
+const resourceName = 'absences';
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  public read(params?: RequestParams<Absence> | Object): Promise<Absence[]> {
-    const response = this._get<Absence[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
+export class AbsencesEndpoint extends BaseApi<typeof resourceName> {
+  public readonly resourceName = resourceName;
+
+  public create(data: AbsenceCreate): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._post<typeof resourceName>('create', data);
+    return required(response);
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  public readById(id: number, params?: RequestParams<Absence> | Object): Promise<Absence> {
-    const response = this._get<Absence[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
+  public validate(data: AbsenceCreate): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._post<typeof resourceName>('validate', data);
+    return required(response);
   }
 
-  public create(data: AbsenceCreate): Promise<Absence> {
-    const response = this._post<Absence[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
+  public update(data: AbsenceUpdate): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<typeof resourceName>('update', data);
+    return required(response);
   }
 
-  public validate(data: AbsenceCreate): Promise<Absence> {
-    const response = this._post<Absence[]>(`${this.getResourceName()}/validate`, data);
-    return responseHandlers.required(response);
+  public approve(data: AbsenceApprove): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<typeof resourceName>('approve', data);
+    return required(response);
   }
 
-  public update(data: AbsenceUpdate): Promise<Absence> {
-    const response = this._put<Absence[]>(`${this.getResourceName()}/update`, data);
-    return responseHandlers.required(response);
+  public reject(data: AbsenceReject): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<typeof resourceName>('reject', data);
+    return required(response);
   }
 
-  public approve(data: AbsenceApprove): Promise<Absence> {
-    const response = this._put<Absence[]>(`${this.getResourceName()}/approve`, data);
-    return responseHandlers.required(response);
-  }
-
-  public reject(data: AbsenceReject): Promise<Absence> {
-    const response = this._put<Absence[]>(`${this.getResourceName()}/reject`, data);
-    return responseHandlers.required(response);
-  }
-
-  public cancel(id: number): Promise<Absence> {
-    const response = this._put<Absence[]>(`${this.getResourceName()}/cancel`, { id });
-    return responseHandlers.required(response);
-  }
-
-  public delete(id: number): Promise<Absence> {
-    const response = this._delete<Absence[]>(`${this.getResourceName()}/delete/${id}`);
-    return responseHandlers.required(response);
+  public cancel(id: number): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<typeof resourceName>('cancel', { id });
+    return required(response);
   }
 }

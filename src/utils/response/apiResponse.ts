@@ -13,6 +13,17 @@ import { AbsenceDay } from '../../absenceDays/types';
 import { TimesheetAccountingSummaries } from '../../timesheetAccountingSummaries/types';
 import { ServerCommunication } from '../../serverCommunication/types';
 import { Feedback } from '../../feedback/types';
+import { ChangeTimeTrackingRequest } from '../../changeTimeTrackingRequests/types';
+import { TodoTask } from '../../todoTasks/types';
+import { FavouriteTask } from '../../favouriteTasks/types';
+import { RecentTask } from '../../recentTasks/types';
+import { TeamMember } from '../../teamMembers/types';
+import { TimePlanning } from '../../timeplannings/types';
+import { Translation } from '../../translations/types';
+import { UserDefinedFieldDefinitions } from '../../userDefinedFieldDefinitions/types';
+import { UserDefinedFieldDefinitionOptions } from '../../userDefinedFieldDefinitionOptions/types';
+import { Message } from '../../messages/types';
+import { Timezone } from '../../timezones/types';
 
 export type Resources = {
   // absenceBans: AbsenceBan;
@@ -20,16 +31,18 @@ export type Resources = {
   // absenceReplacements: AbsenceReplacement;
   absences: Absence;
   absenceTypes: AbsenceType;
-  // changeTimeTrackingRequests: ChangeTimeTrackingRequest;
+  changeTimeTrackingRequests: ChangeTimeTrackingRequest;
   // checkpoints: Checkpoint;
   // checkpointTrackings: CheckpointTracking;
   // checkpointTranslations: CheckpointTranslation;
   // clients: Client;
-  department: Department;
+  teamMembers: TeamMember;
+  departments: Department;
   deltaSync: undefined;
   generalSettings: GeneralSetting;
+  todoTasks: TodoTask;
   // holidayRequests: HolidayRequest;
-  // messages: Message;
+  messages: Message;
   // multiuserToTasks: MultiuserToTask;
   // nfcTransponder: NfcTransponder;
   // nodesToUsers: NodesToUser;
@@ -43,7 +56,9 @@ export type Resources = {
   // permissionResolveTeams: PermissionResolveTeam;
   // permissionResolveUsers: PermissionResolveUser;
   // permissions: Permission;
+  recentTasks: RecentTask;
   projects: Project;
+  timezones: Timezone;
   // serverEvents: ServerEvent;
   // serverTime: ServerTime;
   // skills: Skill;
@@ -51,16 +66,21 @@ export type Resources = {
   tasks: Task;
   teams: Team;
   serverCommunication: ServerCommunication;
-  // timePlannings: TimePlanning;
+  timePlannings: TimePlanning;
   timesheetAccountings: TimesheetAccounting;
   timesheetAccountingSummaries: TimesheetAccountingSummaries;
   // timesheetActionLogs: TimesheetActionLog;
   // timetrackingChangelogs: TimetrackingChangelog;
+  userStatusOverviews: UserStatusOverview;
   timeTrackings: TimeTracking;
-  // translations: Translation;
+  translations: Translation;
+  favouriteTasks: FavouriteTask;
   users: User;
   userStatusOverview: UserStatusOverview;
   feedback: Feedback;
+  userDefinedFieldDefinitions: UserDefinedFieldDefinitions;
+  userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
+  _EMPTY: null
 };
 
 export type ResourceNames = keyof Resources & string;

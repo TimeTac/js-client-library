@@ -1,17 +1,8 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
-import * as responseHandlers from '../utils/response/responseHandlers';
-import { TimesheetAccounting } from './types';
 
-export class TimesheetAccountingsEndpoint extends BaseApi {
-  public readonly resourceName = 'timesheetAccountings';
+const resourceName = 'timesheetAccountings';
+type ResourceName = typeof resourceName;
 
-  public read(params?: RequestParams<TimesheetAccounting>): Promise<TimesheetAccounting[]> {
-    const response = this._get<TimesheetAccounting[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
-  }
-  public readById(id: number, params?: RequestParams<TimesheetAccounting>): Promise<TimesheetAccounting> {
-    const response = this._get<TimesheetAccounting[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
-  }
+export class TimesheetAccountingsEndpoint extends BaseApi<ResourceName> {
+  public readonly resourceName = resourceName;
 }

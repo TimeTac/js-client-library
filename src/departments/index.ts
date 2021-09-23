@@ -1,31 +1,15 @@
 import BaseApi from '../baseApi';
-import { RequestParams } from '../utils/params/requestParams';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
-import { createResourceResponse } from '../utils/response/resourceResponse';
-import * as responseHandlers from '../utils/response/responseHandlers';
-import { Department, DepartmentCreate } from './types';
+import { Required, requiredSingle } from '../utils/response/responseHandlers';
+import { DepartmentCreate } from './types';
 
-export class DepartmentsEndpoint extends BaseApi {
-  public readonly resourceName = 'departments';
+const resourceName = 'departments';
+type ResourceName = typeof resourceName;
 
-  public read(params?: RequestParams<Department>): Promise<Department[]> {
-    const response = this._get<Department[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
-  }
+export class DepartmentsEndpoint extends BaseApi<ResourceName> {
+  public readonly resourceName = resourceName;
 
-  public async readRaw(params: RequestParams<Department>): Promise<ReadRawResponse<Department>> {
-    const response = this._get<Department[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<Department>(createResourceResponse(await createRawApiResponse(response)), params);
-  }
-
-  public readById(id: number, params?: RequestParams<Department>): Promise<Department> {
-    const response = this._get<Department[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
-  }
-
-  public create(data: DepartmentCreate): Promise<Department> {
-    const response = this._post<Department[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
+  public create(data: DepartmentCreate): Required<ResourceName>{
+    const response = this._post<ResourceName>('create', data);
+    return requiredSingle(response);
   }
 }

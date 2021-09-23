@@ -32,7 +32,7 @@ describe('ServerCommunication', () => {
       },
     });
 
-    const result: Promise<LibraryReturn<'serverCommunication'>> = serverCommunication.read(account);
+    const result: Promise<LibraryReturn<'serverCommunication'>> = serverCommunication.readServerCommunication(account);
     await result.then((result) => {
       expect(result).toStrictEqual({
         Results: {

@@ -2,9 +2,13 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
-import { ApiResponse, ResourceNames } from './utils/response/apiResponse';
+import { RequestParams } from './utils/params/requestParams';
+import { ApiResponse, LibraryReturn, ResourceNames, Resources } from './utils/response/apiResponse';
 import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
-import { RequestPromise } from './utils/response/responseHandlers';
+import { createRawApiResponse } from './utils/response/rawApiResponse';
+import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
+import { createResourceResponse } from './utils/response/resourceResponse';
+import { RequestPromise, optional, list, required } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'gox.timetac.com';
 const DEFAULT_API_VERSION = 3;
@@ -113,5 +117,25 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   public getResourcePath(): string {
     return `${this.getApiPath()}${this.getResourceName()}`;
+  }
+
+  public readById(id: number, params?: RequestParams<Resources[ResourceName]>): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | never[]>> {
+    const response = this._get<ResourceName>(`read/${id}`, { params });
+    return optional(response);
+  }
+
+  public read(params?: RequestParams<Resources[ResourceName]> | string): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+    const response = this._get<ResourceName>('read', { params });
+    return list(response);
+  }
+
+  public delete(id: number): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+    const response = this._delete<ResourceName>(`delete/${id}`);
+    return required(response);
+  }
+
+  public async readRaw(params: RequestParams<Resources[ResourceName]>): Promise<ReadRawResponse<Resources[ResourceName]>> {
+    const response = this._get<ResourceName>('read', { params });
+    return createReadRawResponse<Resources[ResourceName]>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 }

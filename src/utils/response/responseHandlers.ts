@@ -2,11 +2,11 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ServerCommunication } from '../../serverCommunication/types';
 
 import { ApiResponse, ApiResponseOnFailure, ApiResponseOnFailureServerCommunication, ApiResponseOnSuccess, LibraryReturn, ResourceNames, Resources } from './apiResponse';
-// import { createRawApiResponse } from './rawApiResponse';
-// import { createResourceResponse, ResourceResponse } from './resourceResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> =
   Promise<AxiosResponse<ApiResponse<ResourceName>>>;
+
+export type Required<ResourceName extends ResourceNames, Resource = Resources[ResourceName]> = Promise<LibraryReturn<ResourceName, Resource>>;
 
 export async function toApiResponse<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
@@ -55,7 +55,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
  */
 export async function required<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>>  {
+): Required<ResourceName, Resources[ResourceName][]>  {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
