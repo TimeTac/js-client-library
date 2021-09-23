@@ -4,6 +4,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
 import { UpdateRawResponse } from '../utils/response/updateRawResponse';
+import { LibraryReturn } from '../utils/response/apiResponse';
 import { UserRead, UserUpdate, UserCreate } from './types';
 import { UsersEndpoint } from './';
 
@@ -144,8 +145,12 @@ describe('Users', () => {
 
     expect.assertions(1);
 
-    await users.read().then((results: UserRead[]) => {
-      expect(results).toStrictEqual(MockData.userReadResult);
+    await users.read().then((results: LibraryReturn<"users", UserRead[]>) => {
+      expect(results).toStrictEqual({
+        Results: MockData.userReadResult,
+        Affected: {},
+        Deleted: {}
+      });
     });
   });
 
@@ -154,21 +159,12 @@ describe('Users', () => {
 
     expect.assertions(1);
 
-    await users.create(MockData.userCreateData).then((results: UserRead) => {
-      expect(results).toStrictEqual(MockData.userReadResult[0]);
-    });
-  });
-
-  test('update causing an error', async () => {
-    mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: MockData.userRawResponseUpdateData });
-
-    expect.assertions(3);
-
-    await users.update(MockData.userUpdateData).catch((err: Error) => {
-      const errUnwrapped = err as unknown as { response: { Success: boolean }; _plainError: { status: number }; message: string };
-      expect(errUnwrapped.response).toBeTruthy();
-      expect(errUnwrapped._plainError).toBeTruthy();
-      expect(errUnwrapped.message).toBe('Unsuccessful response');
+    await users.create(MockData.userCreateData).then((results: LibraryReturn<"users", UserRead>) => {
+      expect(results).toStrictEqual({
+        Results: MockData.userReadResult[0],
+        Affected: {},
+        Deleted: {}
+      });
     });
   });
 });

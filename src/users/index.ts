@@ -18,9 +18,9 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return required(response);
   }
 
-  public create(data: UserCreate): Required<ResourceName, Resources[ResourceName][]> {
+  public create(data: UserCreate): Required<ResourceName> {
     const response = this._post<ResourceName>('create', data);
-    return required(response);
+    return requiredSingle(response);
   }
 
   public async update(data: UserUpdate): Promise<UpdateRawResponse<UserRead>> {

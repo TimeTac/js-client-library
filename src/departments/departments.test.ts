@@ -81,7 +81,11 @@ describe('Departments', () => {
     expect.assertions(1);
 
     await departments.create(MockData.departmentCreateData).then((results: LibraryReturn<"departments">) => {
-      expect(results).toStrictEqual(MockData.departmentsReadResult[0]);
+      expect(results).toStrictEqual({
+        Results: MockData.departmentsReadResult[0],
+        Affected: {},
+        Deleted: {}
+      });
     });
   });
 });
