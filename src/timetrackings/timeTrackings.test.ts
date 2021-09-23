@@ -48,7 +48,7 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.read().then((result) => {
-      expect(result).toStrictEqual({"Affected": {}, "Deleted": {}, "Results": [{}]});
+      expect(result).toStrictEqual({ Affected: {}, Deleted: {}, Results: [{}] });
     });
   });
 
@@ -58,7 +58,7 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.read(new RequestParamsBuilder<TimeTracking>().eq('id', 99).build()).then((result) => {
-      expect(result).toStrictEqual({"Affected": {}, "Deleted": {}, "Results": [{}]});
+      expect(result).toStrictEqual({ Affected: {}, Deleted: {}, Results: [{}] });
     });
   });
 

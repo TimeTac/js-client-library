@@ -41,7 +41,7 @@ describe('ServerCommunication', () => {
           force_sso: true,
         },
         Affected: {},
-        Deleted: {}
+        Deleted: {},
       });
     });
   });

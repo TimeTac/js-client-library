@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { Resources } from '../utils/response/apiResponse';
-import { required, Required} from '../utils/response/responseHandlers';
+import { required, Required } from '../utils/response/responseHandlers';
 import { FavouriteTaskCreate } from './types';
 
 const resourceName = 'favouriteTasks';

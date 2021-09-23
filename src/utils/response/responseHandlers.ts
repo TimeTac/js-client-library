@@ -1,12 +1,21 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { ServerCommunication } from '../../serverCommunication/types';
 
-import { ApiResponse, ApiResponseOnFailure, ApiResponseOnFailureServerCommunication, ApiResponseOnSuccess, LibraryReturn, ResourceNames, Resources } from './apiResponse';
+import {
+  ApiResponse,
+  ApiResponseOnFailure,
+  ApiResponseOnFailureServerCommunication,
+  ApiResponseOnSuccess,
+  LibraryReturn,
+  ResourceNames,
+  Resources,
+} from './apiResponse';
 
-export type RequestPromise<ResourceName extends ResourceNames> =
-  Promise<AxiosResponse<ApiResponse<ResourceName>>>;
+export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
-export type Required<ResourceName extends ResourceNames, Resource = Resources[ResourceName]> = Promise<LibraryReturn<ResourceName, Resource>>;
+export type Required<ResourceName extends ResourceNames, Resource = Resources[ResourceName]> = Promise<
+  LibraryReturn<ResourceName, Resource>
+>;
 
 export async function toApiResponse<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
@@ -30,7 +39,11 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
     }
   }
 
-  const apiResponse: ApiResponseOnFailureServerCommunication | ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure | ApiResponseOnSuccess<ResourceName, ServerCommunication>= resolved.data;
+  const apiResponse:
+    | ApiResponseOnFailureServerCommunication
+    | ApiResponseOnSuccess<ResourceName>
+    | ApiResponseOnFailure
+    | ApiResponseOnSuccess<ResourceName, ServerCommunication> = resolved.data;
   // Workaround for serverCommunication endpoint returning Success: true despite an error
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (apiResponse.Success && apiResponse.Results == null) {
@@ -55,7 +68,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
  */
 export async function required<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Required<ResourceName, Resources[ResourceName][]>  {
+): Required<ResourceName, Resources[ResourceName][]> {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
@@ -71,7 +84,7 @@ export async function required<ResourceName extends ResourceNames>(
 
 export async function requiredSingle<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName>>  {
+): Promise<LibraryReturn<ResourceName>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
@@ -87,8 +100,8 @@ export async function requiredSingle<ResourceName extends ResourceNames>(
 
 export async function serverCommunication<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName, ServerCommunication>>  {
-  const response = await toApiResponse<ResourceName>(promise) as unknown as ApiResponseOnSuccess<ResourceName, ServerCommunication>;
+): Promise<LibraryReturn<ResourceName, ServerCommunication>> {
+  const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, ServerCommunication>;
 
   if (response.Results.host) {
     return {
@@ -106,7 +119,7 @@ export async function serverCommunication<ResourceName extends ResourceNames>(
  */
 export async function optional<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName, never[] | Resources[ResourceName]>>  {
+): Promise<LibraryReturn<ResourceName, never[] | Resources[ResourceName]>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {

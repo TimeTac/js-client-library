@@ -66,11 +66,11 @@ describe('Departments', () => {
 
     expect.assertions(1);
 
-    await departments.read().then((results: LibraryReturn<"departments", Department[]>) => {
+    await departments.read().then((results: LibraryReturn<'departments', Department[]>) => {
       expect(results).toStrictEqual({
         Results: MockData.departmentsReadResult,
         Affected: {},
-        Deleted: {}
+        Deleted: {},
       });
     });
   });
@@ -80,11 +80,11 @@ describe('Departments', () => {
 
     expect.assertions(1);
 
-    await departments.create(MockData.departmentCreateData).then((results: LibraryReturn<"departments">) => {
+    await departments.create(MockData.departmentCreateData).then((results: LibraryReturn<'departments'>) => {
       expect(results).toStrictEqual({
         Results: MockData.departmentsReadResult[0],
         Affected: {},
-        Deleted: {}
+        Deleted: {},
       });
     });
   });

@@ -80,7 +80,7 @@ export type Resources = {
   feedback: Feedback;
   userDefinedFieldDefinitions: UserDefinedFieldDefinitions;
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
-  _EMPTY: null
+  _EMPTY: null;
 };
 
 export type ResourceNames = keyof Resources & string;
@@ -101,7 +101,7 @@ export type ApiResponseOnSuccessDeltaSync<ResourceName extends ResourceNames> = 
 export type ApiResponseOnFailureServerCommunication = Omit<ApiResponseOnFailure, 'Success'> & {
   Success: true;
   Results: null;
-}
+};
 
 export type ApiResponseOnFailure = {
   Success: false;
@@ -132,4 +132,4 @@ export type LibraryReturn<ResourceName extends ResourceNames, Results = Resource
   Results: Results;
   Deleted: ListOfAllResources;
   Affected: ListOfAllResources;
-}
+};

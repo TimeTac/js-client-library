@@ -8,7 +8,7 @@ type ResourceName = typeof resourceName;
 export class DepartmentsEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
-  public create(data: DepartmentCreate): Required<ResourceName>{
+  public create(data: DepartmentCreate): Required<ResourceName> {
     const response = this._post<ResourceName>('create', data);
     return requiredSingle(response);
   }

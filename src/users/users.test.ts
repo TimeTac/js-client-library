@@ -145,11 +145,11 @@ describe('Users', () => {
 
     expect.assertions(1);
 
-    await users.read().then((results: LibraryReturn<"users", UserRead[]>) => {
+    await users.read().then((results: LibraryReturn<'users', UserRead[]>) => {
       expect(results).toStrictEqual({
         Results: MockData.userReadResult,
         Affected: {},
-        Deleted: {}
+        Deleted: {},
       });
     });
   });
@@ -159,11 +159,11 @@ describe('Users', () => {
 
     expect.assertions(1);
 
-    await users.create(MockData.userCreateData).then((results: LibraryReturn<"users", UserRead>) => {
+    await users.create(MockData.userCreateData).then((results: LibraryReturn<'users', UserRead>) => {
       expect(results).toStrictEqual({
         Results: MockData.userReadResult[0],
         Affected: {},
-        Deleted: {}
+        Deleted: {},
       });
     });
   });

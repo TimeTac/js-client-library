@@ -17,7 +17,7 @@ import {
 const resourceName = 'timeTrackings';
 type ResourceName = typeof resourceName;
 
-export class TimeTrackingsEndpoint extends BaseApi<ResourceName>{
+export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
   public create(data: TimeTrackingCreate): Required<ResourceName, Resources[ResourceName][]> {

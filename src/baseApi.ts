@@ -68,14 +68,22 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  protected _post<ResourceName extends ResourceNames>(slug: string, data?: object, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+  protected _post<ResourceName extends ResourceNames>(
+    slug: string,
+    data?: object,
+    options?: AxiosRequestConfig
+  ): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     return axios.post<ApiResponse<ResourceName>>(url, data, config);
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-types
-  protected _put<ResourceName extends ResourceNames>(slug: string, data?: object, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+  protected _put<ResourceName extends ResourceNames>(
+    slug: string,
+    data?: object,
+    options?: AxiosRequestConfig
+  ): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     return axios.put<ApiResponse<ResourceName>>(url, data, config);
@@ -95,7 +103,6 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   }
 
   protected getApiPath(): string {
-
     return `${this.getAccountUrl()}userapi/v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
   }
 
@@ -119,7 +126,10 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return `${this.getApiPath()}${this.getResourceName()}`;
   }
 
-  public readById(id: number, params?: RequestParams<Resources[ResourceName]>): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | never[]>> {
+  public readById(
+    id: number,
+    params?: RequestParams<Resources[ResourceName]>
+  ): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | never[]>> {
     const response = this._get<ResourceName>(`read/${id}`, { params });
     return optional(response);
   }

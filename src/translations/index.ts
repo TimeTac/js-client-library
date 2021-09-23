@@ -15,5 +15,4 @@ export class TranslationsEndpoint extends BaseApi<ResourceName> {
     const response = this._get<ResourceName>('read', { params });
     return required(response);
   }
-
 }

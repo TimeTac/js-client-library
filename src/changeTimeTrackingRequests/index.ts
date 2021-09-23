@@ -5,7 +5,7 @@ import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRa
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import { ChangeTimeTrackingRequest } from './types';
 
-const resourceName = 'changeTimeTrackingRequests'
+const resourceName = 'changeTimeTrackingRequests';
 
 export class ChangeTimeTrackingRequestEndpoint extends BaseApi<typeof resourceName> {
   public readonly resourceName = resourceName;
