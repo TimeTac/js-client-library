@@ -3,19 +3,20 @@ import { RequestParams } from '../utils/params/requestParams';
 import { LibraryReturn, Resources } from '../utils/response/apiResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
-import { list, required, Required, requiredSingle } from '../utils/response/responseHandlers';
+import { list, Required, requiredSingle } from '../utils/response/responseHandlers';
 import { createUpdateRawResponse, UpdateRawResponse } from '../utils/response/updateRawResponse';
 import { UserRead, UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe } from './types';
 
 const resourceName = 'users';
+const usersReadMe = 'usersReadMe';
 type ResourceName = typeof resourceName;
 
 export class UsersEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = 'users';
 
-  public readMe(params?: RequestParams<UserReadMe>): Required<ResourceName, Resources[ResourceName][]> {
-    const response = this._get<ResourceName>('me', { params });
-    return required(response);
+  public readMe(params?: RequestParams<UserReadMe>): Required<typeof usersReadMe> {
+    const response = this._get<typeof usersReadMe>('me', { params });
+    return requiredSingle(response);
   }
 
   public create(data: UserCreate): Required<ResourceName> {

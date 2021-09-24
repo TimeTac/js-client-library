@@ -8,7 +8,7 @@ import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 import { createRawApiResponse } from './utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
 import { createResourceResponse } from './utils/response/resourceResponse';
-import { RequestPromise, optional, list, required } from './utils/response/responseHandlers';
+import { RequestPromise, optional, list, required, requiredSingle } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'gox.timetac.com';
 const DEFAULT_API_VERSION = 3;
@@ -139,9 +139,9 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return list(response);
   }
 
-  public delete(id: number): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+  public delete(id: number): Promise<LibraryReturn<ResourceName>> {
     const response = this._delete<ResourceName>(`delete/${id}`);
-    return required(response);
+    return requiredSingle(response);
   }
 
   public async readRaw(params: RequestParams<Resources[ResourceName]>): Promise<ReadRawResponse<Resources[ResourceName]>> {

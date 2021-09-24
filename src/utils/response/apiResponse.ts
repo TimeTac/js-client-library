@@ -1,5 +1,5 @@
 import { UserStatusOverview } from '../../userStatusOverview/types';
-import { User } from '../../users/types';
+import { User, UserReadMe } from '../../users/types';
 import { TimeTracking } from '../../timetrackings/types';
 import { TimesheetAccounting } from '../../timesheetAccountings/types';
 import { Team } from '../../teams/types';
@@ -76,6 +76,7 @@ export type Resources = {
   translations: Translation;
   favouriteTasks: FavouriteTask;
   users: User;
+  usersReadMe: UserReadMe;
   userStatusOverview: UserStatusOverview;
   feedback: Feedback;
   userDefinedFieldDefinitions: UserDefinedFieldDefinitions;

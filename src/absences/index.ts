@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { Resources } from '../utils/response/apiResponse';
-import { required, Required } from '../utils/response/responseHandlers';
+import { required, Required, requiredSingle } from '../utils/response/responseHandlers';
 import { AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './types';
 
 const resourceName = 'absences';
@@ -8,14 +8,14 @@ const resourceName = 'absences';
 export class AbsencesEndpoint extends BaseApi<typeof resourceName> {
   public readonly resourceName = resourceName;
 
-  public create(data: AbsenceCreate): Required<typeof resourceName, Resources[typeof resourceName][]> {
+  public create(data: AbsenceCreate): Required<typeof resourceName> {
     const response = this._post<typeof resourceName>('create', data);
-    return required(response);
+    return requiredSingle(response);
   }
 
-  public validate(data: AbsenceCreate): Required<typeof resourceName, Resources[typeof resourceName][]> {
+  public validate(data: AbsenceCreate): Required<typeof resourceName> {
     const response = this._post<typeof resourceName>('validate', data);
-    return required(response);
+    return requiredSingle(response);
   }
 
   public update(data: AbsenceUpdate): Required<typeof resourceName, Resources[typeof resourceName][]> {

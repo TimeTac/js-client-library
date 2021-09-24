@@ -20,9 +20,9 @@ type ResourceName = typeof resourceName;
 export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
-  public create(data: TimeTrackingCreate): Required<ResourceName, Resources[ResourceName][]> {
+  public create(data: TimeTrackingCreate): Required<ResourceName> {
     const response = this._post<ResourceName>('create', data);
-    return required(response);
+    return requiredSingle(response);
   }
 
   public async readRaw(params: RequestParams<TimeTracking>): Promise<ReadRawResponse<TimeTracking>> {
@@ -35,9 +35,9 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return optional(response);
   }
 
-  public update(data: TimeTrackingUpdate): Required<ResourceName, Resources[ResourceName][]> {
+  public update(data: TimeTrackingUpdate): Required<ResourceName> {
     const response = this._put<ResourceName>('update', data);
-    return required(response);
+    return requiredSingle(response);
   }
 
   public start(data: StartTimeTrackingData): Promise<LibraryReturn<ResourceName>> {
