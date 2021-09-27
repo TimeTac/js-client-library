@@ -30,7 +30,7 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return createReadRawResponse<TimeTracking>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
-  public current(params?: RequestParams<TimeTracking>): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+  public current(params?: RequestParams<TimeTracking>): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
     const response = this._get<ResourceName>('current', { params });
     return optional(response);
   }
@@ -45,7 +45,7 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public stop(data: StopTimeTrackingData): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+  public stop(data: StopTimeTrackingData): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
     const response = this._put<ResourceName>('stop', data);
     return optional(response);
   }

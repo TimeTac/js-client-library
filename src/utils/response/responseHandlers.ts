@@ -119,11 +119,11 @@ export async function serverCommunication<ResourceName extends ResourceNames>(
  */
 export async function optional<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {
-    Results: response.Results,
+    Results: response.Results[0] ?? undefined,
     Affected: response.Affected ?? {},
     Deleted: response.Deleted ?? {},
   };

@@ -171,13 +171,13 @@ describe('TimeTrackings', () => {
   });
 
   test('readById', async () => {
-    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [] });
+    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 0, Results: [] });
 
     expect.assertions(1);
 
     await timeTrackings.readById(1).then((result) => {
       expect(result).toStrictEqual({
-        Results: [],
+        Results: undefined,
         Affected: {},
         Deleted: {},
       });
@@ -367,13 +367,13 @@ describe('TimeTrackings', () => {
   });
 
   test('stop', async () => {
-    mock.onPut(stopPath).reply(200, { Success: true, NumResults: 1, Results: [] });
+    mock.onPut(stopPath).reply(200, { Success: true, NumResults: 0, Results: [] });
 
     expect.assertions(1);
 
     await timeTrackings.stop({ user_id: 1, end_time_timezone: 'foo' }).then((result) => {
       expect(result).toStrictEqual({
-        Results: [],
+        Results: undefined,
         Affected: {},
         Deleted: {},
       });

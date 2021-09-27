@@ -129,7 +129,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   public readById(
     id: number,
     params?: RequestParams<Resources[ResourceName]>
-  ): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+  ): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
     const response = this._get<ResourceName>(`read/${id}`, { params });
     return optional(response);
   }
