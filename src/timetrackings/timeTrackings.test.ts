@@ -191,7 +191,7 @@ describe('TimeTrackings', () => {
 
     await timeTrackings.create({ task_id: 1, user_id: 1 }).then((result) => {
       expect(result).toStrictEqual({
-        Results: [{}],
+        Results: {},
         Affected: {},
         Deleted: {},
       });
@@ -289,7 +289,7 @@ describe('TimeTrackings', () => {
 
     await timeTrackings.update({ id: 1, task_id: 1 }).then((result) => {
       expect(result).toStrictEqual({
-        Results: [{}],
+        Results: {},
         Affected: {},
         Deleted: {},
       });
@@ -297,13 +297,13 @@ describe('TimeTrackings', () => {
   });
 
   test('delete', async () => {
-    mock.onDelete(`${deletePath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onDelete(`${deletePath}/1`).reply(200, { Success: true, NumResults: 1, Results: [] });
 
     expect.assertions(1);
 
     await timeTrackings.delete(1).then((result) => {
       expect(result).toStrictEqual({
-        Results: [{}],
+        Results: undefined,
         Affected: {},
         Deleted: {},
       });
@@ -367,13 +367,13 @@ describe('TimeTrackings', () => {
   });
 
   test('stop', async () => {
-    mock.onPut(stopPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onPut(stopPath).reply(200, { Success: true, NumResults: 1, Results: [] });
 
     expect.assertions(1);
 
     await timeTrackings.stop({ user_id: 1, end_time_timezone: 'foo' }).then((result) => {
       expect(result).toStrictEqual({
-        Results: {},
+        Results: [],
         Affected: {},
         Deleted: {},
       });

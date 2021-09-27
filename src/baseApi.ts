@@ -8,7 +8,7 @@ import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 import { createRawApiResponse } from './utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
 import { createResourceResponse } from './utils/response/resourceResponse';
-import { RequestPromise, optional, list, required, requiredSingle } from './utils/response/responseHandlers';
+import { RequestPromise, optional, list, requiredSingle } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'gox.timetac.com';
 const DEFAULT_API_VERSION = 3;
@@ -129,7 +129,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   public readById(
     id: number,
     params?: RequestParams<Resources[ResourceName]>
-  ): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | never[]>> {
+  ): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
     const response = this._get<ResourceName>(`read/${id}`, { params });
     return optional(response);
   }

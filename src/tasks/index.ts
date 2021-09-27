@@ -1,6 +1,5 @@
 import BaseApi from '../baseApi';
-import { Resources } from '../utils/response/apiResponse';
-import { Required, required, requiredSingle } from '../utils/response/responseHandlers';
+import { Required, requiredSingle } from '../utils/response/responseHandlers';
 import { TaskCreate } from './types';
 
 const resourceName = 'tasks';

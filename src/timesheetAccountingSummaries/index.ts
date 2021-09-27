@@ -10,7 +10,9 @@ type ResourceName = typeof resourceName;
 export class TimesheetAccountingSummariesEndpoint extends BaseApi<'timesheetAccountingSummaries'> {
   public readonly resourceName = 'timesheetAccountingSummaries';
 
-  public readTimesheetAccountingSummaries(params?: RequestParams<TimesheetAccountingSummariesRead> | string): Promise<LibraryReturn<ResourceName>> {
+  public readTimesheetAccountingSummaries(
+    params?: RequestParams<TimesheetAccountingSummariesRead> | string
+  ): Promise<LibraryReturn<ResourceName>> {
     const response = this._get<ResourceName>('read', { params });
     return requiredSingle(response);
   }
