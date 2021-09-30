@@ -48,7 +48,7 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.read().then((result) => {
-      expect(result).toStrictEqual({ Affected: {}, Deleted: {}, Results: [{}] });
+      expect(result).toStrictEqual({ Affected: {}, Deleted: [], Results: [{}] });
     });
   });
 
@@ -58,7 +58,7 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.read(new RequestParamsBuilder<TimeTracking>().eq('id', 99).build()).then((result) => {
-      expect(result).toStrictEqual({ Affected: {}, Deleted: {}, Results: [{}] });
+      expect(result).toStrictEqual({ Affected: {}, Deleted: [], Results: [{}] });
     });
   });
 
@@ -179,7 +179,7 @@ describe('TimeTrackings', () => {
       expect(result).toStrictEqual({
         Results: undefined,
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
@@ -193,7 +193,7 @@ describe('TimeTrackings', () => {
       expect(result).toStrictEqual({
         Results: {},
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
@@ -291,7 +291,7 @@ describe('TimeTrackings', () => {
       expect(result).toStrictEqual({
         Results: {},
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
@@ -305,7 +305,7 @@ describe('TimeTrackings', () => {
       expect(result).toStrictEqual({
         Results: undefined,
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
@@ -320,7 +320,7 @@ describe('TimeTrackings', () => {
     expect(result).toStrictEqual({
       Results: {},
       Affected: {},
-      Deleted: {},
+      Deleted: [],
     });
   });
 
@@ -375,7 +375,7 @@ describe('TimeTrackings', () => {
       expect(result).toStrictEqual({
         Results: undefined,
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
@@ -396,7 +396,7 @@ describe('TimeTrackings', () => {
     expect(result).toEqual({
       Results: { start_time_timezone: timezones['Vienna'] },
       Affected: {},
-      Deleted: {},
+      Deleted: [],
     });
   });
 
@@ -415,7 +415,7 @@ describe('TimeTrackings', () => {
     expect(result).toEqual({
       Results: { end_time_timezone: timezones['Vienna'] },
       Affected: {},
-      Deleted: {},
+      Deleted: [],
     });
   });
 });

@@ -22,7 +22,7 @@ describe('feedbacks', () => {
 
     expect(await request).toStrictEqual({
       Affected: {},
-      Deleted: {},
+      Deleted: [],
       Results: result,
     });
   });

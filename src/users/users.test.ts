@@ -148,7 +148,7 @@ describe('Users', () => {
       expect(results).toStrictEqual({
         Results: MockData.userReadResult,
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
@@ -162,7 +162,7 @@ describe('Users', () => {
       expect(results).toStrictEqual({
         Results: MockData.userReadResult[0],
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });

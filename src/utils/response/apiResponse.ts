@@ -87,13 +87,18 @@ export type Resources = {
 export type ResourceNames = keyof Resources & string;
 export type Entity<R extends ResourceNames> = Resources[R];
 
+type DeletedData = {
+  id: string,
+  deleted_at: string
+}
+
 type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
-export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Entity<ResourceName>[]> = {
+export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
   Success: true;
   NumResults: number;
   Results: Results;
-  Deleted?: ListOfAllResources;
+  Deleted?: DeletedData[];
   Affected?: ListOfAllResources;
 };
 
@@ -129,8 +134,8 @@ export type BaseApiResponse<ResourceName extends ResourceNames> = {
 export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
   (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
 
-export type LibraryReturn<ResourceName extends ResourceNames, Results = Entity<ResourceName>> = {
+export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
   Results: Results;
-  Deleted: ListOfAllResources;
+  Deleted: never[] | DeletedData[];
   Affected: ListOfAllResources;
 };

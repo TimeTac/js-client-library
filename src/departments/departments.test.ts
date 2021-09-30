@@ -70,7 +70,7 @@ describe('Departments', () => {
       expect(results).toStrictEqual({
         Results: MockData.departmentsReadResult,
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
@@ -84,7 +84,7 @@ describe('Departments', () => {
       expect(results).toStrictEqual({
         Results: MockData.departmentsReadResult[0],
         Affected: {},
-        Deleted: {},
+        Deleted: [],
       });
     });
   });
