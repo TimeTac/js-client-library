@@ -88,9 +88,9 @@ export type ResourceNames = keyof Resources & string;
 export type Entity<R extends ResourceNames> = Resources[R];
 
 type DeletedData = {
-  id: string,
-  deleted_at: string
-}
+  id: string;
+  deleted_at: string;
+};
 
 type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
