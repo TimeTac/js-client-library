@@ -41,7 +41,7 @@ export { Department, DepartmentCreate } from './departments/types';
 export * from './enums';
 export { ErrorFormat } from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
-export { Feedback as FeedbackClientLibrary } from './feedback/types';
+export { Feedback } from './feedback/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Message, MessageCreate } from './messages/types';
 export { Project } from './projects/types';
