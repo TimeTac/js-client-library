@@ -3,14 +3,14 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
 import { RequestParams } from './utils/params/requestParams';
-import { ApiResponse, LibraryReturn, ResourceNames, Resources } from './utils/response/apiResponse';
+import { ApiResponse, Entity, LibraryReturn, ResourceNames } from './utils/response/apiResponse';
 import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 import { createRawApiResponse } from './utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
 import { createResourceResponse } from './utils/response/resourceResponse';
 import { RequestPromise, optional, list, requiredSingle } from './utils/response/responseHandlers';
 
-const DEFAULT_HOST = 'gox.timetac.com';
+const DEFAULT_HOST = 'go.timetac.com';
 const DEFAULT_API_VERSION = 3;
 
 export type Tokens = {
@@ -53,8 +53,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
       ...options,
     };
   }
-  //Promise<AxiosResponse<ApiResponse<ResourceName, Resources[ResourceName][]>>>
-  //Promise<AxiosResponse<ApiResponse<T, Resources[T][]>>>
+
   protected _get<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
@@ -128,13 +127,13 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   public readById(
     id: number,
-    params?: RequestParams<Resources[ResourceName]>
-  ): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
+    params?: RequestParams<Entity<ResourceName>>
+  ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
     const response = this._get<ResourceName>(`read/${id}`, { params });
     return optional(response);
   }
 
-  public read(params?: RequestParams<Resources[ResourceName]> | string): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+  public read(params?: RequestParams<Entity<ResourceName>> | string): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
     const response = this._get<ResourceName>('read', { params });
     return list(response);
   }
@@ -144,8 +143,8 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return requiredSingle(response);
   }
 
-  public async readRaw(params: RequestParams<Resources[ResourceName]>): Promise<ReadRawResponse<Resources[ResourceName]>> {
+  public async readRaw(params: RequestParams<Entity<ResourceName>>): Promise<ReadRawResponse<Entity<ResourceName>>> {
     const response = this._get<ResourceName>('read', { params });
-    return createReadRawResponse<Resources[ResourceName]>(createResourceResponse(await createRawApiResponse(response)), params);
+    return createReadRawResponse<Entity<ResourceName>>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 }

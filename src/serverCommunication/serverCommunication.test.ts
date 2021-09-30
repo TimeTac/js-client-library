@@ -2,7 +2,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { ConfigProvider } from '../utils';
-import { LibraryReturn } from '../utils/response/apiResponse';
+import { ServerCommunication } from './types';
 import { ServerCommunicationEndpoint } from './';
 
 describe('ServerCommunication', () => {
@@ -32,7 +32,7 @@ describe('ServerCommunication', () => {
       },
     });
 
-    const result: Promise<LibraryReturn<'serverCommunication'>> = serverCommunication.readServerCommunication(account);
+    const result: Promise<{ Results: ServerCommunication }> = serverCommunication.readServerCommunication(account);
     await result.then((result) => {
       expect(result).toStrictEqual({
         Results: {
@@ -40,8 +40,6 @@ describe('ServerCommunication', () => {
           authentication_type: 'AUTHORIZATION_CODE_GRANT',
           force_sso: true,
         },
-        Affected: {},
-        Deleted: {},
       });
     });
   });

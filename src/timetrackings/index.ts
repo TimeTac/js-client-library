@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { LibraryReturn, Resources } from '../utils/response/apiResponse';
+import { Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -30,7 +30,7 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return createReadRawResponse<TimeTracking>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
-  public current(params?: RequestParams<TimeTracking>): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
+  public current(params?: RequestParams<TimeTracking>): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
     const response = this._get<ResourceName>('current', { params });
     return optional(response);
   }
@@ -45,7 +45,7 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public stop(data: StopTimeTrackingData): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
+  public stop(data: StopTimeTrackingData): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
     const response = this._put<ResourceName>('stop', data);
     return optional(response);
   }

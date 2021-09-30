@@ -89,7 +89,7 @@ export type Entity<R extends ResourceNames> = Resources[R];
 
 type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
-export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
+export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Entity<ResourceName>[]> = {
   Success: true;
   NumResults: number;
   Results: Results;
@@ -129,7 +129,7 @@ export type BaseApiResponse<ResourceName extends ResourceNames> = {
 export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
   (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
 
-export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
+export type LibraryReturn<ResourceName extends ResourceNames, Results = Entity<ResourceName>> = {
   Results: Results;
   Deleted: ListOfAllResources;
   Affected: ListOfAllResources;

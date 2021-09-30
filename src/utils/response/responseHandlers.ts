@@ -6,16 +6,14 @@ import {
   ApiResponseOnFailure,
   ApiResponseOnFailureServerCommunication,
   ApiResponseOnSuccess,
+  Entity,
   LibraryReturn,
   ResourceNames,
-  Resources,
 } from './apiResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
-export type Required<ResourceName extends ResourceNames, Resource = Resources[ResourceName]> = Promise<
-  LibraryReturn<ResourceName, Resource>
->;
+export type Required<ResourceName extends ResourceNames, Resource = Entity<ResourceName>> = Promise<LibraryReturn<ResourceName, Resource>>;
 
 export async function toApiResponse<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
@@ -68,7 +66,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
  */
 export async function required<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Required<ResourceName, Resources[ResourceName][]> {
+): Required<ResourceName, Entity<ResourceName>[]> {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
@@ -100,14 +98,12 @@ export async function requiredSingle<ResourceName extends ResourceNames>(
 
 export async function serverCommunication<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName, ServerCommunication>> {
+): Promise<{ Results: ServerCommunication }> {
   const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, ServerCommunication>;
 
   if (response.Results.host) {
     return {
       Results: response.Results,
-      Affected: response.Affected ?? {},
-      Deleted: response.Deleted ?? {},
     };
   } else {
     throw new Error('There are no results.');
@@ -119,7 +115,7 @@ export async function serverCommunication<ResourceName extends ResourceNames>(
  */
 export async function optional<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName, Resources[ResourceName] | undefined>> {
+): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {
@@ -131,7 +127,7 @@ export async function optional<ResourceName extends ResourceNames>(
 
 export async function list<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   return {

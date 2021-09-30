@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { LibraryReturn, Resources } from '../utils/response/apiResponse';
+import { Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import { list, Required, requiredSingle } from '../utils/response/responseHandlers';
@@ -30,13 +30,13 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
   }
 
   //endpoint returns empty array in Results
-  public resetPassword(data: UserResetPassword): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+  public resetPassword(data: UserResetPassword): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
     const response = this._put<ResourceName>('resetPassword', data);
     return list(response);
   }
 
   //endpoint returns empty array in Results
-  public forgotPassword(data: UserResetPassword): Promise<LibraryReturn<ResourceName, Resources[ResourceName][]>> {
+  public forgotPassword(data: UserResetPassword): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
     const response = this._put<ResourceName>('forgotPassword', data);
     return list(response);
   }
