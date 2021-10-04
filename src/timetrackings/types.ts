@@ -122,6 +122,8 @@ export interface TimeTracking {
   nestedEntities?: {
     [key in TimeTrackingPossibleNestedEntities]: Array<Record<string, unknown>>;
   };
+  start_oauth_client_id?: string;
+  end_oauth_client_id?: string;
 }
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
 export type TimeTrackingRead = Partial<
