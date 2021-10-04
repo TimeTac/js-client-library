@@ -1,12 +1,15 @@
 import BaseApi from '../baseApi';
+import { LibraryReturn } from '../utils/response/apiResponse';
 import * as responseHandlers from '../utils/response/responseHandlers';
-import { FeedbackCreate, FeedbackResponse } from './types';
+import { Feedback } from './types';
 
-export class FeedbackEndpoint extends BaseApi {
-  public readonly resourceName = 'feedback';
+const resourceName = 'feedback';
 
-  public create(data: FeedbackCreate): Promise<FeedbackResponse> {
-    const response = this._post<FeedbackResponse[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
+export class FeedbackEndpoint extends BaseApi<typeof resourceName> {
+  public readonly resourceName = resourceName;
+
+  public create(data: Feedback): Promise<LibraryReturn<typeof resourceName>> {
+    const response = this._post<typeof resourceName>('create', data);
+    return responseHandlers.requiredSingle(response);
   }
 }

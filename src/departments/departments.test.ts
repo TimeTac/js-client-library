@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
+import { LibraryReturn } from '../utils/response/apiResponse';
 import { Department } from './types';
 import { DepartmentsEndpoint } from './';
 
@@ -65,8 +66,12 @@ describe('Departments', () => {
 
     expect.assertions(1);
 
-    await departments.read().then((results: Department[]) => {
-      expect(results).toStrictEqual(MockData.departmentsReadResult);
+    await departments.read().then((results: LibraryReturn<'departments', Department[]>) => {
+      expect(results).toStrictEqual({
+        Results: MockData.departmentsReadResult,
+        Affected: {},
+        Deleted: [],
+      });
     });
   });
 
@@ -75,8 +80,12 @@ describe('Departments', () => {
 
     expect.assertions(1);
 
-    await departments.create(MockData.departmentCreateData).then((results: Department) => {
-      expect(results).toStrictEqual(MockData.departmentsReadResult[0]);
+    await departments.create(MockData.departmentCreateData).then((results: LibraryReturn<'departments'>) => {
+      expect(results).toStrictEqual({
+        Results: MockData.departmentsReadResult[0],
+        Affected: {},
+        Deleted: [],
+      });
     });
   });
 });

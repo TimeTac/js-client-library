@@ -4,8 +4,10 @@ import BaseApi from '../baseApi';
 import { objectCheck } from '../utils';
 import { Credentials, TokenResponse } from './types';
 
-export class AuthenticationEndpoint extends BaseApi {
-  public readonly resourceName = '';
+const resourceName = '_EMPTY';
+
+export class AuthenticationEndpoint extends BaseApi<typeof resourceName> {
+  public readonly resourceName = resourceName;
 
   setClientId(clientId: string): void {
     this.config.settings.clientId = clientId;

@@ -57,7 +57,7 @@ const environment = {
   onTokenRefreshFailed: () => { console.log('Intended action, such as logout')},
   //If true, it tries to refresh token on failed request. Default true.
   shouldAutoRefreshToken?: boolean;
-  timeout?: number;  
+  timeout?: number;
 }
 
 const authCredentials = {
@@ -74,12 +74,12 @@ async() => {
   await api.authentication.login(authCredentials);
 
   api.timeTrackings.read()
-    .then(timetrackings => {
-      console.log(timetrackings)
+    .then({ Results }} => {
+      console.log(Results)
     });
 
-  api.users.readMe().then(meData => {
-    console.log(meData);
+  api.users.readMe().then({ Results } => {
+    console.log(Results);
   });
 
   api.absenceDays.read(

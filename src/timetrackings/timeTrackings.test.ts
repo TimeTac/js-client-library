@@ -23,7 +23,7 @@ const genericAccessDeniedResponse = {
 };
 
 describe('TimeTrackings', () => {
-  const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
+  const timeTrackings: TimeTrackingsEndpoint = new TimeTrackingsEndpoint(new ConfigProvider({ account: 'testingAccount', host: 'test' }));
   const readPath = `${timeTrackings.getResourcePath()}/read`;
   const createPath = `${timeTrackings.getResourcePath()}/create`;
   const updatePath = `${timeTrackings.getResourcePath()}/update`;
@@ -48,7 +48,7 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.read().then((result) => {
-      expect(result).toStrictEqual([{}]);
+      expect(result).toStrictEqual({ Affected: {}, Deleted: [], Results: [{}] });
     });
   });
 
@@ -58,7 +58,7 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.read(new RequestParamsBuilder<TimeTracking>().eq('id', 99).build()).then((result) => {
-      expect(result).toStrictEqual([{}]);
+      expect(result).toStrictEqual({ Affected: {}, Deleted: [], Results: [{}] });
     });
   });
 
@@ -171,12 +171,16 @@ describe('TimeTrackings', () => {
   });
 
   test('readById', async () => {
-    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onGet(`${readPath}/1`).reply(200, { Success: true, NumResults: 0, Results: [] });
 
     expect.assertions(1);
 
     await timeTrackings.readById(1).then((result) => {
-      expect(result).toStrictEqual({});
+      expect(result).toStrictEqual({
+        Results: undefined,
+        Affected: {},
+        Deleted: [],
+      });
     });
   });
 
@@ -186,7 +190,11 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.create({ task_id: 1, user_id: 1 }).then((result) => {
-      expect(result).toStrictEqual({});
+      expect(result).toStrictEqual({
+        Results: {},
+        Affected: {},
+        Deleted: [],
+      });
     });
   });
 
@@ -280,38 +288,39 @@ describe('TimeTrackings', () => {
     expect.assertions(1);
 
     await timeTrackings.update({ id: 1, task_id: 1 }).then((result) => {
-      expect(result).toStrictEqual({});
+      expect(result).toStrictEqual({
+        Results: {},
+        Affected: {},
+        Deleted: [],
+      });
     });
   });
 
   test('delete', async () => {
-    mock.onDelete(`${deletePath}/1`).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onDelete(`${deletePath}/1`).reply(200, { Success: true, NumResults: 1, Results: [] });
 
     expect.assertions(1);
 
     await timeTrackings.delete(1).then((result) => {
-      expect(result).toStrictEqual({});
+      expect(result).toStrictEqual({
+        Results: undefined,
+        Affected: {},
+        Deleted: [],
+      });
     });
   });
 
   test('start', async () => {
-    mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}], Affected: [{}], _ignoreTypeGuard: true });
+    mock.onPost(startPath).reply(200, { Success: true, NumResults: 1, Results: [{}], Affected: {}, _ignoreTypeGuard: true });
 
     expect.assertions(1);
 
     const result = await timeTrackings.start({ task_id: 1, user_id: 1 });
+
     expect(result).toStrictEqual({
-      success: true,
-      apiResponse: {
-        NumResults: 1,
-        Results: [{}],
-        Affected: [{}],
-        Success: true,
-        _ignoreTypeGuard: undefined,
-      },
-      results: [{}],
-      affected: [{}],
-      deleted: [],
+      Results: {},
+      Affected: {},
+      Deleted: [],
     });
   });
 
@@ -358,12 +367,16 @@ describe('TimeTrackings', () => {
   });
 
   test('stop', async () => {
-    mock.onPut(stopPath).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onPut(stopPath).reply(200, { Success: true, NumResults: 0, Results: [] });
 
     expect.assertions(1);
 
     await timeTrackings.stop({ user_id: 1, end_time_timezone: 'foo' }).then((result) => {
-      expect(result).toStrictEqual({});
+      expect(result).toStrictEqual({
+        Results: undefined,
+        Affected: {},
+        Deleted: [],
+      });
     });
   });
 
@@ -372,7 +385,7 @@ describe('TimeTrackings', () => {
       Success: true,
       NumResults: 1,
       Results: [{ start_time_timezone: timezones['Vienna'] }],
-      Affected: [{}],
+      Affected: {},
       _ignoreTypeGuard: true,
     });
 
@@ -381,17 +394,9 @@ describe('TimeTrackings', () => {
     const result = await timeTrackings.toggle({ timezone: timezones['Vienna'], user_id: 1 });
 
     expect(result).toEqual({
-      success: true,
-      apiResponse: {
-        NumResults: 1,
-        Results: [{ start_time_timezone: timezones['Vienna'] }],
-        Affected: [{}],
-        Success: true,
-        _ignoreTypeGuard: undefined,
-      },
-      results: [{ start_time_timezone: timezones['Vienna'] }],
-      affected: [{}],
-      deleted: [],
+      Results: { start_time_timezone: timezones['Vienna'] },
+      Affected: {},
+      Deleted: [],
     });
   });
 
@@ -400,7 +405,7 @@ describe('TimeTrackings', () => {
       Success: true,
       NumResults: 1,
       Results: [{ end_time_timezone: timezones['Vienna'] }],
-      Affected: [{}],
+      Affected: {},
       _ignoreTypeGuard: true,
     });
 
@@ -408,17 +413,9 @@ describe('TimeTrackings', () => {
 
     const result = await timeTrackings.toggle({ timezone: timezones['Vienna'], user_id: 1 });
     expect(result).toEqual({
-      success: true,
-      apiResponse: {
-        NumResults: 1,
-        Results: [{ end_time_timezone: timezones['Vienna'] }],
-        Affected: [{}],
-        Success: true,
-        _ignoreTypeGuard: undefined,
-      },
-      results: [{ end_time_timezone: timezones['Vienna'] }],
-      affected: [{}],
-      deleted: [],
+      Results: { end_time_timezone: timezones['Vienna'] },
+      Affected: {},
+      Deleted: [],
     });
   });
 });

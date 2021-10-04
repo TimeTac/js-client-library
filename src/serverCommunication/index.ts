@@ -2,12 +2,15 @@ import BaseApi from '../baseApi';
 import * as responseHandlers from '../utils/response/responseHandlers';
 import { ServerCommunication } from './types';
 
-export class ServerCommunicationEndpoint extends BaseApi {
-  public readonly resourceName = 'serverCommunication';
+const resourceName = 'serverCommunication';
+type ResourceName = typeof resourceName;
 
-  async read(account: string): Promise<ServerCommunication> {
+export class ServerCommunicationEndpoint extends BaseApi<ResourceName> {
+  public readonly resourceName = resourceName;
+
+  async readServerCommunication(account: string): Promise<{ Results: ServerCommunication }> {
     this.setAccount(account);
-    const response = this._get<ServerCommunication>(`${this.resourceName}/read`, { withCredentials: false });
-    return responseHandlers.requiredSingle(response);
+    const response = this._get<ResourceName>('read', { withCredentials: false });
+    return responseHandlers.serverCommunication(response);
   }
 }

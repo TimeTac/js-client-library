@@ -2,8 +2,13 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
-import { ApiResponse } from './utils/response/apiResponse';
-import { RequestPromise } from './utils/response/responseHandlers';
+import { RequestParams } from './utils/params/requestParams';
+import { ApiResponse, Entity, LibraryReturn, ResourceNames } from './utils/response/apiResponse';
+import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
+import { createRawApiResponse } from './utils/response/rawApiResponse';
+import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
+import { createResourceResponse } from './utils/response/resourceResponse';
+import { RequestPromise, optional, list, requiredSingle } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'go.timetac.com';
 const DEFAULT_API_VERSION = 3;
@@ -34,8 +39,8 @@ export type ApiConfig = {
   timeout?: number;
 };
 
-export default abstract class BaseApi {
-  public abstract readonly resourceName: string;
+export default abstract class BaseApi<ResourceName extends ResourceNames> {
+  public abstract readonly resourceName: ResourceName;
 
   constructor(public config: ConfigProvider) {}
 
@@ -49,33 +54,51 @@ export default abstract class BaseApi {
     };
   }
 
-  protected _get<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  protected _get<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.get<ApiResponse<T>>(url, config);
+    return axios.get<ApiResponse<ResourceName>>(url, config);
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  protected _post<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  protected _getDeltaSync(slug: string, options: AxiosRequestConfig): Promise<AxiosResponse<DeltaSyncResponse>> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.post<ApiResponse<T>>(url, data, config);
+    return axios.get<DeltaSyncResponse>(url, config);
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  protected _put<T>(endpoint: string, data?: object, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  protected _post<ResourceName extends ResourceNames>(
+    slug: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    data?: object,
+    options?: AxiosRequestConfig
+  ): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.put<ApiResponse<T>>(url, data, config);
+    return axios.post<ApiResponse<ResourceName>>(url, data, config);
   }
 
-  protected _delete<T>(endpoint: string, options?: AxiosRequestConfig): RequestPromise<T> {
-    const url = this.getApiPath() + endpoint;
+  protected _put<ResourceName extends ResourceNames>(
+    slug: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    data?: object,
+    options?: AxiosRequestConfig
+  ): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
+    const config = this.getOptions(options);
+    return axios.put<ApiResponse<ResourceName>>(url, data, config);
+  }
+
+  protected _delete<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     //Delete requests send no content
     // eslint-disable-next-line
     config.headers['Content-type'] = '';
-    return axios.delete<ApiResponse<T>>(url, config);
+    return axios.delete<ApiResponse<ResourceName>>(url, config);
+  }
+
+  protected getBaseEndpointUrl(): string {
+    return `${this.getApiPath()}${this.getResourceName()}/`;
   }
 
   protected getApiPath(): string {
@@ -94,11 +117,34 @@ export default abstract class BaseApi {
     this.config.settings.account = account;
   }
 
-  public getResourceName(): string {
+  public getResourceName(): ResourceName {
     return this.resourceName;
   }
 
   public getResourcePath(): string {
     return `${this.getApiPath()}${this.getResourceName()}`;
+  }
+
+  public readById(
+    id: number,
+    params?: RequestParams<Entity<ResourceName>>
+  ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
+    const response = this._get<ResourceName>(`read/${id}`, { params });
+    return optional(response);
+  }
+
+  public read(params?: RequestParams<Entity<ResourceName>> | string): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
+    const response = this._get<ResourceName>('read', { params });
+    return list(response);
+  }
+
+  public delete(id: number): Promise<LibraryReturn<ResourceName>> {
+    const response = this._delete<ResourceName>(`delete/${id}`);
+    return requiredSingle(response);
+  }
+
+  public async readRaw(params: RequestParams<Entity<ResourceName>>): Promise<ReadRawResponse<Entity<ResourceName>>> {
+    const response = this._get<ResourceName>('read', { params });
+    return createReadRawResponse<Entity<ResourceName>>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 }

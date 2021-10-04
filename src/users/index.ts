@@ -1,57 +1,48 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
-import * as responseHandlers from '../utils/response/responseHandlers';
+import { list, Required, requiredSingle } from '../utils/response/responseHandlers';
 import { createUpdateRawResponse, UpdateRawResponse } from '../utils/response/updateRawResponse';
 import { UserRead, UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe } from './types';
 
-export class UsersEndpoint extends BaseApi {
+const resourceName = 'users';
+const usersReadMe = 'usersReadMe';
+type ResourceName = typeof resourceName;
+
+export class UsersEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = 'users';
 
-  public read(params?: RequestParams<UserRead>): Promise<UserRead[]> {
-    const response = this._get<UserRead[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
-  }
-  public async readRaw(params: RequestParams<UserRead>): Promise<ReadRawResponse<UserRead>> {
-    const response = this._get<UserRead[]>(`${this.getResourceName()}/read`, { params });
-    return createReadRawResponse<UserRead>(createResourceResponse(await createRawApiResponse(response)), params);
-  }
-  public readById(id: number, params?: RequestParams<UserRead>): Promise<UserRead> {
-    const response = this._get<UserRead[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
+  public readMe(params?: RequestParams<UserReadMe>): Required<typeof usersReadMe> {
+    const response = this._get<typeof usersReadMe>('me', { params });
+    return requiredSingle(response);
   }
 
-  public readMe(params?: RequestParams<UserReadMe>): Promise<UserReadMe> {
-    const response = this._get<UserReadMe[]>(`${this.getResourceName()}/me`, { params });
-    return responseHandlers.required(response);
-  }
-
-  public create(data: UserCreate): Promise<UserRead> {
-    const response = this._post<UserRead[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
+  public create(data: UserCreate): Required<ResourceName> {
+    const response = this._post<ResourceName>('create', data);
+    return requiredSingle(response);
   }
 
   public async update(data: UserUpdate): Promise<UpdateRawResponse<UserRead>> {
-    const response = this._put<UserRead[]>(`${this.getResourceName()}/update`, data);
+    const response = this._put<ResourceName>(`${this.getResourceName()}/update`, data);
     return createUpdateRawResponse<UserRead>(createResourceResponse<UserRead>(await createRawApiResponse(response)));
   }
 
   //endpoint returns empty array in Results
-  public resetPassword(data: UserResetPassword): Promise<UserRead[]> {
-    const response = this._put<UserRead[]>(`${this.getResourceName()}/resetPassword`, data);
-    return responseHandlers.list(response);
+  public resetPassword(data: UserResetPassword): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
+    const response = this._put<ResourceName>('resetPassword', data);
+    return list(response);
   }
 
   //endpoint returns empty array in Results
-  public forgotPassword(data: UserResetPassword): Promise<UserRead[]> {
-    const response = this._put<UserRead[]>(`${this.getResourceName()}/forgotPassword`, data);
-    return responseHandlers.list(response);
+  public forgotPassword(data: UserResetPassword): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
+    const response = this._put<ResourceName>('forgotPassword', data);
+    return list(response);
   }
 
-  public updatePassword(data: UserUpdatePassword): Promise<UserRead[]> {
-    const response = this._put<UserRead[]>(`${this.getResourceName()}/updatePassword`, data);
-    return responseHandlers.requiredSingle(response);
+  public updatePassword(data: UserUpdatePassword): Promise<LibraryReturn<ResourceName>> {
+    const response = this._put<ResourceName>('updatePassword', data);
+    return requiredSingle(response);
   }
 }

@@ -1,13 +1,24 @@
 import { AxiosError, AxiosResponse } from 'axios';
+import { ServerCommunication } from '../../serverCommunication/types';
 
-import { ApiResponse, ApiResponseOnSuccess } from './apiResponse';
-import { createRawApiResponse } from './rawApiResponse';
-import { createResourceResponse, ResourceResponse } from './resourceResponse';
+import {
+  ApiResponse,
+  ApiResponseOnFailure,
+  ApiResponseOnFailureServerCommunication,
+  ApiResponseOnSuccess,
+  Entity,
+  LibraryReturn,
+  ResourceNames,
+} from './apiResponse';
 
-export type RequestPromise<T> = Promise<AxiosResponse<ApiResponse<T>>>;
+export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
-export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiResponseOnSuccess<T>> {
-  let resolved: AxiosResponse<ApiResponse<T>> | undefined;
+export type Required<ResourceName extends ResourceNames, Resource = Entity<ResourceName>> = Promise<LibraryReturn<ResourceName, Resource>>;
+
+export async function toApiResponse<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<ApiResponseOnSuccess<ResourceName>> {
+  let resolved: AxiosResponse<ApiResponse<ResourceName>> | undefined;
 
   try {
     resolved = await promise;
@@ -26,11 +37,15 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
     }
   }
 
-  const apiResponse = resolved.data;
-
+  const apiResponse:
+    | ApiResponseOnFailureServerCommunication
+    | ApiResponseOnSuccess<ResourceName>
+    | ApiResponseOnFailure
+    | ApiResponseOnSuccess<ResourceName, ServerCommunication> = resolved.data;
   // Workaround for serverCommunication endpoint returning Success: true despite an error
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (apiResponse.Success && apiResponse.Results == null) {
-    (apiResponse as ApiResponse<T>).Success = false;
+    (apiResponse as ApiResponseOnFailure).Success = false;
   }
 
   if (apiResponse.Success) {
@@ -47,41 +62,77 @@ export async function toApiResponse<T>(promise: RequestPromise<T>): Promise<ApiR
 }
 
 /**
- * @return A promise that resolves to T or rejects if no results
+ * @return A promise that resolves to Type or rejects if no results
  */
-export async function required<T>(promise: RequestPromise<T[]>): Promise<T> {
-  const response = await toApiResponse<T[]>(promise);
+export async function required<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Required<ResourceName, Entity<ResourceName>[]> {
+  const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
-    return response.Results[0];
+    return {
+      Results: response.Results,
+      Affected: response.Affected ?? {},
+      Deleted: response.Deleted ?? [],
+    };
   } else {
     throw new Error('There are no results.');
   }
 }
 
-export async function requiredSingle<T>(promise: RequestPromise<T>): Promise<T> {
-  const response = await toApiResponse<T>(promise);
+export async function requiredSingle<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<LibraryReturn<ResourceName>> {
+  const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
-    return response.Results;
+    return {
+      Results: response.Results[0],
+      Affected: response.Affected ?? {},
+      Deleted: response.Deleted ?? [],
+    };
   } else {
     throw new Error('There are no results.');
   }
 }
+
+export async function serverCommunication<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<{ Results: ServerCommunication }> {
+  const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, ServerCommunication>;
+
+  if (response.Results.host) {
+    return {
+      Results: response.Results,
+    };
+  } else {
+    throw new Error('There are no results.');
+  }
+}
+
 /**
- * @return A promise that resolves to T or undefined if no results but Success is true.
+ * @return A promise that resolves to Results T or undefined if no results but Success is true.
  */
-export async function optional<T>(promise: RequestPromise<T[]>): Promise<T | undefined> {
-  const response = await toApiResponse<T[]>(promise);
-  return (response.NumResults > 0 && response.Results[0]) || undefined;
+export async function optional<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
+  const response = await toApiResponse<ResourceName>(promise);
+
+  return {
+    Results: response.Results[0] ?? undefined,
+    Affected: response.Affected ?? {},
+    Deleted: response.Deleted ?? [],
+  };
 }
 
-export async function list<T>(promise: RequestPromise<T[]>): Promise<T[]> {
-  const response = await toApiResponse<T[]>(promise);
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  return response.Results ?? [];
-}
+export async function list<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
+  const response = await toApiResponse<ResourceName>(promise);
 
-export async function toResourceResponse<T>(promise: RequestPromise<T[]>): Promise<ResourceResponse<T>> {
-  return createResourceResponse(await createRawApiResponse(promise));
+  return {
+    Results: response.Results,
+    Affected: response.Affected ?? {},
+    Deleted: response.Deleted ?? [],
+  };
 }

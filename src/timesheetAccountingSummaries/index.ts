@@ -1,13 +1,19 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import * as responseHandlers from '../utils/response/responseHandlers';
-import { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './types';
+import { LibraryReturn } from '../utils/response/apiResponse';
+import { requiredSingle } from '../utils/response/responseHandlers';
+import { TimesheetAccountingSummariesRead } from './types';
 
-export class TimesheetAccountingSummariesEndpoint extends BaseApi {
+const resourceName = 'timesheetAccountingSummaries';
+type ResourceName = typeof resourceName;
+
+export class TimesheetAccountingSummariesEndpoint extends BaseApi<'timesheetAccountingSummaries'> {
   public readonly resourceName = 'timesheetAccountingSummaries';
 
-  public read(params: RequestParams<TimesheetAccountingSummariesRead>): Promise<TimesheetAccountingSummaries> {
-    const response = this._get<TimesheetAccountingSummaries[]>(`${this.getResourceName()}/read/`, { params });
-    return responseHandlers.required(response);
+  public readTimesheetAccountingSummaries(
+    params?: RequestParams<TimesheetAccountingSummariesRead> | string
+  ): Promise<LibraryReturn<ResourceName>> {
+    const response = this._get<ResourceName>('read', { params });
+    return requiredSingle(response);
   }
 }

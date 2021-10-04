@@ -25,7 +25,7 @@ describe('DeltaSync', () => {
 
   test('read without results', async () => {
     mock.onGet(readPath).reply(200, { Success: true, Results: {}, _ignoreTypeGuard: true });
-    result = deltaSync.read(new DeltaSyncParams());
+    result = deltaSync.readDeltaSync(new DeltaSyncParams());
     await result.then((result) => expect(result).toMatchObject({ success: true, results: {} }));
   });
 
@@ -82,7 +82,7 @@ describe('DeltaSync', () => {
     };
 
     mock.onGet(readPath).reply(200, { Success: true, Results: { absences: absencesFromServer }, _ignoreTypeGuard: true });
-    result = deltaSync.read(new DeltaSyncParams());
+    result = deltaSync.readDeltaSync(new DeltaSyncParams());
     await result.then((result) => expect(result).toMatchObject({ success: true, results: expectResults }));
   });
 });

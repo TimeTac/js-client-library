@@ -1,9 +1,10 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
+import { Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
-import { createResourceResponse, ResourceResponse } from '../utils/response/resourceResponse';
-import * as responseHandlers from '../utils/response/responseHandlers';
+import { createResourceResponse } from '../utils/response/resourceResponse';
+import { optional, requiredSingle, Required } from '../utils/response/responseHandlers';
 import {
   StartTimeTrackingData,
   StopTimeTrackingData,
@@ -13,56 +14,44 @@ import {
   ToggleTimeTrackingData,
 } from './types';
 
-export class TimeTrackingsEndpoint extends BaseApi {
-  public readonly resourceName = 'timeTrackings';
+const resourceName = 'timeTrackings';
+type ResourceName = typeof resourceName;
 
-  public read(params?: RequestParams<TimeTracking>): Promise<TimeTracking[]> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, { params });
-    return responseHandlers.list(response);
+export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
+  public readonly resourceName = resourceName;
+
+  public create(data: TimeTrackingCreate): Required<ResourceName> {
+    const response = this._post<ResourceName>('create', data);
+    return requiredSingle(response);
   }
 
   public async readRaw(params: RequestParams<TimeTracking>): Promise<ReadRawResponse<TimeTracking>> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read`, { params });
+    const response = this._get<ResourceName>(`read`, { params });
     return createReadRawResponse<TimeTracking>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
-  public readById(id: number, params?: RequestParams<TimeTracking>): Promise<TimeTracking> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/read/${id}`, { params });
-    return responseHandlers.required(response);
+  public current(params?: RequestParams<TimeTracking>): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
+    const response = this._get<ResourceName>('current', { params });
+    return optional(response);
   }
 
-  public current(params?: RequestParams<TimeTracking>): Promise<TimeTracking | undefined> {
-    const response = this._get<TimeTracking[]>(`${this.getResourceName()}/current`, { params });
-    return responseHandlers.optional(response);
+  public update(data: TimeTrackingUpdate): Required<ResourceName> {
+    const response = this._put<ResourceName>('update', data);
+    return requiredSingle(response);
   }
 
-  public create(data: TimeTrackingCreate): Promise<TimeTracking> {
-    const response = this._post<TimeTracking[]>(`${this.getResourceName()}/create`, data);
-    return responseHandlers.required(response);
+  public start(data: StartTimeTrackingData): Promise<LibraryReturn<ResourceName>> {
+    const response = this._post<ResourceName>('start', data);
+    return requiredSingle(response);
   }
 
-  public update(data: TimeTrackingUpdate): Promise<TimeTracking> {
-    const response = this._put<TimeTracking[]>(`${this.getResourceName()}/update`, data);
-    return responseHandlers.required(response);
+  public stop(data: StopTimeTrackingData): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
+    const response = this._put<ResourceName>('stop', data);
+    return optional(response);
   }
 
-  public delete(id: number): Promise<TimeTracking> {
-    const response = this._delete<TimeTracking[]>(`${this.getResourceName()}/delete/${id}`);
-    return responseHandlers.required(response);
-  }
-
-  public start(data: StartTimeTrackingData): Promise<ResourceResponse<TimeTracking>> {
-    const response = this._post<TimeTracking[]>(`${this.getResourceName()}/start`, data);
-    return responseHandlers.toResourceResponse(response);
-  }
-
-  public stop(data: StopTimeTrackingData): Promise<TimeTracking> {
-    const response = this._put<TimeTracking[]>(`${this.getResourceName()}/stop`, data);
-    return responseHandlers.required(response);
-  }
-
-  public toggle(data: ToggleTimeTrackingData): Promise<ResourceResponse<TimeTracking>> {
-    const response = this._post<TimeTracking[]>(`${this.getResourceName()}/toggle`, data);
-    return responseHandlers.toResourceResponse(response);
+  public toggle(data: ToggleTimeTrackingData): Promise<LibraryReturn<ResourceName>> {
+    const response = this._post<ResourceName>('toggle', data);
+    return requiredSingle(response);
   }
 }

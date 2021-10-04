@@ -2,7 +2,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { ConfigProvider } from '../utils';
-import { ServerCommunication as Model } from './types';
+import { ServerCommunication } from './types';
 import { ServerCommunicationEndpoint } from './';
 
 describe('ServerCommunication', () => {
@@ -32,12 +32,14 @@ describe('ServerCommunication', () => {
       },
     });
 
-    const result: Promise<Model> = serverCommunication.read(account);
+    const result: Promise<{ Results: ServerCommunication }> = serverCommunication.readServerCommunication(account);
     await result.then((result) => {
       expect(result).toStrictEqual({
-        host: 'testhost',
-        authentication_type: 'AUTHORIZATION_CODE_GRANT',
-        force_sso: true,
+        Results: {
+          host: 'testhost',
+          authentication_type: 'AUTHORIZATION_CODE_GRANT',
+          force_sso: true,
+        },
       });
     });
   });
