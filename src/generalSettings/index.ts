@@ -12,7 +12,7 @@ export class GeneralSettingsEndpoint extends BaseApi<ResourceName> {
 
   public readBySettingType(settingType: string): Required<ResourceName, Entity<ResourceName>[]> {
     const params = new RequestParamsBuilder<GeneralSetting>().eq('setting_type', settingType).build();
-    const response = this._get<ResourceName>(`${this.getResourceName()}/read`, { params });
+    const response = this._get<ResourceName>('read', { params });
     return required(response);
   }
 }
