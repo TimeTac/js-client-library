@@ -132,6 +132,7 @@ describe('Users', () => {
   const users: UsersEndpoint = new UsersEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${users.getResourcePath()}/read`;
   const createPath = `${users.getResourcePath()}/create`;
+  const updatePath = `${users.getResourcePath()}/update`;
 
   const mock = new AxiosMockAdapter(axios);
 
@@ -164,6 +165,16 @@ describe('Users', () => {
         Affected: {},
         Deleted: [],
       });
+    });
+  });
+
+  test('update', async () => {
+    mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: [], _ignoreTypeGuard: true });
+
+    expect.assertions(1);
+
+    await users.update(MockData.userUpdateData).then((results) => {
+      expect(results.data.results).toStrictEqual([]);
     });
   });
 });

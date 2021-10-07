@@ -11,7 +11,7 @@ export class ChangeTimeTrackingRequestEndpoint extends BaseApi<typeof resourceNa
   public readonly resourceName = resourceName;
 
   public async readRaw(params: RequestParams<ChangeTimeTrackingRequest>): Promise<ReadRawResponse<ChangeTimeTrackingRequest>> {
-    const response = this._get<typeof resourceName>(`${this.getResourceName()}/read`, { params });
+    const response = this._get<typeof resourceName>('read', { params });
     return createReadRawResponse<ChangeTimeTrackingRequest>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 }
