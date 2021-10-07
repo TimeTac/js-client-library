@@ -17,7 +17,7 @@ export type Task = {
   target_duration: number;
   begin: string | null;
   deadline: string | null;
-  object_type: string;
+  object_type: 'task';
   notes: string;
   client_id: number;
   t_iv_1: string | null;
