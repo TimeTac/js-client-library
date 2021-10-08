@@ -4,29 +4,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install --ignore-engines
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Audit
+        uses: borales/actions-yarn@v2.0.0
         with:
           cmd: audit --level high
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Lint
+        uses: borales/actions-yarn@v2.0.0
         with:
           cmd: lint
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Prettycheck
+        uses: borales/actions-yarn@v2.0.0
         with:
           cmd: prettycheck
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Compile
+        uses: borales/actions-yarn@v2.0.0
         with:
           cmd: compile
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install
+        uses: borales/actions-yarn@v2.0.0
         with:
           cmd: install --ignore-engines
-      - uses: borales/actions-yarn@v2.0.0
+      - name: Test
+        uses: borales/actions-yarn@v2.0.0
         with:
           cmd: test
