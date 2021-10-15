@@ -64,7 +64,7 @@ export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
-export { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess } from './utils/response/apiResponse';
+export { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess, LibraryReturn } from './utils/response/apiResponse';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
