@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AuthenticationEndpoint } from '../authentication';
 import { TokenResponse } from '../authentication/types';
 import { ApiState } from '../baseApi';
+import { updateCanonicalTime } from './canonicalTime';
 import { ConfigProvider } from '.';
 
 export type InterceptorParams = {
@@ -17,7 +18,10 @@ const requestInterceptor = (config: AxiosRequestConfig) => {
   return config;
 };
 
-const responseFulfilledInterceptor = (res: AxiosResponse) => res;
+const createResponseFulfilledInterceptor = (interceptorParams: InterceptorParams) => (res: AxiosResponse) => {
+  updateCanonicalTime(res.data, interceptorParams.config.settings.onServerTimeDeviationChange);
+  return res;
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const createResponseRejectedInterceptor = (interceptorParams: InterceptorParams) => async (error: AxiosError) => {
@@ -80,7 +84,10 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
 
 export const useInterceptors = (interceptorParams: InterceptorParams): void => {
   axios.interceptors.request.use(requestInterceptor);
-  axios.interceptors.response.use(responseFulfilledInterceptor, createResponseRejectedInterceptor(interceptorParams));
+  axios.interceptors.response.use(
+    createResponseFulfilledInterceptor(interceptorParams),
+    createResponseRejectedInterceptor(interceptorParams)
+  );
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

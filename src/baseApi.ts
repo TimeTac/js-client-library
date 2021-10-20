@@ -37,6 +37,7 @@ export type ApiConfig = {
   onTokenRefreshFailed?: () => void;
   shouldAutoRefreshToken?: boolean;
   timeout?: number;
+  onServerTimeDeviationChange?: (deviation: number) => void;
 };
 
 export default abstract class BaseApi<ResourceName extends ResourceNames> {
