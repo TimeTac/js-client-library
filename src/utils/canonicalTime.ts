@@ -6,7 +6,6 @@ export function updateCanonicalTime(data: unknown, onServerTimeDeviationChange: 
     const time = Date.parse(body.RequestEndTime);
     const deviation = new Date().getTime() / 1000 - time / 1000;
     if (Math.abs(deviation - previousDeviation) > 2) {
-      console.log(`Calculated a deviation of ${deviation} to server-time`);
       previousDeviation = deviation;
       if (onServerTimeDeviationChange) onServerTimeDeviationChange(deviation);
     }
