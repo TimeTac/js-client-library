@@ -36,16 +36,14 @@ export type TimesheetAccountingSummaries = {
     holiday_available: number;
     period_from: string;
   };
-  overtime:
-    | {
-        overtime_header: string;
-        overtime_saldo: number;
-        overtime_requested: number;
-        overtime_granted: number;
-        overtime_available: number;
-        overtime_hours: string;
-      }
-    | undefined;
+  overtime?: {
+    overtime_header: string;
+    overtime_saldo: number;
+    overtime_requested: number;
+    overtime_granted: number;
+    overtime_available: number;
+    overtime_hours: string;
+  };
 };
 
 export type TimesheetAccountingSummariesRead = {
