@@ -72,6 +72,7 @@ export {
   ResourceNames,
   Resources,
   Entity,
+  resourceNameArray,
 } from './utils/response/apiResponse';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';

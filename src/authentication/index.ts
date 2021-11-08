@@ -4,7 +4,7 @@ import BaseApi from '../baseApi';
 import { objectCheck } from '../utils';
 import { Credentials, TokenResponse } from './types';
 
-const resourceName = '_EMPTY';
+const resourceName = 'deltaSync';
 
 export class AuthenticationEndpoint extends BaseApi<typeof resourceName> {
   public readonly resourceName = resourceName;
