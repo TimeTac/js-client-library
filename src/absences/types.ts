@@ -69,3 +69,7 @@ export type AbsenceReject = AbsenceApprove;
 export interface AbsenceUpdate extends Partial<Absence> {
   id: number;
 }
+
+export interface AbsenceCancel {
+  id: number;
+}

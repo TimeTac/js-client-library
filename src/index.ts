@@ -31,7 +31,7 @@ import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
 
 export { AbsenceDay } from './absenceDays/types';
-export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
+export { Absence, AbsenceApprove, AbsenceCancel, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AbsenceType } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
