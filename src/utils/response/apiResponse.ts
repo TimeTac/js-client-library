@@ -25,6 +25,8 @@ import { UserDefinedFieldDefinitionOptions } from '../../userDefinedFieldDefinit
 import { Message } from '../../messages/types';
 import { Timezone } from '../../timezones/types';
 
+// Because types cannot be iterated at runtime, we add the keys of Resources here as a value
+// Below we add conditional types that don't compile if this array and Resources go out of sync
 export const resourceNameArray = [
   'absenceDays',
   'absences',
@@ -113,9 +115,10 @@ export type Resources = {
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
 };
 
-// Make sure that no keys that are not in ResourceNameArray can be added to the Resources type and the other way around
+// These conditional types ensure that the resourceNameArray and the Resources type are in sync
 type NeverIfArrayDoesNotMatchResources = keyof Resources extends typeof resourceNameArray[number] ? true : never;
 type NeverIfResourcesDoNotMatchArray = typeof resourceNameArray[number] extends keyof Resources ? true : never;
+// The assignments below fail and prevent compilation if the conditional types are never
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _assertResourcesMatchArray: NeverIfArrayDoesNotMatchResources = true;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
