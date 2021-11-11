@@ -24,6 +24,7 @@ import { UserDefinedFieldDefinitions } from '../../userDefinedFieldDefinitions/t
 import { UserDefinedFieldDefinitionOptions } from '../../userDefinedFieldDefinitionOptions/types';
 import { Message } from '../../messages/types';
 import { Timezone } from '../../timezones/types';
+import { AbsenceBan } from '../../absenceBans/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -59,7 +60,7 @@ export const resourceNameArray = [
 ] as const;
 
 export type Resources = {
-  // absenceBans: AbsenceBan;
+  absenceBans: AbsenceBan;
   absenceDays: AbsenceDay;
   // absenceReplacements: AbsenceReplacement;
   absences: Absence;

@@ -29,6 +29,7 @@ import { UserStatusOverviewEndpoint } from './userStatusOverview';
 import { ConfigProvider } from './utils';
 import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
+import { AbsenceBansEndpoint } from './absenceBans';
 
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -87,6 +88,7 @@ export default class Api {
   public config: ConfigProvider;
   public state: ApiState;
 
+  public absenceBans: AbsenceBansEndpoint;
   public absenceDays: AbsenceDaysEndpoint;
   public absences: AbsencesEndpoint;
   public absenceTypes: AbsenceTypesEndpoint;
@@ -130,6 +132,7 @@ export default class Api {
       refreshingToken: false,
     };
 
+    this.absenceBans = new AbsenceBansEndpoint(this.config);
     this.absenceDays = new AbsenceDaysEndpoint(this.config);
     this.absences = new AbsencesEndpoint(this.config);
     this.absenceTypes = new AbsenceTypesEndpoint(this.config);
