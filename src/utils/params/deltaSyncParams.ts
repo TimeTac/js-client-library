@@ -1,5 +1,6 @@
 import { DeltaSyncResults } from '../../deltaSync/types';
-import { RequestParams } from './requestParams';
+import { Entity } from '../response/apiResponse';
+import { RequestParams, RequestParamsBuilder } from './requestParams';
 
 const DEFAULT_PAGE_SIZE = 1000;
 export class DeltaSyncParams {
@@ -32,11 +33,15 @@ export class DeltaSyncParams {
     this.requestParams['_include'] = values.join(',');
     return this;
   }
-  /**
-   * Warning: does not check if the resource fits the includeParams
-   * Also there is no check if the resource is included in the deltaSyncParams
-   */
-  addIncludeParams<F extends keyof DeltaSyncResults & string>(resource: F, includeParams: RequestParams<unknown>): DeltaSyncParams {
+
+  resource<F extends keyof DeltaSyncResults & string>(
+    resource: F,
+    addFilter: (params: RequestParamsBuilder<Entity<F>>) => void
+  ): DeltaSyncParams {
+    const params = new RequestParamsBuilder<Entity<F>>();
+    addFilter(params);
+    const includeParams = params.build();
+
     for (const [k, v] of Object.entries<string>(includeParams)) {
       this.requestParams[`${resource}__${k}`] = v;
     }
