@@ -102,7 +102,7 @@ async() => {
 - [x] [authentication](https://api.timetac.com/doc/v3#tag/authentication)
 - [ ] [absenceBanRestrictToDepartments](https://api.timetac.com/doc/v3#tag/absenceBanRestrictToDepartments)
 - [ ] [absenceBanRestrictToTypes](https://api.timetac.com/doc/v3#tag/absenceBanRestrictToTypes)
-- [ ] [absenceBans](https://api.timetac.com/doc/v3#tag/absenceBans)
+- [x] [absenceBans](https://api.timetac.com/doc/v3#tag/absenceBans)
 - [x] [absenceDays](https://api.timetac.com/doc/v3#tag/absenceDays)
 - [ ] [absenceMultistageResponsibilities](https://api.timetac.com/doc/v3#tag/absenceMultistageResponsibilities)
 - [ ] [absenceReplacements](https://api.timetac.com/doc/v3#tag/absenceReplacements)
