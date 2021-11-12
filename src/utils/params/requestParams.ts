@@ -124,4 +124,9 @@ export class RequestParamsBuilder<R extends Object> {
     this.requestParams['nestedEntities'] = JSON.stringify(nestedParams);
     return this;
   }
+
+  resolve(field: keyof R & string): RequestParamsBuilder<R> {
+    this.requestParams['_resolve'] = field;
+    return this;
+  }
 }

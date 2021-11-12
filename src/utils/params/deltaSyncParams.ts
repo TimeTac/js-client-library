@@ -1,5 +1,5 @@
 import { DeltaSyncResults } from '../../deltaSync/types';
-import { Entity } from '../response/apiResponse';
+import { Entity, ResourceNames } from '../response/apiResponse';
 import { RequestParams, RequestParamsBuilder } from './requestParams';
 
 const DEFAULT_PAGE_SIZE = 1000;
@@ -29,15 +29,12 @@ export class DeltaSyncParams {
     return this;
   }
 
-  include<F extends keyof DeltaSyncResults & string>(values: F[]): DeltaSyncParams {
+  include(values: ResourceNames[]): DeltaSyncParams {
     this.requestParams['_include'] = values.join(',');
     return this;
   }
 
-  resource<F extends keyof DeltaSyncResults & string>(
-    resource: F,
-    addFilter: (params: RequestParamsBuilder<Entity<F>>) => void
-  ): DeltaSyncParams {
+  resource<F extends ResourceNames & string>(resource: F, addFilter: (params: RequestParamsBuilder<Entity<F>>) => void): DeltaSyncParams {
     const params = new RequestParamsBuilder<Entity<F>>();
     addFilter(params);
     const includeParams = params.build();
@@ -48,11 +45,7 @@ export class DeltaSyncParams {
     return this;
   }
 
-  getLimit(): number {
-    return this.requestParams['_limit'] ? Number(this.requestParams['_limit']) : DEFAULT_PAGE_SIZE;
-  }
-
-  getOffset(): number {
-    return this.requestParams['_offset'] ? Number(this.requestParams['_offset']) : 0;
+  get(param: string): string {
+    return this.requestParams[param];
   }
 }

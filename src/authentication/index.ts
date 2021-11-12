@@ -4,10 +4,9 @@ import BaseApi from '../baseApi';
 import { objectCheck } from '../utils';
 import { Credentials, TokenResponse } from './types';
 
-const resourceName = 'deltaSync';
-
-export class AuthenticationEndpoint extends BaseApi<typeof resourceName> {
-  public readonly resourceName = resourceName;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class AuthenticationEndpoint extends BaseApi<any> {
+  public resourceName = '';
 
   setClientId(clientId: string): void {
     this.config.settings.clientId = clientId;

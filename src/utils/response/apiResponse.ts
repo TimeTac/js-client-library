@@ -36,7 +36,6 @@ export const resourceNameArray = [
   'changeTimeTrackingRequests',
   'teamMembers',
   'departments',
-  'deltaSync',
   'generalSettings',
   'todoTasks',
   'messages',
@@ -73,7 +72,6 @@ export type Resources = {
   // clients: Client;
   teamMembers: TeamMember;
   departments: Department;
-  deltaSync: undefined;
   generalSettings: GeneralSetting;
   todoTasks: TodoTask;
   // holidayRequests: HolidayRequest;

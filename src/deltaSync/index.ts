@@ -5,11 +5,12 @@ import { createRawApiResponse } from '../utils/response/rawApiResponse';
 
 const resourceName = 'deltaSync';
 
-export class DeltaSyncEndpoint extends BaseApi<typeof resourceName> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class DeltaSyncEndpoint extends BaseApi<any> {
   public readonly resourceName = resourceName;
 
-  async readDeltaSync(requestParams: DeltaSyncParams | string): Promise<DeltaSyncResponse> {
-    const params = typeof requestParams === 'string' ? new URLSearchParams(requestParams) : requestParams.build();
+  async readDeltaSync(requestParams: DeltaSyncParams): Promise<DeltaSyncResponse> {
+    const params = requestParams.build();
     const response = this._getDeltaSync('read', { params });
     return createDeltaSyncResponse(await createRawApiResponse(response));
   }
