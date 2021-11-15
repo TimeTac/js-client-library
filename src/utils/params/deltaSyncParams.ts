@@ -1,8 +1,6 @@
-import { DeltaSyncResults } from '../../deltaSync/types';
 import { Entity, ResourceNames } from '../response/apiResponse';
 import { RequestParams, RequestParamsBuilder } from './requestParams';
 
-const DEFAULT_PAGE_SIZE = 1000;
 export class DeltaSyncParams {
   protected requestParams: RequestParams<unknown> = {};
 

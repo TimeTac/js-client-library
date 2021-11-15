@@ -30,22 +30,22 @@ describe('DeltaSyncParams', () => {
 
   test('getLimit default', () => {
     const deltaSyncParams = new DeltaSyncParams();
-    expect(deltaSyncParams.getLimit()).toBe(1000);
+    expect(deltaSyncParams.get('_limit')).toBe(undefined);
   });
 
   test('getLimit', () => {
     const deltaSyncParams = new DeltaSyncParams().limit(55);
-    expect(deltaSyncParams.getLimit()).toBe(55);
+    expect(deltaSyncParams.get('_limit')).toBe('55');
   });
 
   test('getOffset default', () => {
     const deltaSyncParams = new DeltaSyncParams();
-    expect(deltaSyncParams.getOffset()).toBe(0);
+    expect(deltaSyncParams.get('_offset')).toBe(undefined);
   });
 
   test('getOffset', () => {
     const deltaSyncParams = new DeltaSyncParams().offset(66);
-    expect(deltaSyncParams.getOffset()).toBe(66);
+    expect(deltaSyncParams.get('_offset')).toBe('66');
   });
 
   test('resource', () => {
