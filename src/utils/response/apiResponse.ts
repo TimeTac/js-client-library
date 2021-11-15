@@ -24,9 +24,10 @@ import { UserDefinedFieldDefinitions } from '../../userDefinedFieldDefinitions/t
 import { UserDefinedFieldDefinitionOptions } from '../../userDefinedFieldDefinitionOptions/types';
 import { Message } from '../../messages/types';
 import { Timezone } from '../../timezones/types';
+import { AbsenceBan } from '../../absenceBans/types';
 
 export type Resources = {
-  // absenceBans: AbsenceBan;
+  absenceBans: AbsenceBan;
   absenceDays: AbsenceDay;
   // absenceReplacements: AbsenceReplacement;
   absences: Absence;
