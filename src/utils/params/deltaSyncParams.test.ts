@@ -50,6 +50,6 @@ describe('DeltaSyncParams', () => {
 
   test('resource', () => {
     const deltaSyncParams = new DeltaSyncParams().resource('teams', (teams) => teams.eq('name', 'a'));
-    expect(deltaSyncParams.build()).toStrictEqual({ teams__name: 'a', teams___op__name: 'eq' });
+    expect(deltaSyncParams.build()).toStrictEqual({ teams__name: 'a' });
   });
 });

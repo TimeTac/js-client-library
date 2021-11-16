@@ -32,7 +32,6 @@ export class RequestParamsBuilder<R extends Object> {
   }
 
   eq<F extends keyof R & string>(field: F, value: R[F]): RequestParamsBuilder<R> {
-    this.requestParams[`_op__${field}`] = 'eq';
     this.requestParams[field] = String(value);
     return this;
   }
