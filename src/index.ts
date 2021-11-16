@@ -25,7 +25,7 @@ import { TodoTasksEndpoint } from './todoTasks';
 import { UserDefinedFieldDefinitionOptionsEndpoint } from './userDefinedFieldDefinitionOptions';
 import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitions';
 import { UsersEndpoint } from './users';
-import { UserStatusOverviewsEndpoint } from './userStatusOverview';
+import { UserStatusOverviewEndpoint } from './userStatusOverview';
 import { ConfigProvider } from './utils';
 import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
@@ -65,7 +65,16 @@ export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
-export { ApiResponse, ApiResponseOnFailure, ApiResponseOnSuccess, LibraryReturn } from './utils/response/apiResponse';
+export {
+  ApiResponse,
+  ApiResponseOnFailure,
+  ApiResponseOnSuccess,
+  LibraryReturn,
+  ResourceNames,
+  Resources,
+  Entity,
+  resourceNameArray,
+} from './utils/response/apiResponse';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
@@ -101,7 +110,7 @@ export default class Api {
   public translations: TranslationsEndpoint;
   public todoTasks: TodoTasksEndpoint;
   public users: UsersEndpoint;
-  public userStatusOverviews: UserStatusOverviewsEndpoint;
+  public userStatusOverview: UserStatusOverviewEndpoint;
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
@@ -145,7 +154,7 @@ export default class Api {
     this.translations = new TranslationsEndpoint(this.config);
     this.todoTasks = new TodoTasksEndpoint(this.config);
     this.users = new UsersEndpoint(this.config);
-    this.userStatusOverviews = new UserStatusOverviewsEndpoint(this.config);
+    this.userStatusOverview = new UserStatusOverviewEndpoint(this.config);
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);

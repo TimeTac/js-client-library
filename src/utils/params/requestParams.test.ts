@@ -19,12 +19,12 @@ describe('RequestParams', () => {
 
   test('single eq', () => {
     const requestParams = new RequestParamsBuilder<Resource>().eq('id', 1);
-    expect(requestParams.build()).toStrictEqual({ id: '1', _op__id: 'eq' });
+    expect(requestParams.build()).toStrictEqual({ id: '1' });
   });
 
   test('double eq', () => {
     const requestParams = new RequestParamsBuilder<Resource>().eq('id', 1).eq('user_id', 2);
-    expect(requestParams.build()).toStrictEqual({ id: '1', _op__id: 'eq', user_id: '2', _op__user_id: 'eq' });
+    expect(requestParams.build()).toStrictEqual({ id: '1', user_id: '2' });
   });
 
   test('single neq', () => {

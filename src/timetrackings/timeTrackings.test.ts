@@ -53,7 +53,7 @@ describe('TimeTrackings', () => {
   });
 
   test('read with RequestParmas', async () => {
-    mock.onGet(readPath, { params: { id: '99', _op__id: 'eq' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
+    mock.onGet(readPath, { params: { id: '99' } }).reply(200, { Success: true, NumResults: 1, Results: [{}] });
 
     expect.assertions(1);
 

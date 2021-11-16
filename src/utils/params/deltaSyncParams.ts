@@ -1,7 +1,6 @@
-import { DeltaSyncResults } from '../../deltaSync/types';
-import { RequestParams } from './requestParams';
+import { Entity, ResourceNames } from '../response/apiResponse';
+import { RequestParams, RequestParamsBuilder } from './requestParams';
 
-const DEFAULT_PAGE_SIZE = 1000;
 export class DeltaSyncParams {
   protected requestParams: RequestParams<unknown> = {};
 
@@ -28,26 +27,23 @@ export class DeltaSyncParams {
     return this;
   }
 
-  include<F extends keyof DeltaSyncResults & string>(values: F[]): DeltaSyncParams {
+  include(values: ResourceNames[]): DeltaSyncParams {
     this.requestParams['_include'] = values.join(',');
     return this;
   }
-  /**
-   * Warning: does not check if the resource fits the includeParams
-   * Also there is no check if the resource is included in the deltaSyncParams
-   */
-  addIncludeParams<F extends keyof DeltaSyncResults & string>(resource: F, includeParams: RequestParams<unknown>): DeltaSyncParams {
+
+  resource<F extends ResourceNames & string>(resource: F, addFilter: (params: RequestParamsBuilder<Entity<F>>) => void): DeltaSyncParams {
+    const params = new RequestParamsBuilder<Entity<F>>();
+    addFilter(params);
+    const includeParams = params.build();
+
     for (const [k, v] of Object.entries<string>(includeParams)) {
       this.requestParams[`${resource}__${k}`] = v;
     }
     return this;
   }
 
-  getLimit(): number {
-    return this.requestParams['_limit'] ? Number(this.requestParams['_limit']) : DEFAULT_PAGE_SIZE;
-  }
-
-  getOffset(): number {
-    return this.requestParams['_offset'] ? Number(this.requestParams['_offset']) : 0;
+  get(param: string): string {
+    return this.requestParams[param];
   }
 }

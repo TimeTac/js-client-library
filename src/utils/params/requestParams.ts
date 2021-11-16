@@ -32,7 +32,6 @@ export class RequestParamsBuilder<R extends Object> {
   }
 
   eq<F extends keyof R & string>(field: F, value: R[F]): RequestParamsBuilder<R> {
-    this.requestParams[`_op__${field}`] = 'eq';
     this.requestParams[field] = String(value);
     return this;
   }
@@ -122,6 +121,11 @@ export class RequestParamsBuilder<R extends Object> {
 
   nestedEntities(nestedParams: NestedParams): RequestParamsBuilder<R> {
     this.requestParams['nestedEntities'] = JSON.stringify(nestedParams);
+    return this;
+  }
+
+  resolve(field: keyof R & string): RequestParamsBuilder<R> {
+    this.requestParams['_resolve'] = field;
     return this;
   }
 }

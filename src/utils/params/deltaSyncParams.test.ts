@@ -1,14 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
 
 import { DeltaSyncParams } from './deltaSyncParams';
-import { RequestParamsBuilder } from './requestParams';
 
 describe('DeltaSyncParams', () => {
-  type Resource = {
-    num: number;
-    str: string;
-  };
-
   test('limit', () => {
     const deltaSyncParams = new DeltaSyncParams().limit(500);
     expect(deltaSyncParams.build()).toStrictEqual({ _limit: '500' });
@@ -36,27 +30,26 @@ describe('DeltaSyncParams', () => {
 
   test('getLimit default', () => {
     const deltaSyncParams = new DeltaSyncParams();
-    expect(deltaSyncParams.getLimit()).toBe(1000);
+    expect(deltaSyncParams.get('_limit')).toBe(undefined);
   });
 
   test('getLimit', () => {
     const deltaSyncParams = new DeltaSyncParams().limit(55);
-    expect(deltaSyncParams.getLimit()).toBe(55);
+    expect(deltaSyncParams.get('_limit')).toBe('55');
   });
 
   test('getOffset default', () => {
     const deltaSyncParams = new DeltaSyncParams();
-    expect(deltaSyncParams.getOffset()).toBe(0);
+    expect(deltaSyncParams.get('_offset')).toBe(undefined);
   });
 
   test('getOffset', () => {
     const deltaSyncParams = new DeltaSyncParams().offset(66);
-    expect(deltaSyncParams.getOffset()).toBe(66);
+    expect(deltaSyncParams.get('_offset')).toBe('66');
   });
 
-  test('addIncludeParams', () => {
-    const includeParams = new RequestParamsBuilder<Resource>().eq('num', 1).build();
-    const deltaSyncParams = new DeltaSyncParams().addIncludeParams('teams', includeParams);
-    expect(deltaSyncParams.build()).toStrictEqual({ teams__num: '1', teams___op__num: 'eq' });
+  test('resource', () => {
+    const deltaSyncParams = new DeltaSyncParams().resource('teams', (teams) => teams.eq('name', 'a'));
+    expect(deltaSyncParams.build()).toStrictEqual({ teams__name: 'a' });
   });
 });

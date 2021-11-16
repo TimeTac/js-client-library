@@ -26,6 +26,39 @@ import { Message } from '../../messages/types';
 import { Timezone } from '../../timezones/types';
 import { AbsenceBan } from '../../absenceBans/types';
 
+// Because types cannot be iterated at runtime, we add the keys of Resources here as a value
+// Below we add conditional types that don't compile if this array and Resources go out of sync
+export const resourceNameArray = [
+  'absenceBans',
+  'absenceDays',
+  'absences',
+  'absenceTypes',
+  'changeTimeTrackingRequests',
+  'teamMembers',
+  'departments',
+  'generalSettings',
+  'todoTasks',
+  'messages',
+  'recentTasks',
+  'projects',
+  'timezones',
+  'tasks',
+  'teams',
+  'serverCommunication',
+  'timePlannings',
+  'timesheetAccountings',
+  'timesheetAccountingSummaries',
+  'timeTrackings',
+  'translations',
+  'favouriteTasks',
+  'users',
+  'usersReadMe',
+  'userStatusOverview',
+  'feedback',
+  'userDefinedFieldDefinitions',
+  'userDefinedFieldDefinitionOptions',
+] as const;
+
 export type Resources = {
   absenceBans: AbsenceBan;
   absenceDays: AbsenceDay;
@@ -39,7 +72,6 @@ export type Resources = {
   // clients: Client;
   teamMembers: TeamMember;
   departments: Department;
-  deltaSync: undefined;
   generalSettings: GeneralSetting;
   todoTasks: TodoTask;
   // holidayRequests: HolidayRequest;
@@ -72,7 +104,6 @@ export type Resources = {
   timesheetAccountingSummaries: TimesheetAccountingSummaries;
   // timesheetActionLogs: TimesheetActionLog;
   // timetrackingChangelogs: TimetrackingChangelog;
-  userStatusOverviews: UserStatusOverview;
   timeTrackings: TimeTracking;
   translations: Translation;
   favouriteTasks: FavouriteTask;
@@ -82,10 +113,18 @@ export type Resources = {
   feedback: Feedback;
   userDefinedFieldDefinitions: UserDefinedFieldDefinitions;
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
-  _EMPTY: null;
 };
 
-export type ResourceNames = keyof Resources & string;
+// These conditional types ensure that the resourceNameArray and the Resources type are in sync
+type NeverIfArrayDoesNotMatchResources = keyof Resources extends typeof resourceNameArray[number] ? true : never;
+type NeverIfResourcesDoNotMatchArray = typeof resourceNameArray[number] extends keyof Resources ? true : never;
+// The assignments below fail and prevent compilation if the conditional types are never
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _assertResourcesMatchArray: NeverIfArrayDoesNotMatchResources = true;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _assertArrayMatchesResources: NeverIfResourcesDoNotMatchArray = true;
+
+export type ResourceNames = keyof Resources & typeof resourceNameArray[number];
 export type Entity<R extends ResourceNames> = Resources[R];
 
 type DeletedData = {
