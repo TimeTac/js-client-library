@@ -108,11 +108,15 @@ export class RequestParamsBuilder<R extends Object> {
 
   null<F extends keyof R & string>(field: F): RequestParamsBuilder<R> {
     this.requestParams[`_op__${field}`] = 'null';
+    // Value is ignored but the filter does not work at all if value is not sent..
+    this.requestParams[`${field}`] = 'null';
     return this;
   }
 
   notnull<F extends keyof R & string>(field: F): RequestParamsBuilder<R> {
     this.requestParams[`_op__${field}`] = 'notnull';
+    // Value is ignored but the filter does not work at all if value is not sent..
+    this.requestParams[`${field}`] = 'a';
     return this;
   }
 
