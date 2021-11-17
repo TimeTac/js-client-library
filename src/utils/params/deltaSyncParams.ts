@@ -4,6 +4,12 @@ import { RequestParams, RequestParamsBuilder } from './requestParams';
 export class DeltaSyncParams {
   protected requestParams: RequestParams<unknown> = {};
 
+  constructor(params?: DeltaSyncParams) {
+    if (params) {
+      this.requestParams = { ...params.requestParams };
+    }
+  }
+
   build(): RequestParams<unknown> {
     return this.requestParams;
   }
