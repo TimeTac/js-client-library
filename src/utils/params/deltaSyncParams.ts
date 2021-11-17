@@ -49,7 +49,7 @@ export class DeltaSyncParams {
     return this;
   }
 
-  get(param: string): string {
+  get(param: string): string | undefined {
     return this.requestParams[param];
   }
 }
