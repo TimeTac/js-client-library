@@ -106,6 +106,20 @@ export class RequestParamsBuilder<R extends Object> {
     return this;
   }
 
+  null<F extends keyof R & string>(field: F): RequestParamsBuilder<R> {
+    this.requestParams[`_op__${field}`] = 'null';
+    // Value is ignored but the filter does not work at all if value is not sent..
+    this.requestParams[`${field}`] = 'null';
+    return this;
+  }
+
+  notnull<F extends keyof R & string>(field: F): RequestParamsBuilder<R> {
+    this.requestParams[`_op__${field}`] = 'notnull';
+    // Value is ignored but the filter does not work at all if value is not sent..
+    this.requestParams[`${field}`] = 'a';
+    return this;
+  }
+
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   build() {
     return this.requestParams;
