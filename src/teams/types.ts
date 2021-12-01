@@ -1,5 +1,5 @@
 export type Team = {
-  id?: number;
+  id: number;
   name?: string;
   team_leader_id?: number;
   /**
