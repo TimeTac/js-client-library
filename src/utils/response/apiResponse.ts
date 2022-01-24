@@ -25,6 +25,7 @@ import { UserDefinedFieldDefinitionOptions } from '../../userDefinedFieldDefinit
 import { Message } from '../../messages/types';
 import { Timezone } from '../../timezones/types';
 import { AbsenceBan } from '../../absenceBans/types';
+import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -39,6 +40,7 @@ export const resourceNameArray = [
   'generalSettings',
   'todoTasks',
   'messages',
+  'permissionResolveUsers',
   'recentTasks',
   'projects',
   'timezones',
@@ -87,7 +89,7 @@ export type Resources = {
   // permissionResolveHolidayRequests: PermissionResolveHolidayRequest;
   // permissionResolveQuestions: PermissionResolveQuestion;
   // permissionResolveTeams: PermissionResolveTeam;
-  // permissionResolveUsers: PermissionResolveUser;
+  permissionResolveUsers: PermissionResolveUser;
   // permissions: Permission;
   recentTasks: RecentTask;
   projects: Project;

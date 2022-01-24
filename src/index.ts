@@ -30,6 +30,7 @@ import { ConfigProvider } from './utils';
 import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
 import { AbsenceBansEndpoint } from './absenceBans';
+import { PermissionResolveUsersEndpoint } from './permissions/permissionResolveUsers';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -116,6 +117,7 @@ export default class Api {
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public messages: MessagesEndpoint;
+  public permissionResolveUsers: PermissionResolveUsersEndpoint;
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
 
@@ -160,6 +162,7 @@ export default class Api {
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
+    this.permissionResolveUsers = new PermissionResolveUsersEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
 
