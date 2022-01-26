@@ -142,4 +142,9 @@ export class RequestParamsBuilder<R extends Object> {
     this.requestParams['_resolve'] = field;
     return this;
   }
+
+  custom(requestParam: string, value: string): RequestParamsBuilder<R> {
+    this.requestParams[requestParam] = value;
+    return this;
+  }
 }
