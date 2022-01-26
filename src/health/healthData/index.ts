@@ -9,9 +9,7 @@ type ResourceName = typeof resourceName;
 export class HealthDataEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
-  public read(
-    params?: (RequestParams<Entity<ResourceName>> & { password: string }) | string
-  ): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
+  public read(params?: RequestParams<Entity<ResourceName>> | string): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
     const response = this._get<ResourceName>('read', { params });
     return list(response);
   }
