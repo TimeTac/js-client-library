@@ -168,7 +168,7 @@ async() => {
 - [ ] [permissionResolveOauthClients](https://api.timetac.com/doc/v3#tag/permissionResolveOauthClients)
 - [ ] [permissionResolveQuestions](https://api.timetac.com/doc/v3#tag/permissionResolveQuestions)
 - [ ] [permissionResolveTeams](https://api.timetac.com/doc/v3#tag/permissionResolveTeams)
-- [ ] [permissionResolveUsers](https://api.timetac.com/doc/v3#tag/permissionResolveUsers)
+- [x] [permissionResolveUsers](https://api.timetac.com/doc/v3#tag/permissionResolveUsers)
 - [ ] [permissions](https://api.timetac.com/doc/v3#tag/permissions)
 - [ ] [permissionScopes](https://api.timetac.com/doc/v3#tag/permissionScopes)
 - [x] [projects](https://api.timetac.com/doc/v3#tag/projects)
