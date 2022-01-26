@@ -3,4 +3,4 @@ export type HealthRule = {
   name: string;
   description: string;
   active: boolean;
-}
+};

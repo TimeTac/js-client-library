@@ -31,7 +31,8 @@ import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
 import { AbsenceBansEndpoint } from './absenceBans';
 import { PermissionResolveUsersEndpoint } from './permissions/permissionResolveUsers';
-import { HealthRulesEndpoint } from './healthRules';
+import { HealthRulesEndpoint } from './health/healthRules';
+import { HealthDataEndpoint } from './health/healthData';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -85,7 +86,8 @@ export { DeletedEntry, ResourceResponse } from './utils/response/resourceRespons
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
-export { HealthRule } from './healthRules/types';
+export { HealthRule } from './health/healthRules/types';
+export { HealthData } from './health/healthData/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -124,6 +126,7 @@ export default class Api {
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
   public healthRules: HealthRulesEndpoint;
+  public healthData: HealthDataEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -170,6 +173,7 @@ export default class Api {
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
     this.healthRules = new HealthRulesEndpoint(this.config);
+    this.healthData = new HealthDataEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }

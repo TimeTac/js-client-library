@@ -1,4 +1,4 @@
-import BaseApi from '../baseApi';
+import BaseApi from '../../baseApi';
 
 const resourceName = 'healthRules';
 type ResourceName = typeof resourceName;
