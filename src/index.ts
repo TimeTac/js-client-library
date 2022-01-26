@@ -83,6 +83,7 @@ export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
+export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
