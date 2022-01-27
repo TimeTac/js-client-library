@@ -26,6 +26,8 @@ import { Message } from '../../messages/types';
 import { Timezone } from '../../timezones/types';
 import { AbsenceBan } from '../../absenceBans/types';
 import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
+import { HealthRule } from '../../health/healthRules/types';
+import { HealthData } from '../../health/healthData/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -59,6 +61,8 @@ export const resourceNameArray = [
   'feedback',
   'userDefinedFieldDefinitions',
   'userDefinedFieldDefinitionOptions',
+  'healthRules',
+  'healthData',
 ] as const;
 
 export type Resources = {
@@ -115,6 +119,8 @@ export type Resources = {
   feedback: Feedback;
   userDefinedFieldDefinitions: UserDefinedFieldDefinitions;
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
+  healthRules: HealthRule;
+  healthData: HealthData;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
