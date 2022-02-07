@@ -55,7 +55,10 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
   throw {
     response: apiResponse,
     _plainError: resolved,
-    message: (apiResponse.ErrorMessage as string | undefined) ?? (resolved.status != 200 ? resolved.statusText : 'Unsuccessful response'),
+    message:
+      apiResponse.ErrorExtended?.errorString ??
+      (apiResponse.ErrorMessage as string | undefined) ??
+      (resolved.status != 200 ? resolved.statusText : 'Unsuccessful response'),
     code: apiResponse.Error ?? resolved.status,
     stack: new Error().stack,
   };
