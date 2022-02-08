@@ -52,13 +52,18 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
     return apiResponse;
   }
 
+  let errorMessage = 'Unsuccessful response';
+
+  if (typeof apiResponse.ErrorExtended?.errorString == 'string' && 0 < apiResponse.ErrorExtended.errorString.length) {
+    errorMessage = apiResponse.ErrorExtended.errorString;
+  } else if (apiResponse.ErrorMessage) {
+    errorMessage = apiResponse.ErrorMessage;
+  }
+
   throw {
     response: apiResponse,
     _plainError: resolved,
-    message:
-      apiResponse.ErrorExtended?.errorString ??
-      (apiResponse.ErrorMessage as string | undefined) ??
-      (resolved.status != 200 ? resolved.statusText : 'Unsuccessful response'),
+    message: errorMessage,
     code: apiResponse.Error ?? resolved.status,
     stack: new Error().stack,
   };
