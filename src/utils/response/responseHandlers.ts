@@ -52,7 +52,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
     return apiResponse;
   }
 
-  let errorMessage = 'Unsuccessful response';
+  let errorMessage = 'Something went wrong';
 
   if (typeof apiResponse.ErrorExtended?.errorString == 'string' && 0 < apiResponse.ErrorExtended.errorString.length) {
     errorMessage = apiResponse.ErrorExtended.errorString;
