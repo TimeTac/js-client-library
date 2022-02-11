@@ -89,6 +89,7 @@ const MockData: {
       enable_module_project_timetracking: true,
       enable_module_leave_management: true,
       enable_module_shift_planning: false,
+      enable_module_timetac_health: true,
       leave_note: '',
       request_substitute_user_id: 0,
       time_tracking_ex_post_earliest_working_time: '08:00:00',
@@ -177,7 +178,7 @@ describe('Users', () => {
     expect.assertions(1);
 
     await users.update(MockData.userUpdateData).then((results) => {
-      expect(results.data.results).toStrictEqual([]);
+      expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: undefined });
     });
   });
 });
