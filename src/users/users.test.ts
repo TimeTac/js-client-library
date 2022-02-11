@@ -92,6 +92,9 @@ const MockData: {
       leave_note: '',
       request_substitute_user_id: 0,
       time_tracking_ex_post_earliest_working_time: '08:00:00',
+      health_rule_id: 2,
+      health_rule_id_valid_from: '2021-03-05',
+      health_checker: true,
     },
   ],
   userCreateData: {
