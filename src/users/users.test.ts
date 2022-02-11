@@ -174,7 +174,7 @@ describe('Users', () => {
     expect.assertions(1);
 
     await users.update(MockData.userUpdateData).then((results) => {
-      expect(results.data.results).toStrictEqual([]);
+      expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: undefined });
     });
   });
 });
