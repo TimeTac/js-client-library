@@ -72,7 +72,7 @@ describe('TimeTrackings', () => {
       .catch(
         (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
           expect(error.code).toBe(200);
-          expect(error.message).toBe('Unsuccessful response');
+          expect(error.message).toBe('Something went wrong');
           expect(error.response).toMatchObject({ Success: false });
           expect(error._plainError).toMatchObject({ status: 200, data: { Success: false } });
           expect(typeof error.stack).toBe('string');
@@ -229,7 +229,7 @@ describe('TimeTrackings', () => {
       .catch(
         (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
           expect(error.code).toBe(200);
-          expect(error.message).toBe('Unsuccessful response');
+          expect(error.message).toBe('Something went wrong');
           expect(error.response).toMatchObject({ Success: false });
           expect(error._plainError).toMatchObject({
             status: 200,
@@ -334,7 +334,7 @@ describe('TimeTrackings', () => {
       .catch(
         (error: { code: number; message: string; stack: string; _plainError: Record<string, unknown>; response: ApiResponseOnFailure }) => {
           expect(error.code).toBe(200);
-          expect(error.message).toBe('Unsuccessful response');
+          expect(error.message).toBe('Something went wrong');
           expect(error.response).toMatchObject({ Success: false });
           expect(error._plainError).toMatchObject({
             status: 200,
