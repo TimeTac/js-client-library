@@ -111,4 +111,5 @@ export interface UserResetPassword {
 export interface UserUpdatePassword {
   id: number;
   password: string;
+  old_password: string;
 }
