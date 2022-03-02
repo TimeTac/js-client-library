@@ -1,11 +1,8 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { Entity, LibraryReturn } from '../utils/response/apiResponse';
-import { createRawApiResponse } from '../utils/response/rawApiResponse';
-import { createResourceResponse } from '../utils/response/resourceResponse';
 import { list, Required, requiredSingle } from '../utils/response/responseHandlers';
-import { createUpdateRawResponse, UpdateRawResponse } from '../utils/response/updateRawResponse';
-import { UserRead, UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe } from './types';
+import { UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe } from './types';
 
 const resourceName = 'users';
 const usersReadMe = 'usersReadMe';
@@ -24,9 +21,9 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public async update(data: UserUpdate): Promise<UpdateRawResponse<UserRead>> {
-    const response = this._put<ResourceName>(`update`, data);
-    return createUpdateRawResponse<UserRead>(createResourceResponse<UserRead>(await createRawApiResponse(response)));
+  public async update(data: UserUpdate): Required<ResourceName> {
+    const response = this._put<ResourceName>('update', data);
+    return requiredSingle(response);
   }
 
   //endpoint returns empty array in Results

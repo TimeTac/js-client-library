@@ -5,5 +5,5 @@ export type HealthData = {
   rule_id: number;
   check_needed: boolean;
   check_status_valid_to: string;
-  check_status: 'invalid' | 'valid';
+  check_status: 'invalid' | 'valid' | 'access forbidden';
 };

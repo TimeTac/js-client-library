@@ -64,7 +64,7 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse>): Pro
     throw {
       response: optionalResponse,
       _plainError: axiosResponse,
-      message: optionalResponse?.ErrorMessage ?? (axiosResponse.status != 200 ? axiosResponse.statusText : 'Unsuccessful response'),
+      message: optionalResponse?.ErrorMessage ?? (axiosResponse.status != 200 ? axiosResponse.statusText : 'Something went wrong'),
       code: optionalResponse?.Error ?? axiosResponse.status,
       stack: new Error().stack,
     };
