@@ -5,5 +5,5 @@ export type WorkingHourTemplateHistory = {
   template_hours: number;
   valid_from: string;
   change_type: string;
-  created_at: null;
+  created_at: null | string;
 };
