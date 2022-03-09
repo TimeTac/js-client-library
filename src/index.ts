@@ -4,6 +4,7 @@ import { AbsenceTypesEndpoint } from './absenceTypes';
 import { AuthenticationEndpoint } from './authentication';
 import { ApiConfig, ApiState } from './baseApi';
 import { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
+import { CountriesEndpoint } from './countries';
 import { DeltaSyncEndpoint } from './deltaSync';
 import { DepartmentsEndpoint } from './departments';
 import { FavouriteTasksEndpoint } from './favouriteTasks';
@@ -100,11 +101,14 @@ export default class Api {
   public absences: AbsencesEndpoint;
   public absenceTypes: AbsenceTypesEndpoint;
   public authentication: AuthenticationEndpoint;
+  public countries: CountriesEndpoint;
   public deltaSync: DeltaSyncEndpoint;
   public departments: DepartmentsEndpoint;
   public favouriteTasks: FavouriteTasksEndpoint;
   public feedback: FeedbackEndpoint;
   public generalSettings: GeneralSettingsEndpoint;
+  public healthRules: HealthRulesEndpoint;
+  public healthData: HealthDataEndpoint;
   public projects: ProjectsEndpoint;
   public recentTasks: RecentTasksEndpoint;
   public serverCommunication: ServerCommunicationEndpoint;
@@ -125,8 +129,6 @@ export default class Api {
   public permissionResolveUsers: PermissionResolveUsersEndpoint;
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
-  public healthRules: HealthRulesEndpoint;
-  public healthData: HealthDataEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -147,11 +149,14 @@ export default class Api {
     this.absences = new AbsencesEndpoint(this.config);
     this.absenceTypes = new AbsenceTypesEndpoint(this.config);
     this.authentication = new AuthenticationEndpoint(this.config);
+    this.countries = new CountriesEndpoint(this.config);
     this.deltaSync = new DeltaSyncEndpoint(this.config);
     this.departments = new DepartmentsEndpoint(this.config);
     this.favouriteTasks = new FavouriteTasksEndpoint(this.config);
     this.feedback = new FeedbackEndpoint(this.config);
     this.generalSettings = new GeneralSettingsEndpoint(this.config);
+    this.healthRules = new HealthRulesEndpoint(this.config);
+    this.healthData = new HealthDataEndpoint(this.config);
     this.projects = new ProjectsEndpoint(this.config);
     this.recentTasks = new RecentTasksEndpoint(this.config);
     this.serverCommunication = new ServerCommunicationEndpoint(this.config);
@@ -172,8 +177,6 @@ export default class Api {
     this.permissionResolveUsers = new PermissionResolveUsersEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
-    this.healthRules = new HealthRulesEndpoint(this.config);
-    this.healthData = new HealthDataEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }

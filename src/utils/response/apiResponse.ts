@@ -28,6 +28,7 @@ import { AbsenceBan } from '../../absenceBans/types';
 import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
 import { HealthRule } from '../../health/healthRules/types';
 import { HealthData } from '../../health/healthData/types';
+import { Country } from '../../countries/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -37,6 +38,7 @@ export const resourceNameArray = [
   'absences',
   'absenceTypes',
   'changeTimeTrackingRequests',
+  'countries',
   'teamMembers',
   'departments',
   'generalSettings',
@@ -76,6 +78,7 @@ export type Resources = {
   // checkpointTrackings: CheckpointTracking;
   // checkpointTranslations: CheckpointTranslation;
   // clients: Client;
+  countries: Country;
   teamMembers: TeamMember;
   departments: Department;
   generalSettings: GeneralSetting;
