@@ -89,6 +89,7 @@ export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from '
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 export { HealthRule } from './health/healthRules/types';
 export { HealthData } from './health/healthData/types';
+export { Country } from './countries/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
