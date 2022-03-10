@@ -1,4 +1,4 @@
-export type WorkingHourTemplateHistory = {
+export type UserTemplateHistory = {
   id: number;
   user_id: number;
   template_id: number;
