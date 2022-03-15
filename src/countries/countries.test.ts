@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
-import { LibraryReturn } from '../utils/response/apiResponse';
 import { Country } from './types';
 import { CountriesEndpoint } from './';
 
@@ -41,9 +40,9 @@ describe('Countries', () => {
 
     const results = await countries.read();
     expect(results).toStrictEqual({
-        Results: mockData.countriesReadResult,
-        Affected: {},
-        Deleted: [],
+      Results: mockData.countriesReadResult,
+      Affected: {},
+      Deleted: [],
     });
   });
 });
