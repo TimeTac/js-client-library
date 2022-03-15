@@ -133,7 +133,7 @@ async() => {
 - [ ] [checkpoints](https://api.timetac.com/doc/v3#tag/checkpoints)
 - [ ] [checkpointTrackings](https://api.timetac.com/doc/v3#tag/checkpointTrackings)
 - [ ] [clients](https://api.timetac.com/doc/v3#tag/clients)
-- [ ] [countries](https://api.timetac.com/doc/v3#tag/countries)
+- [x] [countries](https://api.timetac.com/doc/v3#tag/countries)
 - [ ] [currencies](https://api.timetac.com/doc/v3#tag/currencies)
 - [ ] [currencyRates](https://api.timetac.com/doc/v3#tag/currencyRates)
 - [x] [deltaSync](https://api.timetac.com/doc/v3#tag/deltaSync)
