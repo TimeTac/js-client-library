@@ -29,6 +29,7 @@ import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/
 import { HealthRule } from '../../health/healthRules/types';
 import { HealthData } from '../../health/healthData/types';
 import { Country } from '../../countries/types';
+import { UserTemplateHistory } from '../../userTemplateHistory/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -65,6 +66,7 @@ export const resourceNameArray = [
   'userDefinedFieldDefinitionOptions',
   'healthRules',
   'healthData',
+  'userTemplateHistory',
 ] as const;
 
 export type Resources = {
@@ -124,6 +126,7 @@ export type Resources = {
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
   healthRules: HealthRule;
   healthData: HealthData;
+  userTemplateHistory: UserTemplateHistory;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync

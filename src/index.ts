@@ -34,6 +34,7 @@ import { AbsenceBansEndpoint } from './absenceBans';
 import { PermissionResolveUsersEndpoint } from './permissions/permissionResolveUsers';
 import { HealthRulesEndpoint } from './health/healthRules';
 import { HealthDataEndpoint } from './health/healthData';
+import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -90,6 +91,7 @@ export { PermissionResolveUser } from './permissions/permissionResolveUsers/type
 export { HealthRule } from './health/healthRules/types';
 export { HealthData } from './health/healthData/types';
 export { Country } from './countries/types';
+export { UserTemplateHistory } from './userTemplateHistory/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -130,6 +132,7 @@ export default class Api {
   public permissionResolveUsers: PermissionResolveUsersEndpoint;
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
+  public userTemplateHistory: UserTemplateHistoryEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -178,6 +181,7 @@ export default class Api {
     this.permissionResolveUsers = new PermissionResolveUsersEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
+    this.userTemplateHistory = new UserTemplateHistoryEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }

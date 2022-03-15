@@ -202,6 +202,7 @@ async() => {
 - [x] [userDefinedFieldDefinitions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitions)
 - [x] [users](https://api.timetac.com/doc/v3#tag/users)
 - [x] [userStatusOverview](https://api.timetac.com/doc/v3#tag/userStatusOverview)
+- [x] [userTemplateHistory](https://api.timetac.com/doc/v3#tag/userTemplateHistory)
 
 ## Contributing
 
