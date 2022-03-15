@@ -7,7 +7,7 @@ import { LibraryReturn } from '../utils/response/apiResponse';
 import { Country } from './types';
 import { CountriesEndpoint } from './';
 
-const MockData: {
+const mockData: {
   countriesReadResult: Country[];
 } = {
   countriesReadResult: [
@@ -37,16 +37,13 @@ describe('Countries', () => {
   });
 
   test('read', async () => {
-    mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: MockData.countriesReadResult });
+    mock.onGet(readPath).reply(200, { Success: true, NumResults: 3, Results: mockData.countriesReadResult });
 
-    expect.assertions(1);
-
-    await countries.read().then((results: LibraryReturn<'countries', Country[]>) => {
-      expect(results).toStrictEqual({
-        Results: MockData.countriesReadResult,
+    const results = await countries.read();
+    expect(results).toStrictEqual({
+        Results: mockData.countriesReadResult,
         Affected: {},
         Deleted: [],
-      });
     });
   });
 });
