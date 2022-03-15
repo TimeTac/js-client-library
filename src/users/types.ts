@@ -36,6 +36,7 @@ export type UserRead = {
   u_iv_6: string;
   u_iv_6_valid_from: string;
   mobile_allowed: boolean;
+  mobile_allow_live_timetracking: boolean;
   country_id: number;
   allowed_ips: string;
   payroll_accounting_starts_at: string;

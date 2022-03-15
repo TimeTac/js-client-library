@@ -52,6 +52,7 @@ const MockData: {
       u_iv_6: '',
       u_iv_6_valid_from: '2021-03-05',
       mobile_allowed: true,
+      mobile_allow_live_timetracking: true,
       country_id: 0,
       allowed_ips: '',
       payroll_accounting_starts_at: '2021-03-05',
