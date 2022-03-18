@@ -35,6 +35,7 @@ import { PermissionResolveUsersEndpoint } from './permissions/permissionResolveU
 import { HealthRulesEndpoint } from './health/healthRules';
 import { HealthDataEndpoint } from './health/healthData';
 import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
+import { AccountEndpoint } from './account';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -86,6 +87,7 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
+export { Account } from './account/types';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 export { HealthRule } from './health/healthRules/types';
@@ -99,6 +101,7 @@ export default class Api {
   public config: ConfigProvider;
   public state: ApiState;
 
+  public account: AccountEndpoint;
   public absenceBans: AbsenceBansEndpoint;
   public absenceDays: AbsenceDaysEndpoint;
   public absences: AbsencesEndpoint;
@@ -148,6 +151,7 @@ export default class Api {
       refreshingToken: false,
     };
 
+    this.account = new AccountEndpoint(this.config);
     this.absenceBans = new AbsenceBansEndpoint(this.config);
     this.absenceDays = new AbsenceDaysEndpoint(this.config);
     this.absences = new AbsencesEndpoint(this.config);

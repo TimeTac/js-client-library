@@ -30,10 +30,12 @@ import { HealthRule } from '../../health/healthRules/types';
 import { HealthData } from '../../health/healthData/types';
 import { Country } from '../../countries/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
+import { Account } from '../../account/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
 export const resourceNameArray = [
+  'account',
   'absenceBans',
   'absenceDays',
   'absences',
@@ -70,6 +72,7 @@ export const resourceNameArray = [
 ] as const;
 
 export type Resources = {
+  account: Account;
   absenceBans: AbsenceBan;
   absenceDays: AbsenceDay;
   // absenceReplacements: AbsenceReplacement;
@@ -192,4 +195,8 @@ export type LibraryReturn<ResourceName extends ResourceNames, Results = Resource
   Results: Results;
   Deleted: never[] | DeletedData[];
   Affected: ListOfAllResources;
+};
+
+export type OptionsListReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
+  Results: Results;
 };
