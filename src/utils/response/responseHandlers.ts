@@ -118,16 +118,6 @@ export async function serverCommunication<ResourceName extends ResourceNames>(
   }
 }
 
-export async function config<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
-): Promise<{ Results: Entity<ResourceName> }> {
-  const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, Entity<ResourceName>>;
-
-  return {
-    Results: response.Results,
-  };
-}
-
 /**
  * @return A promise that resolves to Results T or undefined if no results but Success is true.
  */
