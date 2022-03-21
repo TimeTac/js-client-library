@@ -1,4 +1,4 @@
-export type Account = {
+export type AccountRead = {
   signupform_username?: string;
   signupform_companyname?: string;
   signupform_firstname?: string;
@@ -15,3 +15,10 @@ export type Account = {
   demoaccount_until: string;
   paid_version: string;
 };
+
+export type Account = AccountRead;
+
+export interface AccountUpdate extends Partial<AccountRead> {
+  accepted_terms_and_conditions: boolean;
+  delete_demo_data: boolean;
+}
