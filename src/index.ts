@@ -36,6 +36,7 @@ import { HealthRulesEndpoint } from './health/healthRules';
 import { HealthDataEndpoint } from './health/healthData';
 import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
 import { AccountEndpoint } from './account';
+import { SalutationsEndpoint } from './salutations';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -62,6 +63,7 @@ export { TimePlanning } from './timeplannings/types';
 export { TimesheetAccounting } from './timesheetAccountings/types';
 export { Translation } from './translations/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate, TimeTrackingUpdate } from './timetrackings/types';
+export { Salutation } from './salutations/types';
 export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
@@ -117,6 +119,7 @@ export default class Api {
   public healthData: HealthDataEndpoint;
   public projects: ProjectsEndpoint;
   public recentTasks: RecentTasksEndpoint;
+  public salutations: SalutationsEndpoint;
   public serverCommunication: ServerCommunicationEndpoint;
   public tasks: TasksEndpoint;
   public teamMembers: TeamMembersEndpoint;
@@ -167,6 +170,7 @@ export default class Api {
     this.healthData = new HealthDataEndpoint(this.config);
     this.projects = new ProjectsEndpoint(this.config);
     this.recentTasks = new RecentTasksEndpoint(this.config);
+    this.salutations = new SalutationsEndpoint(this.config);
     this.serverCommunication = new ServerCommunicationEndpoint(this.config);
     this.tasks = new TasksEndpoint(this.config);
     this.teamMembers = new TeamMembersEndpoint(this.config);

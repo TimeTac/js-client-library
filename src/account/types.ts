@@ -12,6 +12,7 @@ export type AccountRead = {
   payment_option?: string;
   technical_contact_email?: string;
   email_billing_1?: string;
+  salutation_id?: string;
   demoaccount_until: string;
   paid_version: string;
 };
