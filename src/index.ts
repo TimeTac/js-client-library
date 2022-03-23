@@ -37,6 +37,7 @@ import { HealthDataEndpoint } from './health/healthData';
 import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
 import { AccountEndpoint } from './account';
 import { SalutationsEndpoint } from './salutations';
+import { ZohoSubscriptionsEndpoint } from './zohoSubscriptions';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -139,6 +140,7 @@ export default class Api {
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
   public userTemplateHistory: UserTemplateHistoryEndpoint;
+  public zohoSubscriptions: ZohoSubscriptionsEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -190,6 +192,7 @@ export default class Api {
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
     this.userTemplateHistory = new UserTemplateHistoryEndpoint(this.config);
+    this.zohoSubscriptions = new ZohoSubscriptionsEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }

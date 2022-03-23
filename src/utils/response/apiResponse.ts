@@ -32,6 +32,7 @@ import { Country } from '../../countries/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
 import { Account } from '../../account/types';
 import { Salutation } from '../../salutations/types';
+import { HostedPage } from '../../zohoSubscriptions/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -71,6 +72,7 @@ export const resourceNameArray = [
   'healthData',
   'userTemplateHistory',
   'salutations',
+  'zohoSubscriptions',
 ] as const;
 
 export type Resources = {
@@ -133,6 +135,7 @@ export type Resources = {
   healthData: HealthData;
   userTemplateHistory: UserTemplateHistory;
   salutations: Salutation;
+  zohoSubscriptions: HostedPage;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
