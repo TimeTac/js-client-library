@@ -20,6 +20,5 @@ export type AccountRead = {
 export type Account = AccountRead;
 
 export interface AccountUpdate extends Partial<AccountRead> {
-  accepted_terms_and_conditions: boolean;
   delete_demo_data: boolean;
 }
