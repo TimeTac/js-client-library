@@ -90,7 +90,7 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
-export { Account, AccountRead, AccountUpdate } from './account/types';
+export { Account, AccountRead, AccountUpdate, AccountActivate } from './account/types';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 export { HealthRule } from './health/healthRules/types';

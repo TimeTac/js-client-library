@@ -22,3 +22,7 @@ export type Account = AccountRead;
 export interface AccountUpdate extends Partial<AccountRead> {
   delete_demo_data: boolean;
 }
+
+export interface AccountActivate {
+  payment_option: string;
+}
