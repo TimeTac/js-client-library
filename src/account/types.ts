@@ -25,4 +25,5 @@ export interface AccountUpdate extends Partial<AccountRead> {
 
 export interface AccountActivate {
   payment_option: string;
+  hash: string;
 }
