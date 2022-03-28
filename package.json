@@ -18,8 +18,9 @@
     "access": "public"
   },
   "license": "Apache-2.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "files": [
     "dist"
   ],
@@ -30,9 +31,8 @@
     "lintfix": "eslint --max-warnings=0 --ext .ts,.tsx,.js,.jsx src --fix",
     "prettycheck": "prettier -c 'src/**/*.{ts,js,css,html}'",
     "prettyfix": "prettier --write 'src/**/*.{ts,js,css,html}'",
-    "compile": "tsc",
-    "dev": "tsc --watch",
-    "prepare": "tsc"
+    "compile": "tsc -p tsconfig.json && tsc -p esm.tsconfig.json",
+    "prepare": "yarn run compile"
   },
   "dependencies": {
     "axios": "0.21.4",
