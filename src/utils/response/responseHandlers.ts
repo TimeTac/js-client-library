@@ -9,16 +9,17 @@ import {
   Entity,
   LibraryReturn,
   ResourceNames,
+  Resources,
 } from './apiResponse';
 
-export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
+export type RequestPromise<ResourceName, Entity> = Promise<AxiosResponse<ApiResponse<ResourceName, Entity[]>>>;
 
 export type Required<ResourceName extends ResourceNames, Resource = Entity<ResourceName>> = Promise<LibraryReturn<ResourceName, Resource>>;
 
 export async function toApiResponse<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
-): Promise<ApiResponseOnSuccess<ResourceName>> {
-  let resolved: AxiosResponse<ApiResponse<ResourceName>> | undefined;
+  promise: RequestPromise<ResourceName, Resources[ResourceName]>
+): Promise<ApiResponseOnSuccess<ResourceName, Resources[ResourceName][]>> {
+  let resolved: AxiosResponse<ApiResponse<ResourceName, Resources[ResourceName][]>> | undefined;
 
   try {
     resolved = await promise;
@@ -39,7 +40,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
 
   const apiResponse:
     | ApiResponseOnFailureServerCommunication
-    | ApiResponseOnSuccess<ResourceName>
+    | ApiResponseOnSuccess<ResourceName, Resources[ResourceName][]>
     | ApiResponseOnFailure
     | ApiResponseOnSuccess<ResourceName, ServerCommunication> = resolved.data;
   // Workaround for serverCommunication endpoint returning Success: true despite an error
@@ -73,7 +74,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
  * @return A promise that resolves to Type or rejects if no results
  */
 export async function required<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName, Resources[ResourceName]>
 ): Required<ResourceName, Entity<ResourceName>[]> {
   const response = await toApiResponse<ResourceName>(promise);
 
@@ -89,8 +90,8 @@ export async function required<ResourceName extends ResourceNames>(
 }
 
 export async function requiredSingle<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
-): Promise<LibraryReturn<ResourceName>> {
+  promise: RequestPromise<ResourceName, Resources[ResourceName]>
+): Promise<LibraryReturn<ResourceName, Resources[ResourceName]>> {
   const response = await toApiResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
@@ -105,7 +106,7 @@ export async function requiredSingle<ResourceName extends ResourceNames>(
 }
 
 export async function serverCommunication<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName, Resources[ResourceName]>
 ): Promise<{ Results: ServerCommunication }> {
   const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, ServerCommunication>;
 
@@ -119,7 +120,7 @@ export async function serverCommunication<ResourceName extends ResourceNames>(
 }
 
 export async function plainObject<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName, Resources[ResourceName]>
 ): Promise<{ Results: Entity<ResourceName> }> {
   const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, Entity<ResourceName>>;
 
@@ -132,7 +133,7 @@ export async function plainObject<ResourceName extends ResourceNames>(
  * @return A promise that resolves to Results T or undefined if no results but Success is true.
  */
 export async function optional<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName, Resources[ResourceName]>
 ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
   const response = await toApiResponse<ResourceName>(promise);
 
@@ -144,7 +145,7 @@ export async function optional<ResourceName extends ResourceNames>(
 }
 
 export async function list<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName, Resources[ResourceName]>
 ): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
   const response = await toApiResponse<ResourceName>(promise);
 

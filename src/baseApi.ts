@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
 import { RequestParams } from './utils/params/requestParams';
-import { ApiResponse, Entity, LibraryReturn, ResourceNames } from './utils/response/apiResponse';
+import { ApiResponse, Entity, LibraryReturn, ResourceNames, Resources } from './utils/response/apiResponse';
 import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 import { createRawApiResponse } from './utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
@@ -55,10 +55,13 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     };
   }
 
-  protected _get<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+  protected _get<ResourceName extends ResourceNames>(
+    slug: string,
+    options?: AxiosRequestConfig
+  ): RequestPromise<ResourceName, Resources[ResourceName]> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.get<ApiResponse<ResourceName>>(url, config);
+    return axios.get<ApiResponse<ResourceName, Resources[ResourceName][]>>(url, config);
   }
 
   protected _getDeltaSync(slug: string, options: AxiosRequestConfig): Promise<AxiosResponse<DeltaSyncResponse>> {
@@ -72,10 +75,10 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
     options?: AxiosRequestConfig
-  ): RequestPromise<ResourceName> {
+  ): RequestPromise<ResourceName, Resources[ResourceName]> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.post<ApiResponse<ResourceName>>(url, data, config);
+    return axios.post<ApiResponse<ResourceName, Resources[ResourceName][]>>(url, data, config);
   }
 
   protected _put<ResourceName extends ResourceNames>(
@@ -83,19 +86,22 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
     options?: AxiosRequestConfig
-  ): RequestPromise<ResourceName> {
+  ): RequestPromise<ResourceName, Resources[ResourceName]> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.put<ApiResponse<ResourceName>>(url, data, config);
+    return axios.put<ApiResponse<ResourceName, Resources[ResourceName][]>>(url, data, config);
   }
 
-  protected _delete<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
+  protected _delete<ResourceName extends ResourceNames>(
+    slug: string,
+    options?: AxiosRequestConfig
+  ): RequestPromise<ResourceName, Resources[ResourceName]> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     //Delete requests send no content
     // eslint-disable-next-line
     config.headers['Content-type'] = '';
-    return axios.delete<ApiResponse<ResourceName>>(url, config);
+    return axios.delete<ApiResponse<ResourceName, Resources[ResourceName][]>>(url, config);
   }
 
   protected getBaseEndpointUrl(): string {
@@ -139,7 +145,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return list(response);
   }
 
-  public delete(id: number): Promise<LibraryReturn<ResourceName>> {
+  public delete(id: number): Promise<LibraryReturn<ResourceName, Resources[ResourceName]>> {
     const response = this._delete<ResourceName>(`delete/${id}`);
     return requiredSingle(response);
   }

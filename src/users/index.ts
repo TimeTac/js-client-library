@@ -2,7 +2,7 @@ import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { list, Required, requiredSingle } from '../utils/response/responseHandlers';
-import { UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe } from './types';
+import { UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe, User } from './types';
 
 const resourceName = 'users';
 const usersReadMe = 'usersReadMe';
@@ -38,7 +38,7 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return list(response);
   }
 
-  public updatePassword(data: UserUpdatePassword): Promise<LibraryReturn<ResourceName>> {
+  public updatePassword(data: UserUpdatePassword): Promise<LibraryReturn<ResourceName, User>> {
     const response = this._put<ResourceName>('updatePassword', data);
     return requiredSingle(response);
   }

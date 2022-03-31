@@ -40,7 +40,7 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public start(data: StartTimeTrackingData): Promise<LibraryReturn<ResourceName>> {
+  public start(data: StartTimeTrackingData): Promise<LibraryReturn<ResourceName, TimeTracking>> {
     const response = this._post<ResourceName>('start', data);
     return requiredSingle(response);
   }
@@ -50,7 +50,7 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return optional(response);
   }
 
-  public toggle(data: ToggleTimeTrackingData): Promise<LibraryReturn<ResourceName>> {
+  public toggle(data: ToggleTimeTrackingData): Promise<LibraryReturn<ResourceName, TimeTracking>> {
     const response = this._post<ResourceName>('toggle', data);
     return requiredSingle(response);
   }

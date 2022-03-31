@@ -8,7 +8,7 @@ const resourceName = 'feedback';
 export class FeedbackEndpoint extends BaseApi<typeof resourceName> {
   public readonly resourceName = resourceName;
 
-  public create(data: Feedback): Promise<LibraryReturn<typeof resourceName>> {
+  public create(data: Feedback): Promise<LibraryReturn<typeof resourceName, Feedback>> {
     const response = this._post<typeof resourceName>('create', data);
     return responseHandlers.requiredSingle(response);
   }

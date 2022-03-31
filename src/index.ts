@@ -35,9 +35,7 @@ import { PermissionResolveUsersEndpoint } from './permissions/permissionResolveU
 import { HealthRulesEndpoint } from './health/healthRules';
 import { HealthDataEndpoint } from './health/healthData';
 import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
-import { AccountEndpoint } from './account';
 import { SalutationsEndpoint } from './salutations';
-import { ZohoSubscriptionsEndpoint } from './zohoSubscriptions';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -78,6 +76,7 @@ export { RequestParams, RequestParamsBuilder } from './utils/params/requestParam
 export {
   ApiResponse,
   ApiResponseOnFailure,
+  ApiResponseOnFailureServerCommunication,
   ApiResponseOnSuccess,
   LibraryReturn,
   ResourceNames,
@@ -90,13 +89,15 @@ export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
-export { Account, AccountRead, AccountUpdate, AccountActivate } from './account/types';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 export { HealthRule } from './health/healthRules/types';
 export { HealthData } from './health/healthData/types';
 export { Country } from './countries/types';
 export { UserTemplateHistory } from './userTemplateHistory/types';
+export { ApiConfig, default as BaseApi } from './baseApi';
+export { Required, requiredSingle, plainObject, RequestPromise } from './utils/response/responseHandlers';
+export { ConfigProvider } from './utils/index';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -104,7 +105,6 @@ export default class Api {
   public config: ConfigProvider;
   public state: ApiState;
 
-  public account: AccountEndpoint;
   public absenceBans: AbsenceBansEndpoint;
   public absenceDays: AbsenceDaysEndpoint;
   public absences: AbsencesEndpoint;
@@ -140,7 +140,6 @@ export default class Api {
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
   public userTemplateHistory: UserTemplateHistoryEndpoint;
-  public zohoSubscriptions: ZohoSubscriptionsEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -156,7 +155,6 @@ export default class Api {
       refreshingToken: false,
     };
 
-    this.account = new AccountEndpoint(this.config);
     this.absenceBans = new AbsenceBansEndpoint(this.config);
     this.absenceDays = new AbsenceDaysEndpoint(this.config);
     this.absences = new AbsencesEndpoint(this.config);
@@ -192,7 +190,6 @@ export default class Api {
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
     this.userTemplateHistory = new UserTemplateHistoryEndpoint(this.config);
-    this.zohoSubscriptions = new ZohoSubscriptionsEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }

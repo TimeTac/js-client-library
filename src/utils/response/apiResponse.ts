@@ -30,14 +30,11 @@ import { HealthRule } from '../../health/healthRules/types';
 import { HealthData } from '../../health/healthData/types';
 import { Country } from '../../countries/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
-import { Account } from '../../account/types';
 import { Salutation } from '../../salutations/types';
-import { HostedPage } from '../../zohoSubscriptions/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
 export const resourceNameArray = [
-  'account',
   'absenceBans',
   'absenceDays',
   'absences',
@@ -72,11 +69,9 @@ export const resourceNameArray = [
   'healthData',
   'userTemplateHistory',
   'salutations',
-  'zohoSubscriptions',
 ] as const;
 
 export type Resources = {
-  account: Account;
   absenceBans: AbsenceBan;
   absenceDays: AbsenceDay;
   // absenceReplacements: AbsenceReplacement;
@@ -135,14 +130,13 @@ export type Resources = {
   healthData: HealthData;
   userTemplateHistory: UserTemplateHistory;
   salutations: Salutation;
-  zohoSubscriptions: HostedPage;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
 type NeverIfArrayDoesNotMatchResources = keyof Resources extends typeof resourceNameArray[number] ? true : never;
 type NeverIfResourcesDoNotMatchArray = typeof resourceNameArray[number] extends keyof Resources ? true : never;
 // The assignments below fail and prevent compilation if the conditional types are never
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
 const _assertResourcesMatchArray: NeverIfArrayDoesNotMatchResources = true;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _assertArrayMatchesResources: NeverIfResourcesDoNotMatchArray = true;
@@ -157,7 +151,8 @@ type DeletedData = {
 
 type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
-export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type ApiResponseOnSuccess<ResourceName, Results> = {
   Success: true;
   NumResults: number;
   Results: Results;
@@ -189,15 +184,16 @@ export type ApiResponseOnFailure = {
   ErrorInternal?: string;
 };
 
-export type BaseApiResponse<ResourceName extends ResourceNames> = {
+export type BaseApiResponse<ResourceName> = {
   ResourceName: ResourceName;
   RequestStartTime: string;
 };
 
-export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
-  (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
+export type ApiResponse<ResourceName, Results> = BaseApiResponse<ResourceName> &
+  (ApiResponseOnSuccess<ResourceName, Results> | ApiResponseOnFailure);
 
-export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export type LibraryReturn<ResourceName, Results> = {
   Results: Results;
   Deleted: never[] | DeletedData[];
   Affected: ListOfAllResources;
