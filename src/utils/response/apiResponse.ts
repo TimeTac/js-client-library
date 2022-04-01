@@ -136,7 +136,7 @@ export type Resources = {
 type NeverIfArrayDoesNotMatchResources = keyof Resources extends typeof resourceNameArray[number] ? true : never;
 type NeverIfResourcesDoNotMatchArray = typeof resourceNameArray[number] extends keyof Resources ? true : never;
 // The assignments below fail and prevent compilation if the conditional types are never
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _assertResourcesMatchArray: NeverIfArrayDoesNotMatchResources = true;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _assertArrayMatchesResources: NeverIfResourcesDoNotMatchArray = true;
