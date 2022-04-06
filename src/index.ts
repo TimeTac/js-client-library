@@ -95,8 +95,7 @@ export { HealthData } from './health/healthData/types';
 export { Country } from './countries/types';
 export { UserTemplateHistory } from './userTemplateHistory/types';
 export { ApiConfig, default as BaseApi } from './baseApi';
-export { Required, requiredSingle, plainObject, RequestPromise } from './utils/response/responseHandlers';
-export { ConfigProvider } from './utils/index';
+export { requiredSingle, plainObject } from './utils/response/responseHandlers';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
