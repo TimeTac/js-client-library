@@ -30,6 +30,7 @@ import { HealthRule } from '../../health/healthRules/types';
 import { HealthData } from '../../health/healthData/types';
 import { Country } from '../../countries/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
+import { Salutation } from '../../salutations/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -67,6 +68,7 @@ export const resourceNameArray = [
   'healthRules',
   'healthData',
   'userTemplateHistory',
+  'salutations',
 ] as const;
 
 export type Resources = {
@@ -127,6 +129,7 @@ export type Resources = {
   healthRules: HealthRule;
   healthData: HealthData;
   userTemplateHistory: UserTemplateHistory;
+  salutations: Salutation;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
