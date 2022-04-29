@@ -196,7 +196,3 @@ export type LibraryReturn<ResourceName extends ResourceNames, Results = Resource
   Deleted: never[] | DeletedData[];
   Affected: ListOfAllResources;
 };
-
-export type OptionsListReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
-  Results: Results;
-};
