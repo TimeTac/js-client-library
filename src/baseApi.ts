@@ -9,6 +9,8 @@ import { createRawApiResponse } from './utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
 import { createResourceResponse } from './utils/response/resourceResponse';
 import { RequestPromise, optional, list, requiredSingle } from './utils/response/responseHandlers';
+import { User } from './users/types';
+import { DeltaSyncParams } from './utils/params/deltaSyncParams';
 
 const DEFAULT_HOST = 'go.timetac.com';
 const DEFAULT_API_VERSION = 3;
@@ -38,6 +40,7 @@ export type ApiConfig = {
   shouldAutoRefreshToken?: boolean;
   timeout?: number;
   onServerTimeDeviationChange?: (deviation: number) => void;
+  getChangedOnlyConfig?: (loggedInUser: User, since?: string | undefined) => DeltaSyncParams;
 };
 
 export default abstract class BaseApi<ResourceName extends ResourceNames> {
