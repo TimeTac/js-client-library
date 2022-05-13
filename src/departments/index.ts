@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
-import {required, Required, requiredSingle} from '../utils/response/responseHandlers';
-import {DepartmentCreate, DepartmentUpdate } from './types';
-import { Entity } from "../utils/response/apiResponse";
+import { required, Required, requiredSingle } from '../utils/response/responseHandlers';
+import { Entity } from '../utils/response/apiResponse';
+import { DepartmentCreate, DepartmentUpdate } from './types';
 
 const resourceName = 'departments';
 type ResourceName = typeof resourceName;
