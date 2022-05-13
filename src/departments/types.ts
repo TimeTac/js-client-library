@@ -13,3 +13,7 @@ export type DepartmentCreate = Omit<Department, 'id'> & {
   department_name: string;
   mother_id: number;
 };
+
+export type DepartmentUpdate = Partial<Department> & {
+  id: number;
+};
