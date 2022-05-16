@@ -93,10 +93,7 @@ describe('Departments', () => {
   test('update', async () => {
     mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: [], _ignoreTypeGuard: true });
 
-    expect.assertions(1);
-
-    await departments.update(MockData.departmentUpdateData).then((results) => {
-      expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: [] });
-    });
+    const results = await departments.update(MockData.departmentUpdateData);
+    expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: [] });
   });
 });
