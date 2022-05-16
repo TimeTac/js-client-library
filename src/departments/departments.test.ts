@@ -54,6 +54,7 @@ describe('Departments', () => {
   const departments: DepartmentsEndpoint = new DepartmentsEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${departments.getResourcePath()}/read`;
   const createPath = `${departments.getResourcePath()}/create`;
+  const updatePath = `${departments.getResourcePath()}/update`;
 
   const mock = new AxiosMockAdapter(axios);
 
@@ -87,5 +88,12 @@ describe('Departments', () => {
         Deleted: [],
       });
     });
+  });
+
+  test('update', async () => {
+    mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: [], _ignoreTypeGuard: true });
+
+    const results = await departments.update(MockData.departmentUpdateData);
+    expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: [] });
   });
 });
