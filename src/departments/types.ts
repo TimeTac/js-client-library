@@ -7,6 +7,7 @@ export type Department = {
   mother_id?: number;
   view_order?: number;
   node_path?: string;
+  data_changed?: string;
 };
 
 export type DepartmentCreate = Omit<Department, 'id'> & {
