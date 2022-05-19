@@ -18,6 +18,7 @@ const MockData = {
       mother_id: 0,
       view_order: 1000000,
       node_path: ',1,',
+      data_changed: '2022-01-23 11:51:26.0',
     },
     {
       id: 2,
@@ -28,6 +29,7 @@ const MockData = {
       mother_id: 0,
       view_order: 2000000,
       node_path: ',2,',
+      data_changed: '2022-02-04 12:32:45.0',
     },
     {
       id: 3,
@@ -38,6 +40,7 @@ const MockData = {
       mother_id: 0,
       view_order: 3000000,
       node_path: ',3,',
+      data_changed: '2022-03-15 13:15:12.0',
     },
   ],
   departmentCreateData: {
