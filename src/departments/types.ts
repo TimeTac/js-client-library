@@ -11,11 +11,8 @@ export type Department = {
   data_changed?: string;
 };
 
-export type DepartmentCreate = Omit<Department, 'id' | 'active' | 'view_order' | 'sort_order' | 'node_path' | 'supervisor_id' | 'supervisor_assistant_id'> & {
-  department_name: string;
-  mother_id: number;
-};
+export type DepartmentCreate = Omit<Department, 'id' | 'active' | 'view_order' | 'sort_order' | 'node_path' | 'supervisor_id' | 'supervisor_assistant_id' | 'data_changed'>;
 
-export type DepartmentUpdate = Partial<Department> & {
+export type DepartmentUpdate = Partial<Omit<Department, 'data_changed'>> & {
   id: number;
 };
