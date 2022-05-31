@@ -11,7 +11,7 @@ export type Department = {
   data_changed?: string;
 };
 
-export type DepartmentCreate = Omit<Department, 'id'> & {
+export type DepartmentCreate = Omit<Department, 'id' | 'active' | 'view_order' | 'sort_order' | 'node_path'> & {
   department_name: string;
   mother_id: number;
 };
