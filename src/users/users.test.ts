@@ -252,32 +252,30 @@ describe('Users', () => {
 
     expect.assertions(1);
 
-    await users
-      .update([
+    const results = await users.update([
+      {
+        id: 1,
+        department_id: 213,
+      },
+      {
+        id: 10,
+        department_id: 213,
+      },
+    ]);
+
+    expect(results).toStrictEqual({
+      Affected: {},
+      Deleted: [],
+      Results: [
+        updateData,
         {
-          id: 1,
-          department_id: 213,
+          code: failure.Error,
+          message: failure.ErrorExtended.errorString,
+          response: failure,
+          //This is just a workaround as stack if different per environment, so we are not really testing new Error().stack
+          stack: (results.Results[1] as ParsedErrorMesage).stack,
         },
-        {
-          id: 10,
-          department_id: 213,
-        },
-      ])
-      .then((results) => {
-        expect(results).toStrictEqual({
-          Affected: {},
-          Deleted: [],
-          Results: [
-            updateData,
-            {
-              code: failure.Error,
-              message: failure.ErrorExtended.errorString,
-              response: failure,
-              //This is just a workaround as stack if different per environment, so we are not really testing new Error().stack
-              stack: (results.Results[1] as ParsedErrorMesage).stack,
-            },
-          ],
-        });
-      });
+      ],
+    });
   });
 });
