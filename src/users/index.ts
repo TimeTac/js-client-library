@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { Entity, LibraryReturn, Resources } from '../utils/response/apiResponse';
-import { list, required, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { list, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
 import { UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe, UserRead } from './types';
 
 const resourceName = 'users';
