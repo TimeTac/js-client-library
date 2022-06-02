@@ -151,14 +151,6 @@ type DeletedData = {
 
 type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
-export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
-  Success: true;
-  NumResults: number;
-  Results: Results;
-  Deleted?: DeletedData[];
-  Affected?: ListOfAllResources;
-};
-
 export type ApiResponseBatchOnSuccess<ResourceName extends ResourceNames> = {
   Success: true;
   NumResults: number;
@@ -168,20 +160,28 @@ export type ApiResponseBatchOnSuccess<ResourceName extends ResourceNames> = {
   SuccessBatch: true;
 };
 
-export type ApiResponseBatchOnFailure<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
-  Success: boolean;
+export type ApiResponseBatchOnFailure<ResourceName extends ResourceNames> = {
+  Success: true;
   NumResults: number;
-  Results: (ApiResponseOnSuccess<ResourceName, Results> | ApiResponseOnFailure)[];
+  Results: (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure)[];
   Deleted?: DeletedData[];
   Affected?: ListOfAllResources;
   SuccessBatch: false;
-} & Partial<ApiResponseOnFailure>;
+};
 
 export type ApiResponseOnSuccessDeltaSync<ResourceName extends ResourceNames> = ApiResponseOnSuccess<ResourceName, ListOfAllResources>;
 
 export type ApiResponseOnFailureServerCommunication = Omit<ApiResponseOnFailure, 'Success'> & {
   Success: true;
   Results: null;
+};
+
+export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
+  Success: true;
+  NumResults: number;
+  Results: Results;
+  Deleted?: DeletedData[];
+  Affected?: ListOfAllResources;
 };
 
 export type ApiResponseOnFailure = {
@@ -210,7 +210,7 @@ export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<Re
   (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
 
 export type ApiBatchResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
-  (ApiResponseBatchOnSuccess<ResourceName> | ApiResponseBatchOnFailure<ResourceName>);
+  (ApiResponseBatchOnSuccess<ResourceName> | ApiResponseBatchOnFailure<ResourceName> | ApiResponseOnFailure);
 
 export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
   Results: Results;

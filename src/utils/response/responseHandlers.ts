@@ -20,18 +20,19 @@ export type RequestBatchPromise<ResourceName extends ResourceNames> = Promise<Ax
 
 export type Required<ResourceName extends ResourceNames, Resource = Entity<ResourceName>> = Promise<LibraryReturn<ResourceName, Resource>>;
 
-function throwParsedErrorMessage<ResourceName extends ResourceNames>(
-  apiResponse: ApiResponseBatchOnFailure<ResourceName>,
-  resolved: AxiosResponse<ApiBatchResponse<ResourceName>>
-): never;
-function throwParsedErrorMessage<ResourceName extends ResourceNames>(
-  apiResponse: ApiResponseOnFailure,
-  resolved: AxiosResponse<ApiResponse<ResourceName>>
-): never;
-function throwParsedErrorMessage<ResourceName extends ResourceNames>(
-  apiResponse: ApiResponseOnFailure | ApiResponseBatchOnFailure<ResourceName>,
-  resolved: AxiosResponse<ApiResponse<ResourceName> | ApiBatchResponse<ResourceName>>
-): never {
+export type ParsedErrorMesage = {
+  response: ApiResponseOnFailure;
+  message: string;
+  stack: string | undefined;
+  code?: number;
+};
+
+type ParserErrorMesageObject<ResourceName extends ResourceNames> = ParsedErrorMesage & {
+  _plainError: AxiosResponse<ApiBatchResponse<ResourceName> | ApiResponse<ResourceName>>;
+  code: number;
+};
+
+function getParsedErrorMessage(apiResponse: ApiResponseOnFailure): ParsedErrorMesage {
   let errorMessage = 'Something went wrong';
 
   if (typeof apiResponse.ErrorExtended?.errorString == 'string' && 0 < apiResponse.ErrorExtended.errorString.length) {
@@ -40,12 +41,34 @@ function throwParsedErrorMessage<ResourceName extends ResourceNames>(
     errorMessage = apiResponse.ErrorMessage;
   }
 
-  throw {
+  return {
     response: apiResponse,
-    _plainError: resolved,
     message: errorMessage,
-    code: apiResponse.Error ?? resolved.status,
     stack: new Error().stack,
+    code: apiResponse.Error,
+  };
+}
+
+function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
+  apiResponse: ApiResponseOnFailure,
+  resolved: AxiosResponse<ApiBatchResponse<ResourceName>>
+): ParserErrorMesageObject<ResourceName>;
+function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
+  apiResponse: ApiResponseOnFailure,
+  resolved: AxiosResponse<ApiResponse<ResourceName>>
+): ParserErrorMesageObject<ResourceName>;
+function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
+  apiResponse: ApiResponseOnFailure,
+  resolved: AxiosResponse<ApiBatchResponse<ResourceName> | ApiResponse<ResourceName>>
+): ParserErrorMesageObject<ResourceName> {
+  const { response, message, stack, code } = getParsedErrorMessage(apiResponse);
+
+  return {
+    response,
+    message,
+    stack,
+    code: code ?? resolved.status,
+    _plainError: resolved,
   };
 }
 
@@ -80,15 +103,15 @@ async function resolveResponse<ResourceName extends ResourceNames>(
 
 export async function toApiBatchResponse<ResourceName extends ResourceNames>(
   promise: RequestBatchPromise<ResourceName>
-): Promise<ApiResponseBatchOnSuccess<ResourceName>> {
+): Promise<ApiResponseBatchOnSuccess<ResourceName> | ApiResponseBatchOnFailure<ResourceName>> {
   const resolved = await resolveResponse<ResourceName>(promise);
 
   const apiResponse: ApiBatchResponse<ResourceName> = resolved.data;
-  if (apiResponse.SuccessBatch) {
-    return apiResponse as ApiResponseBatchOnSuccess<ResourceName>;
+  if (apiResponse.Success) {
+    return apiResponse;
   }
 
-  return throwParsedErrorMessage(apiResponse as ApiResponseBatchOnFailure<ResourceName>, resolved);
+  throw getParsedErrorMessageObject(apiResponse, resolved);
 }
 
 export async function toApiResponse<ResourceName extends ResourceNames>(
@@ -111,7 +134,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
     return apiResponse;
   }
 
-  return throwParsedErrorMessage(apiResponse, resolved);
+  throw getParsedErrorMessageObject(apiResponse, resolved);
 }
 
 /**
@@ -138,12 +161,16 @@ export async function required<ResourceName extends ResourceNames>(
  */
 export async function requiredBatch<ResourceName extends ResourceNames>(
   promise: RequestBatchPromise<ResourceName>
-): Required<ResourceName, Entity<ResourceName>[]> {
+): Required<ResourceName, (Entity<ResourceName> | ParsedErrorMesage)[]> {
   const response = await toApiBatchResponse<ResourceName>(promise);
 
   if (response.NumResults > 0) {
     const childResults = response.Results.map((result) => {
-      return result.Results[0];
+      if (result.Success) {
+        return result.Results[0];
+      } else {
+        return getParsedErrorMessage(result);
+      }
     });
     return {
       Results: childResults,

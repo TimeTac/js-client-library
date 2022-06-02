@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { Entity, LibraryReturn, Resources } from '../utils/response/apiResponse';
-import { list, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { Entity, LibraryReturn } from '../utils/response/apiResponse';
+import { list, ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
 import { UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe, UserRead } from './types';
 
 const resourceName = 'users';
@@ -21,9 +21,11 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public async update(data: UserUpdate[]): Required<typeof resourceName, Resources[typeof resourceName][]>;
+  public async update(data: UserUpdate[]): Required<typeof resourceName, (ParsedErrorMesage | UserRead)[]>;
   public async update(data: UserUpdate): Required<ResourceName>;
-  public async update(data: UserUpdate | UserUpdate[]): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', UserRead[]>> {
+  public async update(
+    data: UserUpdate | UserUpdate[]
+  ): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', (ParsedErrorMesage | UserRead)[]>> {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data);
       return requiredBatch(response);
