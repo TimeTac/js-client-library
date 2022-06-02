@@ -165,7 +165,7 @@ export type ApiResponseBatchOnSuccess<ResourceName extends ResourceNames> = {
   Results: ApiResponseOnSuccess<ResourceName>[];
   Deleted?: DeletedData[];
   Affected?: ListOfAllResources;
-  SuccessBatch: false;
+  SuccessBatch: true;
 };
 
 export type ApiResponseBatchOnFailure<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {

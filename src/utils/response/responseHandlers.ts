@@ -84,7 +84,7 @@ export async function toApiBatchResponse<ResourceName extends ResourceNames>(
   const resolved = await resolveResponse<ResourceName>(promise);
 
   const apiResponse: ApiBatchResponse<ResourceName> = resolved.data;
-  if (apiResponse.SuccessBatch as boolean) {
+  if (apiResponse.SuccessBatch) {
     return apiResponse as ApiResponseBatchOnSuccess<ResourceName>;
   }
 
