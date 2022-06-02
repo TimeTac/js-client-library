@@ -25,6 +25,10 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
   public async update(data: UserUpdate): Required<ResourceName>;
   public async update(
     data: UserUpdate | UserUpdate[]
+  ): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', (ParsedErrorMesage | UserRead)[]>>;
+
+  public async update(
+    data: UserUpdate | UserUpdate[]
   ): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', (ParsedErrorMesage | UserRead)[]>> {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data);
