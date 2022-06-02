@@ -151,12 +151,22 @@ type DeletedData = {
 
 type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
-export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
+export type ApiResponseBatchOnSuccess<ResourceName extends ResourceNames> = {
   Success: true;
   NumResults: number;
-  Results: Results;
+  Results: ApiResponseOnSuccess<ResourceName>[];
   Deleted?: DeletedData[];
   Affected?: ListOfAllResources;
+  SuccessBatch: true;
+};
+
+export type ApiResponseBatchOnFailure<ResourceName extends ResourceNames> = {
+  Success: true;
+  NumResults: number;
+  Results: (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure)[];
+  Deleted?: DeletedData[];
+  Affected?: ListOfAllResources;
+  SuccessBatch: false;
 };
 
 export type ApiResponseOnSuccessDeltaSync<ResourceName extends ResourceNames> = ApiResponseOnSuccess<ResourceName, ListOfAllResources>;
@@ -164,6 +174,14 @@ export type ApiResponseOnSuccessDeltaSync<ResourceName extends ResourceNames> = 
 export type ApiResponseOnFailureServerCommunication = Omit<ApiResponseOnFailure, 'Success'> & {
   Success: true;
   Results: null;
+};
+
+export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
+  Success: true;
+  NumResults: number;
+  Results: Results;
+  Deleted?: DeletedData[];
+  Affected?: ListOfAllResources;
 };
 
 export type ApiResponseOnFailure = {
@@ -190,6 +208,9 @@ export type BaseApiResponse<ResourceName extends ResourceNames> = {
 
 export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
   (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
+
+export type ApiBatchResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
+  (ApiResponseBatchOnSuccess<ResourceName> | ApiResponseBatchOnFailure<ResourceName> | ApiResponseOnFailure);
 
 export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
   Results: Results;

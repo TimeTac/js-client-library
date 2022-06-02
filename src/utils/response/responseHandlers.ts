@@ -6,20 +6,86 @@ import {
   ApiResponseOnFailure,
   ApiResponseOnFailureServerCommunication,
   ApiResponseOnSuccess,
+  ApiResponseBatchOnSuccess,
   Entity,
   LibraryReturn,
   ResourceNames,
+  ApiBatchResponse,
+  ApiResponseBatchOnFailure,
 } from './apiResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
+export type RequestBatchPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiBatchResponse<ResourceName>>>;
+
 export type Required<ResourceName extends ResourceNames, Resource = Entity<ResourceName>> = Promise<LibraryReturn<ResourceName, Resource>>;
 
-export async function toApiResponse<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
-): Promise<ApiResponseOnSuccess<ResourceName>> {
-  let resolved: AxiosResponse<ApiResponse<ResourceName>> | undefined;
+export type ParsedErrorMesage = {
+  response: ApiResponseOnFailure;
+  message: string;
+  stack: string | undefined;
+  code?: number;
+};
 
+type ParserErrorMesageObject<ResourceName extends ResourceNames> = ParsedErrorMesage & {
+  _plainError: AxiosResponse<ApiBatchResponse<ResourceName> | ApiResponse<ResourceName>>;
+  code: number;
+};
+
+export function getParsedErrorMessage(apiResponse: ApiResponseOnFailure): ParsedErrorMesage {
+  let errorMessage = 'Something went wrong';
+
+  if (typeof apiResponse.ErrorExtended?.errorString == 'string' && 0 < apiResponse.ErrorExtended.errorString.length) {
+    errorMessage = apiResponse.ErrorExtended.errorString;
+  } else if (typeof apiResponse.ErrorMessage == 'string') {
+    errorMessage = apiResponse.ErrorMessage;
+  }
+
+  return {
+    response: apiResponse,
+    message: errorMessage,
+    stack: new Error().stack,
+    code: apiResponse.Error,
+  };
+}
+
+function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
+  apiResponse: ApiResponseOnFailure,
+  resolved: AxiosResponse<ApiBatchResponse<ResourceName>>
+): ParserErrorMesageObject<ResourceName>;
+
+function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
+  apiResponse: ApiResponseOnFailure,
+  resolved: AxiosResponse<ApiResponse<ResourceName>>
+): ParserErrorMesageObject<ResourceName>;
+
+function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
+  apiResponse: ApiResponseOnFailure,
+  resolved: AxiosResponse<ApiBatchResponse<ResourceName> | ApiResponse<ResourceName>>
+): ParserErrorMesageObject<ResourceName> {
+  const { response, message, stack, code } = getParsedErrorMessage(apiResponse);
+
+  return {
+    response,
+    message,
+    stack,
+    code: code ?? resolved.status,
+    _plainError: resolved,
+  };
+}
+
+async function resolveResponse<ResourceName extends ResourceNames>(
+  promise: RequestBatchPromise<ResourceName>
+): Promise<AxiosResponse<ApiBatchResponse<ResourceName>>>;
+
+async function resolveResponse<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<AxiosResponse<ApiResponse<ResourceName>>>;
+
+async function resolveResponse<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName> | RequestBatchPromise<ResourceName>
+): Promise<AxiosResponse<ApiResponse<ResourceName> | ApiBatchResponse<ResourceName>>> {
+  let resolved;
   try {
     resolved = await promise;
   } catch (e) {
@@ -36,6 +102,26 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
       };
     }
   }
+  return resolved;
+}
+
+export async function toApiBatchResponse<ResourceName extends ResourceNames>(
+  promise: RequestBatchPromise<ResourceName>
+): Promise<ApiResponseBatchOnSuccess<ResourceName> | ApiResponseBatchOnFailure<ResourceName>> {
+  const resolved = await resolveResponse<ResourceName>(promise);
+
+  const apiResponse: ApiBatchResponse<ResourceName> = resolved.data;
+  if (apiResponse.Success) {
+    return apiResponse;
+  }
+
+  throw getParsedErrorMessageObject(apiResponse, resolved);
+}
+
+export async function toApiResponse<ResourceName extends ResourceNames>(
+  promise: RequestPromise<ResourceName>
+): Promise<ApiResponseOnSuccess<ResourceName>> {
+  const resolved: AxiosResponse<ApiResponse<ResourceName>> = await resolveResponse(promise);
 
   const apiResponse:
     | ApiResponseOnFailureServerCommunication
@@ -52,21 +138,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
     return apiResponse;
   }
 
-  let errorMessage = 'Something went wrong';
-
-  if (typeof apiResponse.ErrorExtended?.errorString == 'string' && 0 < apiResponse.ErrorExtended.errorString.length) {
-    errorMessage = apiResponse.ErrorExtended.errorString;
-  } else if (apiResponse.ErrorMessage) {
-    errorMessage = apiResponse.ErrorMessage;
-  }
-
-  throw {
-    response: apiResponse,
-    _plainError: resolved,
-    message: errorMessage,
-    code: apiResponse.Error ?? resolved.status,
-    stack: new Error().stack,
-  };
+  throw getParsedErrorMessageObject(apiResponse, resolved);
 }
 
 /**
@@ -80,6 +152,32 @@ export async function required<ResourceName extends ResourceNames>(
   if (response.NumResults > 0) {
     return {
       Results: response.Results,
+      Affected: response.Affected ?? {},
+      Deleted: response.Deleted ?? [],
+    };
+  } else {
+    throw new Error('There are no results.');
+  }
+}
+
+/**
+ * @return A promise that resolves to Type or rejects if no results
+ */
+export async function requiredBatch<ResourceName extends ResourceNames>(
+  promise: RequestBatchPromise<ResourceName>
+): Required<ResourceName, (Entity<ResourceName> | ParsedErrorMesage)[]> {
+  const response = await toApiBatchResponse<ResourceName>(promise);
+
+  if (response.NumResults > 0) {
+    const childResults = response.Results.map((result) => {
+      if (result.Success) {
+        return result.Results[0];
+      } else {
+        return getParsedErrorMessage(result);
+      }
+    });
+    return {
+      Results: childResults,
       Affected: response.Affected ?? {},
       Deleted: response.Deleted ?? [],
     };

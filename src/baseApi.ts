@@ -3,12 +3,12 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { TokenResponse } from './authentication/types';
 import { ConfigProvider } from './utils';
 import { RequestParams } from './utils/params/requestParams';
-import { ApiResponse, Entity, LibraryReturn, ResourceNames } from './utils/response/apiResponse';
+import { ApiBatchResponse, ApiResponse, Entity, LibraryReturn, ResourceNames } from './utils/response/apiResponse';
 import { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 import { createRawApiResponse } from './utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from './utils/response/readRawResponse';
 import { createResourceResponse } from './utils/response/resourceResponse';
-import { RequestPromise, optional, list, requiredSingle } from './utils/response/responseHandlers';
+import { RequestPromise, optional, list, requiredSingle, RequestBatchPromise } from './utils/response/responseHandlers';
 import { User } from './users/types';
 import { DeltaSyncParams } from './utils/params/deltaSyncParams';
 
@@ -90,6 +90,17 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     return axios.put<ApiResponse<ResourceName>>(url, data, config);
+  }
+
+  protected _putBatch<ResourceName extends ResourceNames>(
+    slug: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    data?: object,
+    options?: AxiosRequestConfig
+  ): RequestBatchPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
+    const config = this.getOptions(options);
+    return axios.put<ApiBatchResponse<ResourceName>>(url, data, config);
   }
 
   protected _delete<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
