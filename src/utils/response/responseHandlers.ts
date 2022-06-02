@@ -32,7 +32,7 @@ type ParserErrorMesageObject<ResourceName extends ResourceNames> = ParsedErrorMe
   code: number;
 };
 
-function getParsedErrorMessage(apiResponse: ApiResponseOnFailure): ParsedErrorMesage {
+export function getParsedErrorMessage(apiResponse: ApiResponseOnFailure): ParsedErrorMesage {
   let errorMessage = 'Something went wrong';
 
   if (typeof apiResponse.ErrorExtended?.errorString == 'string' && 0 < apiResponse.ErrorExtended.errorString.length) {
