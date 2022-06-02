@@ -182,4 +182,38 @@ describe('Users', () => {
       expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: undefined });
     });
   });
+
+  test('update Batch', async () => {
+    const updateData = {
+      id: 1,
+      department_id: 2,
+    };
+    const childResult = {
+      Success: true,
+      SuccessNested: true,
+      NumResults: 1,
+      NumResultsNested: 1,
+      Results: [updateData],
+    };
+    mock
+      .onPut(updatePath)
+      .reply(200, { SuccessBatch: true, Success: true, NumResults: 1, Results: [childResult, childResult], _ignoreTypeGuard: true });
+
+    expect.assertions(1);
+
+    await users
+      .update([
+        {
+          id: 1,
+          department_id: 213,
+        },
+        {
+          id: 10,
+          department_id: 213,
+        },
+      ])
+      .then((results) => {
+        expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: [updateData, updateData] });
+      });
+  });
 });

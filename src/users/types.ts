@@ -102,6 +102,7 @@ export interface UserReadMe extends UserRead {
 
 export interface UserUpdate extends Partial<UserRead> {
   id: number;
+  department_id?: number;
 }
 
 export interface UserResetPassword {

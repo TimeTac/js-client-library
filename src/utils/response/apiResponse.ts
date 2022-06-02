@@ -159,6 +159,24 @@ export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = R
   Affected?: ListOfAllResources;
 };
 
+export type ApiResponseBatchOnSuccess<ResourceName extends ResourceNames> = {
+  Success: true;
+  NumResults: number;
+  Results: ApiResponseOnSuccess<ResourceName>[];
+  Deleted?: DeletedData[];
+  Affected?: ListOfAllResources;
+  SuccessBatch: false;
+};
+
+export type ApiResponseBatchOnFailure<ResourceName extends ResourceNames, Results = Resources[ResourceName][]> = {
+  Success: boolean;
+  NumResults: number;
+  Results: (ApiResponseOnSuccess<ResourceName, Results> | ApiResponseOnFailure)[];
+  Deleted?: DeletedData[];
+  Affected?: ListOfAllResources;
+  SuccessBatch: false;
+} & Partial<ApiResponseOnFailure>;
+
 export type ApiResponseOnSuccessDeltaSync<ResourceName extends ResourceNames> = ApiResponseOnSuccess<ResourceName, ListOfAllResources>;
 
 export type ApiResponseOnFailureServerCommunication = Omit<ApiResponseOnFailure, 'Success'> & {
@@ -190,6 +208,9 @@ export type BaseApiResponse<ResourceName extends ResourceNames> = {
 
 export type ApiResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
   (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure);
+
+export type ApiBatchResponse<ResourceName extends ResourceNames> = BaseApiResponse<ResourceName> &
+  (ApiResponseBatchOnSuccess<ResourceName> | ApiResponseBatchOnFailure<ResourceName>);
 
 export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
   Results: Results;
