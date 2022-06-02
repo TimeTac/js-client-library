@@ -202,20 +202,18 @@ describe('Users', () => {
 
     expect.assertions(1);
 
-    await users
-      .update([
-        {
-          id: 1,
-          department_id: 213,
-        },
-        {
-          id: 10,
-          department_id: 213,
-        },
-      ])
-      .then((results) => {
-        expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: [updateData, updateData] });
-      });
+    const response = await users.update([
+      {
+        id: 1,
+        department_id: 213,
+      },
+      {
+        id: 10,
+        department_id: 213,
+      },
+    ]);
+
+    expect(response).toStrictEqual({ Affected: {}, Deleted: [], Results: [updateData, updateData] });
   });
 
   test('Update test ApiResponseBatchOnFailure ', async () => {

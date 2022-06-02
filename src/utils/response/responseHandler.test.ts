@@ -1,8 +1,8 @@
 import { describe, expect } from '@jest/globals';
 import { getParsedErrorMessage } from './responseHandlers';
 
-describe('Unit tests', () => {
-  test('For getParsedErrorMessage', () => {
+describe('Response handler', () => {
+  it('parses ErrorExtended', () => {
     const apiResponse = {
       Success: false,
       RequestStartTime: 'MESSAGE_PLACE_HOLDER',

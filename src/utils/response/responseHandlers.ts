@@ -53,10 +53,12 @@ function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
   apiResponse: ApiResponseOnFailure,
   resolved: AxiosResponse<ApiBatchResponse<ResourceName>>
 ): ParserErrorMesageObject<ResourceName>;
+
 function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
   apiResponse: ApiResponseOnFailure,
   resolved: AxiosResponse<ApiResponse<ResourceName>>
 ): ParserErrorMesageObject<ResourceName>;
+
 function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
   apiResponse: ApiResponseOnFailure,
   resolved: AxiosResponse<ApiBatchResponse<ResourceName> | ApiResponse<ResourceName>>
@@ -75,9 +77,11 @@ function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
 async function resolveResponse<ResourceName extends ResourceNames>(
   promise: RequestBatchPromise<ResourceName>
 ): Promise<AxiosResponse<ApiBatchResponse<ResourceName>>>;
+
 async function resolveResponse<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName>
 ): Promise<AxiosResponse<ApiResponse<ResourceName>>>;
+
 async function resolveResponse<ResourceName extends ResourceNames>(
   promise: RequestPromise<ResourceName> | RequestBatchPromise<ResourceName>
 ): Promise<AxiosResponse<ApiResponse<ResourceName> | ApiBatchResponse<ResourceName>>> {
