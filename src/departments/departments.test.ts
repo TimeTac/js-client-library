@@ -4,7 +4,8 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
 import { LibraryReturn } from '../utils/response/apiResponse';
-import { Department } from './types';
+import { ParsedErrorMesage } from '../utils/response/responseHandlers';
+import { Department, DepartmentUpdate } from './types';
 import { DepartmentsEndpoint } from './';
 
 const MockData = {
@@ -93,10 +94,95 @@ describe('Departments', () => {
     });
   });
 
-  test('update', async () => {
-    mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: [], _ignoreTypeGuard: true });
+  test('Update Batch Success', async () => {
+    const mockedUpdateData = {
+      id: 1,
+      department_name: 'test',
+    };
+    const childResult = {
+      Success: true,
+      SuccessNested: true,
+      NumResults: 1,
+      NumResultsNested: 1,
+      Results: [mockedUpdateData],
+    };
+    mock.onPut(updatePath).reply(200, {
+      SuccessBatch: true,
+      Success: true,
+      NumResults: 1,
+      Results: [childResult, childResult],
+      _ignoreTypeGuard: true,
+    });
 
-    const results = await departments.update(MockData.departmentUpdateData);
-    expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: [] });
+    // No actual relevance to the test
+    const updateData: DepartmentUpdate[] = [
+      {
+        id: 1,
+        department_name: 'test',
+      },
+    ];
+    const response = await departments.update(updateData);
+
+    expect(response).toStrictEqual({ Affected: {}, Deleted: [], Results: [mockedUpdateData, mockedUpdateData] });
+  });
+
+  test('Update test ApiResponseBatchOnFailure ', async () => {
+    const failure = {
+      Success: false,
+      SuccessNested: false,
+      Error: 422,
+      ErrorMessage: 'Unprocessable Entity: department_id should be id of an existing department',
+      ErrorExtended: {
+        aErrorTranslationConstants: {
+          '{{0}}': 'PM_DEPARTMENT_ID_MUST_EXIST',
+        },
+        errorCode: 'DEPARTMENT_ID_MUST_EXIST',
+        errorString: 'department_id muss eine gültige id eines bestehenden departments sein',
+        errorBaseString: '{{0}}',
+      },
+      ErrorInternal: 'Unprocessable Entity: department_id should be id of an existing department',
+    };
+
+    const updateData = {
+      id: 1,
+      department_name: '2',
+    };
+
+    const childResult = {
+      Success: true,
+      SuccessNested: true,
+      NumResults: 1,
+      NumResultsNested: 1,
+      Results: [updateData],
+    };
+
+    mock
+      .onPut(updatePath)
+      .reply(200, { SuccessBatch: true, Success: true, NumResults: 1, Results: [childResult, failure], _ignoreTypeGuard: true });
+
+    expect.assertions(1);
+
+    // No relevance to the test
+    const results = await departments.update([
+      {
+        id: 1,
+        department_name: '2',
+      },
+    ]);
+
+    expect(results).toStrictEqual({
+      Affected: {},
+      Deleted: [],
+      Results: [
+        updateData,
+        {
+          code: failure.Error,
+          message: failure.ErrorExtended.errorString,
+          response: failure,
+          //This is just a workaround as stack if different per environment, so we are not really testing new Error().stack
+          stack: (results.Results[1] as ParsedErrorMesage).stack,
+        },
+      ],
+    });
   });
 });
