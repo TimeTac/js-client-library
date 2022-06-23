@@ -98,6 +98,7 @@ const MockData: {
       health_rule_id: 2,
       health_rule_id_valid_from: '2021-03-05',
       health_checker: true,
+      human: true,
     },
   ],
   userCreateData: {
