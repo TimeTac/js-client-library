@@ -81,6 +81,7 @@ export type UserRead = {
   health_rule_id: number;
   health_rule_id_valid_from: string;
   health_checker: boolean;
+  human: boolean;
 };
 
 export type User = UserRead;
