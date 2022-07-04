@@ -10,7 +10,7 @@ export type UserRead = {
   personnel_number: string;
   lastname: string;
   firstname: string;
-  fullname: string;
+  fullname?: string;
   // Note: misspelling is intentional abbrevAtion
   abbrevation: string;
   restrict_to_ip: boolean;
