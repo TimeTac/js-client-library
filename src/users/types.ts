@@ -1,15 +1,27 @@
-export type UserRead = {
+/**
+ * Some user have limited read permission,
+ * so they only receive following fields
+ */
+export type UserReadObscured = {
   id: number;
-  profile_picture: string;
-  department_id_valid_from: string;
   active: boolean;
   department_id: number;
+  lastname: string;
+  firstname: string;
+  email_address: string;
+  phone: string;
+  skype: string;
+  profile_picture: string;
+  allow_start_task?: boolean;
+  leave_note: string | null;
+};
+
+export type UserReadFull = UserReadObscured & {
+  department_id_valid_from: string;
   role_id: number;
   start_task_at_login: number;
   username: string;
   personnel_number: string;
-  lastname: string;
-  firstname: string;
   fullname?: string;
   // Note: misspelling is intentional abbrevAtion
   abbrevation: string;
@@ -19,10 +31,7 @@ export type UserRead = {
   permission_show_assign_todos: boolean;
   internal_cost_per_hour: number;
   revenue_per_hour: number;
-  email_address: string;
   language_id: number;
-  phone: string;
-  skype: string;
   u_iv_1: string;
   u_iv_1_valid_from: string;
   u_iv_2: string;
@@ -75,7 +84,6 @@ export type UserRead = {
   enable_module_leave_management: boolean;
   enable_module_shift_planning: boolean;
   enable_module_timetac_health: boolean;
-  leave_note: string;
   request_substitute_user_id: number;
   time_tracking_ex_post_earliest_working_time: string;
   health_rule_id: number;
@@ -84,9 +92,11 @@ export type UserRead = {
   human: boolean;
 };
 
+export type UserRead = UserReadFull | UserReadObscured;
+
 export type User = UserRead;
 
-export interface UserCreate extends Partial<UserRead> {
+export interface UserCreate extends Partial<UserReadFull> {
   department_id: number;
   lastname: string;
   firstname: string;
@@ -96,12 +106,12 @@ export interface UserCreate extends Partial<UserRead> {
   public_holiday_template_id: number;
 }
 
-export interface UserReadMe extends UserRead {
+export interface UserReadMe extends UserReadFull {
   renew_password: boolean;
   last_login: string;
 }
 
-export interface UserUpdate extends Partial<UserRead> {
+export interface UserUpdate extends Partial<UserReadFull> {
   id: number;
   department_id?: number;
 }
