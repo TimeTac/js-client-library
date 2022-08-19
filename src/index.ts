@@ -36,6 +36,7 @@ import { HealthRulesEndpoint } from './health/healthRules';
 import { HealthDataEndpoint } from './health/healthData';
 import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
 import { SalutationsEndpoint } from './salutations';
+import { PermissionResolveDepartmentsEndpoint } from './permissions/permissionResolveDepartments';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -100,6 +101,7 @@ export { DeletedEntry, ResourceResponse } from './utils/response/resourceRespons
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
+export { PermissionResolveDepartment } from './permissions/permissionResolveDepartments/types';
 export { HealthRule } from './health/healthRules/types';
 export { HealthData } from './health/healthData/types';
 export { Country } from './countries/types';
@@ -145,6 +147,7 @@ export default class Api {
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public messages: MessagesEndpoint;
   public permissionResolveUsers: PermissionResolveUsersEndpoint;
+  public permissionResolveDepartments: PermissionResolveDepartmentsEndpoint;
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
   public userTemplateHistory: UserTemplateHistoryEndpoint;
@@ -195,6 +198,7 @@ export default class Api {
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
     this.permissionResolveUsers = new PermissionResolveUsersEndpoint(this.config);
+    this.permissionResolveDepartments = new PermissionResolveDepartmentsEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
     this.userTemplateHistory = new UserTemplateHistoryEndpoint(this.config);
