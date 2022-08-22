@@ -26,6 +26,7 @@ import { Message } from '../../messages/types';
 import { Timezone } from '../../timezones/types';
 import { AbsenceBan } from '../../absenceBans/types';
 import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
+import { PermissionResolveDepartment } from '../../permissions/permissionResolveDepartments/types';
 import { HealthRule } from '../../health/healthRules/types';
 import { HealthData } from '../../health/healthData/types';
 import { Country } from '../../countries/types';
@@ -47,6 +48,7 @@ export const resourceNameArray = [
   'todoTasks',
   'messages',
   'permissionResolveUsers',
+  'permissionResolveDepartments',
   'recentTasks',
   'projects',
   'timezones',
@@ -96,11 +98,11 @@ export type Resources = {
   // notificationsTypeHtml: NotificationsTypeHtml;
   // notificationUrls: NotificationUrl;
   // permissionResolveAbsenceTypesAndUsers: PermissionResolveAbsenceTypesAndUser;
-  // permissionResolveDepartments: PermissionResolveDepartment;
   // permissionResolveHolidayRequests: PermissionResolveHolidayRequest;
   // permissionResolveQuestions: PermissionResolveQuestion;
   // permissionResolveTeams: PermissionResolveTeam;
   permissionResolveUsers: PermissionResolveUser;
+  permissionResolveDepartments: PermissionResolveDepartment;
   // permissions: Permission;
   recentTasks: RecentTask;
   projects: Project;
