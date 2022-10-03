@@ -10,6 +10,7 @@ import { Department } from '../../departments/types';
 import { AbsenceType } from '../../absenceTypes/types';
 import { Absence } from '../../absences/types';
 import { AbsenceDay } from '../../absenceDays/types';
+import { Client } from '../../clients/types';
 import { TimesheetAccountingSummaries } from '../../timesheetAccountingSummaries/types';
 import { ServerCommunication } from '../../serverCommunication/types';
 import { Feedback } from '../../feedback/types';
@@ -41,6 +42,7 @@ export const resourceNameArray = [
   'absences',
   'absenceTypes',
   'changeTimeTrackingRequests',
+  'clients',
   'countries',
   'teamMembers',
   'departments',
@@ -83,7 +85,7 @@ export type Resources = {
   // checkpoints: Checkpoint;
   // checkpointTrackings: CheckpointTracking;
   // checkpointTranslations: CheckpointTranslation;
-  // clients: Client;
+  clients: Client;
   countries: Country;
   teamMembers: TeamMember;
   departments: Department;

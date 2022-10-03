@@ -1,0 +1,20 @@
+export type Client = {
+  id: number;
+  company_name: string;
+  active: boolean;
+  username: string;
+  address_1: string;
+  address_2: string;
+  zip: string;
+  city: string;
+  country_id: string;
+  url: string;
+  customer_number: string;
+  contact_person_salutation_id: number;
+  contact_person_firstname: string;
+  contact_person_lastname: string;
+  contact_person_department: string;
+  phone_1: string;
+  phone_2: string;
+  email_address: string;
+};
