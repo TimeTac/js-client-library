@@ -2907,7 +2907,7 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash-es@^4.17.21:
+lodash-es@4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
@@ -2989,7 +2989,7 @@ merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-micromatch@^4.0.4, micromatch@^4.0.5:
+micromatch@4.0.5, micromatch@^4.0.4, micromatch@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.5.tgz#bc8999a7cbbf77cdc89f132f6e467051b49090c6"
   integrity sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==
@@ -3855,14 +3855,14 @@ triple-beam@^1.3.0:
   resolved "https://registry.yarnpkg.com/triple-beam/-/triple-beam-1.3.0.tgz#a595214c7298db8339eeeee083e4d10bd8cb8dd9"
   integrity sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==
 
-ts-auto-mock@3.6.2:
-  version "3.6.2"
-  resolved "https://registry.yarnpkg.com/ts-auto-mock/-/ts-auto-mock-3.6.2.tgz#a0ce1857cc94e0fef83f210ab97499413552df81"
-  integrity sha512-ApHKLw1TlYd7SjS2k99yb0ZwIshwznSgIyRkw4IA9/OeHK1sXorOpApG+a7UTq1aVVDlzTTRTibqPH8gS6AOcA==
+ts-auto-mock@3.6.4:
+  version "3.6.4"
+  resolved "https://registry.yarnpkg.com/ts-auto-mock/-/ts-auto-mock-3.6.4.tgz#4a28deefc62e6c0890a60dba51ee8564c59e4e78"
+  integrity sha512-NDMlKRZotUQgQARp38vwDaP5ucQXnPK/A7H/lpAtcQmwzLAdLnwgxtNUzYF2G2gKQqw7SNcyGkjizWZm8EHNQw==
   dependencies:
-    lodash-es "^4.17.21"
-    micromatch "^4.0.5"
-    winston "^3.7.2"
+    lodash-es "4.17.21"
+    micromatch "4.0.5"
+    winston "3.7.2"
 
 ts-jest@27.1.4:
   version "27.1.4"
@@ -4078,7 +4078,7 @@ winston-transport@^4.5.0:
     readable-stream "^3.6.0"
     triple-beam "^1.3.0"
 
-winston@^3.7.2:
+winston@3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/winston/-/winston-3.7.2.tgz#95b4eeddbec902b3db1424932ac634f887c400b1"
   integrity sha512-QziIqtojHBoyzUOdQvQiar1DH0Xp9nF1A1y7NVy2DGEsz82SBDtOalS0ulTRGVT14xPX3WRWkCsdcJKqNflKng==
