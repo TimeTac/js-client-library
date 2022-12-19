@@ -9,8 +9,8 @@ export class ServerCommunicationEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
   async readServerCommunication(account: string): Promise<{ Results: ServerCommunication }> {
-    this.setAccount(account);
-    const response = this._get<ResourceName>('read', { withCredentials: false });
+    this.setAccount(account.toLocaleLowerCase());
+    const response = this._get<ResourceName>('read', { withCredentials: false, headers: { 'Content-Type': 'multipart/form-data' } });
     return responseHandlers.serverCommunication(response);
   }
 }

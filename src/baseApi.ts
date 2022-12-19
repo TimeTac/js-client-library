@@ -50,11 +50,12 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   private getOptions(options?: AxiosRequestConfig): AxiosRequestConfig {
     return {
+      ...options,
       headers: {
         Authorization: `Bearer ${this.config.settings.accessToken ?? ''}`,
         'Content-type': 'application/json',
+        ...(options?.headers as Record<string, string>),
       },
-      ...options,
     };
   }
 
