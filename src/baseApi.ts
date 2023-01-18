@@ -41,7 +41,7 @@ export type ApiConfig = {
   timeout?: number;
   onServerTimeDeviationChange?: (deviation: number) => void;
   getChangedOnlyConfig?: (loggedInUser: User, since?: string | undefined) => DeltaSyncParams;
-  deviceFcmToken: string;
+  deviceFcmToken?: string;
 };
 
 export default abstract class BaseApi<ResourceName extends ResourceNames> {
