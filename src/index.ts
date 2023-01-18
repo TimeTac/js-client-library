@@ -38,6 +38,7 @@ import { HealthDataEndpoint } from './health/healthData';
 import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
 import { SalutationsEndpoint } from './salutations';
 import { PermissionResolveDepartmentsEndpoint } from './permissions/permissionResolveDepartments';
+import { PermissionResolveAbsenceTypesAndUsersEndpoint } from './permissions/permissionResolveAbsenceTypesAndUsers/index';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -55,6 +56,7 @@ export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { Feedback } from './feedback/types';
 export { GeneralSetting } from './generalSettings/types';
 export { Message, MessageCreate } from './messages/types';
+export { PermissionResolveAbsenceTypesAndUser } from './permissions/permissionResolveAbsenceTypesAndUsers/types';
 export { Project } from './projects/types';
 export { RecentTask } from './recentTasks/types';
 export { ServerCommunication } from './serverCommunication/types';
@@ -151,6 +153,7 @@ export default class Api {
   public messages: MessagesEndpoint;
   public permissionResolveUsers: PermissionResolveUsersEndpoint;
   public permissionResolveDepartments: PermissionResolveDepartmentsEndpoint;
+  public permissionResolveAbsenceTypesAndUsers: PermissionResolveAbsenceTypesAndUsersEndpoint;
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
   public userTemplateHistory: UserTemplateHistoryEndpoint;
@@ -206,6 +209,7 @@ export default class Api {
     this.timezones = new TimezonesEndpoint(this.config);
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
     this.userTemplateHistory = new UserTemplateHistoryEndpoint(this.config);
+    this.permissionResolveAbsenceTypesAndUsers = new PermissionResolveAbsenceTypesAndUsersEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }

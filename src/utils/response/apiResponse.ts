@@ -33,6 +33,7 @@ import { HealthData } from '../../health/healthData/types';
 import { Country } from '../../countries/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
 import { Salutation } from '../../salutations/types';
+import { PermissionResolveAbsenceTypesAndUser } from '../../permissions/permissionResolveAbsenceTypesAndUsers/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -51,6 +52,7 @@ export const resourceNameArray = [
   'messages',
   'permissionResolveUsers',
   'permissionResolveDepartments',
+  'permissionResolveAbsenceTypesAndUsers',
   'recentTasks',
   'projects',
   'timezones',
@@ -99,7 +101,7 @@ export type Resources = {
   // notifications: Notification;
   // notificationsTypeHtml: NotificationsTypeHtml;
   // notificationUrls: NotificationUrl;
-  // permissionResolveAbsenceTypesAndUsers: PermissionResolveAbsenceTypesAndUser;
+  permissionResolveAbsenceTypesAndUsers: PermissionResolveAbsenceTypesAndUser;
   // permissionResolveHolidayRequests: PermissionResolveHolidayRequest;
   // permissionResolveQuestions: PermissionResolveQuestion;
   // permissionResolveTeams: PermissionResolveTeam;

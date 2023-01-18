@@ -162,7 +162,7 @@ async() => {
 - [ ] [notificationUrls](https://api.timetac.com/doc/v3#tag/notificationUrls)
 - [ ] [offlineSyncError](https://api.timetac.com/doc/v3#tag/offlineSyncError)
 - [ ] [offlineSyncErrors](https://api.timetac.com/doc/v3#tag/offlineSyncErrors)
-- [ ] [permissionResolveAbsenceTypesAndUsers](https://api.timetac.com/doc/v3#tag/permissionResolveAbsenceTypesAndUsers)
+- [x] [permissionResolveAbsenceTypesAndUsers](https://api.timetac.com/doc/v3#tag/permissionResolveAbsenceTypesAndUsers)
 - [ ] [permissionResolveDepartments](https://api.timetac.com/doc/v3#tag/permissionResolveDepartments)
 - [ ] [permissionResolveHolidayRequests](https://api.timetac.com/doc/v3#tag/permissionResolveHolidayRequests)
 - [ ] [permissionResolveOauthClients](https://api.timetac.com/doc/v3#tag/permissionResolveOauthClients)
