@@ -55,7 +55,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
       headers: {
         Authorization: `Bearer ${this.config.settings.accessToken ?? ''}`,
         'Content-type': 'application/json',
-        ...(!!this.config.settings.deviceFcmToken && { 'device-token': this.config.settings.deviceFcmToken }),
+        ...(!(this.config.settings.deviceFcmToken == null) && { 'device-token': this.config.settings.deviceFcmToken }),
         ...(options?.headers as Record<string, string>),
       },
     };
