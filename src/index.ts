@@ -230,4 +230,8 @@ export default class Api {
   public setAccount(account: string): void {
     this.config.settings.account = account;
   }
+
+  public setDeviceToken(deviceFcmToken: string): void {
+    this.config.settings.deviceFcmToken = deviceFcmToken;
+  }
 }

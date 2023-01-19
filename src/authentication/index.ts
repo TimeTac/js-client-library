@@ -32,6 +32,7 @@ export class AuthenticationEndpoint extends BaseApi<any> {
     const config = {
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
+        ...(!(this.config.settings.deviceFcmToken == null) && { 'device-token': this.config.settings.deviceFcmToken }),
       },
     };
     return axios.post<Credentials>(url, new URLSearchParams(credentials), config);
@@ -53,6 +54,7 @@ export class AuthenticationEndpoint extends BaseApi<any> {
       const config: AxiosRequestConfig = {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
+          ...(!(this.config.settings.deviceFcmToken == null) && { 'device-token': this.config.settings.deviceFcmToken }),
         },
       };
 
