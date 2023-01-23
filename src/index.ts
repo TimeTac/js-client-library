@@ -236,6 +236,6 @@ export default class Api {
   }
 
   public setCustomRequestHeaders(customRequestHeaders: { [key: string]: string }): void {
-    this.config.settings.customRequestHeaders = customRequestHeaders;
+    this.config.settings.customRequestHeaders = { ...this.getCustomRequestHeaders(), ...customRequestHeaders };
   }
 }
