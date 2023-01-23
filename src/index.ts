@@ -230,4 +230,12 @@ export default class Api {
   public setAccount(account: string): void {
     this.config.settings.account = account;
   }
+
+  public getCustomRequestHeaders(): { [key: string]: string } | undefined {
+    return this.config.settings.customRequestHeaders;
+  }
+
+  public setCustomRequestHeaders(customRequestHeaders: { [key: string]: string }): void {
+    this.config.settings.customRequestHeaders = { ...this.getCustomRequestHeaders(), ...customRequestHeaders };
+  }
 }

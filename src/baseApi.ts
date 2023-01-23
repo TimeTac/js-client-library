@@ -41,6 +41,7 @@ export type ApiConfig = {
   timeout?: number;
   onServerTimeDeviationChange?: (deviation: number) => void;
   getChangedOnlyConfig?: (loggedInUser: User, since?: string | undefined) => DeltaSyncParams;
+  customRequestHeaders?: { [key: string]: string };
 };
 
 export default abstract class BaseApi<ResourceName extends ResourceNames> {
@@ -55,6 +56,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
         Authorization: `Bearer ${this.config.settings.accessToken ?? ''}`,
         'Content-type': 'application/json',
         ...(options?.headers as Record<string, string>),
+        ...this.config.settings.customRequestHeaders,
       },
     };
   }
