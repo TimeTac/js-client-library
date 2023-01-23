@@ -231,11 +231,11 @@ export default class Api {
     this.config.settings.account = account;
   }
 
-  public getCustomHeaders(): { [key: string]: string } | undefined {
+  public getCustomRequestHeaders(): { [key: string]: string } | undefined {
     return this.config.settings.customRequestHeaders;
   }
 
-  public setCustomHeaders(customRequestHeaders: { [key: string]: string }): void {
+  public setCustomRequestHeaders(customRequestHeaders: { [key: string]: string }): void {
     this.config.settings.customRequestHeaders = customRequestHeaders;
   }
 }
