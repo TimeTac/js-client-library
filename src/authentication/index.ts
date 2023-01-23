@@ -32,7 +32,7 @@ export class AuthenticationEndpoint extends BaseApi<any> {
     const config = {
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
-        ...(!(this.config.settings.customRequestHeaders == null) && this.config.settings.customRequestHeaders),
+        ...this.config.settings.customRequestHeaders,
       },
     };
     return axios.post<Credentials>(url, new URLSearchParams(credentials), config);
@@ -54,7 +54,7 @@ export class AuthenticationEndpoint extends BaseApi<any> {
       const config: AxiosRequestConfig = {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
-          ...(!(this.config.settings.customRequestHeaders == null) && this.config.settings.customRequestHeaders),
+          ...this.config.settings.customRequestHeaders,
         },
       };
 

@@ -56,7 +56,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
         Authorization: `Bearer ${this.config.settings.accessToken ?? ''}`,
         'Content-type': 'application/json',
         ...(options?.headers as Record<string, string>),
-        ...(!(this.config.settings.customRequestHeaders == null) && this.config.settings.customRequestHeaders),
+        ...this.config.settings.customRequestHeaders,
       },
     };
   }
