@@ -231,15 +231,11 @@ export default class Api {
     this.config.settings.account = account;
   }
 
-  /*
-  * Device FCM Token is Firebase Cloud Messaging token which helps to identify Cloud Messaging recipient.
-  * Firebase documentation https://firebase.google.com/docs/cloud-messaging/js/client
-  * */
-  public getDeviceToken(): string | undefined {
-    return this.config.settings.deviceFcmToken;
+  public getCustomHeaders(): { [key: string]: string } | undefined {
+    return this.config.settings.customRequestHeaders;
   }
 
-  public setDeviceToken(deviceFcmToken: string): void {
-    this.config.settings.deviceFcmToken = deviceFcmToken;
+  public setCustomHeaders(customRequestHeaders: { [key: string]: string }): void {
+    this.config.settings.customRequestHeaders = customRequestHeaders;
   }
 }
