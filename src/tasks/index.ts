@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { Required, requiredSingle } from '../utils/response/responseHandlers';
+import { RequestPromise, Required, requiredSingle } from '../utils/response/responseHandlers';
 import { TaskCreate, TaskUpdate } from './types';
 
 const resourceName = 'tasks';
@@ -13,8 +13,7 @@ export class TasksEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public update(data: TaskUpdate): Required<ResourceName> {
-    const response = this._put<ResourceName>('update', data);
-    return requiredSingle(response);
+  public update(data: TaskUpdate): RequestPromise<'tasks'> {
+    return this._put<ResourceName>('update', data);
   }
 }
