@@ -92,7 +92,10 @@ describe('TasksEndpoint', () => {
   test('update', async () => {
     mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: mockResponseData.tasks });
     const results = await clients.update(mockPayloadData.tasks);
-    expect(results.status).toBe(200);
-    expect(results);
+    expect(results).toStrictEqual({
+      Results: mockResponseData.tasks,
+      Affected: {},
+      Deleted: [],
+    });
   });
 });
