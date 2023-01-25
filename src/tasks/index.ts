@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
-import { Entity, LibraryReturn } from '../utils/response/apiResponse';
-import { list, Required, requiredSingle } from '../utils/response/responseHandlers';
+import { Resources } from '../utils/response/apiResponse';
+import { required, Required, requiredSingle } from '../utils/response/responseHandlers';
 import { TaskCreate, TaskUpdate } from './types';
 
 const resourceName = 'tasks';
@@ -14,7 +14,8 @@ export class TasksEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public update(data: TaskUpdate): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
-    return list(this._put<ResourceName>('update', data));
+  public update(data: TaskUpdate): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<ResourceName>('update', data);
+    return required(response);
   }
 }
