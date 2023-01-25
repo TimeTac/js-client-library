@@ -60,7 +60,7 @@ export { PermissionResolveAbsenceTypesAndUser } from './permissions/permissionRe
 export { Project } from './projects/types';
 export { RecentTask } from './recentTasks/types';
 export { ServerCommunication } from './serverCommunication/types';
-export { Task, TaskCreate } from './tasks/types';
+export { Task, TaskCreate, TaskUpdate } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
