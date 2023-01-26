@@ -1,15 +1,19 @@
 import BaseApi from '../baseApi';
-import { AbsenceType } from './types';
+import { Resources } from '../utils/response/apiResponse';
+import { required, Required } from '../utils/response/responseHandlers';
+import { AbsenceType, AbsenceTypeCreate } from './types';
 
 const resourceName = 'absenceTypes';
-
+type ResourceName = typeof resourceName;
 export class AbsenceTypesEndpoint extends BaseApi<typeof resourceName> {
   public readonly resourceName = 'absenceTypes';
 
-  public create(): Promise<AbsenceType> {
-    throw new Error('not Implemented');
+  public create(data: AbsenceTypeCreate): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._post<ResourceName>('create', data);
+    return required(response);
   }
-  public update(): Promise<AbsenceType> {
-    throw new Error('not Implemented');
+  public update(data: AbsenceType): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<ResourceName>('update', data);
+    return required(response);
   }
 }
