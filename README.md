@@ -107,7 +107,7 @@ async() => {
 - [ ] [absenceMultistageResponsibilities](https://api.timetac.com/doc/v3#tag/absenceMultistageResponsibilities)
 - [ ] [absenceReplacements](https://api.timetac.com/doc/v3#tag/absenceReplacements)
 - [x] [absences](https://api.timetac.com/doc/v3#tag/absences)
-- [ ] [absenceTypes](https://api.timetac.com/doc/v3#tag/absenceTypes)
+- [x] [absenceTypes](https://api.timetac.com/doc/v3#tag/absenceTypes)
 - [ ] [absenceTypesRestrictToCountries](https://api.timetac.com/doc/v3#tag/absenceTypesRestrictToCountries)
 - [ ] [accessCredentials](https://api.timetac.com/doc/v3#tag/accessCredentials)
 - [ ] [acDocumentAssignedClients](https://api.timetac.com/doc/v3#tag/acDocumentAssignedClients)
