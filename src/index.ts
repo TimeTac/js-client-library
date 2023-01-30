@@ -43,7 +43,7 @@ import { PermissionResolveAbsenceTypesAndUsersEndpoint } from './permissions/per
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
-export { AbsenceType } from './absenceTypes/types';
+export { AbsenceType, AbsenceTypeCreate } from './absenceTypes/types';
 export { Credentials } from './authentication/types';
 export { Tokens } from './baseApi';
 export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
