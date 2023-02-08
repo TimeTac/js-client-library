@@ -15,10 +15,4 @@ export class TranslationsEndpoint extends BaseApi<ResourceName> {
     const response = this._get<ResourceName>('read', { params });
     return required(response);
   }
-
-  public readByTranslationKeyAlias(translationKey: string): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
-    const params = new RequestParamsBuilder<Translation>().eq('translation_key', translationKey).build();
-    const response = this._get<ResourceName>('read', { params });
-    return required(response);
-  }
 }

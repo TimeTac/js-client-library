@@ -54,4 +54,9 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     const response = this._post<ResourceName>('toggle', data);
     return requiredSingle(response);
   }
+
+  public startAlias(data: ToggleTimeTrackingData): Promise<LibraryReturn<ResourceName>> {
+    const response = this._post<ResourceName>('start', data);
+    return requiredSingle(response);
+  }
 }
