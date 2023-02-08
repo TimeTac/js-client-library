@@ -13,7 +13,7 @@ import { User } from './users/types';
 import { DeltaSyncParams } from './utils/params/deltaSyncParams';
 
 const DEFAULT_HOST = 'go.timetac.com';
-const DEFAULT_API_VERSION = 3;
+const DEFAULT_API_VERSION = 4;
 
 export type Tokens = {
   accessToken: string;
@@ -120,6 +120,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   }
 
   protected getApiPath(): string {
+    console.log('test');
     return `${this.getAccountUrl()}userapi/v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
   }
 
