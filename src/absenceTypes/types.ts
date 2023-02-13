@@ -125,3 +125,19 @@ export type AbsenceType = {
 };
 
 export type AbsenceTypeCreate = Omit<AbsenceType, 'id'>;
+
+export type AbsenceTypeUpdate = Partial<
+  Omit<
+    AbsenceType,
+    'absence_type_id' &
+      'absence_subtype_id' &
+      'absence_group_id' &
+      'default_other_paid_leave' &
+      'cost_acc_task_id' &
+      'duration_unit' &
+      'datev_wage_type_id' &
+      'is_visible_for_edit'
+  >
+> & {
+  id: number;
+};
