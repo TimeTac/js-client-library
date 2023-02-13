@@ -3,6 +3,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
 
+import { TaskUpdate } from './types';
 import { TasksEndpoint } from './index';
 
 const mockResponseData = {
@@ -51,7 +52,9 @@ const mockResponseData = {
   ],
 };
 
-const mockPayloadData = {
+const mockPayloadData: {
+  tasks: TaskUpdate;
+} = {
   tasks: {
     approve_by_project_leader: true,
     begin: '2023-12-21 11:11:11',
@@ -78,6 +81,10 @@ const mockPayloadData = {
     t_iv_5: '',
     t_iv_6: '',
     target_duration: 2,
+    is_hidden: false,
+    restrict_tracking_from_to: true,
+    is_billable: true,
+    is_nonworking: true,
   },
 };
 
