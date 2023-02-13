@@ -51,34 +51,36 @@ export type Task = {
   name_path: string;
 };
 
-export type TaskUpdate = Omit<
-  Partial<Task>,
-  | 'node_path'
-  | 'view_id'
-  | 'jira_id'
-  | 'ultimate_mother_id'
-  | 'view_order'
-  | 'icon_name'
-  | 'custom_icon_name'
-  | 'initial_duration'
-  | 'object_type'
-  | 'duration'
-  | 'is_restricted'
-  | 'is_todo'
-  | 'last_started'
-  | 'target_duration_sum_up_by_task'
-  | 'color'
-  | 'has_children'
-  | 'translate_task_name'
-  | 'allow_task_project_edit'
-  | 'allow_task_project_delete'
-  | 'status'
-  | 'external_id'
-  | 'is_billable'
-  | 'is_nonworking'
-  | 'name_path'
-> & {
+export type TaskUpdate = {
+  id: number;
+  mother_id?: number;
+  sort_order?: number;
+  name?: string;
+  is_done?: boolean;
+  target_duration?: number;
+  begin?: string;
+  deadline?: string;
+  notes?: string;
+  client_id?: number;
+  t_iv_1?: string;
+  t_iv_2?: string;
+  t_iv_3?: string;
+  t_iv_4?: string;
+  t_iv_5?: string;
+  t_iv_6?: string;
+  approve_by_project_leader?: boolean;
   is_blocked?: boolean;
+  is_hidden?: boolean;
+  restrict_tracking_from_to?: boolean;
+  is_startable?: boolean;
+  is_billable?: boolean;
+  is_nonworking?: boolean;
+  is_paid_non_working?: boolean;
+  internal_cost_per_hour?: number;
+  revenue_per_hour?: number;
+  skill_id?: number;
+  priority?: number;
+  is_favourite?: boolean;
 };
 
 export type TaskCreate = Omit<
