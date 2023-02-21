@@ -1,5 +1,3 @@
-import { TaskStatus } from '../enums';
-
 export type Task = {
   id: number;
   mother_id: number;
@@ -39,12 +37,10 @@ export type Task = {
   last_started: string | null;
   is_favourite: boolean | null;
   target_duration_sum_up_by_task: boolean;
-  color: string;
   has_children: boolean;
   translate_task_name: number;
   allow_task_project_edit: boolean;
   allow_task_project_delete: boolean;
-  status: TaskStatus;
   external_id: string;
   is_billable: boolean;
   is_nonworking: boolean;
