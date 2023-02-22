@@ -50,6 +50,12 @@ const mockResponseData = {
       name_path: 'string',
     },
   ],
+  tasksFiltered: [
+    {
+      id: 0,
+      mother_id: 0,
+    },
+  ],
 };
 
 const mockPayloadData: {
@@ -101,6 +107,16 @@ describe('TasksEndpoint', () => {
     const results = await clients.update(mockPayloadData.tasks);
     expect(results).toStrictEqual({
       Results: mockResponseData.tasks,
+      Affected: {},
+      Deleted: [],
+    });
+  });
+
+  test('update with desired params', async () => {
+    mock.onPut(updatePath).reply(200, { Success: true, NumResults: 1, Results: mockResponseData.tasks });
+    const results = await clients.update(mockPayloadData.tasks, ['id', 'mother_id']);
+    expect(results).toStrictEqual({
+      Results: mockResponseData.tasksFiltered,
       Affected: {},
       Deleted: [],
     });
