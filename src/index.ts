@@ -39,6 +39,9 @@ import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
 import { SalutationsEndpoint } from './salutations';
 import { PermissionResolveDepartmentsEndpoint } from './permissions/permissionResolveDepartments';
 import { PermissionResolveAbsenceTypesAndUsersEndpoint } from './permissions/permissionResolveAbsenceTypesAndUsers/index';
+import { WorkSchedulesEndpoint } from './workSchedules';
+import { WorkScheduleDaysEndpoint } from './workScheduleDays';
+import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -112,6 +115,13 @@ export { Country } from './countries/types';
 export { UserTemplateHistory } from './userTemplateHistory/types';
 export { ApiConfig, default as BaseApi } from './baseApi';
 export { requiredSingle, plainObject } from './utils/response/responseHandlers';
+export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
+export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
+export {
+  WorkScheduleDayDefinition,
+  WorkScheduleDayDefinitionsCreate,
+  WorkScheduleDayDefinitionsUpdate,
+} from './workScheduleDayDefinitions/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -157,6 +167,9 @@ export default class Api {
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
   public userTemplateHistory: UserTemplateHistoryEndpoint;
+  public WorkSchedules: WorkSchedulesEndpoint;
+  public WorkScheduleDays: WorkScheduleDaysEndpoint;
+  public WorkScheduleDayDefinitions: WorkScheduleDayDefinitionsEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -210,6 +223,9 @@ export default class Api {
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
     this.userTemplateHistory = new UserTemplateHistoryEndpoint(this.config);
     this.permissionResolveAbsenceTypesAndUsers = new PermissionResolveAbsenceTypesAndUsersEndpoint(this.config);
+    this.WorkSchedules = new WorkSchedulesEndpoint(this.config);
+    this.WorkScheduleDays = new WorkScheduleDaysEndpoint(this.config);
+    this.WorkScheduleDayDefinitions = new WorkScheduleDayDefinitionsEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
