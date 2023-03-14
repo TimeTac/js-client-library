@@ -6,6 +6,6 @@ export type WorkSchedule = {
   status: number;
 };
 
-export type WorkScheduleCreate = Omit<Partial<WorkSchedule>, 'id' | 'display' | 'status'>;
+export type WorkScheduleCreate = Omit<Partial<WorkSchedule>, 'id' | 'archived' | 'status'>;
 
-export type WorkScheduleUpdate = Omit<Partial<WorkSchedule>, 'display' | 'status'>;
+export type WorkScheduleUpdate = Omit<Partial<WorkSchedule>, 'archived' | 'status'>;
