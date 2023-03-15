@@ -203,7 +203,9 @@ async() => {
 - [x] [users](https://api.timetac.com/doc/v3#tag/users)
 - [x] [userStatusOverview](https://api.timetac.com/doc/v3#tag/userStatusOverview)
 - [x] [userTemplateHistory](https://api.timetac.com/doc/v3#tag/userTemplateHistory)
-
+- [x] [workSchedules](https://api.timetac.com/doc/v3#tag/workSchedules)
+- [x] [workScheduleDays](https://api.timetac.com/doc/v3#tag/workScheduleDays)
+- [x] [workScheduleDayDefinitions](https://api.timetac.com/doc/v3#tag/workScheduleDayDefinitions)
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
