@@ -7,6 +7,6 @@ export type WorkScheduleDayDefinition = {
   end: string;
 };
 
-export type WorkScheduleDayDefinitionsCreate = Omit<Partial<WorkScheduleDayDefinition>, 'id'>;
+export type WorkScheduleDayDefinitionCreate = Omit<Partial<WorkScheduleDayDefinition>, 'id'>;
 
-export type WorkScheduleDayDefinitionsUpdate = Omit<Partial<WorkScheduleDayDefinition>, 'timesheet_template_id' | 'weekday_id'>;
+export type WorkScheduleDayDefinitionUpdate = Omit<Partial<WorkScheduleDayDefinition>, 'timesheet_template_id' | 'weekday_id'>;
