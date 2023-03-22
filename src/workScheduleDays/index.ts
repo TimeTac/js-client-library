@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
-import { Entity } from '../utils/response/apiResponse';
-import { required, Required } from '../utils/response/responseHandlers';
-import { WorkScheduleDayUpdate } from './types';
+import {LibraryReturn} from '../utils/response/apiResponse';
+import {ParsedErrorMesage, requiredBatch, requiredSingle} from '../utils/response/responseHandlers';
+import {WorkScheduleDay, WorkScheduleDayUpdate} from './types';
 
 const resourceName = 'workScheduleDays';
 type ResourceName = typeof resourceName;
@@ -9,8 +9,15 @@ type ResourceName = typeof resourceName;
 export class WorkScheduleDaysEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
-  public update(data: WorkScheduleDayUpdate[]): Required<ResourceName, Entity<ResourceName>[]> {
-    const response = this._put<ResourceName>('update', data);
-    return required(response);
+  public async update(
+    data: WorkScheduleDayUpdate | WorkScheduleDayUpdate[]
+  ): Promise<LibraryReturn<'workScheduleDays', WorkScheduleDay> | LibraryReturn<'workScheduleDays', (ParsedErrorMesage | WorkScheduleDay)[]>> {
+    if (Array.isArray(data)) {
+      const response = this._putBatch<ResourceName>('update', data);
+      return requiredBatch(response);
+    } else {
+      const response = this._put<ResourceName>('update', data);
+      return requiredSingle(response);
+    }
   }
 }
