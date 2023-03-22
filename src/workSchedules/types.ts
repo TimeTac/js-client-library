@@ -8,4 +8,6 @@ export type WorkSchedule = {
 
 export type WorkScheduleCreate = Omit<Partial<WorkSchedule>, 'id' | 'archived' | 'status'>;
 
-export type WorkScheduleUpdate = Omit<Partial<WorkSchedule>, 'archived' | 'status'>;
+export type WorkScheduleUpdate = Omit<Partial<WorkSchedule>, 'archived' | 'status'> & {
+  id: number;
+};
