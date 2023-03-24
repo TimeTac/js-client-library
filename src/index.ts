@@ -119,8 +119,8 @@ export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSche
 export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
 export {
   WorkScheduleDayDefinition,
-  WorkScheduleDayDefinitionsCreate,
-  WorkScheduleDayDefinitionsUpdate,
+  WorkScheduleDayDefinitionCreate,
+  WorkScheduleDayDefinitionUpdate,
 } from './workScheduleDayDefinitions/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
@@ -167,9 +167,9 @@ export default class Api {
   public timezones: TimezonesEndpoint;
   public timesheetAccountingSummaries: TimesheetAccountingSummariesEndpoint;
   public userTemplateHistory: UserTemplateHistoryEndpoint;
-  public WorkSchedules: WorkSchedulesEndpoint;
-  public WorkScheduleDays: WorkScheduleDaysEndpoint;
-  public WorkScheduleDayDefinitions: WorkScheduleDayDefinitionsEndpoint;
+  public workSchedules: WorkSchedulesEndpoint;
+  public workScheduleDays: WorkScheduleDaysEndpoint;
+  public workScheduleDayDefinitions: WorkScheduleDayDefinitionsEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -223,9 +223,9 @@ export default class Api {
     this.timesheetAccountingSummaries = new TimesheetAccountingSummariesEndpoint(this.config);
     this.userTemplateHistory = new UserTemplateHistoryEndpoint(this.config);
     this.permissionResolveAbsenceTypesAndUsers = new PermissionResolveAbsenceTypesAndUsersEndpoint(this.config);
-    this.WorkSchedules = new WorkSchedulesEndpoint(this.config);
-    this.WorkScheduleDays = new WorkScheduleDaysEndpoint(this.config);
-    this.WorkScheduleDayDefinitions = new WorkScheduleDayDefinitionsEndpoint(this.config);
+    this.workSchedules = new WorkSchedulesEndpoint(this.config);
+    this.workScheduleDays = new WorkScheduleDaysEndpoint(this.config);
+    this.workScheduleDayDefinitions = new WorkScheduleDayDefinitionsEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
