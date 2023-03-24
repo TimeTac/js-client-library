@@ -12,4 +12,5 @@ export type WorkScheduleDay = {
   weekday: string;
 };
 
-export type WorkScheduleDayUpdate = Pick<WorkScheduleDay, 'id'> & Omit<Partial<WorkScheduleDay>, 'timesheet_template_id' | 'weekday_id' | 'id'>;
+export type WorkScheduleDayUpdate = Pick<WorkScheduleDay, 'id'> &
+  Omit<Partial<WorkScheduleDay>, 'timesheet_template_id' | 'weekday_id' | 'id'>;
