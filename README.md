@@ -164,6 +164,7 @@ async() => {
 - [ ] [offlineSyncErrors](https://api.timetac.com/doc/v3#tag/offlineSyncErrors)
 - [x] [permissionResolveAbsenceTypesAndUsers](https://api.timetac.com/doc/v3#tag/permissionResolveAbsenceTypesAndUsers)
 - [ ] [permissionResolveDepartments](https://api.timetac.com/doc/v3#tag/permissionResolveDepartments)
+- [x] [permissionResolveEntities](https://api.timetac.com/doc/v3#tag/permissionResolveEntities)
 - [ ] [permissionResolveHolidayRequests](https://api.timetac.com/doc/v3#tag/permissionResolveHolidayRequests)
 - [ ] [permissionResolveOauthClients](https://api.timetac.com/doc/v3#tag/permissionResolveOauthClients)
 - [ ] [permissionResolveQuestions](https://api.timetac.com/doc/v3#tag/permissionResolveQuestions)

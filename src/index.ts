@@ -42,6 +42,7 @@ import { PermissionResolveAbsenceTypesAndUsersEndpoint } from './permissions/per
 import { WorkSchedulesEndpoint } from './workSchedules';
 import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions';
+import { PermissionResolveEntitiesEndpoint } from './permissions/permissionResolveEntities';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -161,6 +162,7 @@ export default class Api {
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public messages: MessagesEndpoint;
+  public permissionResolveEntities: PermissionResolveEntitiesEndpoint;
   public permissionResolveUsers: PermissionResolveUsersEndpoint;
   public permissionResolveDepartments: PermissionResolveDepartmentsEndpoint;
   public permissionResolveAbsenceTypesAndUsers: PermissionResolveAbsenceTypesAndUsersEndpoint;
@@ -217,6 +219,7 @@ export default class Api {
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
+    this.permissionResolveEntities = new PermissionResolveEntitiesEndpoint(this.config);
     this.permissionResolveUsers = new PermissionResolveUsersEndpoint(this.config);
     this.permissionResolveDepartments = new PermissionResolveDepartmentsEndpoint(this.config);
     this.timezones = new TimezonesEndpoint(this.config);
