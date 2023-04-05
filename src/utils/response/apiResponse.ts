@@ -37,6 +37,7 @@ import { PermissionResolveAbsenceTypesAndUser } from '../../permissions/permissi
 import { WorkSchedule } from '../../workSchedules/types';
 import { WorkScheduleDay } from '../../workScheduleDays/types';
 import { WorkScheduleDayDefinition } from '../../workScheduleDayDefinitions/types';
+import { PermissionResolveEntity } from '../../permissions/permissionResolveEntities/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -53,6 +54,7 @@ export const resourceNameArray = [
   'generalSettings',
   'todoTasks',
   'messages',
+  'permissionResolveEntities',
   'permissionResolveUsers',
   'permissionResolveDepartments',
   'permissionResolveAbsenceTypesAndUsers',
@@ -111,6 +113,7 @@ export type Resources = {
   // permissionResolveHolidayRequests: PermissionResolveHolidayRequest;
   // permissionResolveQuestions: PermissionResolveQuestion;
   // permissionResolveTeams: PermissionResolveTeam;
+  permissionResolveEntities: PermissionResolveEntity;
   permissionResolveUsers: PermissionResolveUser;
   permissionResolveDepartments: PermissionResolveDepartment;
   // permissions: Permission;
