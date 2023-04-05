@@ -110,6 +110,7 @@ export { UpdateRawResponse } from './utils/response/updateRawResponse';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 export { PermissionResolveDepartment } from './permissions/permissionResolveDepartments/types';
+export { PermissionResolveEntity } from './permissions/permissionResolveEntities/types';
 export { HealthRule } from './health/healthRules/types';
 export { HealthData } from './health/healthData/types';
 export { Country } from './countries/types';
