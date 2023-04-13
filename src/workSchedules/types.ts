@@ -10,4 +10,5 @@ export type WorkSchedule = {
 
 export type WorkScheduleCreate = Omit<Partial<WorkSchedule>, 'id' | 'archived' | 'editable' | 'deletable' | 'status'>;
 
-export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> & Omit<Partial<WorkSchedule>, 'archived' | 'editable' | 'deletable' | 'status' | 'id'>;
+export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
+  Omit<Partial<WorkSchedule>, 'archived' | 'editable' | 'deletable' | 'status' | 'id'>;
