@@ -1,7 +1,8 @@
 import BaseApi from '../baseApi';
 import { ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
-import { LibraryReturn } from '../utils/response/apiResponse';
+import {Entity, LibraryReturn} from '../utils/response/apiResponse';
 import { Department, DepartmentCreate, DepartmentUpdate } from './types';
+import {RequestParams} from "../utils/params/requestParams";
 
 const resourceName = 'departments';
 type ResourceName = typeof resourceName;
@@ -9,8 +10,8 @@ type ResourceName = typeof resourceName;
 export class DepartmentsEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
-  public create(data: DepartmentCreate): Required<ResourceName> {
-    const response = this._post<ResourceName>('create', data);
+  public create(data: DepartmentCreate, params?: RequestParams<Entity<ResourceName>> | string): Required<ResourceName> {
+    const response = this._post<ResourceName>('create', data, { params });
     return requiredSingle(response);
   }
 
