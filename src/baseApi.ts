@@ -77,33 +77,36 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     slug: string,
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
+    params?: RequestParams<Entity<ResourceName>>,
     options?: AxiosRequestConfig
   ): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.post<ApiResponse<ResourceName>>(url, data, config);
+    return axios.post<ApiResponse<ResourceName>>(url, { ...data, ...params }, config);
   }
 
   protected _put<ResourceName extends ResourceNames>(
     slug: string,
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
+    params?: RequestParams<Entity<ResourceName>>,
     options?: AxiosRequestConfig
   ): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.put<ApiResponse<ResourceName>>(url, data, config);
+    return axios.put<ApiResponse<ResourceName>>(url, { ...data, ...params }, config);
   }
 
   protected _putBatch<ResourceName extends ResourceNames>(
     slug: string,
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
+    params?: RequestParams<Entity<ResourceName>>,
     options?: AxiosRequestConfig
   ): RequestBatchPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
-    return axios.put<ApiBatchResponse<ResourceName>>(url, data, config);
+    return axios.put<ApiBatchResponse<ResourceName>>(url, { ...data, ...params }, config);
   }
 
   protected _delete<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {

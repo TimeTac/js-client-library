@@ -16,8 +16,8 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public create(data: UserCreate, params?: RequestParams<Entity<ResourceName>> | string): Required<ResourceName> {
-    const response = this._post<ResourceName>('create', data, { params });
+  public create(data: UserCreate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {
+    const response = this._post<ResourceName>('create', data, params);
     return requiredSingle(response);
   }
 
