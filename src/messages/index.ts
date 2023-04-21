@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
 import { Entity } from '../utils/response/apiResponse';
 import { required, Required } from '../utils/response/responseHandlers';
-import { MessageCreate, MessageUpdate } from './types';
 import { RequestParams } from '../utils/params/requestParams';
+import { MessageCreate, MessageUpdate } from './types';
 
 const resourceName = 'messages';
 type ResourceName = typeof resourceName;
