@@ -20,8 +20,8 @@ type ResourceName = typeof resourceName;
 export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
-  public create(data: TimeTrackingCreate): Required<ResourceName> {
-    const response = this._post<ResourceName>('create', data);
+  public create(data: TimeTrackingCreate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {
+    const response = this._post<ResourceName>('create', data, params);
     return requiredSingle(response);
   }
 
@@ -35,8 +35,8 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return optional(response);
   }
 
-  public update(data: TimeTrackingUpdate): Required<ResourceName> {
-    const response = this._put<ResourceName>('update', data);
+  public update(data: TimeTrackingUpdate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {
+    const response = this._put<ResourceName>('update', data, params);
     return requiredSingle(response);
   }
 
