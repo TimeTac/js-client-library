@@ -68,7 +68,7 @@ export { Task, TaskCreate, TaskUpdate } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
-export { TimesheetAccounting } from './timesheetAccountings/types';
+export { TimesheetAccounting, TimesheetAccountingApproveRequest } from './timesheetAccountings/types';
 export { Translation } from './translations/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate, TimeTrackingUpdate } from './timetrackings/types';
 export { Salutation } from './salutations/types';
