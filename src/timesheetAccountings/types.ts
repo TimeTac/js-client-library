@@ -117,3 +117,11 @@ export type TimesheetAccounting = {
   rest_period_violation: boolean;
   rest_period_weekly_violation: boolean;
 };
+
+export type TimesheetAccountingApproveRequest = {
+  user_id: number;
+  date: string;
+  approved_by_user?: boolean;
+  approved_by_admin?: boolean;
+  approved_by_user_1?: boolean;
+};
