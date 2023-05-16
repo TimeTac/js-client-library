@@ -1,3 +1,5 @@
+type ChangeTimeTrackingRequestPossibleNestedEntities = 'timeTrackings';
+
 export type ChangeTimeTrackingRequest = {
   id: number;
   type: string;
@@ -20,6 +22,9 @@ export type ChangeTimeTrackingRequest = {
    */
   granted_user_comment?: string;
   data_changed?: string;
+  nestedEntities?: {
+    [key in ChangeTimeTrackingRequestPossibleNestedEntities]: Array<Record<string, unknown>>;
+  };
 };
 
 export type ChangeTimeTrackingRequestCreate = Omit<ChangeTimeTrackingRequest, 'id'>;
