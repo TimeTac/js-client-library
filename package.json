@@ -1,6 +1,6 @@
 {
   "name": "@timetac/js-client-library",
-  "version": "1.30.0",
+  "version": "1.31.0",
   "description": "TimeTac API JS client library",
   "homepage": "https://github.com/TimeTac/js-client-library#readme",
   "repository": {
