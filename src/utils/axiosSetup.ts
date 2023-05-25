@@ -37,8 +37,14 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
       untouchedRequest.data = JSON.parse(untouchedRequest.data);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
-    if (error.response.status === 401 && !untouchedRequest._shouldRetry && !error.response.config.url?.includes('oauth2')) {
+    /* eslint-disable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions */
+    if (
+      error.response.status === 401 &&
+      !untouchedRequest._shouldRetry &&
+      !error.response.config.url?.includes('oauth2') &&
+      !error.response.config.url?.includes('temporaryTokens')
+    ) {
+      /* eslint-enable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions */
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       untouchedRequest._shouldRetry = true;
 
