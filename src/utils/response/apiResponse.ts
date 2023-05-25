@@ -217,6 +217,9 @@ export type ApiResponseOnFailure = {
     errorBaseString?: string;
   };
   ErrorInternal?: string;
+  ErrorMetaData?: {
+    [key: string]: string;
+  }
 };
 
 export type BaseApiResponse<ResourceName extends ResourceNames> = {

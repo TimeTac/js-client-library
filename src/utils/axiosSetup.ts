@@ -38,7 +38,7 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions
-    if (error.response.status === 401 && !untouchedRequest._shouldRetry && !error.response.config.url?.includes('oauth2')) {
+    if (error.response.status === 401 && !untouchedRequest._shouldRetry && !error.response.config.url?.includes('oauth2') && !error.response.config.url?.includes('temporaryTokens')) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       untouchedRequest._shouldRetry = true;
 
