@@ -175,7 +175,7 @@ export default class Api {
   public workSchedules: WorkSchedulesEndpoint;
   public workScheduleDays: WorkScheduleDaysEndpoint;
   public workScheduleDayDefinitions: WorkScheduleDayDefinitionsEndpoint;
-  public publicHolidayTemplate: PublicHolidayTemplatesEndpoint;
+  public publicHolidayTemplates: PublicHolidayTemplatesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -233,7 +233,7 @@ export default class Api {
     this.workSchedules = new WorkSchedulesEndpoint(this.config);
     this.workScheduleDays = new WorkScheduleDaysEndpoint(this.config);
     this.workScheduleDayDefinitions = new WorkScheduleDayDefinitionsEndpoint(this.config);
-    this.publicHolidayTemplate = new PublicHolidayTemplatesEndpoint(this.config);
+    this.publicHolidayTemplates = new PublicHolidayTemplatesEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
