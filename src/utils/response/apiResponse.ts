@@ -38,6 +38,7 @@ import { WorkSchedule } from '../../workSchedules/types';
 import { WorkScheduleDay } from '../../workScheduleDays/types';
 import { WorkScheduleDayDefinition } from '../../workScheduleDayDefinitions/types';
 import { PermissionResolveEntity } from '../../permissions/permissionResolveEntities/types';
+import { PublicHolidayTemplates } from '../../publicHolidayTemplates/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -83,6 +84,7 @@ export const resourceNameArray = [
   'workSchedules',
   'workScheduleDays',
   'workScheduleDayDefinitions',
+  'publicHolidayTemplates',
 ] as const;
 
 export type Resources = {
@@ -148,6 +150,7 @@ export type Resources = {
   workSchedules: WorkSchedule;
   workScheduleDays: WorkScheduleDay;
   workScheduleDayDefinitions: WorkScheduleDayDefinition;
+  publicHolidayTemplates: PublicHolidayTemplates;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync

@@ -43,6 +43,7 @@ import { WorkSchedulesEndpoint } from './workSchedules';
 import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions';
 import { PermissionResolveEntitiesEndpoint } from './permissions/permissionResolveEntities';
+import { PublicHolidayTemplatesEndpoint } from './publicHolidayTemplates';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -72,6 +73,7 @@ export { TimesheetAccounting, TimesheetAccountingApproveRequest } from './timesh
 export { Translation } from './translations/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate, TimeTrackingUpdate } from './timetrackings/types';
 export { Salutation } from './salutations/types';
+export { PublicHolidayTemplates } from './publicHolidayTemplates/types';
 export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
@@ -173,6 +175,7 @@ export default class Api {
   public workSchedules: WorkSchedulesEndpoint;
   public workScheduleDays: WorkScheduleDaysEndpoint;
   public workScheduleDayDefinitions: WorkScheduleDayDefinitionsEndpoint;
+  public publicHolidayTemplates: PublicHolidayTemplatesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -230,7 +233,7 @@ export default class Api {
     this.workSchedules = new WorkSchedulesEndpoint(this.config);
     this.workScheduleDays = new WorkScheduleDaysEndpoint(this.config);
     this.workScheduleDayDefinitions = new WorkScheduleDayDefinitionsEndpoint(this.config);
-
+    this.publicHolidayTemplates = new PublicHolidayTemplatesEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 

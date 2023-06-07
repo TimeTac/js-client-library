@@ -14,6 +14,8 @@ export type UserReadObscured = {
   profile_picture: string;
   allow_start_task?: boolean;
   leave_note: string | null;
+  public_holiday_template_id: number;
+  public_holiday_template_id_valid_from: string;
 };
 
 export type UserReadFull = UserReadObscured & {

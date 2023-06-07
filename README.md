@@ -173,7 +173,7 @@ async() => {
 - [ ] [permissions](https://api.timetac.com/doc/v3#tag/permissions)
 - [ ] [permissionScopes](https://api.timetac.com/doc/v3#tag/permissionScopes)
 - [x] [projects](https://api.timetac.com/doc/v3#tag/projects)
-- [ ] [publicHolidayTemplates](https://api.timetac.com/doc/v3#tag/PublicHolidayTemplates)
+- [x] [publicHolidayTemplates](https://api.timetac.com/doc/v3#tag/PublicHolidayTemplates)
 - [x] [recentTasks](https://api.timetac.com/doc/v3#tag/recentTasks)
 - [x] [salutations](https://api.timetac.com/doc/v3#tag/salutations)
 - [ ] [schedulings](https://api.timetac.com/doc/v3#tag/schedulings)
@@ -207,6 +207,7 @@ async() => {
 - [x] [workSchedules](https://api.timetac.com/doc/v3#tag/workSchedules)
 - [x] [workScheduleDays](https://api.timetac.com/doc/v3#tag/workScheduleDays)
 - [x] [workScheduleDayDefinitions](https://api.timetac.com/doc/v3#tag/workScheduleDayDefinitions)
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
