@@ -92,6 +92,8 @@ export type UserReadFull = UserReadObscured & {
   health_rule_id_valid_from: string;
   health_checker: boolean;
   human: boolean;
+  automatic_break_template_id: number;
+  automatic_break_template_valid_starting_from: string;
   user_role_ids: string;
 };
 
