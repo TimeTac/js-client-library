@@ -92,6 +92,7 @@ export type UserReadFull = UserReadObscured & {
   health_rule_id_valid_from: string;
   health_checker: boolean;
   human: boolean;
+  user_role_ids: string;
 };
 
 export type UserRead = UserReadFull | UserReadObscured;
