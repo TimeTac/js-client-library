@@ -1,5 +1,6 @@
 import { UserStatusOverviewStatus } from '../enums';
 
+type UserStatusOverviewPossibleNestedEntities = 'absenceDays';
 export type UserStatusOverview = {
   user_id: number;
   department_id?: number;
@@ -29,4 +30,7 @@ export type UserStatusOverview = {
   profile_picture: string;
   user_fullname: string;
   alert_maximum_timer_violation?: boolean;
+  nestedEntities?: {
+    [key in UserStatusOverviewPossibleNestedEntities]: Array<Record<string, unknown>>;
+  };
 };
