@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
-import {RequestParams} from '../utils/params/requestParams';
-import {Entity, LibraryReturn} from '../utils/response/apiResponse';
-import {optional} from '../utils/response/responseHandlers';
-import {UserRoleSet} from './types';
+import { RequestParams } from '../utils/params/requestParams';
+import { Entity, LibraryReturn } from '../utils/response/apiResponse';
+import { optional } from '../utils/response/responseHandlers';
+import { UserRoleSet } from './types';
 
 const resourceName = 'userRoles';
 type ResourceName = typeof resourceName;
