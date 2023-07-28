@@ -12,7 +12,29 @@ export type WorkSchedule = {
   law_rest_period_minimum_weekly_hours: number;
 };
 
-export type WorkScheduleCreate = Omit<Partial<WorkSchedule>, 'id' | 'archived' | 'editable' | 'deletable' | 'status' | 'law_limit_daily_hours' | 'law_limit_weekly_hours' | 'law_rest_period_minimum_hours' | 'law_rest_period_minimum_weekly_hours'>;
+export type WorkScheduleCreate = Omit<
+  Partial<WorkSchedule>,
+  | 'id'
+  | 'archived'
+  | 'editable'
+  | 'deletable'
+  | 'status'
+  | 'law_limit_daily_hours'
+  | 'law_limit_weekly_hours'
+  | 'law_rest_period_minimum_hours'
+  | 'law_rest_period_minimum_weekly_hours'
+>;
 
 export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
-  Omit<Partial<WorkSchedule>, 'archived' | 'editable' | 'deletable' | 'status' | 'id' | 'law_limit_daily_hours' | 'law_limit_weekly_hours' | 'law_rest_period_minimum_hours' | 'law_rest_period_minimum_weekly_hours'>;
+  Omit<
+    Partial<WorkSchedule>,
+    | 'archived'
+    | 'editable'
+    | 'deletable'
+    | 'status'
+    | 'id'
+    | 'law_limit_daily_hours'
+    | 'law_limit_weekly_hours'
+    | 'law_rest_period_minimum_hours'
+    | 'law_rest_period_minimum_weekly_hours'
+  >;
