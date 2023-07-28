@@ -201,6 +201,7 @@ async() => {
 - [x] [translations](https://api.timetac.com/doc/v3#tag/translations)
 - [x] [userDefinedFieldDefinitionOptions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitionOptions)
 - [x] [userDefinedFieldDefinitions](https://api.timetac.com/doc/v3#tag/userDefinedFieldDefinitions)
+- [x] [userRoles](https://api.timetac.com/doc/v3#tag/userRoles)
 - [x] [users](https://api.timetac.com/doc/v3#tag/users)
 - [x] [userStatusOverview](https://api.timetac.com/doc/v3#tag/userStatusOverview)
 - [x] [userTemplateHistory](https://api.timetac.com/doc/v3#tag/userTemplateHistory)

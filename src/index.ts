@@ -44,6 +44,7 @@ import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions';
 import { PermissionResolveEntitiesEndpoint } from './permissions/permissionResolveEntities';
 import { PublicHolidayTemplatesEndpoint } from './publicHolidayTemplates';
+import { UserRolesEndpoint } from './userRoles';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -126,6 +127,7 @@ export {
   WorkScheduleDayDefinitionCreate,
   WorkScheduleDayDefinitionUpdate,
 } from './workScheduleDayDefinitions/types';
+export { UserRoleSet } from './userRoles/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -176,6 +178,7 @@ export default class Api {
   public workScheduleDays: WorkScheduleDaysEndpoint;
   public workScheduleDayDefinitions: WorkScheduleDayDefinitionsEndpoint;
   public publicHolidayTemplates: PublicHolidayTemplatesEndpoint;
+  public userRoles: UserRolesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -234,6 +237,7 @@ export default class Api {
     this.workScheduleDays = new WorkScheduleDaysEndpoint(this.config);
     this.workScheduleDayDefinitions = new WorkScheduleDayDefinitionsEndpoint(this.config);
     this.publicHolidayTemplates = new PublicHolidayTemplatesEndpoint(this.config);
+    this.userRoles = new UserRolesEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
