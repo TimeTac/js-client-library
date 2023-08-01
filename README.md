@@ -147,7 +147,7 @@ async() => {
 - [ ] [geofenceToNodes](https://api.timetac.com/doc/v3#tag/geofenceToNodes)
 - [ ] [invoices](https://api.timetac.com/doc/v3#tag/invoices)
 - [ ] [JobParams](https://api.timetac.com/doc/v3#tag/JobParams)
-- [ ] [JobQueues](https://api.timetac.com/doc/v3#tag/JobQueues)
+- [x] [JobQueues](https://api.timetac.com/doc/v3#tag/JobQueues)
 - [ ] [legalDocumentAcceptanceLog](https://api.timetac.com/doc/v3#tag/legalDocumentAcceptanceLog)
 - [ ] [legalDocuments](https://api.timetac.com/doc/v3#tag/legalDocuments)
 - [ ] [legalDocumentTypes](https://api.timetac.com/doc/v3#tag/legalDocumentTypes)
