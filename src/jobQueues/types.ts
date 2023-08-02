@@ -16,7 +16,7 @@ export type JobQueueParam = {
 };
 
 export type JobQueueCreate = {
-  task: number;
+  task: string;
   run_at?: string;
   scheduled_at?: string;
   params: {

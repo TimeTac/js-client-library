@@ -11,7 +11,14 @@ export class JobQueuesEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
   public create(data: JobQueueCreate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {
-    const response = this._post<ResourceName>('create', data, params);
+    const response = this._post<ResourceName>(
+      'create',
+      {
+        ...data,
+        params: JSON.stringify(data.params),
+      },
+      params
+    );
     return requiredSingle(response);
   }
 }
