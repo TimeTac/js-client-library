@@ -1,59 +1,61 @@
+import { AbsenceBansEndpoint } from './absenceBans';
 import { AbsenceDaysEndpoint } from './absenceDays';
-import { AbsencesEndpoint } from './absences';
 import { AbsenceTypesEndpoint } from './absenceTypes';
+import { AbsencesEndpoint } from './absences';
 import { AuthenticationEndpoint } from './authentication';
 import { ApiConfig, ApiState } from './baseApi';
 import { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
-import { CountriesEndpoint } from './countries';
 import { ClientsEndpoint } from './clients';
+import { CountriesEndpoint } from './countries';
 import { DeltaSyncEndpoint } from './deltaSync';
 import { DepartmentsEndpoint } from './departments';
 import { FavouriteTasksEndpoint } from './favouriteTasks';
 import { FeedbackEndpoint } from './feedback';
 import { GeneralSettingsEndpoint } from './generalSettings';
+import { HealthDataEndpoint } from './health/healthData';
+import { HealthRulesEndpoint } from './health/healthRules';
+import { JobQueuesEndpoint } from './jobQueues';
 import { MessagesEndpoint } from './messages';
+import { PermissionResolveAbsenceTypesAndUsersEndpoint } from './permissions/permissionResolveAbsenceTypesAndUsers/index';
+import { PermissionResolveDepartmentsEndpoint } from './permissions/permissionResolveDepartments';
+import { PermissionResolveEntitiesEndpoint } from './permissions/permissionResolveEntities';
+import { PermissionResolveUsersEndpoint } from './permissions/permissionResolveUsers';
 import { ProjectsEndpoint } from './projects';
+import { PublicHolidayTemplatesEndpoint } from './publicHolidayTemplates';
 import { RecentTasksEndpoint } from './recentTasks';
+import { SalutationsEndpoint } from './salutations';
 import { ServerCommunicationEndpoint } from './serverCommunication';
 import { TasksEndpoint } from './tasks';
 import { TeamMembersEndpoint } from './teamMembers';
 import { TeamsEndpoint } from './teams';
 import { TimePlanningsEndpoint } from './timeplannings';
+import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
 import { TimesheetAccountingsEndpoint } from './timesheetAccountings';
 import { TimeTrackingsEndpoint } from './timetrackings';
 import { TimezonesEndpoint } from './timezones';
-import { TranslationsEndpoint } from './translations';
 import { TodoTasksEndpoint } from './todoTasks';
+import { TranslationsEndpoint } from './translations';
 import { UserDefinedFieldDefinitionOptionsEndpoint } from './userDefinedFieldDefinitionOptions';
 import { UserDefinedFieldDefinitionsEndpoint } from './userDefinedFieldDefinitions';
-import { UsersEndpoint } from './users';
+import { UserRolesEndpoint } from './userRoles';
 import { UserStatusOverviewEndpoint } from './userStatusOverview';
+import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
+import { UsersEndpoint } from './users';
 import { ConfigProvider } from './utils';
 import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
-import { TimesheetAccountingSummariesEndpoint } from './timesheetAccountingSummaries';
-import { AbsenceBansEndpoint } from './absenceBans';
-import { PermissionResolveUsersEndpoint } from './permissions/permissionResolveUsers';
-import { HealthRulesEndpoint } from './health/healthRules';
-import { HealthDataEndpoint } from './health/healthData';
-import { UserTemplateHistoryEndpoint } from './userTemplateHistory';
-import { SalutationsEndpoint } from './salutations';
-import { PermissionResolveDepartmentsEndpoint } from './permissions/permissionResolveDepartments';
-import { PermissionResolveAbsenceTypesAndUsersEndpoint } from './permissions/permissionResolveAbsenceTypesAndUsers/index';
-import { WorkSchedulesEndpoint } from './workSchedules';
-import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions';
-import { PermissionResolveEntitiesEndpoint } from './permissions/permissionResolveEntities';
-import { PublicHolidayTemplatesEndpoint } from './publicHolidayTemplates';
-import { UserRolesEndpoint } from './userRoles';
+import { WorkScheduleDaysEndpoint } from './workScheduleDays';
+import { WorkSchedulesEndpoint } from './workSchedules';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
-export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AbsenceType, AbsenceTypeCreate, AbsenceTypeUpdate } from './absenceTypes/types';
+export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { Credentials } from './authentication/types';
-export { Tokens } from './baseApi';
+export { ApiConfig, default as BaseApi, Tokens } from './baseApi';
 export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
 export { Client } from './clients/types';
+export { Country } from './countries/types';
 export { DeltaSyncResults } from './deltaSync/types';
 export { Department, DepartmentCreate, DepartmentUpdate } from './departments/types';
 export * from './enums';
@@ -61,36 +63,45 @@ export { ErrorFormat } from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { Feedback } from './feedback/types';
 export { GeneralSetting } from './generalSettings/types';
+export { HealthData } from './health/healthData/types';
+export { HealthRule } from './health/healthRules/types';
+export { JobQueue, JobQueueCreate, JobQueueParam } from './jobQueues/types';
 export { Message, MessageCreate } from './messages/types';
 export { PermissionResolveAbsenceTypesAndUser } from './permissions/permissionResolveAbsenceTypesAndUsers/types';
+export { PermissionResolveDepartment } from './permissions/permissionResolveDepartments/types';
+export { PermissionResolveEntity } from './permissions/permissionResolveEntities/types';
+export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 export { Project } from './projects/types';
+export { PublicHolidayTemplates } from './publicHolidayTemplates/types';
 export { RecentTask } from './recentTasks/types';
+export { Salutation } from './salutations/types';
 export { ServerCommunication } from './serverCommunication/types';
 export { Task, TaskCreate, TaskUpdate } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
+export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { TimesheetAccounting, TimesheetAccountingApproveRequest } from './timesheetAccountings/types';
-export { Translation } from './translations/types';
 export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate, TimeTrackingUpdate } from './timetrackings/types';
-export { Salutation } from './salutations/types';
-export { PublicHolidayTemplates } from './publicHolidayTemplates/types';
 export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
+export { Translation } from './translations/types';
 export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionOptions/types';
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
+export { UserRoleSet } from './userRoles/types';
+export { UserStatusOverview } from './userStatusOverview/types';
+export { UserTemplateHistory } from './userTemplateHistory/types';
 export {
   User,
-  UserUpdate,
-  UserRead,
   UserCreate,
-  UserReadMe,
-  UserResetPassword,
-  UserUpdatePassword,
-  UserReadObscured,
+  UserRead,
   UserReadFull,
+  UserReadMe,
+  UserReadObscured,
+  UserResetPassword,
+  UserUpdate,
+  UserUpdatePassword,
 } from './users/types';
-export { UserStatusOverview } from './userStatusOverview/types';
 export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
@@ -99,35 +110,25 @@ export {
   ApiResponse,
   ApiResponseOnFailure,
   ApiResponseOnSuccess,
+  Entity,
   LibraryReturn,
   ResourceNames,
   Resources,
-  Entity,
   resourceNameArray,
 } from './utils/response/apiResponse';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
+export { plainObject, requiredSingle } from './utils/response/responseHandlers';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
-export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
-export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
-export { PermissionResolveDepartment } from './permissions/permissionResolveDepartments/types';
-export { PermissionResolveEntity } from './permissions/permissionResolveEntities/types';
-export { HealthRule } from './health/healthRules/types';
-export { HealthData } from './health/healthData/types';
-export { Country } from './countries/types';
-export { UserTemplateHistory } from './userTemplateHistory/types';
-export { ApiConfig, default as BaseApi } from './baseApi';
-export { requiredSingle, plainObject } from './utils/response/responseHandlers';
-export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
-export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
 export {
   WorkScheduleDayDefinition,
   WorkScheduleDayDefinitionCreate,
   WorkScheduleDayDefinitionUpdate,
 } from './workScheduleDayDefinitions/types';
-export { UserRoleSet } from './userRoles/types';
+export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
+export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -179,6 +180,7 @@ export default class Api {
   public workScheduleDayDefinitions: WorkScheduleDayDefinitionsEndpoint;
   public publicHolidayTemplates: PublicHolidayTemplatesEndpoint;
   public userRoles: UserRolesEndpoint;
+  public jobQueues: JobQueuesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -238,6 +240,7 @@ export default class Api {
     this.workScheduleDayDefinitions = new WorkScheduleDayDefinitionsEndpoint(this.config);
     this.publicHolidayTemplates = new PublicHolidayTemplatesEndpoint(this.config);
     this.userRoles = new UserRolesEndpoint(this.config);
+    this.jobQueues = new JobQueuesEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
