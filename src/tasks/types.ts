@@ -7,7 +7,11 @@ export type Task = {
   jira_id: number | null;
   sort_order: number;
   ultimate_mother_id: number;
-  is_done: boolean;
+  /**
+   * @deprecated Use `status` instead.
+   */
+  is_done?: boolean;
+  status?: number;
   view_order: number;
   icon_name: string;
   custom_icon_name: string;
@@ -52,7 +56,11 @@ export type TaskUpdate = {
   mother_id?: number;
   sort_order?: number;
   name?: string;
+  /**
+   * @deprecated Use `status` instead.
+   */
   is_done?: boolean;
+  status?: number;
   target_duration?: number;
   begin?: string;
   deadline?: string;

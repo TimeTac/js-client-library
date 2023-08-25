@@ -19,6 +19,9 @@ export class TasksEndpoint extends BaseApi<ResourceName> {
     data: TaskUpdate,
     params?: RequestParams<Entity<ResourceName>>
   ): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    if ('is_done' in data) {
+      console.warn('The "is_done" field is deprecated. Use "status" instead.');
+    }
     const response = this._put<ResourceName>('update', data, params);
     return required(response);
   }
