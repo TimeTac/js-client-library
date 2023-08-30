@@ -13,7 +13,7 @@ import { User } from './users/types';
 import { DeltaSyncParams } from './utils/params/deltaSyncParams';
 
 const DEFAULT_HOST = 'go.timetac.com';
-const DEFAULT_API_VERSION = 3;
+const DEFAULT_API_VERSION = 4;
 
 export type Tokens = {
   accessToken: string;
