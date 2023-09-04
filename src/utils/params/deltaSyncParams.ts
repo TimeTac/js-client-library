@@ -38,7 +38,7 @@ export class DeltaSyncParams {
     return this;
   }
 
-  resource<F extends ResourceNames & string>(resource: F, addFilter: (params: RequestParamsBuilder<Entity<F>>) => void): DeltaSyncParams {
+  resource<F extends ResourceNames>(resource: F, addFilter: (params: RequestParamsBuilder<Entity<F>>) => void): DeltaSyncParams {
     const params = new RequestParamsBuilder<Entity<F>>();
     addFilter(params);
     const includeParams = params.build();

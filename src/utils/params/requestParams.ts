@@ -7,7 +7,7 @@ export type RequestParams<R> = Record<string, string> & { _type?: R };
 type NestedParams = { [key: string]: undefined | Array<NestedParams> };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class RequestParamsBuilder<R extends Object> {
+export class RequestParamsBuilder<R> {
   protected requestParams: RequestParams<R> = {};
 
   constructor(requestParams?: RequestParams<R>) {
