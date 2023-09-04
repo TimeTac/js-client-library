@@ -23,8 +23,11 @@ export type RawApiResponse = {
   _ignoreTypeGuard?: boolean; // workaround until SP-351 is done, we don't want to update every test by hand
 };
 
-function isRawApiResponse(response: Record<string, unknown>): response is RawApiResponse {
-  if (typeof response.data === 'string') return false;
+function isRawApiResponse(response: unknown): response is RawApiResponse {
+  if (typeof response !== 'object' || response == null) return false;
+
+  if ('data' in response && typeof response.data === 'string') return false;
+
   const hasHost = 'Host' in response;
   const hasCodeversion = 'Codeversion' in response;
   const hasSuccess = 'Success' in response;
