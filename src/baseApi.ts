@@ -78,7 +78,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
     params?: RequestParams<Entity<ResourceName>>,
-    options?: AxiosRequestConfig
+    options?: AxiosRequestConfig,
   ): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
@@ -90,7 +90,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
     params?: RequestParams<Entity<ResourceName>>,
-    options?: AxiosRequestConfig
+    options?: AxiosRequestConfig,
   ): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
@@ -102,7 +102,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     // eslint-disable-next-line @typescript-eslint/ban-types
     data?: object,
     params?: RequestParams<Entity<ResourceName>>,
-    options?: AxiosRequestConfig
+    options?: AxiosRequestConfig,
   ): RequestBatchPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
@@ -148,7 +148,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   public readById(
     id: number,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
     const response = this._get<ResourceName>(`read/${id}`, { params });
     return optional(response);

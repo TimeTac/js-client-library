@@ -12,7 +12,7 @@ export class UserRolesEndpoint extends BaseApi<ResourceName> {
 
   public set(
     data: UserRoleSet,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
     const response = this._post<ResourceName>('set', data, params);
     return optional(response);

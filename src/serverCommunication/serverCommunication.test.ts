@@ -7,7 +7,7 @@ import { ServerCommunicationEndpoint } from './';
 
 describe('ServerCommunication', () => {
   const serverCommunication: ServerCommunicationEndpoint = new ServerCommunicationEndpoint(
-    new ConfigProvider({ account: 'testingAccount' })
+    new ConfigProvider({ account: 'testingAccount' }),
   );
   const readPath = `${serverCommunication.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);

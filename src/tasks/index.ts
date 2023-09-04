@@ -17,7 +17,7 @@ export class TasksEndpoint extends BaseApi<ResourceName> {
 
   public update(
     data: TaskUpdate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<typeof resourceName, Resources[typeof resourceName][]> {
     if ('is_done' in data) {
       console.warn('The "is_done" field is deprecated. Use "status" instead.');
