@@ -92,7 +92,7 @@ export const useInterceptors = (interceptorParams: InterceptorParams): void => {
   axios.interceptors.request.use(requestInterceptor);
   axios.interceptors.response.use(
     createResponseFulfilledInterceptor(interceptorParams),
-    createResponseRejectedInterceptor(interceptorParams)
+    createResponseRejectedInterceptor(interceptorParams),
   );
 };
 

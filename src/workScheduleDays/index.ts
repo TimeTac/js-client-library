@@ -10,7 +10,7 @@ export class WorkScheduleDaysEndpoint extends BaseApi<ResourceName> {
   public readonly resourceName = resourceName;
 
   public async update(
-    data: WorkScheduleDayUpdate | WorkScheduleDayUpdate[]
+    data: WorkScheduleDayUpdate | WorkScheduleDayUpdate[],
   ): Promise<
     LibraryReturn<'workScheduleDays', WorkScheduleDay> | LibraryReturn<'workScheduleDays', (ParsedErrorMesage | WorkScheduleDay)[]>
   > {

@@ -22,7 +22,7 @@ export class AbsencesEndpoint extends BaseApi<typeof resourceName> {
 
   public update(
     data: AbsenceUpdate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<typeof resourceName, Resources[typeof resourceName][]> {
     const response = this._put<typeof resourceName>('update', data, params);
     return required(response);

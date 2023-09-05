@@ -17,7 +17,7 @@ export class AbsenceBansEndpoint extends BaseApi<'absenceBans'> {
 
   public update(
     data: AbsenceBanUpdate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<typeof resourceName, Resources[typeof resourceName][]> {
     const response = this._put<typeof resourceName>('update', data, params);
     return required(response);

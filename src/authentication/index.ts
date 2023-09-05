@@ -67,7 +67,7 @@ export class AuthenticationEndpoint extends BaseApi<any> {
         client_secret: this.config.settings.clientSecret,
         refresh_token: refreshToken,
       },
-      'Missing data for:'
+      'Missing data for:',
     );
   }
 

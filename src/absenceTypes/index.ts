@@ -11,14 +11,14 @@ export class AbsenceTypesEndpoint extends BaseApi<typeof resourceName> {
 
   public create(
     data: AbsenceTypeCreate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<typeof resourceName, Resources[typeof resourceName][]> {
     const response = this._post<ResourceName>('create', data, params);
     return required(response);
   }
   public update(
     data: AbsenceTypeUpdate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<typeof resourceName, Resources[typeof resourceName][]> {
     const response = this._put<ResourceName>('update', data, params);
     return required(response);
