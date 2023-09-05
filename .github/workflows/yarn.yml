@@ -17,7 +17,7 @@ jobs:
       - name: Audit
         uses: borales/actions-yarn@v4
         with:
-          cmd: audit --level high
+          cmd: yarn npm audit --environment production
       - name: Lint
         uses: borales/actions-yarn@v4
         with:
