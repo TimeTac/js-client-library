@@ -11,7 +11,7 @@ export class TimesheetAccountingSummariesEndpoint extends BaseApi<'timesheetAcco
   public readonly resourceName = 'timesheetAccountingSummaries';
 
   public readTimesheetAccountingSummaries(
-    params?: RequestParams<TimesheetAccountingSummariesRead> | string
+    params?: RequestParams<TimesheetAccountingSummariesRead> | string,
   ): Promise<LibraryReturn<ResourceName>> {
     const response = this._get<ResourceName>('read', { params });
     return requiredSingle(response);

@@ -20,12 +20,12 @@ export class DepartmentsEndpoint extends BaseApi<ResourceName> {
   public async update(data: DepartmentUpdate): Required<ResourceName>;
 
   public async update(
-    data: DepartmentUpdate | DepartmentUpdate[]
+    data: DepartmentUpdate | DepartmentUpdate[],
   ): Promise<LibraryReturn<'departments', Department> | LibraryReturn<'departments', (ParsedErrorMesage | Department)[]>>;
 
   public async update(
     data: DepartmentUpdate | DepartmentUpdate[],
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Promise<LibraryReturn<'departments', Department> | LibraryReturn<'departments', (ParsedErrorMesage | Department)[]>> {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data, params);

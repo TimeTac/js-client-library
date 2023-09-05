@@ -76,7 +76,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toMatchObject({ Success: false });
           expect(error._plainError).toMatchObject({ status: 200, data: { Success: false } });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -96,7 +96,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toBeUndefined();
           expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -116,7 +116,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toBeUndefined();
           expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -136,7 +136,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toBeUndefined();
           expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -215,7 +215,7 @@ describe('TimeTrackings', () => {
             data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -236,7 +236,7 @@ describe('TimeTrackings', () => {
             data: { Success: false },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -257,7 +257,7 @@ describe('TimeTrackings', () => {
             data: genericAccessDeniedResponse,
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -278,7 +278,7 @@ describe('TimeTrackings', () => {
             data: genericAccessDeniedResponse,
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -341,7 +341,7 @@ describe('TimeTrackings', () => {
             data: { Success: false },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -362,7 +362,7 @@ describe('TimeTrackings', () => {
             data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 

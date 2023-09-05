@@ -51,17 +51,17 @@ export function getParsedErrorMessage(apiResponse: ApiResponseOnFailure): Parsed
 
 function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
   apiResponse: ApiResponseOnFailure,
-  resolved: AxiosResponse<ApiBatchResponse<ResourceName>>
+  resolved: AxiosResponse<ApiBatchResponse<ResourceName>>,
 ): ParserErrorMesageObject<ResourceName>;
 
 function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
   apiResponse: ApiResponseOnFailure,
-  resolved: AxiosResponse<ApiResponse<ResourceName>>
+  resolved: AxiosResponse<ApiResponse<ResourceName>>,
 ): ParserErrorMesageObject<ResourceName>;
 
 function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
   apiResponse: ApiResponseOnFailure,
-  resolved: AxiosResponse<ApiBatchResponse<ResourceName> | ApiResponse<ResourceName>>
+  resolved: AxiosResponse<ApiBatchResponse<ResourceName> | ApiResponse<ResourceName>>,
 ): ParserErrorMesageObject<ResourceName> {
   const { response, message, stack, code } = getParsedErrorMessage(apiResponse);
 
@@ -75,15 +75,15 @@ function getParsedErrorMessageObject<ResourceName extends ResourceNames>(
 }
 
 async function resolveResponse<ResourceName extends ResourceNames>(
-  promise: RequestBatchPromise<ResourceName>
+  promise: RequestBatchPromise<ResourceName>,
 ): Promise<AxiosResponse<ApiBatchResponse<ResourceName>>>;
 
 async function resolveResponse<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
 async function resolveResponse<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName> | RequestBatchPromise<ResourceName>
+  promise: RequestPromise<ResourceName> | RequestBatchPromise<ResourceName>,
 ): Promise<AxiosResponse<ApiResponse<ResourceName> | ApiBatchResponse<ResourceName>>> {
   let resolved;
   try {
@@ -106,7 +106,7 @@ async function resolveResponse<ResourceName extends ResourceNames>(
 }
 
 export async function toApiBatchResponse<ResourceName extends ResourceNames>(
-  promise: RequestBatchPromise<ResourceName>
+  promise: RequestBatchPromise<ResourceName>,
 ): Promise<ApiResponseBatchOnSuccess<ResourceName> | ApiResponseBatchOnFailure<ResourceName>> {
   const resolved = await resolveResponse<ResourceName>(promise);
 
@@ -119,7 +119,7 @@ export async function toApiBatchResponse<ResourceName extends ResourceNames>(
 }
 
 export async function toApiResponse<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Promise<ApiResponseOnSuccess<ResourceName>> {
   const resolved: AxiosResponse<ApiResponse<ResourceName>> = await resolveResponse(promise);
 
@@ -145,7 +145,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
  * @return A promise that resolves to Type or rejects if no results
  */
 export async function required<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Required<ResourceName, Entity<ResourceName>[]> {
   const response = await toApiResponse<ResourceName>(promise);
 
@@ -164,7 +164,7 @@ export async function required<ResourceName extends ResourceNames>(
  * @return A promise that resolves to Type or rejects if no results
  */
 export async function requiredBatch<ResourceName extends ResourceNames>(
-  promise: RequestBatchPromise<ResourceName>
+  promise: RequestBatchPromise<ResourceName>,
 ): Required<ResourceName, (Entity<ResourceName> | ParsedErrorMesage)[]> {
   const response = await toApiBatchResponse<ResourceName>(promise);
 
@@ -187,7 +187,7 @@ export async function requiredBatch<ResourceName extends ResourceNames>(
 }
 
 export async function requiredSingle<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Promise<LibraryReturn<ResourceName>> {
   const response = await toApiResponse<ResourceName>(promise);
 
@@ -203,7 +203,7 @@ export async function requiredSingle<ResourceName extends ResourceNames>(
 }
 
 export async function serverCommunication<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Promise<{ Results: ServerCommunication }> {
   const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, ServerCommunication>;
 
@@ -217,7 +217,7 @@ export async function serverCommunication<ResourceName extends ResourceNames>(
 }
 
 export async function plainObject<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Promise<{ Results: Entity<ResourceName> }> {
   const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, Entity<ResourceName>>;
 
@@ -230,7 +230,7 @@ export async function plainObject<ResourceName extends ResourceNames>(
  * @return A promise that resolves to Results T or undefined if no results but Success is true.
  */
 export async function optional<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
   const response = await toApiResponse<ResourceName>(promise);
 
@@ -242,7 +242,7 @@ export async function optional<ResourceName extends ResourceNames>(
 }
 
 export async function list<ResourceName extends ResourceNames>(
-  promise: RequestPromise<ResourceName>
+  promise: RequestPromise<ResourceName>,
 ): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
   const response = await toApiResponse<ResourceName>(promise);
 

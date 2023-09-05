@@ -51,7 +51,7 @@ const mockData: {
 
 describe('PermissionResolveAbsenceTypesAndUser', () => {
   const clients: PermissionResolveAbsenceTypesAndUsersEndpoint = new PermissionResolveAbsenceTypesAndUsersEndpoint(
-    new ConfigProvider({ account: 'testingAccount' })
+    new ConfigProvider({ account: 'testingAccount' }),
   );
   const readPath = `${clients.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);

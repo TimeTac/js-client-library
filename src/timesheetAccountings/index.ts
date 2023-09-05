@@ -12,7 +12,7 @@ export class TimesheetAccountingsEndpoint extends BaseApi<ResourceName> {
 
   public approve(
     data: TimesheetAccountingApproveRequest,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<typeof resourceName, Resources[typeof resourceName][]> {
     const response = this._put<ResourceName>('approve', data, params);
     return required(response);
