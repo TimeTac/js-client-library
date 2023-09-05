@@ -13,7 +13,7 @@ jobs:
       - name: Install
         uses: borales/actions-yarn@v4
         with:
-          cmd: install --ignore-engines
+          cmd: install
       - name: Audit
         uses: borales/actions-yarn@v4
         with:
@@ -38,7 +38,7 @@ jobs:
       - name: Install
         uses: borales/actions-yarn@v4
         with:
-          cmd: install --ignore-engines
+          cmd: install
       - name: Test
         uses: borales/actions-yarn@v4
         with:
