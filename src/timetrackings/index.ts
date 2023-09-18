@@ -1,14 +1,15 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { Entity, LibraryReturn } from '../utils/response/apiResponse';
+import { Entity, LibraryReturn, Resources } from '../utils/response/apiResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import { createReadRawResponse, ReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
-import { optional, requiredSingle, Required } from '../utils/response/responseHandlers';
+import { optional, requiredSingle, Required, required } from '../utils/response/responseHandlers';
 import {
   StartTimeTrackingData,
   StopTimeTrackingData,
   TimeTracking,
+  TimeTrackingApprove,
   TimeTrackingCreate,
   TimeTrackingUpdate,
   ToggleTimeTrackingData,
@@ -48,6 +49,16 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
   public stop(data: StopTimeTrackingData): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
     const response = this._put<ResourceName>('stop', data);
     return optional(response);
+  }
+
+  public approve(data: TimeTrackingApprove): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<ResourceName>('approve', data);
+    return required(response);
+  }
+
+  public reject(data: TimeTrackingApprove): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<ResourceName>('reject', data);
+    return required(response);
   }
 
   public toggle(data: ToggleTimeTrackingData): Promise<LibraryReturn<ResourceName>> {

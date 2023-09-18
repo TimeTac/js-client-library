@@ -125,6 +125,7 @@ export interface TimeTracking {
   start_oauth_client_id?: string;
   end_oauth_client_id?: string;
 }
+
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
 export type TimeTrackingRead = Partial<
   Omit<
@@ -177,6 +178,7 @@ export type TimeTrackingUpdate = Pick<TimeTracking, 'id'> &
       | 'entityToCreateOnSplit'
     >
   >;
+
 export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id'> {
   task_id?: number;
 }
@@ -184,6 +186,12 @@ export interface StartTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_i
 export interface StopTimeTrackingData extends Omit<TimeTracking, 'id' | 'task_id' | 'end_time_timezone'> {
   end_time_timezone: string;
 }
+
+export type TimeTrackingApprove = {
+  id: number;
+  _granted_user_comment: string;
+};
+export type TimeTrackingReject = TimeTrackingApprove;
 
 export interface ToggleTimeTrackingData extends Pick<TimeTracking, 'user_id' | 'timezone'> {
   timezone: string;
