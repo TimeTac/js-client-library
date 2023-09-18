@@ -11,6 +11,7 @@ import {
   TimeTracking,
   TimeTrackingApprove,
   TimeTrackingCreate,
+  TimeTrackingReject,
   TimeTrackingUpdate,
   ToggleTimeTrackingData,
 } from './types';
@@ -56,7 +57,7 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
     return required(response);
   }
 
-  public reject(data: TimeTrackingApprove): Required<typeof resourceName, Resources[typeof resourceName][]> {
+  public reject(data: TimeTrackingReject): Required<typeof resourceName, Resources[typeof resourceName][]> {
     const response = this._put<ResourceName>('reject', data);
     return required(response);
   }
