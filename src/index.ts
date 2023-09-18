@@ -82,7 +82,15 @@ export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { TimesheetAccounting, TimesheetAccountingApproveRequest } from './timesheetAccountings/types';
-export { StartTimeTrackingData, StopTimeTrackingData, TimeTracking, TimeTrackingCreate, TimeTrackingUpdate } from './timetrackings/types';
+export {
+  StartTimeTrackingData,
+  StopTimeTrackingData,
+  TimeTracking,
+  TimeTrackingCreate,
+  TimeTrackingUpdate,
+  TimeTrackingApprove,
+  TimeTrackingReject,
+} from './timetrackings/types';
 export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
 export { Translation } from './translations/types';
