@@ -247,3 +247,7 @@ export type LibraryReturn<ResourceName extends ResourceNames, Results = Resource
   Deleted: never[] | DeletedData[];
   Affected: ListOfAllResources;
 };
+
+export type CustomReturn<ResourceName extends ResourceNames, T> = {
+  Results: T;
+};

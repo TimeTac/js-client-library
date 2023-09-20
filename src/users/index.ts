@@ -1,7 +1,15 @@
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
-import { Entity, LibraryReturn } from '../utils/response/apiResponse';
-import { list, ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import {CustomReturn, Entity, LibraryReturn} from '../utils/response/apiResponse';
+import {
+  custom,
+  list,
+  optional,
+  ParsedErrorMesage,
+  Required,
+  requiredBatch,
+  requiredSingle
+} from '../utils/response/responseHandlers';
 import {
   UserCreate,
   UserResetPassword,
@@ -64,8 +72,8 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public validatePassword(data: UserValidatePassword): Promise<LibraryReturn<ResourceName, { password_valid: true }>> {
-    const response = this._post(`validatePassword`, {}, data);
-    return requiredSingle(response);
+  public validatePassword(data: UserValidatePassword): Promise<CustomReturn<ResourceName, { "password_valid": boolean }>> {
+    const response = this._post<ResourceName>(`validatePassword`, data);
+    return custom(response);
   }
 }
