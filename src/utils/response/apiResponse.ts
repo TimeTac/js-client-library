@@ -247,3 +247,7 @@ export type LibraryReturn<ResourceName extends ResourceNames, Results = Resource
   Deleted: never[] | DeletedData[];
   Affected: ListOfAllResources;
 };
+
+export type NonEntityResult<T> = {
+  Results: T;
+};

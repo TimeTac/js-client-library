@@ -12,6 +12,7 @@ import {
   ResourceNames,
   ApiBatchResponse,
   ApiResponseBatchOnFailure,
+  NonEntityResult,
 } from './apiResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
@@ -250,5 +251,18 @@ export async function list<ResourceName extends ResourceNames>(
     Results: response.Results,
     Affected: response.Affected ?? {},
     Deleted: response.Deleted ?? [],
+  };
+}
+
+/**
+ * @return A promise that resolves to Results T or undefined if no results but Success is true.
+ */
+export async function nonEntityResult<ResourceName extends ResourceNames, T>(
+  promise: RequestPromise<ResourceName>,
+): Promise<NonEntityResult<T>> {
+  const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, T>;
+
+  return {
+    Results: (response.Results as T[])[0],
   };
 }
