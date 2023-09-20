@@ -46,8 +46,10 @@ import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions';
 import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkSchedulesEndpoint } from './workSchedules';
+import { NotificationsEndpoint } from './notifications';
 
 export { AbsenceBan } from './absenceBans/types';
+export { NotificationUpdate, Notification } from './notifications/types';
 export { AbsenceDay } from './absenceDays/types';
 export { AbsenceType, AbsenceTypeCreate, AbsenceTypeUpdate } from './absenceTypes/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
@@ -176,6 +178,7 @@ export default class Api {
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public messages: MessagesEndpoint;
+  public notifications: NotificationsEndpoint;
   public permissionResolveEntities: PermissionResolveEntitiesEndpoint;
   public permissionResolveUsers: PermissionResolveUsersEndpoint;
   public permissionResolveDepartments: PermissionResolveDepartmentsEndpoint;
@@ -236,6 +239,7 @@ export default class Api {
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
+    this.notifications = new NotificationsEndpoint(this.config);
     this.permissionResolveEntities = new PermissionResolveEntitiesEndpoint(this.config);
     this.permissionResolveUsers = new PermissionResolveUsersEndpoint(this.config);
     this.permissionResolveDepartments = new PermissionResolveDepartmentsEndpoint(this.config);

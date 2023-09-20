@@ -57,6 +57,7 @@ export const resourceNameArray = [
   'generalSettings',
   'todoTasks',
   'messages',
+  'notifications',
   'permissionResolveEntities',
   'permissionResolveUsers',
   'permissionResolveDepartments',
@@ -112,7 +113,7 @@ export type Resources = {
   // multiuserToTasks: MultiuserToTask;
   // nfcTransponder: NfcTransponder;
   // nodesToUsers: NodesToUser;
-  // notifications: Notification;
+  notifications: Notification;
   // notificationsTypeHtml: NotificationsTypeHtml;
   // notificationUrls: NotificationUrl;
   permissionResolveAbsenceTypesAndUsers: PermissionResolveAbsenceTypesAndUser;
