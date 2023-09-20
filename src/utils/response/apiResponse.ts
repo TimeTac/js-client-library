@@ -248,6 +248,6 @@ export type LibraryReturn<ResourceName extends ResourceNames, Results = Resource
   Affected: ListOfAllResources;
 };
 
-export type CustomReturn<ResourceName extends ResourceNames, T> = {
+export type CustomReturn<T> = {
   Results: T;
 };

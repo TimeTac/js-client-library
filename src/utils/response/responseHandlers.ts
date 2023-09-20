@@ -11,7 +11,8 @@ import {
   LibraryReturn,
   ResourceNames,
   ApiBatchResponse,
-  ApiResponseBatchOnFailure, CustomReturn,
+  ApiResponseBatchOnFailure,
+  CustomReturn,
 } from './apiResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
@@ -256,12 +257,10 @@ export async function list<ResourceName extends ResourceNames>(
 /**
  * @return A promise that resolves to Results T or undefined if no results but Success is true.
  */
-export async function custom<ResourceName extends ResourceNames, T>(
-  promise: RequestPromise<ResourceName>,
-): Promise<CustomReturn<ResourceName, T>> {
-  const response = await toApiResponse<ResourceName>(promise);
+export async function custom<ResourceName extends ResourceNames, T>(promise: RequestPromise<ResourceName>): Promise<CustomReturn<T>> {
+  const response = (await toApiResponse<ResourceName>(promise)) as unknown as ApiResponseOnSuccess<ResourceName, T>;
 
   return {
-    Results: response.Results[0] ?? undefined,
+    Results: (response.Results as T[])[0],
   };
 }
