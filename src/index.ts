@@ -71,6 +71,8 @@ export { HealthRule } from './health/healthRules/types';
 export { JobQueue, JobQueueCreate, JobQueueParam } from './jobQueues/types';
 export { Message, MessageCreate } from './messages/types';
 export { NotificationUpdate, Notification } from './notifications/types';
+export { NotificationTypeHtml } from './notificationsTypeHtml/types';
+export { NotificationUrl } from './notificationUrls/types';
 export { PermissionResolveAbsenceTypesAndUser } from './permissions/permissionResolveAbsenceTypesAndUsers/types';
 export { PermissionResolveDepartment } from './permissions/permissionResolveDepartments/types';
 export { PermissionResolveEntity } from './permissions/permissionResolveEntities/types';
