@@ -24,6 +24,9 @@ import { Translation } from '../../translations/types';
 import { UserDefinedFieldDefinitions } from '../../userDefinedFieldDefinitions/types';
 import { UserDefinedFieldDefinitionOptions } from '../../userDefinedFieldDefinitionOptions/types';
 import { Message } from '../../messages/types';
+import { Notification } from '../../notifications/types';
+import { NotificationTypeHtml } from '../../notificationsTypeHtml/types';
+import { NotificationUrl } from '../../notificationUrls/types';
 import { Timezone } from '../../timezones/types';
 import { AbsenceBan } from '../../absenceBans/types';
 import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
@@ -57,6 +60,9 @@ export const resourceNameArray = [
   'generalSettings',
   'todoTasks',
   'messages',
+  'notifications',
+  'notificationsTypeHtml',
+  'notificationUrls',
   'permissionResolveEntities',
   'permissionResolveUsers',
   'permissionResolveDepartments',
@@ -112,9 +118,9 @@ export type Resources = {
   // multiuserToTasks: MultiuserToTask;
   // nfcTransponder: NfcTransponder;
   // nodesToUsers: NodesToUser;
-  // notifications: Notification;
-  // notificationsTypeHtml: NotificationsTypeHtml;
-  // notificationUrls: NotificationUrl;
+  notifications: Notification;
+  notificationsTypeHtml: NotificationTypeHtml;
+  notificationUrls: NotificationUrl;
   permissionResolveAbsenceTypesAndUsers: PermissionResolveAbsenceTypesAndUser;
   // permissionResolveHolidayRequests: PermissionResolveHolidayRequest;
   // permissionResolveQuestions: PermissionResolveQuestion;
