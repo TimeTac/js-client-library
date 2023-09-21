@@ -17,6 +17,8 @@ import { HealthRulesEndpoint } from './health/healthRules';
 import { JobQueuesEndpoint } from './jobQueues';
 import { MessagesEndpoint } from './messages';
 import { NotificationsEndpoint } from './notifications';
+import { NotificationsTypeHtmlEndpoint } from './notificationsTypeHtml';
+import { NotificationUrlsEndpoint } from './notificationUrls';
 import { PermissionResolveAbsenceTypesAndUsersEndpoint } from './permissions/permissionResolveAbsenceTypesAndUsers/index';
 import { PermissionResolveDepartmentsEndpoint } from './permissions/permissionResolveDepartments';
 import { PermissionResolveEntitiesEndpoint } from './permissions/permissionResolveEntities';
@@ -179,6 +181,8 @@ export default class Api {
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public messages: MessagesEndpoint;
   public notifications: NotificationsEndpoint;
+  public notificationsTypeHtml: NotificationsTypeHtmlEndpoint;
+  public notificationUrls: NotificationUrlsEndpoint;
   public permissionResolveEntities: PermissionResolveEntitiesEndpoint;
   public permissionResolveUsers: PermissionResolveUsersEndpoint;
   public permissionResolveDepartments: PermissionResolveDepartmentsEndpoint;
@@ -240,6 +244,8 @@ export default class Api {
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
     this.notifications = new NotificationsEndpoint(this.config);
+    this.notificationsTypeHtml = new NotificationsTypeHtmlEndpoint(this.config);
+    this.notificationUrls = new NotificationUrlsEndpoint(this.config);
     this.permissionResolveEntities = new PermissionResolveEntitiesEndpoint(this.config);
     this.permissionResolveUsers = new PermissionResolveUsersEndpoint(this.config);
     this.permissionResolveDepartments = new PermissionResolveDepartmentsEndpoint(this.config);
