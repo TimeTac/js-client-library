@@ -17,7 +17,7 @@ export class JobQueuesEndpoint extends BaseApi<ResourceName> {
         ...data,
         params: JSON.stringify(data.params),
       },
-      params
+      params,
     );
     return requiredSingle(response);
   }

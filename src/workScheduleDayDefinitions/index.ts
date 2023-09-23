@@ -12,7 +12,7 @@ export class WorkScheduleDayDefinitionsEndpoint extends BaseApi<ResourceName> {
 
   public create(
     data: WorkScheduleDayDefinitionCreate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<ResourceName, Entity<ResourceName>[]> {
     const response = this._post<ResourceName>('create', data, params);
     return required(response);
@@ -20,7 +20,7 @@ export class WorkScheduleDayDefinitionsEndpoint extends BaseApi<ResourceName> {
 
   public update(
     data: WorkScheduleDayDefinitionUpdate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Required<ResourceName, Entity<ResourceName>[]> {
     const response = this._put<ResourceName>('update', data, params);
     return required(response);

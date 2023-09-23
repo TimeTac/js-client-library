@@ -131,3 +131,7 @@ export interface UserUpdatePassword {
   password: string;
   old_password: string;
 }
+
+export interface UserValidatePassword {
+  password?: string;
+}

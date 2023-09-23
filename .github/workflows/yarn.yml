@@ -5,25 +5,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Set Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
       - name: Install
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v4
         with:
-          cmd: install --ignore-engines
+          cmd: install
       - name: Audit
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v4
         with:
-          cmd: audit --level high
+          cmd: npm audit --environment production
       - name: Lint
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v4
         with:
           cmd: lint
       - name: Prettycheck
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v4
         with:
           cmd: prettycheck
       - name: Compile
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v4
         with:
           cmd: compile
   test:
@@ -32,10 +36,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v4
         with:
-          cmd: install --ignore-engines
+          cmd: install
       - name: Test
-        uses: borales/actions-yarn@v2.0.0
+        uses: borales/actions-yarn@v4
         with:
           cmd: test

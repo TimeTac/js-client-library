@@ -17,7 +17,7 @@ describe('PublicHolidayTemplateEndpoint', () => {
     },
   ];
   const publicHolidayTemplates: PublicHolidayTemplatesEndpoint = new PublicHolidayTemplatesEndpoint(
-    new ConfigProvider({ account: 'testingAccount' })
+    new ConfigProvider({ account: 'testingAccount' }),
   );
   const readPath = `${publicHolidayTemplates.getResourcePath()}/read`;
   const mock = new AxiosMockAdapter(axios);

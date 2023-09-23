@@ -12,7 +12,7 @@ export class TodoTasksEndpoint extends BaseApi<typeof resourceName> {
 
   public create(
     data: TodoTaskCreate,
-    params?: RequestParams<Entity<ResourceName>>
+    params?: RequestParams<Entity<ResourceName>>,
   ): Promise<LibraryReturn<typeof resourceName, Resources[typeof resourceName][]>> {
     const response = this._post<typeof resourceName>('create', data, params);
     return responseHandlers.required(response);

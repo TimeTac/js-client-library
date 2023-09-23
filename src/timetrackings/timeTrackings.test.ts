@@ -30,6 +30,8 @@ describe('TimeTrackings', () => {
   const deletePath = `${timeTrackings.getResourcePath()}/delete`;
   const startPath = `${timeTrackings.getResourcePath()}/start`;
   const stopPath = `${timeTrackings.getResourcePath()}/stop`;
+  const approvePath = `${timeTrackings.getResourcePath()}/approve`;
+  const rejectPath = `${timeTrackings.getResourcePath()}/reject`;
   const togglePath = `${timeTrackings.getResourcePath()}/toggle`;
   const timezones: { [key: string]: string } = {
     Vienna: 'Europe/Vienna',
@@ -76,7 +78,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toMatchObject({ Success: false });
           expect(error._plainError).toMatchObject({ status: 200, data: { Success: false } });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -96,7 +98,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toBeUndefined();
           expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -116,7 +118,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toBeUndefined();
           expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -136,7 +138,7 @@ describe('TimeTrackings', () => {
           expect(error.response).toBeUndefined();
           expect(error._plainError).toEqual(new Error('The network request failed with this message.'));
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -215,7 +217,7 @@ describe('TimeTrackings', () => {
             data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -236,7 +238,7 @@ describe('TimeTrackings', () => {
             data: { Success: false },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -257,7 +259,7 @@ describe('TimeTrackings', () => {
             data: genericAccessDeniedResponse,
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -278,7 +280,7 @@ describe('TimeTrackings', () => {
             data: genericAccessDeniedResponse,
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -341,7 +343,7 @@ describe('TimeTrackings', () => {
             data: { Success: false },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -362,7 +364,7 @@ describe('TimeTrackings', () => {
             data: { Success: false, Error: 422, ErrorMessage: 'Unprocessable entity' },
           });
           expect(typeof error.stack).toBe('string');
-        }
+        },
       );
   });
 
@@ -414,6 +416,34 @@ describe('TimeTrackings', () => {
     const result = await timeTrackings.toggle({ timezone: timezones['Vienna'], user_id: 1 });
     expect(result).toEqual({
       Results: { end_time_timezone: timezones['Vienna'] },
+      Affected: {},
+      Deleted: [],
+    });
+  });
+  test('approve timetracking request', async () => {
+    mock.onPut(approvePath).reply(200, {
+      Success: true,
+      NumResults: 1,
+      Results: [{ end_time_timezone: timezones['Vienna'] }],
+      Affected: {},
+    });
+    const result = await timeTrackings.approve({ id: 1, _granted_user_comment: '' });
+    expect(result).toEqual({
+      Results: [{ end_time_timezone: timezones['Vienna'] }],
+      Affected: {},
+      Deleted: [],
+    });
+  });
+  test('reject timetracking request', async () => {
+    mock.onPut(rejectPath).reply(200, {
+      Success: true,
+      NumResults: 1,
+      Results: [{ end_time_timezone: timezones['Vienna'] }],
+      Affected: {},
+    });
+    const result = await timeTrackings.reject({ id: 1, _granted_user_comment: '' });
+    expect(result).toEqual({
+      Results: [{ end_time_timezone: timezones['Vienna'] }],
       Affected: {},
       Deleted: [],
     });
