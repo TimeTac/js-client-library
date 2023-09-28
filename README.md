@@ -148,6 +148,7 @@ async() => {
 - [ ] [invoices](https://api.timetac.com/doc/v3#tag/invoices)
 - [ ] [JobParams](https://api.timetac.com/doc/v3#tag/JobParams)
 - [x] [JobQueues](https://api.timetac.com/doc/v3#tag/JobQueues)
+- [x] [languages](https://api.timetac.com/doc/v3#tag/languages)
 - [ ] [legalDocumentAcceptanceLog](https://api.timetac.com/doc/v3#tag/legalDocumentAcceptanceLog)
 - [ ] [legalDocuments](https://api.timetac.com/doc/v3#tag/legalDocuments)
 - [ ] [legalDocumentTypes](https://api.timetac.com/doc/v3#tag/legalDocumentTypes)
