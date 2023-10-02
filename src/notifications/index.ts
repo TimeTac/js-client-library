@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { Entity, LibraryReturn } from '../utils/response/apiResponse';
-import { ParsedErrorMesage, required, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
 import { RequestParams } from '../utils/params/requestParams';
 import { NotificationUpdate, Notification } from './types';
 
