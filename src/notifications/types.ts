@@ -14,10 +14,12 @@ export type Notification = {
   executable_1_id?: number;
   executable_2_id?: number;
   data_changed: string;
+  seen: boolean;
   inherited_user_ids: string;
 };
 
 export type NotificationUpdate = {
   id: number;
   processed: boolean;
+  seen: boolean;
 };
