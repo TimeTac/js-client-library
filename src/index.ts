@@ -49,6 +49,7 @@ import { setAxiosDefaults, useInterceptors } from './utils/axiosSetup';
 import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions';
 import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkSchedulesEndpoint } from './workSchedules';
+import { LanguagesEndpoint } from './languages';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -69,6 +70,7 @@ export { GeneralSetting } from './generalSettings/types';
 export { HealthData } from './health/healthData/types';
 export { HealthRule } from './health/healthRules/types';
 export { JobQueue, JobQueueCreate, JobQueueParam } from './jobQueues/types';
+export { Language } from './languages/types';
 export { Message, MessageCreate } from './messages/types';
 export { NotificationUpdate, Notification } from './notifications/types';
 export { NotificationTypeHtml } from './notificationsTypeHtml/types';
@@ -181,6 +183,7 @@ export default class Api {
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
+  public languages: LanguagesEndpoint;
   public messages: MessagesEndpoint;
   public notifications: NotificationsEndpoint;
   public notificationsTypeHtml: NotificationsTypeHtmlEndpoint;
@@ -244,6 +247,7 @@ export default class Api {
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
+    this.languages = new LanguagesEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
     this.notifications = new NotificationsEndpoint(this.config);
     this.notificationsTypeHtml = new NotificationsTypeHtmlEndpoint(this.config);
