@@ -17,7 +17,7 @@ export class GeneralSettingsEndpoint extends BaseApi<ResourceName> {
   }
 
   public async update(
-    data: GeneralSettingUpdate | GeneralSettingUpdate[]
+    data: GeneralSettingUpdate | GeneralSettingUpdate[],
   ): Promise<
     LibraryReturn<ResourceName, Entity<ResourceName>> | LibraryReturn<ResourceName, (ParsedErrorMesage | Entity<ResourceName>)[]>
   > {
