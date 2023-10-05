@@ -65,7 +65,7 @@ export * from './enums';
 export { ErrorFormat } from './errors';
 export { FavouriteTask, FavouriteTaskCreate } from './favouriteTasks/types';
 export { Feedback } from './feedback/types';
-export { GeneralSetting } from './generalSettings/types';
+export { GeneralSetting, GeneralSettingUpdate } from './generalSettings/types';
 export { HealthData } from './health/healthData/types';
 export { HealthRule } from './health/healthRules/types';
 export { JobQueue, JobQueueCreate, JobQueueParam } from './jobQueues/types';

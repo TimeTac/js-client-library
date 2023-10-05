@@ -9,3 +9,5 @@ export type GeneralSetting = {
   type?: number;
   data_changed: string;
 };
+
+export type GeneralSettingUpdate = Pick<GeneralSetting, 'id' | 'setting_value'>;
