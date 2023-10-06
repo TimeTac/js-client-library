@@ -44,6 +44,7 @@ import { PermissionResolveEntity } from '../../permissions/permissionResolveEnti
 import { PublicHolidayTemplates } from '../../publicHolidayTemplates/types';
 import { UserRole } from '../../userRoles/types';
 import { JobQueue } from '../../jobQueues/types';
+import { Language } from '../../languages/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -59,6 +60,7 @@ export const resourceNameArray = [
   'departments',
   'generalSettings',
   'todoTasks',
+  'languages',
   'messages',
   'notifications',
   'notificationsTypeHtml',
@@ -114,6 +116,7 @@ export type Resources = {
   generalSettings: GeneralSetting;
   todoTasks: TodoTask;
   // holidayRequests: HolidayRequest;
+  languages: Language;
   messages: Message;
   // multiuserToTasks: MultiuserToTask;
   // nfcTransponder: NfcTransponder;
