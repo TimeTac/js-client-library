@@ -50,6 +50,7 @@ import { WorkScheduleDayDefinitionsEndpoint } from './workScheduleDayDefinitions
 import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkSchedulesEndpoint } from './workSchedules';
 import { LanguagesEndpoint } from './languages';
+import { SsoConfigEndpoint } from './ssoConfig';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -201,6 +202,7 @@ export default class Api {
   public publicHolidayTemplates: PublicHolidayTemplatesEndpoint;
   public userRoles: UserRolesEndpoint;
   public jobQueues: JobQueuesEndpoint;
+  public ssoConfig: SsoConfigEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -265,6 +267,7 @@ export default class Api {
     this.publicHolidayTemplates = new PublicHolidayTemplatesEndpoint(this.config);
     this.userRoles = new UserRolesEndpoint(this.config);
     this.jobQueues = new JobQueuesEndpoint(this.config);
+    this.ssoConfig = new SsoConfigEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
