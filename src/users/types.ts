@@ -130,6 +130,7 @@ export interface UserUpdatePassword {
   id: number;
   password: string;
   old_password: string;
+  revoke_access?: boolean;
 }
 
 export interface UserValidatePassword {
