@@ -45,6 +45,7 @@ import { PublicHolidayTemplates } from '../../publicHolidayTemplates/types';
 import { UserRole } from '../../userRoles/types';
 import { JobQueue } from '../../jobQueues/types';
 import { Language } from '../../languages/types';
+import { SsoConfig } from '../../ssoConfig/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -97,6 +98,7 @@ export const resourceNameArray = [
   'publicHolidayTemplates',
   'userRoles',
   'jobQueues',
+  'ssoConfig',
 ] as const;
 
 export type Resources = {
@@ -166,6 +168,7 @@ export type Resources = {
   publicHolidayTemplates: PublicHolidayTemplates;
   userRoles: UserRole;
   jobQueues: JobQueue;
+  ssoConfig: SsoConfig;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
