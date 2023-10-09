@@ -3,14 +3,17 @@ export type SsoConfig = {
   entity_id: string;
   login_url: string;
   logout_url: string;
-  open_id_login: 'O' | 'R';
   x509_certificate?: string;
+  open_id_login: 'O' | 'R';
   send_email_reminders: boolean;
 };
 
 export type SsoConfigUpdate = {
   id: number;
-  open_id_login: '0';
-  x509_certificate: string;
+  entity_id?: string;
+  login_url?: string;
+  logout_url?: string;
+  x509_certificate?: string;
+  open_id_login: 'O' | 'R';
   send_email_reminders: boolean;
 };
