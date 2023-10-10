@@ -51,6 +51,8 @@ import { WorkScheduleDaysEndpoint } from './workScheduleDays';
 import { WorkSchedulesEndpoint } from './workSchedules';
 import { LanguagesEndpoint } from './languages';
 import { SsoConfigEndpoint } from './ssoConfig';
+import { TiersEndpoint } from './tiers';
+import { FeaturesEndpoint } from './features';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -146,6 +148,7 @@ export {
 } from './workScheduleDayDefinitions/types';
 export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
 export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
+export { Tier } from './tiers/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -203,6 +206,8 @@ export default class Api {
   public userRoles: UserRolesEndpoint;
   public jobQueues: JobQueuesEndpoint;
   public ssoConfig: SsoConfigEndpoint;
+  public tiers: TiersEndpoint;
+  public features: FeaturesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -268,6 +273,8 @@ export default class Api {
     this.userRoles = new UserRolesEndpoint(this.config);
     this.jobQueues = new JobQueuesEndpoint(this.config);
     this.ssoConfig = new SsoConfigEndpoint(this.config);
+    this.tiers = new TiersEndpoint(this.config);
+    this.features = new FeaturesEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 

@@ -37,6 +37,7 @@ import { Country } from '../../countries/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
 import { Salutation } from '../../salutations/types';
 import { PermissionResolveAbsenceTypesAndUser } from '../../permissions/permissionResolveAbsenceTypesAndUsers/types';
+import { Feature } from '../../features/types';
 import { WorkSchedule } from '../../workSchedules/types';
 import { WorkScheduleDay } from '../../workScheduleDays/types';
 import { WorkScheduleDayDefinition } from '../../workScheduleDayDefinitions/types';
@@ -46,6 +47,7 @@ import { UserRole } from '../../userRoles/types';
 import { JobQueue } from '../../jobQueues/types';
 import { Language } from '../../languages/types';
 import { SsoConfig } from '../../ssoConfig/types';
+import { Tier } from '../../tiers/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -99,6 +101,8 @@ export const resourceNameArray = [
   'userRoles',
   'jobQueues',
   'ssoConfig',
+  'tiers',
+  'features',
 ] as const;
 
 export type Resources = {
@@ -169,6 +173,8 @@ export type Resources = {
   userRoles: UserRole;
   jobQueues: JobQueue;
   ssoConfig: SsoConfig;
+  tiers: Tier;
+  features: Feature;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
