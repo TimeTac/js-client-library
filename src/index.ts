@@ -149,6 +149,7 @@ export {
 export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
 export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
 export { Tier } from './tiers/types';
+export { Feature } from './features/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
