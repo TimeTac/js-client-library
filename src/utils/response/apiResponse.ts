@@ -48,6 +48,11 @@ import { JobQueue } from '../../jobQueues/types';
 import { Language } from '../../languages/types';
 import { SsoConfig } from '../../ssoConfig/types';
 import { Tier } from '../../tiers/types';
+import { MonitoringRulesRead } from '../../monitoringRule/monitoringRules/types';
+import { MonitoringRuleFrequencyRead } from '../../monitoringRule/monitoringRuleFrequencies/types';
+import { MonitoringRuleIntervalsRead } from '../../monitoringRule/monitoringRuleIntervals/types';
+import { MonitoringRuleRecipientsRead } from '../../monitoringRule/monitoringRuleRecipients/types';
+import { MonitoringRuleTemplatesRead } from '../../monitoringRule/monitoringRuleTemplates/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -103,6 +108,11 @@ export const resourceNameArray = [
   'ssoConfig',
   'tiers',
   'features',
+  'monitoringRules',
+  'monitoringRuleFrequencies',
+  'monitoringRuleIntervals',
+  'monitoringRuleRecipients',
+  'monitoringRuleTemplates',
 ] as const;
 
 export type Resources = {
@@ -175,6 +185,11 @@ export type Resources = {
   ssoConfig: SsoConfig;
   tiers: Tier;
   features: Feature;
+  monitoringRules: MonitoringRulesRead;
+  monitoringRuleFrequencies: MonitoringRuleFrequencyRead;
+  monitoringRuleIntervals: MonitoringRuleIntervalsRead;
+  monitoringRuleRecipients: MonitoringRuleRecipientsRead;
+  monitoringRuleTemplates: MonitoringRuleTemplatesRead;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
