@@ -23,6 +23,7 @@ describe('TimesheetAccountingsEndpoint', () => {
       rest_period_weekly_violation: true,
       user_id: 1,
       workday: true,
+      plausibility_conflict_violation: false,
     },
   ];
   const clients = new TimesheetAccountingsEndpoint(new ConfigProvider({ account: 'timesheetAccountings' }));
