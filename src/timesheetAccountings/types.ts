@@ -116,6 +116,7 @@ export type TimesheetAccounting = {
   break_law_violation: boolean;
   rest_period_violation: boolean;
   rest_period_weekly_violation: boolean;
+  plausibility_conflict_violation: boolean;
 };
 
 export type TimesheetAccountingApproveRequest = {
