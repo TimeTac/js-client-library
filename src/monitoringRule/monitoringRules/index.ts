@@ -1,7 +1,7 @@
 import BaseApi from '../../baseApi';
 import { RequestParams } from '../../utils/params/requestParams';
 import { Entity, LibraryReturn } from '../../utils/response/apiResponse';
-import { list, requiredSingle } from '../../utils/response/responseHandlers';
+import { list, required } from '../../utils/response/responseHandlers';
 import { MonitotingRulesUpdate } from './types';
 
 const resourceName = 'monitoringRules';
@@ -18,10 +18,7 @@ export class MonitoringRulesEndpoint extends BaseApi<ResourceName> {
   }
 
   public update(data: MonitotingRulesUpdate, params?: RequestParams<Entity<ResourceName>>) {
-    const response = this._put<ResourceName>('update', {
-      data,
-      params,
-    });
-    return requiredSingle(response);
+    const response = this._put<ResourceName>('update', data, params);
+    return required(response);
   }
 }

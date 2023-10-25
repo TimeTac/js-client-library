@@ -4,15 +4,15 @@ export enum MonitoringRulesFrequency {
   Month = 'MONTH',
   Year = 'YEAR',
   Minute = 'MINUTE',
-  Hour = 'HOUR',
 }
 
 export type MonitoringRulesRead = {
-  default_template_id?: number; //check
+  id: number;
+  default_template_id: string | null;
   active: boolean;
   title: string;
   description: string;
-  handler_class?: string; //check
+  handler_class?: string;
   cron_freq_interval: number;
   cron_freq: MonitoringRulesFrequency;
   cron_time: string;
