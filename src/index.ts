@@ -53,6 +53,11 @@ import { LanguagesEndpoint } from './languages';
 import { SsoConfigEndpoint } from './ssoConfig';
 import { TiersEndpoint } from './tiers';
 import { FeaturesEndpoint } from './features';
+import { MonitoringRulesEndpoint } from './monitoringRule/monitoringRules';
+import { MonitoringRuleTemplatesEndpoint } from './monitoringRule/monitoringRuleTemplates';
+import { MonitoringRuleRecipientsEndpoint } from './monitoringRule/monitoringRuleRecipients';
+import { MonitoringRuleIntervalsEndpoint } from './monitoringRule/monitoringRuleIntervals';
+import { MonitoringRuleFrequenciesEndpoint } from './monitoringRule/monitoringRuleFrequencies';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -150,6 +155,11 @@ export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types
 export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
 export { Tier } from './tiers/types';
 export { Feature } from './features/types';
+export { MonitoringRulesFrequency, MonitoringRulesRead, MonitotingRulesUpdate } from './monitoringRule/monitoringRules/types';
+export { MonitoringRuleTemplatesRead } from './monitoringRule/monitoringRuleTemplates/types';
+export { MonitoringRuleRecipientsRead } from './monitoringRule/monitoringRuleRecipients/types';
+export { MonitoringRuleIntervalsRead } from './monitoringRule/monitoringRuleIntervals/types';
+export { MonitoringRuleFrequencyRead } from './monitoringRule/monitoringRuleFrequencies/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -209,7 +219,11 @@ export default class Api {
   public ssoConfig: SsoConfigEndpoint;
   public tiers: TiersEndpoint;
   public features: FeaturesEndpoint;
-
+  public monitoringRules: MonitoringRulesEndpoint;
+  public monitoringRuleTemplates: MonitoringRuleTemplatesEndpoint;
+  public monitoringRuleRecipients: MonitoringRuleRecipientsEndpoint;
+  public monitoringRuleIntervals: MonitoringRuleIntervalsEndpoint;
+  public monitoringRuleFrequencies: MonitoringRuleFrequenciesEndpoint;
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
       ...config,
@@ -276,6 +290,11 @@ export default class Api {
     this.ssoConfig = new SsoConfigEndpoint(this.config);
     this.tiers = new TiersEndpoint(this.config);
     this.features = new FeaturesEndpoint(this.config);
+    this.monitoringRules = new MonitoringRulesEndpoint(this.config);
+    this.monitoringRuleIntervals = new MonitoringRuleIntervalsEndpoint(this.config);
+    this.monitoringRuleFrequencies = new MonitoringRuleFrequenciesEndpoint(this.config);
+    this.monitoringRuleTemplates = new MonitoringRuleTemplatesEndpoint(this.config);
+    this.monitoringRuleRecipients = new MonitoringRuleRecipientsEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
