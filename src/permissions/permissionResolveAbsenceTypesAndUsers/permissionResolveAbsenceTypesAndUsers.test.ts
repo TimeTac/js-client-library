@@ -66,7 +66,7 @@ describe('PermissionResolveAbsenceTypesAndUser', () => {
     expect(results).toStrictEqual({
       Results: mockData.permissionResolveAbsenceTypesAndUserData,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

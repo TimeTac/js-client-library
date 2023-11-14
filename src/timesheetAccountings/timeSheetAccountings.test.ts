@@ -38,7 +38,7 @@ describe('TimesheetAccountingsEndpoint', () => {
     expect(result).toStrictEqual({
       Results: sampleResponse,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

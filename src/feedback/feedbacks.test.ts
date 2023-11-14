@@ -26,7 +26,7 @@ describe('feedbacks', () => {
 
     expect(await results).toStrictEqual({
       Affected: {},
-      Deleted: [],
+      Deleted: {},
       Results: fakeResponse[0],
     });
   });

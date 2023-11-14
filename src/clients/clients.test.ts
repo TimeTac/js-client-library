@@ -70,7 +70,7 @@ describe('Clients', () => {
     expect(results).toStrictEqual({
       Results: mockData.clientsReadResult,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

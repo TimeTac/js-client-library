@@ -30,7 +30,7 @@ describe('PublicHolidayTemplateEndpoint', () => {
     expect(results).toStrictEqual({
       Results: mockData,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

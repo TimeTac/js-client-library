@@ -50,7 +50,7 @@ describe('jobQueuesEndpoint', () => {
     expect(results).toStrictEqual({
       Results: fakeResponse[0],
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

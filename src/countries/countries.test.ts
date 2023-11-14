@@ -42,7 +42,7 @@ describe('Countries', () => {
     expect(results).toStrictEqual({
       Results: mockData.countriesReadResult,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

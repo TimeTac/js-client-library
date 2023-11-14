@@ -45,7 +45,7 @@ describe('Salutations', () => {
     expect(results).toStrictEqual({
       Results: mockData.salutationsReadResult,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

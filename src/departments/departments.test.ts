@@ -75,7 +75,7 @@ describe('Departments', () => {
       expect(results).toStrictEqual({
         Results: MockData.departmentsReadResult,
         Affected: {},
-        Deleted: [],
+        Deleted: {},
       });
     });
   });
@@ -89,7 +89,7 @@ describe('Departments', () => {
       expect(results).toStrictEqual({
         Results: MockData.departmentsReadResult[0],
         Affected: {},
-        Deleted: [],
+        Deleted: {},
       });
     });
   });
@@ -123,7 +123,7 @@ describe('Departments', () => {
     ];
     const response = await departments.update(updateData);
 
-    expect(response).toStrictEqual({ Affected: {}, Deleted: [], Results: [mockedUpdateData, mockedUpdateData] });
+    expect(response).toStrictEqual({ Affected: {}, Deleted: {}, Results: [mockedUpdateData, mockedUpdateData] });
   });
 
   test('Update test ApiResponseBatchOnFailure ', async () => {
@@ -172,7 +172,7 @@ describe('Departments', () => {
 
     expect(results).toStrictEqual({
       Affected: {},
-      Deleted: [],
+      Deleted: {},
       Results: [
         updateData,
         {
