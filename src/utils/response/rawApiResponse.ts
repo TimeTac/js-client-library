@@ -38,15 +38,19 @@ function isRawApiResponse(response: unknown): response is RawApiResponse {
   return hasIgnoreTypeGuard || (hasHost && hasCodeversion && hasSuccess && hasSuccessNested && hasRequestStartTime);
 }
 
+export function hasSuccessProperty(obj: unknown): obj is { Success: unknown } {
+  return typeof obj === 'object' && obj !== null && 'Success' in obj;
+}
+
 export async function createRawApiResponse(promise: Promise<AxiosResponse>): Promise<RawApiResponse> {
-  // We are trying to match the structure in `toApiResponse` here. RawApiResponse should be removed in the future.
   let axiosResponse: AxiosResponse;
 
   try {
     axiosResponse = await promise;
   } catch (e) {
     const error = e as AxiosError;
-    if (error.response?.data != null && typeof error.response.data !== 'string' && 'Success' in error.response.data) {
+
+    if (error.response?.data != null && typeof error.response.data === 'object' && hasSuccessProperty(error.response.data)) {
       axiosResponse = error.response;
     } else {
       throw {

@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { AuthenticationEndpoint } from '../authentication';
 import { TokenResponse } from '../authentication/types';
@@ -12,10 +12,11 @@ export type InterceptorParams = {
   authentication: AuthenticationEndpoint;
 };
 
-const requestInterceptor = (config: AxiosRequestConfig) => {
+const requestInterceptor = (config: AxiosRequestConfig): InternalAxiosRequestConfig<unknown> => {
   // axios.defaults do not automatically apply here, so set timeout manually
   config.timeout = axios.defaults.timeout;
-  return config;
+  config.headers = config.headers ?? {};
+  return config as InternalAxiosRequestConfig<unknown>;
 };
 
 const createResponseFulfilledInterceptor = (interceptorParams: InterceptorParams) => (res: AxiosResponse) => {
@@ -77,7 +78,9 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
         const { access_token: accessToken, refresh_token: refreshToken } = res.data;
         interceptorParams.authentication.setTokens({ accessToken, refreshToken });
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
+        if (untouchedRequest.headers) {
+          untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
+        }
         if (interceptorParams.config.settings.onTokenRefreshedCallback) {
           interceptorParams.config.settings.onTokenRefreshedCallback({ accessToken, refreshToken });
         }
@@ -96,8 +99,9 @@ export const useInterceptors = (interceptorParams: InterceptorParams): void => {
   );
 };
 
+type AxiosDefaultsWithoutHeaders = Omit<AxiosRequestConfig, 'headers'>;
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const setAxiosDefaults = (defaults: AxiosRequestConfig) => {
+export const setAxiosDefaults = (defaults: AxiosDefaultsWithoutHeaders) => {
   axios.defaults = {
     ...axios.defaults,
     ...defaults,

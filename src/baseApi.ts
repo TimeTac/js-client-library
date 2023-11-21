@@ -114,7 +114,9 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     const config = this.getOptions(options);
     //Delete requests send no content
     // eslint-disable-next-line
-    config.headers['Content-type'] = '';
+    if (config.headers) {
+      config.headers['Content-type'] = '';
+    }
     return axios.delete<ApiResponse<ResourceName>>(url, config);
   }
 

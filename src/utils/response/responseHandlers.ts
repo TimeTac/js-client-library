@@ -14,6 +14,7 @@ import {
   ApiResponseBatchOnFailure,
   NonEntityResult,
 } from './apiResponse';
+import { hasSuccessProperty } from './rawApiResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
@@ -92,8 +93,8 @@ async function resolveResponse<ResourceName extends ResourceNames>(
   } catch (e) {
     const error = e as AxiosError;
 
-    if (error.response?.data != null && typeof error.response.data !== 'string' && 'Success' in error.response.data) {
-      resolved = error.response;
+    if (error.response?.data != null && typeof error.response.data !== 'string' && hasSuccessProperty(error.response.data)) {
+      resolved = error.response as AxiosResponse<ApiResponse<ResourceName>> | AxiosResponse<ApiBatchResponse<ResourceName>>;
     } else {
       throw {
         _plainError: error,
