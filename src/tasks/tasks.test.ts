@@ -102,7 +102,7 @@ describe('TasksEndpoint', () => {
     expect(results).toStrictEqual({
       Results: mockResponseData.tasks,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

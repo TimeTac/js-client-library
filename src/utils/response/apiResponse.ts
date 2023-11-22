@@ -204,18 +204,19 @@ const _assertArrayMatchesResources: NeverIfResourcesDoNotMatchArray = true;
 export type ResourceNames = keyof Resources & (typeof resourceNameArray)[number];
 export type Entity<R extends ResourceNames> = Resources[R];
 
-type DeletedData = {
+type DeletedEntryInfo = {
   id: string;
   deleted_at: string;
 };
 
+export type DeletedData = DeletedEntryInfo[] | { [resourceName in ResourceNames]?: DeletedEntryInfo[] };
 type ListOfAllResources = { [resourceName in ResourceNames]?: Resources[resourceName][] };
 
 export type ApiResponseBatchOnSuccess<ResourceName extends ResourceNames> = {
   Success: true;
   NumResults: number;
   Results: ApiResponseOnSuccess<ResourceName>[];
-  Deleted?: DeletedData[];
+  Deleted?: DeletedData;
   Affected?: ListOfAllResources;
   SuccessBatch: true;
 };
@@ -224,7 +225,7 @@ export type ApiResponseBatchOnFailure<ResourceName extends ResourceNames> = {
   Success: true;
   NumResults: number;
   Results: (ApiResponseOnSuccess<ResourceName> | ApiResponseOnFailure)[];
-  Deleted?: DeletedData[];
+  Deleted?: DeletedData;
   Affected?: ListOfAllResources;
   SuccessBatch: false;
 };
@@ -240,7 +241,7 @@ export type ApiResponseOnSuccess<ResourceName extends ResourceNames, Results = R
   Success: true;
   NumResults: number;
   Results: Results;
-  Deleted?: DeletedData[];
+  Deleted?: DeletedData;
   Affected?: ListOfAllResources;
 };
 
@@ -277,7 +278,7 @@ export type ApiBatchResponse<ResourceName extends ResourceNames> = BaseApiRespon
 
 export type LibraryReturn<ResourceName extends ResourceNames, Results = Resources[ResourceName]> = {
   Results: Results;
-  Deleted: never[] | DeletedData[];
+  Deleted: DeletedData;
   Affected: ListOfAllResources;
 };
 

@@ -14,6 +14,7 @@ import {
   ApiResponseBatchOnFailure,
   NonEntityResult,
 } from './apiResponse';
+import { hasSuccessProperty } from './rawApiResponse';
 
 export type RequestPromise<ResourceName extends ResourceNames> = Promise<AxiosResponse<ApiResponse<ResourceName>>>;
 
@@ -92,8 +93,8 @@ async function resolveResponse<ResourceName extends ResourceNames>(
   } catch (e) {
     const error = e as AxiosError;
 
-    if (error.response?.data != null && typeof error.response.data !== 'string' && 'Success' in error.response.data) {
-      resolved = error.response;
+    if (error.response?.data != null && typeof error.response.data !== 'string' && hasSuccessProperty(error.response.data)) {
+      resolved = error.response as AxiosResponse<ApiResponse<ResourceName>> | AxiosResponse<ApiBatchResponse<ResourceName>>;
     } else {
       throw {
         _plainError: error,
@@ -154,7 +155,7 @@ export async function required<ResourceName extends ResourceNames>(
     return {
       Results: response.Results,
       Affected: response.Affected ?? {},
-      Deleted: response.Deleted ?? [],
+      Deleted: response.Deleted ?? {},
     };
   } else {
     throw new Error('There are no results.');
@@ -180,7 +181,7 @@ export async function requiredBatch<ResourceName extends ResourceNames>(
     return {
       Results: childResults,
       Affected: response.Affected ?? {},
-      Deleted: response.Deleted ?? [],
+      Deleted: response.Deleted ?? {},
     };
   } else {
     throw new Error('There are no results.');
@@ -196,7 +197,7 @@ export async function requiredSingle<ResourceName extends ResourceNames>(
     return {
       Results: response.Results[0],
       Affected: response.Affected ?? {},
-      Deleted: response.Deleted ?? [],
+      Deleted: response.Deleted ?? {},
     };
   } else {
     throw new Error('There are no results.');
@@ -238,7 +239,7 @@ export async function optional<ResourceName extends ResourceNames>(
   return {
     Results: response.Results[0] ?? undefined,
     Affected: response.Affected ?? {},
-    Deleted: response.Deleted ?? [],
+    Deleted: response.Deleted ?? {},
   };
 }
 
@@ -250,7 +251,7 @@ export async function list<ResourceName extends ResourceNames>(
   return {
     Results: response.Results,
     Affected: response.Affected ?? {},
-    Deleted: response.Deleted ?? [],
+    Deleted: response.Deleted ?? {},
   };
 }
 

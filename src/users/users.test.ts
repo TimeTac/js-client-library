@@ -156,7 +156,7 @@ describe('Users', () => {
       expect(results).toStrictEqual({
         Results: MockData.userReadResult,
         Affected: {},
-        Deleted: [],
+        Deleted: {},
       });
     });
   });
@@ -170,7 +170,7 @@ describe('Users', () => {
       expect(results).toStrictEqual({
         Results: MockData.userReadResult[0],
         Affected: {},
-        Deleted: [],
+        Deleted: {},
       });
     });
   });
@@ -181,7 +181,7 @@ describe('Users', () => {
     expect.assertions(1);
 
     await users.update(MockData.userUpdateData).then((results) => {
-      expect(results).toStrictEqual({ Affected: {}, Deleted: [], Results: undefined });
+      expect(results).toStrictEqual({ Affected: {}, Deleted: {}, Results: undefined });
     });
   });
 
@@ -214,7 +214,7 @@ describe('Users', () => {
       },
     ]);
 
-    expect(response).toStrictEqual({ Affected: {}, Deleted: [], Results: [updateData, updateData] });
+    expect(response).toStrictEqual({ Affected: {}, Deleted: {}, Results: [updateData, updateData] });
   });
 
   test('Update test ApiResponseBatchOnFailure ', async () => {
@@ -266,7 +266,7 @@ describe('Users', () => {
 
     expect(results).toStrictEqual({
       Affected: {},
-      Deleted: [],
+      Deleted: {},
       Results: [
         updateData,
         {

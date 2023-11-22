@@ -160,6 +160,7 @@ export { MonitoringRuleTemplatesRead } from './monitoringRule/monitoringRuleTemp
 export { MonitoringRuleRecipientsRead } from './monitoringRule/monitoringRuleRecipients/types';
 export { MonitoringRuleIntervalsRead } from './monitoringRule/monitoringRuleIntervals/types';
 export { MonitoringRuleFrequencyRead } from './monitoringRule/monitoringRuleFrequencies/types';
+export { DeletedData } from './utils/response/apiResponse';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -224,6 +225,7 @@ export default class Api {
   public monitoringRuleRecipients: MonitoringRuleRecipientsEndpoint;
   public monitoringRuleIntervals: MonitoringRuleIntervalsEndpoint;
   public monitoringRuleFrequencies: MonitoringRuleFrequenciesEndpoint;
+
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
       ...config,

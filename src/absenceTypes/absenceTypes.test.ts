@@ -120,7 +120,7 @@ describe('AbsenceTypesEndpoint', () => {
     expect(results).toStrictEqual({
       Results: mockResponseData.absenceType,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
   test('update', async () => {
@@ -129,7 +129,7 @@ describe('AbsenceTypesEndpoint', () => {
     expect(results).toStrictEqual({
       Results: mockResponseData.absenceType,
       Affected: {},
-      Deleted: [],
+      Deleted: {},
     });
   });
 });

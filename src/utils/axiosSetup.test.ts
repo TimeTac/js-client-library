@@ -1,5 +1,5 @@
 import { expect } from '@jest/globals';
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, AxiosRequestHeaders } from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 
 import { AuthenticationEndpoint } from '../authentication';
@@ -54,14 +54,18 @@ describe('axiosSetup', () => {
     } as unknown as AxiosError;
 
     const mockErrorRefreshFailed: AxiosError = {
-      config: {},
+      config: {
+        headers: {} as AxiosRequestHeaders,
+      },
       request: {},
       response: {
         data: { error_description: 'The provided refresh token is invalid.', error: 'invalid_grant' },
         status: 497,
         statusText: 'unknown status',
         headers: {},
-        config: {},
+        config: {
+          headers: {} as AxiosRequestHeaders,
+        },
         request: {},
       },
       isAxiosError: true,
