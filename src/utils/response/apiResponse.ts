@@ -53,6 +53,7 @@ import { MonitoringRuleFrequencyRead } from '../../monitoringRule/monitoringRule
 import { MonitoringRuleIntervalsRead } from '../../monitoringRule/monitoringRuleIntervals/types';
 import { MonitoringRuleRecipientsRead } from '../../monitoringRule/monitoringRuleRecipients/types';
 import { MonitoringRuleTemplatesRead } from '../../monitoringRule/monitoringRuleTemplates/types';
+import { GeoFenceRead } from '../../geoFences/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -113,6 +114,7 @@ export const resourceNameArray = [
   'monitoringRuleIntervals',
   'monitoringRuleRecipients',
   'monitoringRuleTemplates',
+  'geofence',
 ] as const;
 
 export type Resources = {
@@ -190,6 +192,7 @@ export type Resources = {
   monitoringRuleIntervals: MonitoringRuleIntervalsRead;
   monitoringRuleRecipients: MonitoringRuleRecipientsRead;
   monitoringRuleTemplates: MonitoringRuleTemplatesRead;
+  geofence: GeoFenceRead;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
