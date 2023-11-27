@@ -1,4 +1,4 @@
-type GeoFence = {
+type Geofence = {
   id: number;
   name: string;
   geo_lat: number;
@@ -8,8 +8,8 @@ type GeoFence = {
   updated: string;
 };
 
-export type GeoFenceRead = GeoFence;
+export type GeofenceRead = Geofence;
 
-export type GeofanceCreate = Pick<GeoFence, 'name' | 'geo_lat' | 'geo_long' | 'radius'> & Partial<Pick<GeoFence, 'updated'>>;
+export type GeofenceCreate = Pick<Geofence, 'name' | 'geo_lat' | 'geo_long' | 'radius'> & Partial<Pick<Geofence, 'updated'>>;
 
-export type GeofencUpdate = Pick<GeoFence, 'id'> & Pick<Partial<GeoFence>, 'name' | 'geo_lat' | 'geo_long' | 'radius' | 'updated'>;
+export type GeofenceUpdate = Pick<Geofence, 'id'> & Pick<Partial<Geofence>, 'name' | 'geo_lat' | 'geo_long' | 'radius' | 'updated'>;
