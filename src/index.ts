@@ -143,7 +143,7 @@ export {
   resourceNameArray,
 } from './utils/response/apiResponse';
 export { GeofenceRead, GeofenceCreate, GeofenceUpdate } from './geoFences/types';
-export { GeofenceToNodesRead, GeofenceToNodesCreate, GeofenceToNodesUpdate } from './geofenceToNodes/types';
+export { GeofenceToNodesRead, GeofenceToNodesCreate, GeofenceToNodesUpdate, GeofenceToNodes } from './geofenceToNodes/types';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';

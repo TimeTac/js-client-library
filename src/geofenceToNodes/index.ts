@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
 import { Entity, LibraryReturn, Resources } from '../utils/response/apiResponse';
 import { RequestParams } from '../utils/params/requestParams';
-import { list, required, Required, requiredSingle } from '../utils/response/responseHandlers';
-import { GeofenceToNodesCreate, GeofenceToNodesUpdate } from './types';
+import { list, ParsedErrorMesage, required, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { GeofenceToNodes, GeofenceToNodesCreate, GeofenceToNodesUpdate } from './types';
 
 const resourceName = 'geofenceToNodes';
 type ResourceName = typeof resourceName;
@@ -17,7 +17,14 @@ export class GeofenceToNodesEndpoint extends BaseApi<ResourceName> {
     return list(response);
   }
 
-  public create(data: GeofenceToNodesCreate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {
+  public create(
+    data: GeofenceToNodesCreate | GeofenceToNodesCreate[],
+    params?: RequestParams<Entity<ResourceName>>,
+  ): Promise<LibraryReturn<'geofenceToNodes'>> | Required<'geofenceToNodes', (GeofenceToNodes | ParsedErrorMesage)[]> {
+    if (Array.isArray(data)) {
+      const response = this._postBatch<ResourceName>('create', data, params);
+      return requiredBatch(response);
+    }
     const response = this._post<ResourceName>('create', data, params);
     return requiredSingle(response);
   }

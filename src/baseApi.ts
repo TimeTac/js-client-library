@@ -109,6 +109,18 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return axios.put<ApiBatchResponse<ResourceName>>(url, { ...data, ...params }, config);
   }
 
+  protected _postBatch<ResourceName extends ResourceNames>(
+    slug: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    data?: object,
+    params?: RequestParams<Entity<ResourceName>>,
+    options?: AxiosRequestConfig,
+  ) {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
+    const config = this.getOptions(options);
+    return axios.post<ApiBatchResponse<ResourceName>>(url, { ...data, ...params }, config);
+  }
+
   protected _delete<ResourceName extends ResourceNames>(slug: string, options?: AxiosRequestConfig): RequestPromise<ResourceName> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
