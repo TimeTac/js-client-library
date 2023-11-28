@@ -58,6 +58,8 @@ import { MonitoringRuleTemplatesEndpoint } from './monitoringRule/monitoringRule
 import { MonitoringRuleRecipientsEndpoint } from './monitoringRule/monitoringRuleRecipients';
 import { MonitoringRuleIntervalsEndpoint } from './monitoringRule/monitoringRuleIntervals';
 import { MonitoringRuleFrequenciesEndpoint } from './monitoringRule/monitoringRuleFrequencies';
+import { GeofenceEndpoint } from './geoFences';
+import { GeofenceToNodesEndpoint } from './geofenceToNodes';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -140,6 +142,8 @@ export {
   Resources,
   resourceNameArray,
 } from './utils/response/apiResponse';
+export { GeofenceRead, GeofenceCreate, GeofenceUpdate } from './geoFences/types';
+export { GeofenceToNodesRead, GeofenceToNodesCreate, GeofenceToNodesUpdate, GeofenceToNodes } from './geofenceToNodes/types';
 export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
@@ -180,6 +184,8 @@ export default class Api {
   public favouriteTasks: FavouriteTasksEndpoint;
   public feedback: FeedbackEndpoint;
   public generalSettings: GeneralSettingsEndpoint;
+  public geofence: GeofenceEndpoint;
+  public geofenceToNodes: GeofenceToNodesEndpoint;
   public healthRules: HealthRulesEndpoint;
   public healthData: HealthDataEndpoint;
   public projects: ProjectsEndpoint;
@@ -297,6 +303,8 @@ export default class Api {
     this.monitoringRuleFrequencies = new MonitoringRuleFrequenciesEndpoint(this.config);
     this.monitoringRuleTemplates = new MonitoringRuleTemplatesEndpoint(this.config);
     this.monitoringRuleRecipients = new MonitoringRuleRecipientsEndpoint(this.config);
+    this.geofence = new GeofenceEndpoint(this.config);
+    this.geofenceToNodes = new GeofenceToNodesEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
