@@ -142,7 +142,9 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   }
 
   protected getDomainPrefix(): string {
-    return `${this.config.settings.domainPrefix ?? 'userapi'}/`;
+    return this.config.settings.domainPrefix !== undefined && this.config.settings.domainPrefix.length > 0
+      ? `${this.config.settings.domainPrefix}/`
+      : '';
   }
 
   protected getAccountUrl(): string {
