@@ -39,7 +39,7 @@ export type ApiConfig = {
   onTokenRefreshFailed?: () => void;
   shouldAutoRefreshToken?: boolean;
   timeout?: number;
-  domainPrefix?: string;
+  apiPrefix?: string;
   onServerTimeDeviationChange?: (deviation: number) => void;
   getChangedOnlyConfig?: (loggedInUser: User, since?: string | undefined) => DeltaSyncParams;
   customRequestHeaders?: { [key: string]: string };
@@ -138,13 +138,14 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
   }
 
   protected getApiPath(): string {
-    return `${this.getAccountUrl()}${this.getDomainPrefix()}v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
+    return `${this.getAccountUrl()}${this.getApiPrefix()}v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
   }
 
-  protected getDomainPrefix(): string {
-    return this.config.settings.domainPrefix !== undefined && this.config.settings.domainPrefix.length > 0
-      ? `${this.config.settings.domainPrefix}/`
-      : '';
+  protected getApiPrefix(): string {
+    if (this.config.settings.apiPrefix === undefined) {
+      return 'userapi/';
+    }
+    return this.config.settings.apiPrefix.length > 0 ? `${this.config.settings.apiPrefix}` : '';
   }
 
   protected getAccountUrl(): string {
