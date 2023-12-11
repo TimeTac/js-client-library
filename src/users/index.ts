@@ -62,7 +62,7 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return nonEntityResult(response);
   }
 
-  public getSecurePasswordGuide(options?: AxiosRequestConfig): Promise<NonEntityResult<{ password_valid: boolean }>> {
+  public getPasswordGuidance(options?: AxiosRequestConfig): Promise<NonEntityResult<{ password_valid: boolean }>> {
     const response = this._post(
       'validatePassword',
       {
