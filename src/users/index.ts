@@ -1,3 +1,4 @@
+import { AxiosRequestConfig } from 'axios';
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { NonEntityResult, Entity, LibraryReturn } from '../utils/response/apiResponse';
@@ -58,6 +59,18 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
 
   public validatePassword(data: UserValidatePassword): Promise<NonEntityResult<{ password_valid: boolean }>> {
     const response = this._post<ResourceName>(`validatePassword`, data);
+    return nonEntityResult(response);
+  }
+
+  public getSecurePasswordGuide(options?: AxiosRequestConfig): Promise<NonEntityResult<{ password_valid: boolean }>> {
+    const response = this._post(
+      'validatePassword',
+      {
+        passwordGuidance: true,
+      },
+      undefined,
+      options,
+    );
     return nonEntityResult(response);
   }
 }
