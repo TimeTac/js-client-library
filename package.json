@@ -28,7 +28,7 @@
     "prettycheck": "prettier -c 'src/**/*.{ts,js,css,html}'",
     "prettyfix": "prettier --write 'src/**/*.{ts,js,css,html}'",
     "compile": "tsc -p tsconfig.json && tsc -p esm.tsconfig.json",
-    "postinstall": "yarn run compile"
+    "postinstall": "yarn install && yarn run compile"
   },
   "dependencies": {
     "axios": "1.6.2",
