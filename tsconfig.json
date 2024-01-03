@@ -1,5 +1,5 @@
 {
-  "include": ["./src/index.ts"],
+  "include": ["./src/*", "./src/**/*"],
   "compilerOptions": {
     "target": "ES6",
     "module": "commonjs",
