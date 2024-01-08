@@ -136,3 +136,12 @@ export interface UserUpdatePassword {
 export interface UserValidatePassword {
   password?: string;
 }
+
+export interface UserCreateLoginLink {
+  id: number;
+}
+
+export interface ReturnUserCreateLoginLink {
+  url: string;
+  url_base64: string;
+}

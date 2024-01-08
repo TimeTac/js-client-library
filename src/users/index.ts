@@ -3,7 +3,17 @@ import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { NonEntityResult, Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { nonEntityResult, list, ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
-import { UserCreate, UserResetPassword, UserUpdate, UserUpdatePassword, UserReadMe, UserRead, UserValidatePassword } from './types';
+import {
+  UserCreate,
+  UserResetPassword,
+  UserUpdate,
+  UserUpdatePassword,
+  UserReadMe,
+  UserRead,
+  UserValidatePassword,
+  UserCreateLoginLink,
+  ReturnUserCreateLoginLink,
+} from './types';
 
 const resourceName = 'users';
 const usersReadMe = 'usersReadMe';
@@ -71,6 +81,11 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
       undefined,
       options,
     );
+    return nonEntityResult(response);
+  }
+
+  public async createLoginLink(data: UserCreateLoginLink): Promise<NonEntityResult<ReturnUserCreateLoginLink>> {
+    const response = this._post<ResourceName>(`createLoginLink`, data);
     return nonEntityResult(response);
   }
 }
