@@ -85,12 +85,8 @@ export type UserReadFull = UserReadObscured & {
   enable_module_project_timetracking: boolean;
   enable_module_leave_management: boolean;
   enable_module_shift_planning: boolean;
-  enable_module_timetac_health: boolean;
   request_substitute_user_id: number;
   time_tracking_ex_post_earliest_working_time: string;
-  health_rule_id: number;
-  health_rule_id_valid_from: string;
-  health_checker: boolean;
   human: boolean;
   automatic_break_template_id: number;
   automatic_break_template_valid_starting_from: string;
