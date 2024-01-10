@@ -31,8 +31,6 @@ import { Timezone } from '../../timezones/types';
 import { AbsenceBan } from '../../absenceBans/types';
 import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
 import { PermissionResolveDepartment } from '../../permissions/permissionResolveDepartments/types';
-import { HealthRule } from '../../health/healthRules/types';
-import { HealthData } from '../../health/healthData/types';
 import { Country } from '../../countries/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
 import { Salutation } from '../../salutations/types';
@@ -97,8 +95,6 @@ export const resourceNameArray = [
   'feedback',
   'userDefinedFieldDefinitions',
   'userDefinedFieldDefinitionOptions',
-  'healthRules',
-  'healthData',
   'userTemplateHistory',
   'salutations',
   'workSchedules',
@@ -176,8 +172,6 @@ export type Resources = {
   feedback: Feedback;
   userDefinedFieldDefinitions: UserDefinedFieldDefinitions;
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
-  healthRules: HealthRule;
-  healthData: HealthData;
   userTemplateHistory: UserTemplateHistory;
   salutations: Salutation;
   workSchedules: WorkSchedule;
