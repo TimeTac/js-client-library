@@ -3,6 +3,9 @@ import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { NonEntityResult, Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { nonEntityResult, list, ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { ReadRawResponse, createReadRawResponse } from '../utils/response/readRawResponse';
+import { createResourceResponse } from '../utils/response/resourceResponse';
+import { createRawApiResponse } from '../utils/response/rawApiResponse';
 import {
   UserCreate,
   UserResetPassword,
@@ -25,6 +28,11 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
   public readMe(params?: RequestParams<UserReadMe>): Required<typeof usersReadMe> {
     const response = this._get<typeof usersReadMe>('me', { params });
     return requiredSingle(response);
+  }
+
+  public async readMeRaw(params: RequestParams<UserReadMe>): Promise<ReadRawResponse<UserReadMe>> {
+    const response = this._get<typeof usersReadMe>('me', { params });
+    return createReadRawResponse<UserReadMe>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 
   public create(data: UserCreate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {

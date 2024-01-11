@@ -6,7 +6,8 @@ import { ConfigProvider } from '../utils';
 import { UpdateRawResponse } from '../utils/response/updateRawResponse';
 import { ParsedErrorMesage } from '../utils/response/responseHandlers';
 import { LibraryReturn } from '../utils/response/apiResponse';
-import { UserRead, UserUpdate, UserCreate } from './types';
+import { RequestParamsBuilder } from '../utils/params/requestParams';
+import { UserRead, UserUpdate, UserCreate, UserReadMe } from './types';
 import { UsersEndpoint } from './';
 
 const MockData: {
@@ -134,6 +135,7 @@ const MockData: {
 describe('Users', () => {
   const users: UsersEndpoint = new UsersEndpoint(new ConfigProvider({ account: 'testingAccount' }));
   const readPath = `${users.getResourcePath()}/read`;
+  const mePath = `${users.getResourcePath()}/me`;
   const createPath = `${users.getResourcePath()}/create`;
   const updatePath = `${users.getResourcePath()}/update`;
 
@@ -153,6 +155,60 @@ describe('Users', () => {
         Results: MockData.userReadResult,
         Affected: {},
         Deleted: {},
+      });
+    });
+  });
+
+  test('readMe', async () => {
+    mock.onGet(mePath).reply(200, { Success: true, NumResults: 1, Results: MockData.userReadResult });
+
+    expect.assertions(1);
+
+    await users.readMe().then((result) => {
+      expect(result).toStrictEqual({
+        Results: MockData.userReadResult[0],
+        Affected: {},
+        Deleted: {},
+      });
+    });
+  });
+
+  test('readMeRaw', async () => {
+    mock.onGet(mePath).reply(200, {
+      Success: true,
+      NumResults: 1,
+      Results: MockData.userReadResult,
+      Host: 'foo.bar',
+      Codeversion: '1.2.3',
+      SuccessNested: true,
+      RequestStartTime: '2024-01-01 01:23:45',
+    });
+
+    expect.assertions(1);
+
+    await users.readMeRaw(new RequestParamsBuilder<UserReadMe>().build()).then((result) => {
+      expect(result).toStrictEqual({
+        data: {
+          affected: {},
+          apiResponse: {
+            Results: MockData.userReadResult,
+            Codeversion: '1.2.3',
+            Host: 'foo.bar',
+            NumResults: 1,
+            RequestStartTime: '2024-01-01 01:23:45',
+            Success: true,
+            SuccessNested: true,
+            _ignoreTypeGuard: undefined,
+          },
+          deleted: [],
+          results: MockData.userReadResult,
+          success: true,
+        },
+        pages: {
+          current: {},
+          prev: undefined,
+          next: undefined,
+        },
       });
     });
   });
