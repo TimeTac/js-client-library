@@ -70,5 +70,5 @@
       ".(ts|tsx)": "ts-jest"
     }
   },
-  "packageManager": "yarn@3.6.3"
+  "packageManager": "yarn@4.0.2"
 }
