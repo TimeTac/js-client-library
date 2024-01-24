@@ -161,6 +161,7 @@ export { MonitoringRuleRecipientsRead } from './monitoringRule/monitoringRuleRec
 export { MonitoringRuleIntervalsRead } from './monitoringRule/monitoringRuleIntervals/types';
 export { MonitoringRuleFrequencyRead } from './monitoringRule/monitoringRuleFrequencies/types';
 export { DeletedData } from './utils/response/apiResponse';
+export { SsoConfig, SsoConfigUpdate, SsoConfigCreate } from './ssoConfig/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
