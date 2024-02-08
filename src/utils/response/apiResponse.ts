@@ -53,6 +53,7 @@ import { MonitoringRuleRecipientsRead } from '../../monitoringRule/monitoringRul
 import { MonitoringRuleTemplatesRead } from '../../monitoringRule/monitoringRuleTemplates/types';
 import { GeofenceRead } from '../../geoFences/types';
 import { GeofenceToNodesRead } from '../../geofenceToNodes/types';
+import { AutomaticBreakTemplate } from '../../automaticBreakTemplates/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -61,6 +62,7 @@ export const resourceNameArray = [
   'absenceDays',
   'absences',
   'absenceTypes',
+  'automaticBreakTemplates',
   'changeTimeTrackingRequests',
   'clients',
   'countries',
@@ -121,6 +123,7 @@ export type Resources = {
   // absenceReplacements: AbsenceReplacement;
   absences: Absence;
   absenceTypes: AbsenceType;
+  automaticBreakTemplates: AutomaticBreakTemplate;
   changeTimeTrackingRequests: ChangeTimeTrackingRequest;
   // checkpoints: Checkpoint;
   // checkpointTrackings: CheckpointTracking;
