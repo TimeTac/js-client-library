@@ -141,3 +141,8 @@ export interface ReturnUserCreateLoginLink {
   url: string;
   url_base64: string;
 }
+
+export interface UserSendWelcomeEmail {
+  /* User id */
+  id: number;
+}
