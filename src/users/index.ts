@@ -2,7 +2,15 @@ import { AxiosRequestConfig } from 'axios';
 import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { NonEntityResult, Entity, LibraryReturn } from '../utils/response/apiResponse';
-import { nonEntityResult, list, ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import {
+  nonEntityResult,
+  list,
+  ParsedErrorMesage,
+  Required,
+  requiredBatch,
+  requiredSingle,
+  optional,
+} from '../utils/response/responseHandlers';
 import { ReadRawResponse, createReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
@@ -16,6 +24,7 @@ import {
   UserValidatePassword,
   UserCreateLoginLink,
   ReturnUserCreateLoginLink,
+  UserSendWelcomeEmail,
 } from './types';
 
 const resourceName = 'users';
@@ -95,5 +104,10 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
   public async createLoginLink(data: UserCreateLoginLink): Promise<NonEntityResult<ReturnUserCreateLoginLink>> {
     const response = this._post<ResourceName>(`createLoginLink`, data);
     return nonEntityResult(response);
+  }
+
+  public sendWelcomeEmail(data: UserSendWelcomeEmail): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
+    const response = this._post<ResourceName>(`sendWelcomeEmail`, data);
+    return optional(response);
   }
 }
