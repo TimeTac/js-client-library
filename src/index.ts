@@ -58,6 +58,7 @@ import { MonitoringRuleIntervalsEndpoint } from './monitoringRule/monitoringRule
 import { MonitoringRuleFrequenciesEndpoint } from './monitoringRule/monitoringRuleFrequencies';
 import { GeofenceEndpoint } from './geoFences';
 import { GeofenceToNodesEndpoint } from './geofenceToNodes';
+import { AutomaticBreakTemplatesEndpoint } from './automaticBreakTemplates';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -174,6 +175,7 @@ export default class Api {
   public absences: AbsencesEndpoint;
   public absenceTypes: AbsenceTypesEndpoint;
   public authentication: AuthenticationEndpoint;
+  public automaticBreakTemplates: AutomaticBreakTemplatesEndpoint;
   public clients: ClientsEndpoint;
   public countries: CountriesEndpoint;
   public deltaSync: DeltaSyncEndpoint;
@@ -246,6 +248,7 @@ export default class Api {
     this.absences = new AbsencesEndpoint(this.config);
     this.absenceTypes = new AbsenceTypesEndpoint(this.config);
     this.authentication = new AuthenticationEndpoint(this.config);
+    this.automaticBreakTemplates = new AutomaticBreakTemplatesEndpoint(this.config);
     this.clients = new ClientsEndpoint(this.config);
     this.countries = new CountriesEndpoint(this.config);
     this.deltaSync = new DeltaSyncEndpoint(this.config);
