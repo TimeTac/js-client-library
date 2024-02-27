@@ -5,11 +5,13 @@ type Geofence = {
   geo_long: number;
   radius: number;
   is_demo_data: boolean;
+  address?: string;
   updated: string;
 };
 
 export type GeofenceRead = Geofence;
 
-export type GeofenceCreate = Pick<Geofence, 'name' | 'geo_lat' | 'geo_long' | 'radius'> & Partial<Pick<Geofence, 'updated'>>;
+export type GeofenceCreate = Pick<Geofence, 'name' | 'geo_lat' | 'geo_long' | 'radius' | 'address'> & Partial<Pick<Geofence, 'updated'>>;
 
-export type GeofenceUpdate = Pick<Geofence, 'id'> & Pick<Partial<Geofence>, 'name' | 'geo_lat' | 'geo_long' | 'radius' | 'updated'>;
+export type GeofenceUpdate = Pick<Geofence, 'id'> &
+  Pick<Partial<Geofence>, 'name' | 'geo_lat' | 'geo_long' | 'radius' | 'updated' | 'address'>;
