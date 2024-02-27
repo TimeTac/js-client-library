@@ -94,12 +94,12 @@ describe('RequestParams', () => {
 
   test('orderBy asc', () => {
     const requestParams = new RequestParamsBuilder<Resource>().orderBy('status', 'asc');
-    expect(requestParams.build()).toStrictEqual({ _order_by: 'status', _order_desc: 'false' });
+    expect(requestParams.build()).toStrictEqual({ _order_by: 'status', _sort_direction: 'ASC' });
   });
 
   test('orderBy desc', () => {
     const requestParams = new RequestParamsBuilder<Resource>().orderBy('status', 'desc');
-    expect(requestParams.build()).toStrictEqual({ _order_by: 'status', _order_desc: 'true' });
+    expect(requestParams.build()).toStrictEqual({ _order_by: 'status', _sort_direction: 'DESC' });
   });
 
   test('groupBy', () => {
