@@ -92,7 +92,7 @@ export class RequestParamsBuilder<R> {
 
   orderBy<F extends keyof R & string>(field: F, order: 'asc' | 'desc'): RequestParamsBuilder<R> {
     this.requestParams[`_order_by`] = field;
-    this.requestParams[`_order_desc`] = order === 'desc' ? 'true' : 'false';
+    this.requestParams[`_sort_direction`] = order === 'desc' ? 'DESC' : 'ASC';
     return this;
   }
 
