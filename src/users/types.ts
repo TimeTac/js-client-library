@@ -127,7 +127,7 @@ export interface UserUpdatePassword {
   password: string;
   old_password: string;
   revoke_access?: boolean;
-  skipEmail?: boolean;
+  _skip_email?: boolean;
 }
 
 export interface UserValidatePassword {
