@@ -79,6 +79,7 @@ export { Feedback } from './feedback/types';
 export { GeneralSetting, GeneralSettingUpdate } from './generalSettings/types';
 export { JobQueue, JobQueueCreate, JobQueueParam } from './jobQueues/types';
 export { Language } from './languages/types';
+export { LegalDocument } from './legalDocuments/types';
 export { Message, MessageCreate } from './messages/types';
 export { NotificationUpdate, Notification } from './notifications/types';
 export { NotificationTypeHtml } from './notificationsTypeHtml/types';
