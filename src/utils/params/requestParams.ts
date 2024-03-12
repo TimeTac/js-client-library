@@ -142,4 +142,9 @@ export class RequestParamsBuilder<R> {
     this.requestParams['_resolve'] = field;
     return this;
   }
+
+  tempRecordId(id: string): RequestParamsBuilder<R> {
+    this.requestParams['_temp_record_id'] = id;
+    return this;
+  }
 }
