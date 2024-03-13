@@ -32,6 +32,7 @@ import { AbsenceBan } from '../../absenceBans/types';
 import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
 import { PermissionResolveDepartment } from '../../permissions/permissionResolveDepartments/types';
 import { Country } from '../../countries/types';
+import { File } from '../../files/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
 import { Salutation } from '../../salutations/types';
 import { PermissionResolveAbsenceTypesAndUser } from '../../permissions/permissionResolveAbsenceTypesAndUsers/types';
@@ -67,6 +68,7 @@ export const resourceNameArray = [
   'changeTimeTrackingRequests',
   'clients',
   'countries',
+  'files',
   'teamMembers',
   'departments',
   'generalSettings',
@@ -132,6 +134,7 @@ export type Resources = {
   // checkpointTranslations: CheckpointTranslation;
   clients: Client;
   countries: Country;
+  files: File;
   teamMembers: TeamMember;
   departments: Department;
   generalSettings: GeneralSetting;

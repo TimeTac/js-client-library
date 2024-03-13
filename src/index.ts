@@ -59,6 +59,8 @@ import { MonitoringRuleFrequenciesEndpoint } from './monitoringRule/monitoringRu
 import { GeofenceEndpoint } from './geoFences';
 import { GeofenceToNodesEndpoint } from './geofenceToNodes';
 import { AutomaticBreakTemplatesEndpoint } from './automaticBreakTemplates';
+import { LegalDocumentsEndpoint } from './legalDocuments';
+import { FilesEndpoint } from './files';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -184,6 +186,7 @@ export default class Api {
   public departments: DepartmentsEndpoint;
   public favouriteTasks: FavouriteTasksEndpoint;
   public feedback: FeedbackEndpoint;
+  public files: FilesEndpoint;
   public generalSettings: GeneralSettingsEndpoint;
   public geofence: GeofenceEndpoint;
   public geofenceToNodes: GeofenceToNodesEndpoint;
@@ -205,6 +208,7 @@ export default class Api {
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public languages: LanguagesEndpoint;
+  public legalDocuments: LegalDocumentsEndpoint;
   public messages: MessagesEndpoint;
   public notifications: NotificationsEndpoint;
   public notificationsTypeHtml: NotificationsTypeHtmlEndpoint;
@@ -257,6 +261,7 @@ export default class Api {
     this.departments = new DepartmentsEndpoint(this.config);
     this.favouriteTasks = new FavouriteTasksEndpoint(this.config);
     this.feedback = new FeedbackEndpoint(this.config);
+    this.files = new FilesEndpoint(this.config);
     this.generalSettings = new GeneralSettingsEndpoint(this.config);
     this.projects = new ProjectsEndpoint(this.config);
     this.recentTasks = new RecentTasksEndpoint(this.config);
@@ -276,6 +281,7 @@ export default class Api {
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.languages = new LanguagesEndpoint(this.config);
+    this.legalDocuments = new LegalDocumentsEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
     this.notifications = new NotificationsEndpoint(this.config);
     this.notificationsTypeHtml = new NotificationsTypeHtmlEndpoint(this.config);
