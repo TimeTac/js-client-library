@@ -61,6 +61,7 @@ import { GeofenceToNodesEndpoint } from './geofenceToNodes';
 import { AutomaticBreakTemplatesEndpoint } from './automaticBreakTemplates';
 import { LegalDocumentsEndpoint } from './legalDocuments';
 import { FilesEndpoint } from './files';
+import { LegalDocumentAcceptanceLogEndpoint } from './legalDocumentAcceptanceLogs';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -81,7 +82,9 @@ export { Feedback } from './feedback/types';
 export { GeneralSetting, GeneralSettingUpdate } from './generalSettings/types';
 export { JobQueue, JobQueueCreate, JobQueueParam } from './jobQueues/types';
 export { Language } from './languages/types';
+export { LegalDocumentAcceptanceLog } from './legalDocumentAcceptanceLogs/types';
 export { LegalDocument } from './legalDocuments/types';
+export { File } from './files/types';
 export { Message, MessageCreate } from './messages/types';
 export { NotificationUpdate, Notification } from './notifications/types';
 export { NotificationTypeHtml } from './notificationsTypeHtml/types';
@@ -208,6 +211,7 @@ export default class Api {
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public languages: LanguagesEndpoint;
+  public legalDocumentAcceptanceLog: LegalDocumentAcceptanceLogEndpoint;
   public legalDocuments: LegalDocumentsEndpoint;
   public messages: MessagesEndpoint;
   public notifications: NotificationsEndpoint;
@@ -281,6 +285,7 @@ export default class Api {
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.languages = new LanguagesEndpoint(this.config);
+    this.legalDocumentAcceptanceLog = new LegalDocumentAcceptanceLogEndpoint(this.config);
     this.legalDocuments = new LegalDocumentsEndpoint(this.config);
     this.messages = new MessagesEndpoint(this.config);
     this.notifications = new NotificationsEndpoint(this.config);

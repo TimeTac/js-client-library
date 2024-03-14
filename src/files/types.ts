@@ -4,7 +4,7 @@ export type File = {
   filename: string;
   extension: string;
   content_type: string;
-  mirror_file_to_filesystem?: boolean;
+  mirror_file_to_filesystem?: number;
   relative_url?: string;
   absolute_url?: string;
   path?: string;
