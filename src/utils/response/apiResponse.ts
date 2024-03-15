@@ -32,6 +32,7 @@ import { AbsenceBan } from '../../absenceBans/types';
 import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/types';
 import { PermissionResolveDepartment } from '../../permissions/permissionResolveDepartments/types';
 import { Country } from '../../countries/types';
+import { File } from '../../files/types';
 import { UserTemplateHistory } from '../../userTemplateHistory/types';
 import { Salutation } from '../../salutations/types';
 import { PermissionResolveAbsenceTypesAndUser } from '../../permissions/permissionResolveAbsenceTypesAndUsers/types';
@@ -54,6 +55,8 @@ import { MonitoringRuleTemplatesRead } from '../../monitoringRule/monitoringRule
 import { GeofenceRead } from '../../geoFences/types';
 import { GeofenceToNodesRead } from '../../geofenceToNodes/types';
 import { AutomaticBreakTemplate } from '../../automaticBreakTemplates/types';
+import { LegalDocument } from '../../legalDocuments/types';
+import { LegalDocumentAcceptanceLog } from '../../legalDocumentAcceptanceLogs/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -66,11 +69,14 @@ export const resourceNameArray = [
   'changeTimeTrackingRequests',
   'clients',
   'countries',
+  'files',
   'teamMembers',
   'departments',
   'generalSettings',
   'todoTasks',
   'languages',
+  'legalDocumentAcceptanceLog',
+  'legalDocuments',
   'messages',
   'notifications',
   'notificationsTypeHtml',
@@ -130,12 +136,15 @@ export type Resources = {
   // checkpointTranslations: CheckpointTranslation;
   clients: Client;
   countries: Country;
+  files: File;
   teamMembers: TeamMember;
   departments: Department;
   generalSettings: GeneralSetting;
   todoTasks: TodoTask;
   // holidayRequests: HolidayRequest;
   languages: Language;
+  legalDocumentAcceptanceLog: LegalDocumentAcceptanceLog;
+  legalDocuments: LegalDocument;
   messages: Message;
   // multiuserToTasks: MultiuserToTask;
   // nfcTransponder: NfcTransponder;
