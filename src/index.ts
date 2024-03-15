@@ -82,7 +82,7 @@ export { Feedback } from './feedback/types';
 export { GeneralSetting, GeneralSettingUpdate } from './generalSettings/types';
 export { JobQueue, JobQueueCreate, JobQueueParam } from './jobQueues/types';
 export { Language } from './languages/types';
-export { LegalDocumentAcceptanceLog } from './legalDocumentAcceptanceLogs/types';
+export { LegalDocumentAcceptanceLog, LegalDocumentAcceptanceLogCreate } from './legalDocumentAcceptanceLogs/types';
 export { LegalDocument } from './legalDocuments/types';
 export { File } from './files/types';
 export { Message, MessageCreate } from './messages/types';
