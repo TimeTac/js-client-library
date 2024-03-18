@@ -8,3 +8,6 @@ export type LegalDocumentAcceptanceLog = {
   created_at: string;
   updated_at: string;
 };
+
+// it should be legal_document_id. BE ticket has been created
+export type LegalDocumentAcceptanceLogCreate = Pick<LegalDocumentAcceptanceLog, 'legal_document_type_id' & 'accepted'>;
