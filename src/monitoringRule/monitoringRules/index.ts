@@ -1,8 +1,8 @@
 import BaseApi from '../../baseApi';
 import { RequestParams } from '../../utils/params/requestParams';
 import { Entity, LibraryReturn } from '../../utils/response/apiResponse';
-import { list, required } from '../../utils/response/responseHandlers';
-import { MonitotingRulesUpdate } from './types';
+import { list, required, requiredSingle } from '../../utils/response/responseHandlers';
+import { MonitoringRulesCreate, MonitoringRulesUpdate } from './types';
 
 const resourceName = 'monitoringRules';
 type ResourceName = typeof resourceName;
@@ -17,8 +17,13 @@ export class MonitoringRulesEndpoint extends BaseApi<ResourceName> {
     return list(response);
   }
 
-  public update(data: MonitotingRulesUpdate, params?: RequestParams<Entity<ResourceName>>) {
+  public update(data: MonitoringRulesUpdate, params?: RequestParams<Entity<ResourceName>>) {
     const response = this._put<ResourceName>('update', data, params);
     return required(response);
+  }
+
+  public create(data: MonitoringRulesCreate, params?: RequestParams<Entity<ResourceName>>) {
+    const response = this._post<typeof resourceName>('create', data, params);
+    return requiredSingle(response);
   }
 }
