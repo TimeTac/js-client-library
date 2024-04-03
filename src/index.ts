@@ -163,7 +163,13 @@ export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types
 export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
 export { Tier } from './tiers/types';
 export { Feature } from './features/types';
-export { MonitoringRulesFrequency, MonitoringRulesRead, MonitotingRulesUpdate } from './monitoringRule/monitoringRules/types';
+export {
+  MonitoringRulesFrequency,
+  MonitoringRulesRead,
+  MonitoringRulesUpdate,
+  MonitoringRulesCreate,
+  MonitoringRuleNotificationOption,
+} from './monitoringRule/monitoringRules/types';
 export { MonitoringRuleTemplatesRead } from './monitoringRule/monitoringRuleTemplates/types';
 export { MonitoringRuleRecipientsRead } from './monitoringRule/monitoringRuleRecipients/types';
 export { MonitoringRuleIntervalsRead } from './monitoringRule/monitoringRuleIntervals/types';
