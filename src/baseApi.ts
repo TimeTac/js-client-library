@@ -86,6 +86,16 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     return axios.post<ApiResponse<ResourceName>>(url, { ...data, ...params }, config);
   }
 
+  protected _postBinary<ResourceName extends ResourceNames>(
+    slug: string,
+    data?: Blob | string,
+    options?: AxiosRequestConfig,
+  ): RequestPromise<ResourceName> {
+    const url = `${this.getBaseEndpointUrl()}${slug}`;
+    const config = this.getOptions(options);
+    return axios.post<ApiResponse<ResourceName>>(url, data, config);
+  }
+
   protected _put<ResourceName extends ResourceNames>(
     slug: string,
     // eslint-disable-next-line @typescript-eslint/ban-types
