@@ -1,6 +1,6 @@
 export type LegalDocumentAcceptanceLog = {
   id: number;
-  legal_document_type_id: number; // it should be legal_document_id. BE ticket has been created
+  legal_document_id: number;
   accepted: boolean;
   accepted_at: string;
   accepted_oauth_client_id: string;
@@ -9,5 +9,4 @@ export type LegalDocumentAcceptanceLog = {
   updated_at: string;
 };
 
-// it should be legal_document_id. BE ticket has been created
-export type LegalDocumentAcceptanceLogCreate = Pick<LegalDocumentAcceptanceLog, 'legal_document_type_id' & 'accepted'>;
+export type LegalDocumentAcceptanceLogCreate = Pick<LegalDocumentAcceptanceLog, 'legal_document_id' & 'accepted'>;
