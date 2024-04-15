@@ -50,6 +50,8 @@ import { WorkSchedulesEndpoint } from './workSchedules';
 import { LanguagesEndpoint } from './languages';
 import { SsoConfigEndpoint } from './ssoConfig';
 import { TiersEndpoint } from './tiers';
+import { OnboardingStepsEndpoint } from './onboardingSteps';
+import { OnboardingStepToUserSEndpoint } from './onboardingStepToUsers';
 import { FeaturesEndpoint } from './features';
 import { MonitoringRulesEndpoint } from './monitoringRule/monitoringRules';
 import { MonitoringRuleTemplatesEndpoint } from './monitoringRule/monitoringRuleTemplates';
@@ -162,6 +164,8 @@ export {
 export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
 export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
 export { Tier } from './tiers/types';
+export { OnboardingSteps } from './onboardingSteps/types';
+export { OnboardingStepToUsersUpdate, OnboardingStepToUsers } from './onboardingStepToUsers/types';
 export { Feature } from './features/types';
 export {
   MonitoringRulesFrequency,
@@ -238,6 +242,8 @@ export default class Api {
   public jobQueues: JobQueuesEndpoint;
   public ssoConfig: SsoConfigEndpoint;
   public tiers: TiersEndpoint;
+  public onboardingSteps: OnboardingStepsEndpoint;
+  public onboardingStepToUsers: OnboardingStepToUserSEndpoint;
   public features: FeaturesEndpoint;
   public monitoringRules: MonitoringRulesEndpoint;
   public monitoringRuleTemplates: MonitoringRuleTemplatesEndpoint;
@@ -312,6 +318,8 @@ export default class Api {
     this.jobQueues = new JobQueuesEndpoint(this.config);
     this.ssoConfig = new SsoConfigEndpoint(this.config);
     this.tiers = new TiersEndpoint(this.config);
+    this.onboardingSteps = new OnboardingStepsEndpoint(this.config);
+    this.onboardingStepToUsers = new OnboardingStepToUserSEndpoint(this.config);
     this.features = new FeaturesEndpoint(this.config);
     this.monitoringRules = new MonitoringRulesEndpoint(this.config);
     this.monitoringRuleIntervals = new MonitoringRuleIntervalsEndpoint(this.config);
