@@ -47,6 +47,8 @@ import { JobQueue } from '../../jobQueues/types';
 import { Language } from '../../languages/types';
 import { SsoConfig } from '../../ssoConfig/types';
 import { Tier } from '../../tiers/types';
+import { OnboardingSteps } from '../../onboardingSteps/types';
+import { OnboardingStepToUsers } from '../../onboardingStepToUsers/types';
 import { MonitoringRulesRead } from '../../monitoringRule/monitoringRules/types';
 import { MonitoringRuleFrequencyRead } from '../../monitoringRule/monitoringRuleFrequencies/types';
 import { MonitoringRuleIntervalsRead } from '../../monitoringRule/monitoringRuleIntervals/types';
@@ -113,6 +115,8 @@ export const resourceNameArray = [
   'jobQueues',
   'ssoConfig',
   'tiers',
+  'onboardingSteps',
+  'onboardingStepToUsers',
   'features',
   'monitoringRules',
   'monitoringRuleFrequencies',
@@ -194,6 +198,8 @@ export type Resources = {
   jobQueues: JobQueue;
   ssoConfig: SsoConfig;
   tiers: Tier;
+  onboardingSteps: OnboardingSteps;
+  onboardingStepToUsers: OnboardingStepToUsers;
   features: Feature;
   monitoringRules: MonitoringRulesRead;
   monitoringRuleFrequencies: MonitoringRuleFrequencyRead;

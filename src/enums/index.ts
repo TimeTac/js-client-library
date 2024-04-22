@@ -14,6 +14,16 @@ export enum AbsenceStatus {
   OpenWaitingForReplacement = 5,
 }
 
+export enum OnboardingStepsId {
+  Signup = 1,
+  Role = 2,
+  Country = 3,
+  Company = 4,
+  InviteTeamMembers = 5,
+  WorkSchedule = 6,
+  Dismiss = 7,
+}
+
 export enum AbsenceDurationUnit {
   Days = 'd',
   Hours = 'hs',
