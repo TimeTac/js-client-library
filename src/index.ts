@@ -152,7 +152,7 @@ export { DeltaSyncResponse } from './utils/response/deltaSyncResponse';
 export { RawApiResponse } from './utils/response/rawApiResponse';
 export { ReadRawResponse } from './utils/response/readRawResponse';
 export { DeletedEntry, ResourceResponse } from './utils/response/resourceResponse';
-export { plainObject, requiredSingle, list, required } from './utils/response/responseHandlers';
+export { plainObject, requiredSingle, list } from './utils/response/responseHandlers';
 export { UpdateRawResponse } from './utils/response/updateRawResponse';
 export {
   WorkScheduleDayDefinition,
