@@ -18,7 +18,7 @@ export class OnboardingStepToUserSEndpoint extends BaseApi<ResourceName> {
   }
 
   public update(data: OnboardingStepToUsersUpdate): Required<typeof resourceName, Resources[typeof resourceName][]> {
-    const response = this._put<ResourceName>('submit', data);
+    const response = this._post<ResourceName>('submit', data);
     return required(response);
   }
 }
