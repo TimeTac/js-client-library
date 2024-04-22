@@ -16,9 +16,9 @@ export enum AbsenceStatus {
 
 export enum OnboardingStepsId {
   Signup = 1,
-  Role,
-  Country,
-  Company,
+  Role = 2,
+  Country = 3,
+  Company = 4,
   InviteTeamMembers = 5,
   WorkSchedule = 6,
   Dismiss = 7,
