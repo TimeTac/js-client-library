@@ -64,6 +64,9 @@ import { AutomaticBreakTemplatesEndpoint } from './automaticBreakTemplates';
 import { LegalDocumentsEndpoint } from './legalDocuments';
 import { FilesEndpoint } from './files';
 import { LegalDocumentAcceptanceLogEndpoint } from './legalDocumentAcceptanceLogs';
+import { IntegrationCategoriesEndpoint } from './integrationCategories';
+import { IntegrationsEndpoint } from './integrations';
+import { IntegrationsToCategoriesEndpoint } from './integrationsToCategories';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -250,6 +253,9 @@ export default class Api {
   public monitoringRuleRecipients: MonitoringRuleRecipientsEndpoint;
   public monitoringRuleIntervals: MonitoringRuleIntervalsEndpoint;
   public monitoringRuleFrequencies: MonitoringRuleFrequenciesEndpoint;
+  public integrationCategories: IntegrationCategoriesEndpoint;
+  public integrations: IntegrationsEndpoint;
+  public integrationsToCategories: IntegrationsToCategoriesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -328,6 +334,10 @@ export default class Api {
     this.monitoringRuleRecipients = new MonitoringRuleRecipientsEndpoint(this.config);
     this.geofence = new GeofenceEndpoint(this.config);
     this.geofenceToNodes = new GeofenceToNodesEndpoint(this.config);
+    this.integrationCategories = new IntegrationCategoriesEndpoint(this.config);
+    this.integrations = new IntegrationsEndpoint(this.config);
+    this.integrationsToCategories = new IntegrationsToCategoriesEndpoint(this.config);
+
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
