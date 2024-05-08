@@ -8,7 +8,7 @@ export type Integration = {
   externalId?: string;
   provider?: string;
   application?: string;
-  accessCredentialsId?: number;
-  created_at: string;
-  updated_at: string;
+  accessCredentialsId?: number | null;
+  createdAt: string;
+  updatedAt: string;
 };

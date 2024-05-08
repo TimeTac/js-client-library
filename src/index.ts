@@ -107,6 +107,9 @@ export { Task, TaskCreate, TaskUpdate } from './tasks/types';
 export { TeamMember } from './teamMembers/types';
 export { Team } from './teams/types';
 export { TimePlanning } from './timeplannings/types';
+export { Integration } from './integrations/types';
+export { IntegrationCategory } from './integrationCategories/types';
+export { IntegrationToCategory } from './integrationsToCategories/types';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { TimesheetAccounting, TimesheetAccountingApproveRequest } from './timesheetAccountings/types';
 export {

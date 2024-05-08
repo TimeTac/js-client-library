@@ -3,6 +3,6 @@ export type IntegrationCategory = {
   title: string;
   iconUrl?: string;
   externalId?: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 };
