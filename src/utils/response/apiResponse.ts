@@ -59,6 +59,9 @@ import { GeofenceToNodesRead } from '../../geofenceToNodes/types';
 import { AutomaticBreakTemplate } from '../../automaticBreakTemplates/types';
 import { LegalDocument } from '../../legalDocuments/types';
 import { LegalDocumentAcceptanceLog } from '../../legalDocumentAcceptanceLogs/types';
+import { IntegrationCategory } from '../../integrationCategories/types';
+import { Integration } from '../../integrations/types';
+import { IntegrationToCategory } from '../../integrationsToCategories/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -125,6 +128,9 @@ export const resourceNameArray = [
   'monitoringRuleTemplates',
   'geofences',
   'geofenceToNodes',
+  'integrationCategories',
+  'integrations',
+  'integrationsToCategories',
 ] as const;
 
 export type Resources = {
@@ -208,6 +214,9 @@ export type Resources = {
   monitoringRuleTemplates: MonitoringRuleTemplatesRead;
   geofences: GeofenceRead;
   geofenceToNodes: GeofenceToNodesRead;
+  integrations: Integration;
+  integrationCategories: IntegrationCategory;
+  integrationsToCategories: IntegrationToCategory;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync

@@ -17,6 +17,7 @@ export enum AbsenceStatus {
 export enum OnboardingStepsSlugs {
   Signup = 'buyer_step_signup',
   Name = 'buyer_step_name',
+  EmployeeName = 'user_step_name',
   Role = 'buyer_step_role',
   Country = 'buyer_step_country',
   Company = 'buyer_step_company_size',
