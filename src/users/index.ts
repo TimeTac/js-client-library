@@ -10,6 +10,7 @@ import {
   requiredBatch,
   requiredSingle,
   optional,
+  RequestBatchPromise,
 } from '../utils/response/responseHandlers';
 import { ReadRawResponse, createReadRawResponse } from '../utils/response/readRawResponse';
 import { createResourceResponse } from '../utils/response/resourceResponse';
@@ -25,6 +26,7 @@ import {
   UserCreateLoginLink,
   ReturnUserCreateLoginLink,
   UserSendWelcomeEmail,
+  UserInvite,
 } from './types';
 
 const resourceName = 'users';
@@ -109,5 +111,13 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
   public sendWelcomeEmail(data: UserSendWelcomeEmail): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | undefined>> {
     const response = this._post<ResourceName>(`sendWelcomeEmail`, data);
     return optional(response);
+  }
+
+  public inviteUsers(
+    data: UserInvite | Array<UserInvite>,
+  ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | Array<Entity<ResourceName> | ParsedErrorMesage> | undefined>> {
+    const response = this._post<ResourceName>('invite', data) as RequestBatchPromise<ResourceName>;
+
+    return requiredBatch(response);
   }
 }

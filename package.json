@@ -1,6 +1,6 @@
 {
   "name": "@timetac/js-client-library",
-  "version": "2.17.2",
+  "version": "2.17.3",
   "description": "TimeTac API JS client library",
   "homepage": "https://github.com/TimeTac/js-client-library#readme",
   "repository": {
@@ -34,6 +34,7 @@
     "prepare": "yarn run compile"
   },
   "dependencies": {
+    "@timetac/js-client-library": "file:.yalc/@timetac/js-client-library",
     "axios": "1.6.2",
     "typescript": "^5.4.3"
   },
