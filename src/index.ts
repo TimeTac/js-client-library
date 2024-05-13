@@ -170,8 +170,8 @@ export {
 export { WorkScheduleDay, WorkScheduleDayUpdate } from './workScheduleDays/types';
 export { WorkSchedule, WorkScheduleCreate, WorkScheduleUpdate } from './workSchedules/types';
 export { Tier } from './tiers/types';
-export { OnboardingSteps } from './onboardingSteps/types';
-export { OnboardingStepToUsersUpdate, OnboardingStepToUsers } from './onboardingStepToUsers/types';
+export { OnboardingStep } from './onboardingSteps/types';
+export { OnboardingStepToUserUpdate, OnboardingStepToUser } from './onboardingStepToUsers/types';
 export { Feature } from './features/types';
 export {
   MonitoringRulesFrequency,

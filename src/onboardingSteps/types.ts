@@ -1,4 +1,4 @@
-export type OnboardingSteps = {
+export type OnboardingStep = {
   id: number;
   group: string | null;
   internal_name: string;
