@@ -138,7 +138,7 @@ describe('Users', () => {
   const mePath = `${users.getResourcePath()}/me`;
   const createPath = `${users.getResourcePath()}/create`;
   const updatePath = `${users.getResourcePath()}/update`;
-
+  const inviteUsersPath = `${users.getResourcePath()}/invite`;
   const mock = new AxiosMockAdapter(axios);
 
   afterEach(() => {
@@ -330,5 +330,30 @@ describe('Users', () => {
         },
       ],
     });
+  });
+
+  test('inviteUsers', async () => {
+    const updateData = {
+      firstname: 'Test',
+      lastname: 'test',
+      email_address: 'test.test@test.com',
+    };
+
+    const childResult = {
+      Success: true,
+      SuccessNested: true,
+      NumResults: 1,
+      NumResultsNested: 1,
+      Results: [updateData],
+    };
+    mock
+      .onPost(inviteUsersPath)
+      .reply(200, { SuccessBatch: true, Success: true, NumResults: 1, Results: [childResult], _ignoreTypeGuard: true });
+
+    expect.assertions(1);
+
+    const response = await users.inviteUsers([updateData]);
+
+    expect(response).toStrictEqual({ Affected: {}, Deleted: {}, Results: [updateData] });
   });
 });
