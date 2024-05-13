@@ -47,8 +47,8 @@ import { JobQueue } from '../../jobQueues/types';
 import { Language } from '../../languages/types';
 import { SsoConfig } from '../../ssoConfig/types';
 import { Tier } from '../../tiers/types';
-import { OnboardingSteps } from '../../onboardingSteps/types';
-import { OnboardingStepToUsers } from '../../onboardingStepToUsers/types';
+import { OnboardingStep } from '../../onboardingSteps/types';
+import { OnboardingStepToUser } from '../../onboardingStepToUsers/types';
 import { MonitoringRulesRead } from '../../monitoringRule/monitoringRules/types';
 import { MonitoringRuleFrequencyRead } from '../../monitoringRule/monitoringRuleFrequencies/types';
 import { MonitoringRuleIntervalsRead } from '../../monitoringRule/monitoringRuleIntervals/types';
@@ -59,6 +59,9 @@ import { GeofenceToNodesRead } from '../../geofenceToNodes/types';
 import { AutomaticBreakTemplate } from '../../automaticBreakTemplates/types';
 import { LegalDocument } from '../../legalDocuments/types';
 import { LegalDocumentAcceptanceLog } from '../../legalDocumentAcceptanceLogs/types';
+import { IntegrationCategory } from '../../integrationCategories/types';
+import { Integration } from '../../integrations/types';
+import { IntegrationToCategory } from '../../integrationsToCategories/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -125,6 +128,9 @@ export const resourceNameArray = [
   'monitoringRuleTemplates',
   'geofences',
   'geofenceToNodes',
+  'integrationCategories',
+  'integrations',
+  'integrationsToCategories',
 ] as const;
 
 export type Resources = {
@@ -198,8 +204,8 @@ export type Resources = {
   jobQueues: JobQueue;
   ssoConfig: SsoConfig;
   tiers: Tier;
-  onboardingSteps: OnboardingSteps;
-  onboardingStepToUsers: OnboardingStepToUsers;
+  onboardingSteps: OnboardingStep;
+  onboardingStepToUsers: OnboardingStepToUser;
   features: Feature;
   monitoringRules: MonitoringRulesRead;
   monitoringRuleFrequencies: MonitoringRuleFrequencyRead;
@@ -208,6 +214,9 @@ export type Resources = {
   monitoringRuleTemplates: MonitoringRuleTemplatesRead;
   geofences: GeofenceRead;
   geofenceToNodes: GeofenceToNodesRead;
+  integrations: Integration;
+  integrationCategories: IntegrationCategory;
+  integrationsToCategories: IntegrationToCategory;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
