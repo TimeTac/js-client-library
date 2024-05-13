@@ -34,7 +34,6 @@
     "prepare": "yarn run compile"
   },
   "dependencies": {
-    "@timetac/js-client-library": "file:.yalc/@timetac/js-client-library",
     "axios": "1.6.2",
     "typescript": "^5.4.3"
   },
