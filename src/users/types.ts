@@ -147,3 +147,9 @@ export interface UserSendWelcomeEmail {
   /* User id */
   id: number;
 }
+
+export interface UserInvite {
+  email_address: string;
+  firstname: string;
+  lastname: string;
+}
