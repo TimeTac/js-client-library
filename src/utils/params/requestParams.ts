@@ -6,7 +6,6 @@ export type RequestParams<R> = Record<string, string> & { _type?: R };
 
 type NestedParams = { [key: string]: undefined | Array<NestedParams> };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export class RequestParamsBuilder<R> {
   protected requestParams: RequestParams<R> = {};
 
@@ -120,7 +119,6 @@ export class RequestParamsBuilder<R> {
     return this;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   build() {
     return this.requestParams;
   }

@@ -344,7 +344,6 @@ export default class Api {
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public setBaseUrl() {
     setAxiosDefaults({
       baseURL: `${this.config.settings.https == true ? 'https' : 'http'}://${this.config.settings.host ?? DEFAULT_HOST}`,

@@ -85,7 +85,6 @@ describe('axiosSetup', () => {
       expect(error).toMatchObject({ message: 'Request failed with status code 497', response: { status: 497 } });
     });
 
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(mockAuthenticationEndpoint.refreshToken).toHaveBeenCalledTimes(1);
     expect(mockInterceptorParams.config.settings.onTokenRefreshFailed).toHaveBeenCalledTimes(1);
   });
