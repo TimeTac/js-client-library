@@ -5,7 +5,6 @@ import eslintConfigPrettier from "eslint-config-prettier";
 export default tseslint.config(
   {
     files: ["**/*.ts", "**/*.tsx"],
-    // parser: "@typescript-eslint/parser",
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
