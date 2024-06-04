@@ -3,6 +3,7 @@ export type Integration = {
   title: string;
   shortDescription?: string;
   websiteUrl?: string;
+  navigationUrl?: string;
   imageUrl?: string;
   featured?: boolean;
   externalId?: string;
