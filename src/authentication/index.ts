@@ -4,6 +4,7 @@ import BaseApi from '../baseApi';
 import { objectCheck } from '../utils';
 import { Credentials, TokenResponse } from './types';
 
+/* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-assignment */
 export class AuthenticationEndpoint extends BaseApi<any> {
   public resourceName = '';
 
@@ -82,3 +83,4 @@ export class AuthenticationEndpoint extends BaseApi<any> {
     return { accessToken, refreshToken };
   }
 }
+/* eslint-enable @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-assignment */

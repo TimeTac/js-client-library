@@ -5,6 +5,7 @@ import { createRawApiResponse } from '../utils/response/rawApiResponse';
 
 const resourceName = 'deltaSync';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class DeltaSyncEndpoint extends BaseApi<any> {
   public readonly resourceName = resourceName;
 
