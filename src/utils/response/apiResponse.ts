@@ -222,11 +222,12 @@ export type Resources = {
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
 type NeverIfArrayDoesNotMatchResources = keyof Resources extends (typeof resourceNameArray)[number] ? true : never;
 type NeverIfResourcesDoNotMatchArray = (typeof resourceNameArray)[number] extends keyof Resources ? true : never;
+
 // The assignments below fail and prevent compilation if the conditional types are never
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const _assertResourcesMatchArray: NeverIfArrayDoesNotMatchResources = true;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _assertArrayMatchesResources: NeverIfResourcesDoNotMatchArray = true;
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 export type ResourceNames = keyof Resources & (typeof resourceNameArray)[number];
 export type Entity<R extends ResourceNames> = Resources[R];
@@ -278,9 +279,8 @@ export type ApiResponseOnFailure = {
   Error?: number;
   ErrorMessage: string;
   ErrorExtended?: {
-    // eslint-disable-next-line @typescript-eslint/ban-types
     aErrorTranslationConstants: object;
-    // eslint-disable-next-line @typescript-eslint/ban-types
+
     data: object;
     errorString?: string;
     errorCode?: string;

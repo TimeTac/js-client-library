@@ -19,13 +19,13 @@ export function createResourceResponse<T>(rawApiResponse: RawApiResponse): Resou
     success: rawApiResponse?.Success ?? false,
     apiResponse: rawApiResponse,
     // @ts-expect-error unknown type used
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     results: rawApiResponse.Results ?? [],
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     // @ts-expect-error unknown type used
     affected: rawApiResponse.Affected ?? {},
     // @ts-expect-error unknown type used
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     deleted: rawApiResponse.Deleted ?? [],
   };
 }

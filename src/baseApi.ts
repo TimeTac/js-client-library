@@ -76,7 +76,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   protected _post<ResourceName extends ResourceNames>(
     slug: string,
-    // eslint-disable-next-line @typescript-eslint/ban-types
+
     data?: object,
     params?: RequestParams<Entity<ResourceName>>,
     options?: AxiosRequestConfig,
@@ -98,7 +98,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   protected _put<ResourceName extends ResourceNames>(
     slug: string,
-    // eslint-disable-next-line @typescript-eslint/ban-types
+
     data?: object,
     params?: RequestParams<Entity<ResourceName>>,
     options?: AxiosRequestConfig,
@@ -110,7 +110,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   protected _putBatch<ResourceName extends ResourceNames>(
     slug: string,
-    // eslint-disable-next-line @typescript-eslint/ban-types
+
     data?: object,
     params?: RequestParams<Entity<ResourceName>>,
     options?: AxiosRequestConfig,
@@ -122,7 +122,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   protected _postBatch<ResourceName extends ResourceNames>(
     slug: string,
-    // eslint-disable-next-line @typescript-eslint/ban-types
+
     data?: object,
     params?: RequestParams<Entity<ResourceName>>,
     options?: AxiosRequestConfig,
@@ -136,7 +136,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
     const url = `${this.getBaseEndpointUrl()}${slug}`;
     const config = this.getOptions(options);
     //Delete requests send no content
-    // eslint-disable-next-line
+
     if (config.headers) {
       config.headers['Content-type'] = '';
     }

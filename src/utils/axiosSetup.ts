@@ -24,29 +24,27 @@ const createResponseFulfilledInterceptor = (interceptorParams: InterceptorParams
   return res;
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const createResponseRejectedInterceptor = (interceptorParams: InterceptorParams) => async (error: AxiosError) => {
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions,@typescript-eslint/no-unsafe-member-access
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (interceptorParams.config.settings.shouldAutoRefreshToken && error.response) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
     const untouchedRequest = error.config as AxiosRequestConfig & { _shouldRetry: boolean };
 
     // Axios transforms the request body to string automatically, parse it back to JSON to avoid sending a string instead of JSON when retrying the request
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
     if (untouchedRequest.headers?.['Content-Type'] === 'application/json' && typeof untouchedRequest.data === 'string') {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       untouchedRequest.data = JSON.parse(untouchedRequest.data);
     }
 
-    /* eslint-disable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions */
+    /* eslint-disable @typescript-eslint/strict-boolean-expressions */
     if (
       error.response.status === 401 &&
       !untouchedRequest._shouldRetry &&
       !error.response.config.url?.includes('oauth2') &&
       !error.response.config.url?.includes('temporaryTokens')
     ) {
-      /* eslint-enable @typescript-eslint/no-unsafe-member-access,@typescript-eslint/strict-boolean-expressions */
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      /* eslint-enable @typescript-eslint/strict-boolean-expressions */
+
       untouchedRequest._shouldRetry = true;
 
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
@@ -77,7 +75,7 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
       if (res.status === 200 && res.data.access_token) {
         const { access_token: accessToken, refresh_token: refreshToken } = res.data;
         interceptorParams.authentication.setTokens({ accessToken, refreshToken });
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
         if (untouchedRequest.headers) {
           untouchedRequest.headers.Authorization = `Bearer ${accessToken}`;
         }
@@ -100,7 +98,7 @@ export const useInterceptors = (interceptorParams: InterceptorParams): void => {
 };
 
 type AxiosDefaultsWithoutHeaders = Omit<AxiosRequestConfig, 'headers'>;
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+
 export const setAxiosDefaults = (defaults: AxiosDefaultsWithoutHeaders) => {
   axios.defaults = {
     ...axios.defaults,
