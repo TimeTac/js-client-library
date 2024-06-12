@@ -121,8 +121,8 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return requiredBatch(response);
   }
 
-  public logout() {
-    const response = this._post<ResourceName>('logout');
+  public logout(data?: Record<string, unknown>) {
+    const response = this._post<ResourceName>('logout', data);
 
     return nonEntityResult(response);
   }
