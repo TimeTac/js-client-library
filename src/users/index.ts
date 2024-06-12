@@ -120,4 +120,10 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
 
     return requiredBatch(response);
   }
+
+  public logout() {
+    const response = this._post<ResourceName>('logout');
+
+    return nonEntityResult(response);
+  }
 }
