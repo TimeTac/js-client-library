@@ -5,4 +5,5 @@ export type PublicHolidayTemplates = {
   iso_3166: string;
   is_default: boolean;
   source_id: number;
+  active: boolean;
 };
