@@ -2,7 +2,7 @@ import BaseApi from '../baseApi';
 import { RequestParams } from '../utils/params/requestParams';
 import { Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { list } from '../utils/response/responseHandlers';
-import { PublicHolidayTemplates, PublicHolidayTemplatesUpdate } from './types';
+import { PublicHolidayTemplatesUpdate } from './types';
 
 const resourceName = 'publicHolidayTemplates';
 type ResourceName = typeof resourceName;
