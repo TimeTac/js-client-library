@@ -62,7 +62,7 @@ import { LegalDocumentAcceptanceLog } from '../../legalDocumentAcceptanceLogs/ty
 import { IntegrationCategory } from '../../integrationCategories/types';
 import { Integration } from '../../integrations/types';
 import { IntegrationToCategory } from '../../integrationsToCategories/types';
-
+import { PublicHolidays } from '../../publicHolidays/types';
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
 export const resourceNameArray = [
@@ -114,6 +114,7 @@ export const resourceNameArray = [
   'workScheduleDays',
   'workScheduleDayDefinitions',
   'publicHolidayTemplates',
+  'publicHolidays',
   'userRoles',
   'jobQueues',
   'ssoConfig',
@@ -217,6 +218,7 @@ export type Resources = {
   integrations: Integration;
   integrationCategories: IntegrationCategory;
   integrationsToCategories: IntegrationToCategory;
+  publicHolidays: PublicHolidays;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
