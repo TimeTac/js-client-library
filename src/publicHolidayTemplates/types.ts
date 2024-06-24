@@ -7,3 +7,5 @@ export type PublicHolidayTemplates = {
   source_id: number;
   active: boolean;
 };
+
+export type PublicHolidayTemplatesUpdate = Partial<Omit<PublicHolidayTemplates, 'id'>> & Pick<PublicHolidayTemplates, 'id'>;
