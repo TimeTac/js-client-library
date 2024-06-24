@@ -49,6 +49,7 @@ import { SsoConfig } from '../../ssoConfig/types';
 import { Tier } from '../../tiers/types';
 import { OnboardingStep } from '../../onboardingSteps/types';
 import { OnboardingStepToUser } from '../../onboardingStepToUsers/types';
+import { TimesheetActionLogs } from '../../timesheetActionLogs/types';
 import { MonitoringRulesRead } from '../../monitoringRule/monitoringRules/types';
 import { MonitoringRuleFrequencyRead } from '../../monitoringRule/monitoringRuleFrequencies/types';
 import { MonitoringRuleIntervalsRead } from '../../monitoringRule/monitoringRuleIntervals/types';
@@ -121,6 +122,7 @@ export const resourceNameArray = [
   'tiers',
   'onboardingSteps',
   'onboardingStepToUsers',
+  'timesheetActionLogs',
   'features',
   'monitoringRules',
   'monitoringRuleFrequencies',
@@ -132,6 +134,7 @@ export const resourceNameArray = [
   'integrationCategories',
   'integrations',
   'integrationsToCategories',
+  'holidayAdjustment',
 ] as const;
 
 export type Resources = {
@@ -184,7 +187,7 @@ export type Resources = {
   timePlannings: TimePlanning;
   timesheetAccountings: TimesheetAccounting;
   timesheetAccountingSummaries: TimesheetAccountingSummaries;
-  // timesheetActionLogs: TimesheetActionLog;
+  timesheetActionLogs: TimesheetActionLogs;
   // timetrackingChangelogs: TimetrackingChangelog;
   timeTrackings: TimeTracking;
   translations: Translation;
@@ -219,6 +222,7 @@ export type Resources = {
   integrationCategories: IntegrationCategory;
   integrationsToCategories: IntegrationToCategory;
   publicHolidays: PublicHolidays;
+  holidayAdjustment: TimesheetActionLogs;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync

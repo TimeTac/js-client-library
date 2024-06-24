@@ -68,6 +68,8 @@ import { IntegrationCategoriesEndpoint } from './integrationCategories';
 import { IntegrationsEndpoint } from './integrations';
 import { IntegrationsToCategoriesEndpoint } from './integrationsToCategories';
 import { PublicHolidaysEndpoint } from './publicHolidays';
+import { TimesheetActionLogsEndpoint } from './timesheetActionLogs';
+import { HolidayAdjustmentEndpoint } from './holidayAdjustment';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -188,6 +190,8 @@ export { MonitoringRuleFrequencyRead } from './monitoringRule/monitoringRuleFreq
 export { DeletedData } from './utils/response/apiResponse';
 export { SsoConfig, SsoConfigUpdate, SsoConfigCreate } from './ssoConfig/types';
 export { PublicHolidays, PublicHolidaysCreate, PublicHolidaysUpdate } from './publicHolidays/types';
+export { TimesheetActionLogs } from './timesheetActionLogs/types';
+export { HolidayAdjustmentAdd, HolidayAdjustmentRemove } from './holidayAdjustment/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -219,6 +223,7 @@ export default class Api {
   public teamMembers: TeamMembersEndpoint;
   public teams: TeamsEndpoint;
   public timesheetAccountings: TimesheetAccountingsEndpoint;
+  public timesheetActionLogs: TimesheetActionLogsEndpoint;
   public timeTrackings: TimeTrackingsEndpoint;
   public timePlannings: TimePlanningsEndpoint;
   public translations: TranslationsEndpoint;
@@ -262,6 +267,7 @@ export default class Api {
   public integrations: IntegrationsEndpoint;
   public integrationsToCategories: IntegrationsToCategoriesEndpoint;
   public publicHolidays: PublicHolidaysEndpoint;
+  public holidayAdjustment: HolidayAdjustmentEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -299,6 +305,7 @@ export default class Api {
     this.teamMembers = new TeamMembersEndpoint(this.config);
     this.teams = new TeamsEndpoint(this.config);
     this.timesheetAccountings = new TimesheetAccountingsEndpoint(this.config);
+    this.timesheetActionLogs = new TimesheetActionLogsEndpoint(this.config);
     this.timeTrackings = new TimeTrackingsEndpoint(this.config);
     this.timePlannings = new TimePlanningsEndpoint(this.config);
     this.translations = new TranslationsEndpoint(this.config);
@@ -345,6 +352,7 @@ export default class Api {
     this.integrationsToCategories = new IntegrationsToCategoriesEndpoint(this.config);
     this.publicHolidays = new PublicHolidaysEndpoint(this.config);
 
+    this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 
