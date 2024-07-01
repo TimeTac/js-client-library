@@ -15,4 +15,5 @@ export type TimesheetActionLogs = {
   updated: string | null;
   from_date: string | null;
   data: string;
+  subtype: string | null;
 };
