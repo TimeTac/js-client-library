@@ -4,7 +4,7 @@ export function updateCanonicalTime(data: unknown, onServerTimeDeviationChange: 
   if (typeof data === 'object' && data != null && 'RequestEndTime' in data) {
     const body = data as { RequestEndTime: string; ServerTimeZone: string | undefined };
     const time = new Date(
-      new Intl.DateTimeFormat('en-US', {
+      new Intl.DateTimeFormat(undefined, {
         timeZone: body.ServerTimeZone ?? 'Europe/Vienna',
         year: 'numeric',
         month: '2-digit',
