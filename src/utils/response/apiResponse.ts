@@ -49,6 +49,7 @@ import { SsoConfig } from '../../ssoConfig/types';
 import { Tier } from '../../tiers/types';
 import { OnboardingStep } from '../../onboardingSteps/types';
 import { OnboardingStepToUser } from '../../onboardingStepToUsers/types';
+import { TimesheetActionLogs } from '../../timesheetActionLogs/types';
 import { MonitoringRulesRead } from '../../monitoringRule/monitoringRules/types';
 import { MonitoringRuleFrequencyRead } from '../../monitoringRule/monitoringRuleFrequencies/types';
 import { MonitoringRuleIntervalsRead } from '../../monitoringRule/monitoringRuleIntervals/types';
@@ -62,7 +63,7 @@ import { LegalDocumentAcceptanceLog } from '../../legalDocumentAcceptanceLogs/ty
 import { IntegrationCategory } from '../../integrationCategories/types';
 import { Integration } from '../../integrations/types';
 import { IntegrationToCategory } from '../../integrationsToCategories/types';
-
+import { PublicHolidays } from '../../publicHolidays/types';
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
 export const resourceNameArray = [
@@ -114,12 +115,14 @@ export const resourceNameArray = [
   'workScheduleDays',
   'workScheduleDayDefinitions',
   'publicHolidayTemplates',
+  'publicHolidays',
   'userRoles',
   'jobQueues',
   'ssoConfig',
   'tiers',
   'onboardingSteps',
   'onboardingStepToUsers',
+  'timesheetActionLogs',
   'features',
   'monitoringRules',
   'monitoringRuleFrequencies',
@@ -131,6 +134,7 @@ export const resourceNameArray = [
   'integrationCategories',
   'integrations',
   'integrationsToCategories',
+  'holidayAdjustment',
 ] as const;
 
 export type Resources = {
@@ -183,7 +187,7 @@ export type Resources = {
   timePlannings: TimePlanning;
   timesheetAccountings: TimesheetAccounting;
   timesheetAccountingSummaries: TimesheetAccountingSummaries;
-  // timesheetActionLogs: TimesheetActionLog;
+  timesheetActionLogs: TimesheetActionLogs;
   // timetrackingChangelogs: TimetrackingChangelog;
   timeTrackings: TimeTracking;
   translations: Translation;
@@ -217,16 +221,19 @@ export type Resources = {
   integrations: Integration;
   integrationCategories: IntegrationCategory;
   integrationsToCategories: IntegrationToCategory;
+  publicHolidays: PublicHolidays;
+  holidayAdjustment: TimesheetActionLogs;
 };
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
 type NeverIfArrayDoesNotMatchResources = keyof Resources extends (typeof resourceNameArray)[number] ? true : never;
 type NeverIfResourcesDoNotMatchArray = (typeof resourceNameArray)[number] extends keyof Resources ? true : never;
+
 // The assignments below fail and prevent compilation if the conditional types are never
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const _assertResourcesMatchArray: NeverIfArrayDoesNotMatchResources = true;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _assertArrayMatchesResources: NeverIfResourcesDoNotMatchArray = true;
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 export type ResourceNames = keyof Resources & (typeof resourceNameArray)[number];
 export type Entity<R extends ResourceNames> = Resources[R];
@@ -278,9 +285,8 @@ export type ApiResponseOnFailure = {
   Error?: number;
   ErrorMessage: string;
   ErrorExtended?: {
-    // eslint-disable-next-line @typescript-eslint/ban-types
     aErrorTranslationConstants: object;
-    // eslint-disable-next-line @typescript-eslint/ban-types
+
     data: object;
     errorString?: string;
     errorCode?: string;

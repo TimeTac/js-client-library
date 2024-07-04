@@ -25,7 +25,6 @@ export const objectCheck = (data: Data, prefix?: string, postfix?: string): stri
   }
 
   if (message) {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     message += `${postfix ?? '.'}`;
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (prefix) {

@@ -14,6 +14,7 @@ describe('PublicHolidayTemplateEndpoint', () => {
       is_default: false,
       source_id: 2,
       template_name: 'myTemplateName',
+      active: true,
     },
   ];
   const publicHolidayTemplates: PublicHolidayTemplatesEndpoint = new PublicHolidayTemplatesEndpoint(

@@ -51,6 +51,7 @@ export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSy
 
 function convert<T>(deltaSyncResonse: RawApiResponse, resource: keyof DeltaSyncResults): ResourceResponse<T> | undefined {
   // @ts-expect-error unknown type used
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const includeResponse: RawApiResponse = deltaSyncResonse.Results[resource];
 
