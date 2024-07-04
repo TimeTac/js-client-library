@@ -876,7 +876,6 @@ __metadata:
   dependencies:
     "@eslint/compat": "npm:^1.0.3"
     "@types/jest": "npm:^29.5.12"
-    "@types/luxon": "npm:^3"
     "@typescript-eslint/eslint-plugin": "npm:^7.12.0"
     "@typescript-eslint/parser": "npm:^7.12.0"
     axios: "npm:^1.6.2"
@@ -888,7 +887,6 @@ __metadata:
     husky-v4: "npm:^4.3.8"
     jest: "npm:^29.7.0"
     lint-staged: "npm:^15.2.0"
-    luxon: "npm:^3.4.4"
     prettier: "npm:^3.2.5"
     ts-jest: "npm:^29.1.1"
     typescript: "npm:^5.4.3"
@@ -992,13 +990,6 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 4e5aed58cabb2bbf6f725da13421aa50a49abb6bc17bfab6c31b8774b073fa7b50d557c61f961a09a85f6056151190f8ac95f13f5b48136ba5841f7d4484ec56
-  languageName: node
-  linkType: hard
-
-"@types/luxon@npm:^3":
-  version: 3.4.2
-  resolution: "@types/luxon@npm:3.4.2"
-  checksum: fd89566e3026559f2bc4ddcc1e70a2c16161905ed50be9473ec0cfbbbe919165041408c4f6e06c4bcf095445535052e2c099087c76b1b38e368127e618fc968d
   languageName: node
   linkType: hard
 
@@ -4109,13 +4100,6 @@ __metadata:
   version: 10.0.1
   resolution: "lru-cache@npm:10.0.1"
   checksum: 5bb91a97a342a41fd049c3494b44d9e21a7d4843f9284d0a0b26f00bb0e436f1f627d0641c78f88be16b86b4231546c5ee4f284733fb530c7960f0bcd7579026
-  languageName: node
-  linkType: hard
-
-"luxon@npm:^3.4.4":
-  version: 3.4.4
-  resolution: "luxon@npm:3.4.4"
-  checksum: c14164bc338987349075a08e63ea3ff902866735f7f5553a355b27be22667919765ff96fde4d3413d0e9a0edc4ff9e2e74ebcb8f86eae0ce8b14b27330d87d6e
   languageName: node
   linkType: hard
 
