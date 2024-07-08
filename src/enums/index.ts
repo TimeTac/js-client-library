@@ -55,6 +55,7 @@ export enum ChangeTimetrackingRequestsStatus {
   Pending = 'PENDING',
   Granted = 'GRANTED',
   Declined = 'DECLINED',
+  Cancelled = 'CANCELED',
 }
 
 export enum ChangeTimetrackingRequestsType {
