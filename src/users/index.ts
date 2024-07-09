@@ -86,8 +86,8 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public validatePassword(data: UserValidatePassword): Promise<NonEntityResult<{ password_valid: boolean }>> {
-    const response = this._post<ResourceName>(`validatePassword`, data);
+  public validatePassword(data: UserValidatePassword, options?: AxiosRequestConfig): Promise<NonEntityResult<{ password_valid: boolean }>> {
+    const response = this._post<ResourceName>(`validatePassword`, data, undefined, options);
     return nonEntityResult(response);
   }
 
