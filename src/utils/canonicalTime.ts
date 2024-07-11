@@ -23,3 +23,13 @@ export function updateCanonicalTime(data: unknown, onServerTimeDeviationChange: 
     }
   }
 }
+
+export function callCanonicalTimeUpdater(
+  data: unknown,
+  canonicalTimeUpdater: ((serverTimeZone: string, serverRequestEndTime: string) => void) | undefined,
+): void {
+  if (typeof data === 'object' && data != null && 'RequestEndTime' in data && canonicalTimeUpdater) {
+    const body = data as { RequestEndTime: string; ServerTimeZone: string | undefined };
+    canonicalTimeUpdater(body.ServerTimeZone ?? 'Europe/Vienna', body.RequestEndTime);
+  }
+}

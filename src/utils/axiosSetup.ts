@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequ
 import { AuthenticationEndpoint } from '../authentication';
 import { TokenResponse } from '../authentication/types';
 import { ApiState } from '../baseApi';
-import { updateCanonicalTime } from './canonicalTime';
+import { callCanonicalTimeUpdater, updateCanonicalTime } from './canonicalTime';
 import { ConfigProvider } from '.';
 
 export type InterceptorParams = {
@@ -21,6 +21,7 @@ const requestInterceptor = (config: AxiosRequestConfig): InternalAxiosRequestCon
 
 const createResponseFulfilledInterceptor = (interceptorParams: InterceptorParams) => (res: AxiosResponse) => {
   updateCanonicalTime(res.data, interceptorParams.config.settings.onServerTimeDeviationChange);
+  callCanonicalTimeUpdater(res.data, interceptorParams.config.settings.canonicalTimeUpdater);
   return res;
 };
 

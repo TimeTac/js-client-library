@@ -41,6 +41,7 @@ export type ApiConfig = {
   timeout?: number;
   apiPrefix?: string;
   onServerTimeDeviationChange?: (deviation: number) => void;
+  canonicalTimeUpdater?: (serverTimeZone: string, serverRequestEndTime: string) => void;
   getChangedOnlyConfig?: (loggedInUser: User, since?: string | undefined) => DeltaSyncParams;
   customRequestHeaders?: { [key: string]: string };
 };
