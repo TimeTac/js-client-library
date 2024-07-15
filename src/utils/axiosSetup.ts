@@ -25,11 +25,31 @@ const createResponseFulfilledInterceptor = (interceptorParams: InterceptorParams
   return res;
 };
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const MAX_RETRY_AMOUNT = 3;
+
 export const createResponseRejectedInterceptor = (interceptorParams: InterceptorParams) => async (error: AxiosError) => {
+  const untouchedRequest = error.config as AxiosRequestConfig & { _shouldRetry: boolean; retryCount: number };
+
+  // Handle network errors and retry with exponential backoff
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,@typescript-eslint/strict-boolean-expressions
+  if (untouchedRequest && !error.response) {
+    untouchedRequest.retryCount = untouchedRequest.retryCount || 0;
+
+    if (untouchedRequest.retryCount < MAX_RETRY_AMOUNT) {
+      untouchedRequest.retryCount++;
+      const delayTime = 1000 * Math.pow(2, untouchedRequest.retryCount - 1);
+      await delay(delayTime);
+
+      return axios(untouchedRequest);
+    } else {
+      throw error;
+    }
+  }
+
+  // Handle token expiration error
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (interceptorParams.config.settings.shouldAutoRefreshToken && error.response) {
-    const untouchedRequest = error.config as AxiosRequestConfig & { _shouldRetry: boolean };
-
     // Axios transforms the request body to string automatically, parse it back to JSON to avoid sending a string instead of JSON when retrying the request
 
     if (untouchedRequest.headers?.['Content-Type'] === 'application/json' && typeof untouchedRequest.data === 'string') {

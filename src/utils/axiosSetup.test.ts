@@ -129,5 +129,5 @@ describe('axiosSetup', () => {
     }
 
     expect.assertions(1);
-  });
+  }, 12000);
 });
