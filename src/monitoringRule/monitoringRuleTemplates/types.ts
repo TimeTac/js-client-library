@@ -11,4 +11,5 @@ export type MonitoringRuleTemplatesRead = {
   throttle_notifications: boolean;
   default_values: string;
   updated_at: string;
+  sencha_only: boolean;
 };
