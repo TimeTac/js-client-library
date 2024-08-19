@@ -143,7 +143,7 @@ export {
   UserUpdate,
   UserUpdatePassword,
 } from './users/types';
-export { testAxiosObject } from './utils/axiosSetup';
+export { testAxiosObject, cancelAllRequests } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
 export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';

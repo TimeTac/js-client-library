@@ -12,8 +12,15 @@ export type InterceptorParams = {
   authentication: AuthenticationEndpoint;
 };
 
+const abortController = new AbortController();
+
+export const cancelAllRequests = () => {
+  abortController.abort();
+};
+
 const requestInterceptor = (config: AxiosRequestConfig): InternalAxiosRequestConfig<unknown> => {
   // axios.defaults do not automatically apply here, so set timeout manually
+  config.signal = abortController.signal;
   config.timeout = axios.defaults.timeout;
   config.headers = config.headers ?? {};
   return config as InternalAxiosRequestConfig<unknown>;
@@ -82,6 +89,7 @@ export const createResponseRejectedInterceptor = (interceptorParams: Interceptor
         const status = error.response?.status;
         if (status === 497 || status === 404 || status === 503 || status === 400) {
           if (interceptorParams.config.settings.onTokenRefreshFailed != null) {
+            cancelAllRequests();
             interceptorParams.config.settings.onTokenRefreshFailed();
           }
         }
