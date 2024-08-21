@@ -10,7 +10,9 @@ export type WorkSchedule = {
   law_limit_weekly_hours: number;
   law_rest_period_minimum_hours: number;
   law_rest_period_minimum_weekly_hours: number;
+  type?: string;
   is_default?: boolean;
+  absence_credit?: number;
 };
 
 export type WorkScheduleCreate = Omit<
@@ -25,6 +27,7 @@ export type WorkScheduleCreate = Omit<
   | 'law_rest_period_minimum_hours'
   | 'law_rest_period_minimum_weekly_hours'
   | 'is_default'
+  | 'type'
 >;
 
 export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
@@ -40,4 +43,5 @@ export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
     | 'law_rest_period_minimum_hours'
     | 'law_rest_period_minimum_weekly_hours'
     | 'is_default'
+    | 'type'
   >;
