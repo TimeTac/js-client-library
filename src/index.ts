@@ -70,6 +70,7 @@ import { IntegrationsToCategoriesEndpoint } from './integrationsToCategories';
 import { PublicHolidaysEndpoint } from './publicHolidays';
 import { TimesheetActionLogsEndpoint } from './timesheetActionLogs';
 import { HolidayAdjustmentEndpoint } from './holidayAdjustment';
+import { HourTypesEndpoint } from './hourTypes';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -192,6 +193,7 @@ export { SsoConfig, SsoConfigUpdate, SsoConfigCreate } from './ssoConfig/types';
 export { PublicHolidays, PublicHolidaysCreate, PublicHolidaysUpdate } from './publicHolidays/types';
 export { TimesheetActionLogs } from './timesheetActionLogs/types';
 export { HolidayAdjustmentAdd, HolidayAdjustmentRemove } from './holidayAdjustment/types';
+export { HourType } from './hourTypes/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -268,6 +270,7 @@ export default class Api {
   public integrationsToCategories: IntegrationsToCategoriesEndpoint;
   public publicHolidays: PublicHolidaysEndpoint;
   public holidayAdjustment: HolidayAdjustmentEndpoint;
+  public hourTypes: HourTypesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -353,6 +356,7 @@ export default class Api {
     this.publicHolidays = new PublicHolidaysEndpoint(this.config);
 
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
+    this.hourTypes = new HourTypesEndpoint(this.config);
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
 

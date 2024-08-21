@@ -1,0 +1,24 @@
+export type HourType = {
+  id: number;
+  slotName: string;
+  name: string;
+  slotType: number;
+  usableForTimesheetTemplates: number;
+  includeInDailyBalance: number;
+  additionPercentage: string;
+  abbreviation: string;
+  tooltip: string;
+  legend: string;
+  datevAbsenceKey: string;
+  datevWageTypeId: number;
+  sageAbsenceKey: string;
+  sageWageTypeId: number;
+  bmdAbsenceTypeId: number;
+  bmdWageTypeId: number;
+  brzWageTypeId: number;
+  addisonWageTypeId: number;
+  individualValue1: string;
+  showInWorkingOverview: boolean;
+  showInUserStatistics: boolean;
+  showInDepartmentStatistics: boolean;
+};
