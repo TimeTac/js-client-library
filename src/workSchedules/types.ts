@@ -10,7 +10,9 @@ export type WorkSchedule = {
   law_limit_weekly_hours: number;
   law_rest_period_minimum_hours: number;
   law_rest_period_minimum_weekly_hours: number;
+  type?: string;
   is_default?: boolean;
+  absence_credit?: number;
 };
 
 export type WorkScheduleCreate = Omit<

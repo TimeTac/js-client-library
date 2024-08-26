@@ -6,7 +6,6 @@ export type Integration = {
   navigationUrl?: string;
   imageUrl?: string;
   featured?: boolean;
-  externalId?: string;
   provider?: string;
   application?: string;
   accessCredentialsId?: number | null;
