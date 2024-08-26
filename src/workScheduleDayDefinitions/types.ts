@@ -5,6 +5,7 @@ export type WorkScheduleDayDefinition = {
   slot_id: number;
   start: string;
   end: string;
+  valid_for_task_id: number;
 };
 
 export type WorkScheduleDayDefinitionCreate = Omit<Partial<WorkScheduleDayDefinition>, 'id'>;
