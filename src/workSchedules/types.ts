@@ -13,6 +13,9 @@ export type WorkSchedule = {
   type?: string;
   is_default?: boolean;
   absence_credit?: number;
+  automatic_break_template_id?: number | null;
+  rounding_times_template_id?: number | null;
+  public_holiday_template_id?: number | null;
 };
 
 export type WorkScheduleCreate = Omit<
