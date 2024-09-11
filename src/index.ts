@@ -103,7 +103,7 @@ export { PermissionResolveDepartment } from './permissions/permissionResolveDepa
 export { PermissionResolveEntity } from './permissions/permissionResolveEntities/types';
 export { PermissionResolveUser } from './permissions/permissionResolveUsers/types';
 export { Project } from './projects/types';
-export { PublicHolidayTemplates, PublicHolidayTemplatesUpdate } from './publicHolidayTemplates/types';
+export { PublicHolidayTemplates, PublicHolidayTemplatesUpdate, PublicHolidayTemplatesCreate } from './publicHolidayTemplates/types';
 export { RecentTask } from './recentTasks/types';
 export { Salutation } from './salutations/types';
 export { ServerCommunication } from './serverCommunication/types';
