@@ -71,6 +71,7 @@ import { PublicHolidaysEndpoint } from './publicHolidays';
 import { TimesheetActionLogsEndpoint } from './timesheetActionLogs';
 import { HolidayAdjustmentEndpoint } from './holidayAdjustment';
 import { HourTypesEndpoint } from './hourTypes';
+import { FetchDataEndpoint } from './fetchData';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -271,6 +272,7 @@ export default class Api {
   public publicHolidays: PublicHolidaysEndpoint;
   public holidayAdjustment: HolidayAdjustmentEndpoint;
   public hourTypes: HourTypesEndpoint;
+  public fetchData: FetchDataEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -354,6 +356,7 @@ export default class Api {
     this.integrations = new IntegrationsEndpoint(this.config);
     this.integrationsToCategories = new IntegrationsToCategoriesEndpoint(this.config);
     this.publicHolidays = new PublicHolidaysEndpoint(this.config);
+    this.fetchData = new FetchDataEndpoint(this.config);
 
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     this.hourTypes = new HourTypesEndpoint(this.config);
