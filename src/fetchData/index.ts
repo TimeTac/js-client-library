@@ -1,8 +1,8 @@
 import BaseApi from '../baseApi';
 import { DeltaSyncParams } from '../utils/params/deltaSyncParams';
 import { createRawApiResponse } from '../utils/response/rawApiResponse';
+import { createFetchDataResponse } from '../utils/response/fetchDataUtils';
 import { FetchDataResponse } from './type';
-import { createFetchDataResponse } from './util';
 
 const resourceName = 'fetchData';
 

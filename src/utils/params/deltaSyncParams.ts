@@ -38,11 +38,6 @@ export class DeltaSyncParams {
     return this;
   }
 
-  exclude(values: ResourceNames[]): DeltaSyncParams {
-    this.requestParams['_exclude'] = values.join(',');
-    return this;
-  }
-
   resource<F extends ResourceNames>(resource: F, addFilter: (params: RequestParamsBuilder<Entity<F>>) => void): DeltaSyncParams {
     const params = new RequestParamsBuilder<Entity<F>>();
     addFilter(params);

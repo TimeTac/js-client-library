@@ -1,10 +1,10 @@
-import { resourceNameArray, Resources } from '../utils/response/apiResponse';
-import { RawApiResponse } from '../utils/response/rawApiResponse';
-import { ResourceResponse } from '../utils/response/resourceResponse';
-import { FetchDataResponse } from './type';
+import { FetchDataResponse } from '../../fetchData/type';
+import { resourceNameArray, Resources } from './apiResponse';
+import { RawApiResponse } from './rawApiResponse';
+import { ResourceResponse } from './resourceResponse';
 
 export function createFetchDataResponse(rawApiResponse: RawApiResponse): FetchDataResponse {
-  const results = {} as Resources;
+  const results = {} as FetchDataResponse['results'];
   resourceNameArray.forEach((resource) => {
     const clarifiedKey = resource as keyof Resources;
     const resourceResponse = convert(rawApiResponse, resource);
