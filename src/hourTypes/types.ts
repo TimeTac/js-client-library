@@ -4,4 +4,6 @@ export type HourType = {
   name: string;
   abbreviation: string;
   additionPercentage: string;
+  tooltip: string;
+  legend: string;
 };
