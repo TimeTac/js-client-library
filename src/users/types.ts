@@ -91,6 +91,8 @@ export type UserReadFull = UserReadObscured & {
   automatic_break_template_id: number;
   automatic_break_template_valid_starting_from: string;
   user_role_ids: string;
+  authentication_blocked: boolean;
+  unsuccessful_login_count: number;
 };
 
 export type UserRead = UserReadFull | UserReadObscured;
