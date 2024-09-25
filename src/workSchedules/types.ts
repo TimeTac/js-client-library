@@ -16,6 +16,7 @@ export type WorkSchedule = {
   automatic_break_template_id?: number | null;
   rounding_times_template_id?: number | null;
   public_holiday_template_id?: number | null;
+  minijobber_deduction_cycle?: string;
 };
 
 export type WorkScheduleCreate = Omit<
@@ -30,6 +31,7 @@ export type WorkScheduleCreate = Omit<
   | 'law_rest_period_minimum_hours'
   | 'law_rest_period_minimum_weekly_hours'
   | 'is_default'
+  | 'minijobber_deduction_cycle'
 >;
 
 export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
