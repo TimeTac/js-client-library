@@ -116,7 +116,7 @@ export { Integration } from './integrations/types';
 export { IntegrationCategory } from './integrationCategories/types';
 export { IntegrationToCategory } from './integrationsToCategories/types';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
-export { TimesheetAccounting, TimesheetAccountingApproveRequest } from './timesheetAccountings/types';
+export { TimesheetAccounting, TimesheetAccountingApproveRequest, TimesheetAccountingUpdate } from './timesheetAccountings/types';
 export {
   StartTimeTrackingData,
   StopTimeTrackingData,
