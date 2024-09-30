@@ -126,3 +126,5 @@ export type TimesheetAccountingApproveRequest = {
   approved_by_admin?: boolean;
   approved_by_user_1?: boolean;
 };
+
+export type TimesheetAccountingUpdate = Pick<TimesheetAccounting, 'id' | 'user_id' | 'date' | 'overtime_paid'>;
