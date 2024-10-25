@@ -139,7 +139,7 @@ export const resourceNameArray = [
   'hourTypes',
 ] as const;
 
-export type Resources = {
+export interface Resources {
   absenceBans: AbsenceBan;
   absenceDays: AbsenceDay;
   // absenceReplacements: AbsenceReplacement;
@@ -226,7 +226,7 @@ export type Resources = {
   publicHolidays: PublicHolidays;
   holidayAdjustment: TimesheetActionLogs;
   hourTypes: HourType;
-};
+}
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
 type NeverIfArrayDoesNotMatchResources = keyof Resources extends (typeof resourceNameArray)[number] ? true : never;
