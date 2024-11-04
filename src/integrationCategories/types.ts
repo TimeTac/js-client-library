@@ -3,6 +3,7 @@
 export type IntegrationCategory = {
   id: number;
   title: string;
+  externalId?: string;
   unique_id: string;
   iconUrl?: string;
   icon_url?: string;
