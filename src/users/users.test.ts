@@ -26,6 +26,7 @@ const MockData: {
       start_task_at_login: 0,
       username: 'manager',
       personnel_number: 'MA0001',
+      identity_card_number: 'K12345678A',
       lastname: 'Mustermann',
       firstname: 'Max',
       fullname: 'Mustermann Max',
