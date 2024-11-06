@@ -24,6 +24,7 @@ export type UserReadFull = UserReadObscured & {
   start_task_at_login: number;
   username: string;
   personnel_number: string;
+  identity_card_number: string;
   fullname?: string;
   // Note: misspelling is intentional abbrevAtion
   abbrevation: string;
