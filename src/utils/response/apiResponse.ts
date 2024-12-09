@@ -65,6 +65,7 @@ import { Integration } from '../../integrations/types';
 import { IntegrationToCategory } from '../../integrationsToCategories/types';
 import { PublicHolidays } from '../../publicHolidays/types';
 import { HourType } from '../../hourTypes/types';
+import { UserEvent } from '../../userEvents/types';
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
 export const resourceNameArray = [
@@ -137,6 +138,7 @@ export const resourceNameArray = [
   'integrationsToCategories',
   'holidayAdjustment',
   'hourTypes',
+  'userEvents',
 ] as const;
 
 export interface Resources {
@@ -226,6 +228,7 @@ export interface Resources {
   publicHolidays: PublicHolidays;
   holidayAdjustment: TimesheetActionLogs;
   hourTypes: HourType;
+  userEvents: UserEvent;
 }
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
