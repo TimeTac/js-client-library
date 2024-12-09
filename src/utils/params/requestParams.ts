@@ -145,4 +145,8 @@ export class RequestParamsBuilder<R> {
     this.requestParams['_temp_record_id'] = id;
     return this;
   }
+
+  get(param: string): string | undefined {
+    return this.requestParams[param];
+  }
 }
