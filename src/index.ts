@@ -72,6 +72,7 @@ import { TimesheetActionLogsEndpoint } from './timesheetActionLogs';
 import { HolidayAdjustmentEndpoint } from './holidayAdjustment';
 import { HourTypesEndpoint } from './hourTypes';
 import { FetchDataEndpoint } from './fetchData';
+import { UserEventsEndpoint } from './userEvents';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -195,6 +196,7 @@ export { PublicHolidays, PublicHolidaysCreate, PublicHolidaysUpdate } from './pu
 export { TimesheetActionLogs } from './timesheetActionLogs/types';
 export { HolidayAdjustmentAdd, HolidayAdjustmentRemove } from './holidayAdjustment/types';
 export { HourType } from './hourTypes/types';
+export { UserEvent } from './userEvents/types';
 
 const DEFAULT_HOST = 'go.timetac.com';
 
@@ -273,6 +275,7 @@ export default class Api {
   public holidayAdjustment: HolidayAdjustmentEndpoint;
   public hourTypes: HourTypesEndpoint;
   public fetchData: FetchDataEndpoint;
+  public userEvents: UserEventsEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -357,6 +360,7 @@ export default class Api {
     this.integrationsToCategories = new IntegrationsToCategoriesEndpoint(this.config);
     this.publicHolidays = new PublicHolidaysEndpoint(this.config);
     this.fetchData = new FetchDataEndpoint(this.config);
+    this.userEvents = new UserEventsEndpoint(this.config);
 
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     this.hourTypes = new HourTypesEndpoint(this.config);
