@@ -28,4 +28,7 @@ export type Tier = {
   sort_order?: number;
   unique_id?: string;
   zoho_product_id: string;
+  zoho_plan_name_suffix?: string;
+  free_tier?: boolean;
+  specification_of_services: unknown; // leaving it like this in case the BE decides to properly implement the localised specs_of_services
 };
