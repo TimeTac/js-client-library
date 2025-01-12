@@ -42,7 +42,7 @@ export type ApiConfig = {
   apiPrefix?: string;
   onServerTimeDeviationChange?: (deviation: number) => void;
   canonicalTimeUpdater?: (serverTimeZone: string, serverRequestEndTime: string) => void;
-  getChangedOnlyConfig?: (loggedInUser: User, since?: string | undefined) => DeltaSyncParams;
+  getChangedOnlyConfig?: (loggedInUser: User, since?: string) => DeltaSyncParams;
   customRequestHeaders?: { [key: string]: string };
 };
 

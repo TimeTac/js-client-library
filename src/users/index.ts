@@ -30,19 +30,19 @@ import {
 } from './types';
 
 const resourceName = 'users';
-const usersReadMe = 'usersReadMe';
+type UsersReadMe = 'usersReadMe';
 type ResourceName = typeof resourceName;
 
 export class UsersEndpoint extends BaseApi<ResourceName> {
-  public readonly resourceName = 'users';
+  public readonly resourceName = resourceName;
 
-  public readMe(params?: RequestParams<UserReadMe>): Required<typeof usersReadMe> {
-    const response = this._get<typeof usersReadMe>('me', { params });
+  public readMe(params?: RequestParams<UserReadMe>): Required<UsersReadMe> {
+    const response = this._get<UsersReadMe>('me', { params });
     return requiredSingle(response);
   }
 
   public async readMeRaw(params: RequestParams<UserReadMe>): Promise<ReadRawResponse<UserReadMe>> {
-    const response = this._get<typeof usersReadMe>('me', { params });
+    const response = this._get<UsersReadMe>('me', { params });
     return createReadRawResponse<UserReadMe>(createResourceResponse(await createRawApiResponse(response)), params);
   }
 

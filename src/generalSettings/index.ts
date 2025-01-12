@@ -8,7 +8,7 @@ const resourceName = 'generalSettings';
 type ResourceName = typeof resourceName;
 
 export class GeneralSettingsEndpoint extends BaseApi<ResourceName> {
-  public readonly resourceName = 'generalSettings';
+  public readonly resourceName = resourceName;
 
   public readBySettingType(settingType: string): Required<ResourceName, Entity<ResourceName>[]> {
     const params = new RequestParamsBuilder<GeneralSetting>().eq('setting_type', settingType).build();

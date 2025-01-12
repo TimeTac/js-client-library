@@ -96,6 +96,7 @@ async function resolveResponse<ResourceName extends ResourceNames>(
     if (error.response?.data != null && typeof error.response.data !== 'string' && hasSuccessProperty(error.response.data)) {
       resolved = error.response as AxiosResponse<ApiResponse<ResourceName>> | AxiosResponse<ApiBatchResponse<ResourceName>>;
     } else {
+      //eslint-disable-next-line @typescript-eslint/only-throw-error
       throw {
         _plainError: error,
         message: error.message,
@@ -117,6 +118,7 @@ export async function toApiBatchResponse<ResourceName extends ResourceNames>(
     return apiResponse;
   }
 
+  //eslint-disable-next-line @typescript-eslint/only-throw-error
   throw getParsedErrorMessageObject(apiResponse, resolved);
 }
 
@@ -140,6 +142,7 @@ export async function toApiResponse<ResourceName extends ResourceNames>(
     return apiResponse;
   }
 
+  //eslint-disable-next-line @typescript-eslint/only-throw-error
   throw getParsedErrorMessageObject(apiResponse, resolved);
 }
 

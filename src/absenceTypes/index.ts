@@ -7,7 +7,7 @@ import { AbsenceTypeCreate, AbsenceTypeUpdate } from './types';
 const resourceName = 'absenceTypes';
 type ResourceName = typeof resourceName;
 export class AbsenceTypesEndpoint extends BaseApi<typeof resourceName> {
-  public readonly resourceName = 'absenceTypes';
+  public readonly resourceName = resourceName;
 
   public create(
     data: AbsenceTypeCreate,

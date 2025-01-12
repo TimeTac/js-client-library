@@ -8,7 +8,7 @@ const resourceName = 'timesheetAccountingSummaries';
 type ResourceName = typeof resourceName;
 
 export class TimesheetAccountingSummariesEndpoint extends BaseApi<'timesheetAccountingSummaries'> {
-  public readonly resourceName = 'timesheetAccountingSummaries';
+  public readonly resourceName = resourceName;
 
   public readTimesheetAccountingSummaries(
     params?: RequestParams<TimesheetAccountingSummariesRead> | string,
