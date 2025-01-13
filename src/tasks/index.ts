@@ -8,7 +8,7 @@ const resourceName = 'tasks';
 type ResourceName = typeof resourceName;
 
 export class TasksEndpoint extends BaseApi<ResourceName> {
-  public readonly resourceName = 'tasks';
+  public readonly resourceName = resourceName;
 
   public create(data: TaskCreate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {
     const response = this._post<ResourceName>('create', data, params);

@@ -53,6 +53,7 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse>): Pro
     if (error.response?.data != null && typeof error.response.data === 'object' && hasSuccessProperty(error.response.data)) {
       axiosResponse = error.response;
     } else {
+      //eslint-disable-next-line @typescript-eslint/only-throw-error
       throw {
         _plainError: error,
         message: error.message,
@@ -68,6 +69,7 @@ export async function createRawApiResponse(promise: Promise<AxiosResponse>): Pro
   } else {
     const optionalResponse = axiosResponse.data as ApiResponseOnFailure | undefined;
 
+    //eslint-disable-next-line @typescript-eslint/only-throw-error
     throw {
       response: optionalResponse,
       _plainError: axiosResponse,

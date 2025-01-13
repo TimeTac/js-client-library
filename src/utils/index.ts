@@ -13,9 +13,9 @@ type Data = {
  * @param {string} prefix = undefined prefix of message
  * @param {string} postfix = undefined postfix of message
  *
- * @return {string} message
+ * @return {Error | null} message
  */
-export const objectCheck = (data: Data, prefix?: string, postfix?: string): string => {
+export const objectCheck = (data: Data, prefix?: string, postfix?: string): Error | null => {
   let message = ''; //: string = `${prefix || ''}`;
 
   for (const key in data) {
@@ -32,7 +32,7 @@ export const objectCheck = (data: Data, prefix?: string, postfix?: string): stri
     }
   }
 
-  return message;
+  return message ? new Error(message) : null;
 };
 
 export class ConfigProvider {

@@ -60,7 +60,7 @@ export class AuthenticationEndpoint extends BaseApi<any> {
       return axios.post<TokenResponse>(url, new URLSearchParams(credentials), config);
     }
 
-    throw objectCheck(
+    const objectCheckResult = objectCheck(
       {
         client_id: this.config.settings.clientId,
         client_secret: this.config.settings.clientSecret,
@@ -68,6 +68,12 @@ export class AuthenticationEndpoint extends BaseApi<any> {
       },
       'Missing data for:',
     );
+
+    if (objectCheckResult) {
+      throw objectCheckResult;
+    } else {
+      throw new Error('Unknown refresh token error');
+    }
   }
 
   async login(credentials: Credentials): Promise<{ accessToken: string; refreshToken: string }> {
