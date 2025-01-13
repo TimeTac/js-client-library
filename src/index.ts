@@ -149,7 +149,7 @@ export {
 export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
-export { RequestParams, RequestParamsBuilder } from './utils/params/requestParams';
+export { RequestParams, RequestParamsBuilder, DEFAULT_PAGE_SIZE } from './utils/params/requestParams';
 export {
   ApiResponse,
   ApiResponseOnFailure,
