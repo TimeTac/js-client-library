@@ -18,6 +18,14 @@ export class TimesheetAccountingsEndpoint extends BaseApi<ResourceName> {
     return required(response);
   }
 
+  public unapprove(
+    data: TimesheetAccountingApproveRequest,
+    params?: RequestParams<Entity<ResourceName>>,
+  ): Required<typeof resourceName, Resources[typeof resourceName][]> {
+    const response = this._put<ResourceName>('unapprove', data, params);
+    return required(response);
+  }
+
   public update(data: TimesheetAccountingUpdate, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName> {
     const response = this._put<ResourceName>('update', data, params);
     return requiredSingle(response);
