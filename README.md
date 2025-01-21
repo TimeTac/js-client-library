@@ -42,7 +42,7 @@ regular intervals. Access credentials are available in the react playground's
 import Api from "@timetac/js-client-library"
 //Only account name is required.
 const environment = {
-  host: 'go.timetac.com',
+  host: 'api.timetac.com',
   https?: boolean;
   account: <ACCOUNT_NAME>,
   version: 3,

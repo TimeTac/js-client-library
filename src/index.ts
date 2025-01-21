@@ -198,7 +198,7 @@ export { HolidayAdjustmentAdd, HolidayAdjustmentRemove } from './holidayAdjustme
 export { HourType } from './hourTypes/types';
 export { UserEvent } from './userEvents/types';
 
-const DEFAULT_HOST = 'go.timetac.com';
+const DEFAULT_HOST = 'api.timetac.com';
 
 export default class Api {
   public config: ConfigProvider;

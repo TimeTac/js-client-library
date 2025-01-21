@@ -12,7 +12,7 @@ import { RequestPromise, optional, list, requiredSingle, RequestBatchPromise } f
 import { User } from './users/types';
 import { DeltaSyncParams } from './utils/params/deltaSyncParams';
 
-const DEFAULT_HOST = 'go.timetac.com';
+const DEFAULT_HOST = 'api.timetac.com';
 const DEFAULT_API_VERSION = 4;
 
 export type Tokens = {
