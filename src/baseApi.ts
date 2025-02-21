@@ -189,6 +189,7 @@ export default abstract class BaseApi<ResourceName extends ResourceNames> {
 
   public read(params?: RequestParams<Entity<ResourceName>> | string): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
     const response = this._get<ResourceName>('read', { params });
+    console.log(response);
     return list(response);
   }
 

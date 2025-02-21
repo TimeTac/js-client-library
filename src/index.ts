@@ -73,6 +73,8 @@ import { HolidayAdjustmentEndpoint } from './holidayAdjustment';
 import { HourTypesEndpoint } from './hourTypes';
 import { FetchDataEndpoint } from './fetchData';
 import { UserEventsEndpoint } from './userEvents';
+import { WorkingTimeBalanceRulesEndpoint } from './workingTimeBalanceRules';
+import { WorkingTimeCyclesEndpoint } from './workingTimeCycles';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -197,6 +199,8 @@ export { TimesheetActionLogs } from './timesheetActionLogs/types';
 export { HolidayAdjustmentAdd, HolidayAdjustmentRemove } from './holidayAdjustment/types';
 export { HourType } from './hourTypes/types';
 export { UserEvent } from './userEvents/types';
+export * from './workingTimeBalanceRules/types';
+export * from './workingTimeCycles/types';
 
 const DEFAULT_HOST = 'api.timetac.com';
 
@@ -276,6 +280,8 @@ export default class Api {
   public hourTypes: HourTypesEndpoint;
   public fetchData: FetchDataEndpoint;
   public userEvents: UserEventsEndpoint;
+  public workingTimeBalanceRules: WorkingTimeBalanceRulesEndpoint;
+  public workingTimeCycles: WorkingTimeCyclesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -361,6 +367,8 @@ export default class Api {
     this.publicHolidays = new PublicHolidaysEndpoint(this.config);
     this.fetchData = new FetchDataEndpoint(this.config);
     this.userEvents = new UserEventsEndpoint(this.config);
+    this.workingTimeBalanceRules = new WorkingTimeBalanceRulesEndpoint(this.config);
+    this.workingTimeCycles = new WorkingTimeCyclesEndpoint(this.config);
 
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     this.hourTypes = new HourTypesEndpoint(this.config);
