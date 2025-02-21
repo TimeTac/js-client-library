@@ -20,6 +20,7 @@ export type WorkSchedule = {
   minijobber_always_deduct_overtime?: boolean;
   minijobber_absence_credit?: number;
   active: number;
+  overtime_allowance_always_deduct?: number;
 };
 
 export type WorkScheduleCreate = Omit<
