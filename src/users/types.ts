@@ -94,6 +94,11 @@ export type UserReadFull = UserReadObscured & {
   user_role_ids: string;
   authentication_blocked: boolean;
   unsuccessful_login_count: number;
+  overtime_allowance_is_all_in?: boolean;
+  overtime_allowance_is_all_in_valid_starting_from?: string;
+  overtime__all_inc_ov_hours_per_cycle_valid_starting_from: string;
+  overtime_allowance_clear_working_time_saldo_valid_starting_from: string;
+  working_time_balance_rule_cycle_id?: number;
 };
 
 export type UserRead = UserReadFull | UserReadObscured;
