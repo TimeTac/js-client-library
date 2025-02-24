@@ -12,6 +12,7 @@ import {
   TimeTrackingApprove,
   TimeTrackingCreate,
   TimeTrackingReject,
+  TimeTrackingSplit,
   TimeTrackingUpdate,
   ToggleTimeTrackingData,
 } from './types';
@@ -60,6 +61,11 @@ export class TimeTrackingsEndpoint extends BaseApi<ResourceName> {
   public reject(data: TimeTrackingReject): Required<typeof resourceName, Resources[typeof resourceName][]> {
     const response = this._put<ResourceName>('reject', data);
     return required(response);
+  }
+
+  public split(data: TimeTrackingSplit): Promise<LibraryReturn<ResourceName>> {
+    const response = this._post<ResourceName>('split', data);
+    return requiredSingle(response);
   }
 
   public toggle(data: ToggleTimeTrackingData): Promise<LibraryReturn<ResourceName>> {
