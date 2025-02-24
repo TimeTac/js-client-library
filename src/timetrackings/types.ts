@@ -134,6 +134,38 @@ export interface TimeTracking {
   end_oauth_client_id?: string;
 }
 
+export type TimeTrackingSplit = Pick<
+  TimeTracking,
+  | 'id'
+  | 'task_id'
+  | 'max_hours_alert'
+  | 'is_billable'
+  | 'notes'
+  | 'geo_lat'
+  | 'geo_long'
+  | 'geo_accuracy'
+  | 't_iv_1'
+  | 't_iv_2'
+  | 't_iv_3'
+  | 't_iv_4'
+  | 't_iv_5'
+  | 't_iv_6'
+  | 'u_iv_1'
+  | 'u_iv_2'
+  | 'u_iv_3'
+  | 'u_iv_4'
+  | 'u_iv_5'
+  | 'u_iv_6'
+> & {
+  timezone: string;
+  time: string;
+  _request_user_comment?: boolean;
+  _is_offline_live_tracking?: boolean;
+  _insert_into_conflicting?: boolean;
+  _entity_to_create?: string;
+  _write_permission_type?: string;
+};
+
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
 export type TimeTrackingRead = Partial<
   Omit<

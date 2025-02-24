@@ -126,6 +126,8 @@ export {
   TimeTrackingUpdate,
   TimeTrackingApprove,
   TimeTrackingReject,
+  TimeTrackingSplit,
+  ToggleTimeTrackingData,
 } from './timetrackings/types';
 export { Timezone } from './timezones/types';
 export { TodoTask, TodoTaskCreate } from './todoTasks/types';
