@@ -33,7 +33,7 @@ import { PermissionResolveUser } from '../../permissions/permissionResolveUsers/
 import { PermissionResolveDepartment } from '../../permissions/permissionResolveDepartments/types';
 import { Country } from '../../countries/types';
 import { File } from '../../files/types';
-import { UserTemplateHistory } from '../../userTemplateHistory/types';
+import { UserTemplateHistoryView } from '../../userTemplateHistory/types';
 import { Salutation } from '../../salutations/types';
 import { PermissionResolveAbsenceTypesAndUser } from '../../permissions/permissionResolveAbsenceTypesAndUsers/types';
 import { Feature } from '../../features/types';
@@ -207,7 +207,7 @@ export interface Resources {
   feedback: Feedback;
   userDefinedFieldDefinitions: UserDefinedFieldDefinitions;
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
-  userTemplateHistory: UserTemplateHistory;
+  userTemplateHistory: UserTemplateHistoryView;
   salutations: Salutation;
   workSchedules: WorkSchedule;
   workScheduleDays: WorkScheduleDay;
