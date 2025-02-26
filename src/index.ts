@@ -138,7 +138,7 @@ export { UserDefinedFieldDefinitionOptions } from './userDefinedFieldDefinitionO
 export { UserDefinedFieldDefinitions, UserDefinedFieldDefinitionsIds } from './userDefinedFieldDefinitions/types';
 export { UserRoleSet } from './userRoles/types';
 export { UserStatusOverview } from './userStatusOverview/types';
-export { UserTemplateHistory } from './userTemplateHistory/types';
+export { UserTemplateHistory, UserTemplateHistoryView } from './userTemplateHistory/types';
 export {
   User,
   UserCreate,
