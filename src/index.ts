@@ -125,6 +125,7 @@ export {
   StopTimeTrackingData,
   TimeTracking,
   TimeTrackingCreate,
+  TimeTrackingInsert,
   TimeTrackingUpdate,
   TimeTrackingApprove,
   TimeTrackingReject,
