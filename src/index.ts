@@ -75,6 +75,7 @@ import { FetchDataEndpoint } from './fetchData';
 import { UserEventsEndpoint } from './userEvents';
 import { WorkingTimeBalanceRulesEndpoint } from './workingTimeBalanceRules';
 import { WorkingTimeCyclesEndpoint } from './workingTimeCycles';
+import { TimeTrackingChangelogsEndPoint } from './timeTrackingChangelogs';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -204,6 +205,8 @@ export { UserEvent } from './userEvents/types';
 export * from './workingTimeBalanceRules/types';
 export * from './workingTimeCycles/types';
 
+export * from './timeTrackingChangelogs/types';
+
 const DEFAULT_HOST = 'api.timetac.com';
 
 export default class Api {
@@ -235,6 +238,7 @@ export default class Api {
   public teams: TeamsEndpoint;
   public timesheetAccountings: TimesheetAccountingsEndpoint;
   public timesheetActionLogs: TimesheetActionLogsEndpoint;
+  public timeTrackingChangelogs: TimeTrackingChangelogsEndPoint;
   public timeTrackings: TimeTrackingsEndpoint;
   public timePlannings: TimePlanningsEndpoint;
   public translations: TranslationsEndpoint;
@@ -322,6 +326,7 @@ export default class Api {
     this.teams = new TeamsEndpoint(this.config);
     this.timesheetAccountings = new TimesheetAccountingsEndpoint(this.config);
     this.timesheetActionLogs = new TimesheetActionLogsEndpoint(this.config);
+    this.timeTrackingChangelogs = new TimeTrackingChangelogsEndPoint(this.config);
     this.timeTrackings = new TimeTrackingsEndpoint(this.config);
     this.timePlannings = new TimePlanningsEndpoint(this.config);
     this.translations = new TranslationsEndpoint(this.config);

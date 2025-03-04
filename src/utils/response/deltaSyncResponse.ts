@@ -15,6 +15,7 @@ import { TodoTask } from '../../todoTasks/types';
 import { User } from '../../users/types';
 import { UserStatusOverview } from '../../userStatusOverview/types';
 import { ChangeTimeTrackingRequest } from '../../changeTimeTrackingRequests/types';
+import { TimeTrackingChangelogs } from '../../timeTrackingChangelogs/types';
 import { RawApiResponse } from './rawApiResponse';
 import { ResourceResponse } from './resourceResponse';
 
@@ -45,6 +46,7 @@ export function createDeltaSyncResponse(rawApiResponse: RawApiResponse): DeltaSy
       todoTasks: convert<TodoTask>(rawApiResponse, 'todoTasks'),
       users: convert<User>(rawApiResponse, 'users'),
       userStatusOverview: convert<UserStatusOverview>(rawApiResponse, 'userStatusOverview'),
+      timeTrackingChangelogs: convert<TimeTrackingChangelogs>(rawApiResponse, 'timeTrackingChangelogs'),
     },
   };
 }

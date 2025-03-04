@@ -68,6 +68,7 @@ import { HourType } from '../../hourTypes/types';
 import { UserEvent } from '../../userEvents/types';
 import { WorkingTimeBalanceRule } from '../../workingTimeBalanceRules/types';
 import { WorkingTimeCycle } from '../../workingTimeCycles/types';
+import { TimeTrackingChangelogs } from '../../timeTrackingChangelogs/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -144,6 +145,7 @@ export const resourceNameArray = [
   'userEvents',
   'workingTimeBalanceRules',
   'workingTimeCycles',
+  'timeTrackingChangelogs',
 ] as const;
 
 export interface Resources {
@@ -197,7 +199,7 @@ export interface Resources {
   timesheetAccountings: TimesheetAccounting;
   timesheetAccountingSummaries: TimesheetAccountingSummaries;
   timesheetActionLogs: TimesheetActionLogs;
-  // timetrackingChangelogs: TimetrackingChangelog;
+  timeTrackingChangelogs: TimeTrackingChangelogs;
   timeTrackings: TimeTracking;
   translations: Translation;
   favouriteTasks: FavouriteTask;
