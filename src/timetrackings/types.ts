@@ -166,6 +166,32 @@ export type TimeTrackingSplit = Pick<
   _write_permission_type?: string;
 };
 
+export type TimeTrackingInsert = Pick<
+  TimeTracking,
+  | 'id'
+  | 'user_id'
+  | 'task_id'
+  | 'start_time'
+  | 'start_time_timezone'
+  | 'notes'
+  | 'end_time'
+  | 'end_time_timezone'
+  | 't_iv_1'
+  | 't_iv_2'
+  | 't_iv_3'
+  | 't_iv_4'
+  | 't_iv_5'
+  | 't_iv_6'
+  | 'u_iv_1'
+  | 'u_iv_2'
+  | 'u_iv_3'
+  | 'u_iv_4'
+  | 'u_iv_5'
+  | 'u_iv_6'
+> & {
+  _insert_into_conflicting?: boolean;
+};
+
 export type TimeTrackingCreate = Omit<TimeTracking, 'id'>;
 export type TimeTrackingRead = Partial<
   Omit<
