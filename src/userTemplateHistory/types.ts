@@ -19,4 +19,5 @@ export type UserTemplateHistoryView = {
   cycle_name: string;
   rule_name: string;
   clear_working_time_saldo: number;
+  created_at: string;
 };
