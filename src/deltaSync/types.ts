@@ -16,6 +16,7 @@ import { UserStatusOverview } from '../userStatusOverview/types';
 import { ResourceResponse } from '../utils/response/resourceResponse';
 import { ChangeTimeTrackingRequest } from '../changeTimeTrackingRequests/types';
 import { TimesheetActionLogs } from '../timesheetActionLogs/types';
+import { TimeTrackingChangelogs } from '../timeTrackingChangelogs/types';
 
 export type DeltaSyncResults = {
   // absenceBans?: Response<AbsenceBan>;
@@ -46,7 +47,6 @@ export type DeltaSyncResults = {
   // timePlannings?: Response<TimePlanning>;
   // timesheetAccountingSummaries?: Response<TimesheetAccountingSummarie>;
   timesheetActionLogs?: ResourceResponse<TimesheetActionLogs>;
-  // timetrackingChangelogs?: Response<TimetrackingChangelog>;
   // translations?: Response<Translation>;
   absenceDays?: ResourceResponse<AbsenceDay>;
   absences?: ResourceResponse<Absence>;
@@ -64,4 +64,5 @@ export type DeltaSyncResults = {
   todoTasks?: ResourceResponse<TodoTask>;
   users?: ResourceResponse<User>;
   userStatusOverview?: ResourceResponse<UserStatusOverview>;
+  timeTrackingChangelogs?: ResourceResponse<TimeTrackingChangelogs>;
 };

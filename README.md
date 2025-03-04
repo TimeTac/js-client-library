@@ -195,7 +195,7 @@ async() => {
 - [x] [timesheetAccountings](https://api.timetac.com/doc/v3#tag/timesheetAccountings)
 - [x] [timesheetAccountingSummaries](https://api.timetac.com/doc/v3#tag/timesheetAccountingSummaries)
 - [ ] [timesheetActionLogs](https://api.timetac.com/doc/v3#tag/timesheetActionLogs)
-- [ ] [timeTrackingChangelogs](https://api.timetac.com/doc/v3#tag/timeTrackingChangelogs)
+- [x] [timeTrackingChangelogs](https://api.timetac.com/doc/v3#tag/timeTrackingChangelogs)
 - [x] [timeTrackings](https://api.timetac.com/doc/v3#tag/timeTrackings)
 - [x] [timezones](https://api.timetac.com/doc/v3#tag/timezones)
 - [x] [todoTasks](https://api.timetac.com/doc/v3#tag/todoTasks)
