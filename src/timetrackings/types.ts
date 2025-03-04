@@ -189,7 +189,6 @@ export type TimeTrackingInsert = Pick<
   | 'u_iv_5'
   | 'u_iv_6'
 > & {
-  timer_id: number;
   _insert_into_conflicting?: boolean;
 };
 
