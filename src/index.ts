@@ -76,6 +76,7 @@ import { UserEventsEndpoint } from './userEvents';
 import { WorkingTimeBalanceRulesEndpoint } from './workingTimeBalanceRules';
 import { WorkingTimeCyclesEndpoint } from './workingTimeCycles';
 import { TimeTrackingChangelogsEndPoint } from './timeTrackingChangelogs';
+import { UserPreferencesEndpoint } from './userPreferences';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -151,6 +152,7 @@ export {
   UserResetPassword,
   UserUpdate,
   UserUpdatePassword,
+  UserInvite,
 } from './users/types';
 export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
@@ -198,11 +200,12 @@ export { MonitoringRuleIntervalsRead } from './monitoringRule/monitoringRuleInte
 export { MonitoringRuleFrequencyRead } from './monitoringRule/monitoringRuleFrequencies/types';
 export { DeletedData } from './utils/response/apiResponse';
 export { SsoConfig, SsoConfigUpdate, SsoConfigCreate } from './ssoConfig/types';
+export { UserPreferenceRead, UserPreferenceName, UserPreferenceSet, UserPreferenceUpdate } from './userPreferences/types';
 export { PublicHolidays, PublicHolidaysCreate, PublicHolidaysUpdate } from './publicHolidays/types';
 export { TimesheetActionLogs } from './timesheetActionLogs/types';
 export { HolidayAdjustmentAdd, HolidayAdjustmentRemove } from './holidayAdjustment/types';
 export { HourType } from './hourTypes/types';
-export { UserEvent } from './userEvents/types';
+export { UserEvent, UserEventCreate } from './userEvents/types';
 export * from './workingTimeBalanceRules/types';
 export * from './workingTimeCycles/types';
 
@@ -289,6 +292,7 @@ export default class Api {
   public userEvents: UserEventsEndpoint;
   public workingTimeBalanceRules: WorkingTimeBalanceRulesEndpoint;
   public workingTimeCycles: WorkingTimeCyclesEndpoint;
+  public userPreferences: UserPreferencesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -377,6 +381,7 @@ export default class Api {
     this.userEvents = new UserEventsEndpoint(this.config);
     this.workingTimeBalanceRules = new WorkingTimeBalanceRulesEndpoint(this.config);
     this.workingTimeCycles = new WorkingTimeCyclesEndpoint(this.config);
+    this.userPreferences = new UserPreferencesEndpoint(this.config);
 
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     this.hourTypes = new HourTypesEndpoint(this.config);
