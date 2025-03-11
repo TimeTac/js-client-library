@@ -69,6 +69,7 @@ import { UserEvent } from '../../userEvents/types';
 import { WorkingTimeBalanceRule } from '../../workingTimeBalanceRules/types';
 import { WorkingTimeCycle } from '../../workingTimeCycles/types';
 import { TimeTrackingChangelogs } from '../../timeTrackingChangelogs/types';
+import { UserPreferenceRead } from '../../userPreferences/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -146,6 +147,7 @@ export const resourceNameArray = [
   'workingTimeBalanceRules',
   'workingTimeCycles',
   'timeTrackingChangelogs',
+  'userPreferences',
 ] as const;
 
 export interface Resources {
@@ -238,6 +240,7 @@ export interface Resources {
   userEvents: UserEvent;
   workingTimeBalanceRules: WorkingTimeBalanceRule;
   workingTimeCycles: WorkingTimeCycle;
+  userPreferences: UserPreferenceRead;
 }
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
