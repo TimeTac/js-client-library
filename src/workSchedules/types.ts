@@ -19,7 +19,7 @@ export type WorkSchedule = {
   minijobber_deduction_hours?: number;
   minijobber_always_deduct_overtime?: boolean;
   minijobber_absence_credit?: number;
-  active: number;
+  active: boolean;
   overtime_allowance_always_deduct?: number;
 };
 
