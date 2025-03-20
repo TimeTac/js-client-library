@@ -6,4 +6,10 @@ export type HourType = {
   additionPercentage: string;
   tooltip: string;
   legend: string;
+  usableForTimesheetTemplates: boolean;
+  includeInDailyBalance: boolean;
+  showInWorkingOverview: boolean;
+  showInUserStatistics: boolean;
+  order_by?: number;
+  slotType?: number;
 };
