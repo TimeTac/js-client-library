@@ -30,6 +30,10 @@ export type TimesheetAccounting = {
   user_defined_time_6?: number;
   user_defined_time_7?: number;
   user_defined_time_8?: number;
+  user_defined_time_9?: number;
+  user_defined_time_10?: number;
+  user_defined_time_11?: number;
+  user_defined_time_12?: number;
   excess_work?: number;
   excess_work_consumption?: number;
   excess_work_adjustments?: number;
@@ -93,6 +97,10 @@ export type TimesheetAccounting = {
   user_defined_day_6?: number;
   user_defined_day_7?: number;
   user_defined_day_8?: number;
+  user_defined_day_9?: number;
+  user_defined_day_10?: number;
+  user_defined_day_11?: number;
+  user_defined_day_12?: number;
   comment?: string;
   data_changed?: string;
   break_law_check: number;
