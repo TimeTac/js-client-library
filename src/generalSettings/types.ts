@@ -8,6 +8,9 @@ export type GeneralSetting = {
   text?: string;
   type?: number;
   data_changed: string;
+  datatype: 'string';
+  allowable_values: string;
+  updatable: boolean;
 };
 
 export type GeneralSettingUpdate = Pick<GeneralSetting, 'id' | 'setting_value'>;
