@@ -8,7 +8,7 @@ export type GeneralSetting = {
   text?: string;
   type?: number;
   data_changed: string;
-  datatype: 'string';
+  datatype: string;
   allowable_values: string;
   updatable: boolean;
 };
