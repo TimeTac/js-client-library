@@ -3,4 +3,5 @@ export type AutomaticBreakTemplate = {
   templateName: string;
   dryRun: boolean;
   active: boolean;
+  editable: boolean;
 };
