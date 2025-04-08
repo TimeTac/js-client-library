@@ -15,24 +15,28 @@ const mockData: {
       templateName: '30min ab 6h Arbeitszeit',
       dryRun: false,
       active: true,
+      editable: true,
     },
     {
       id: 4,
       templateName: '60min ab 6h Arbeitszeit',
       dryRun: false,
       active: true,
+      editable: true,
     },
     {
       id: 5,
       templateName: '30min ab 6h, 45min ab 9h Arbeitszeit',
       dryRun: true,
       active: true,
+      editable: true,
     },
     {
       id: 6,
       templateName: '15min ab 5,5h; 30min ab 7h; 60min ab 9h Arbeitszeit',
       dryRun: false,
       active: true,
+      editable: false,
     },
   ],
 };
