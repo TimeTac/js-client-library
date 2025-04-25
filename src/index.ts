@@ -77,6 +77,7 @@ import { WorkingTimeBalanceRulesEndpoint } from './workingTimeBalanceRules';
 import { WorkingTimeCyclesEndpoint } from './workingTimeCycles';
 import { TimeTrackingChangelogsEndPoint } from './timeTrackingChangelogs';
 import { UserPreferencesEndpoint } from './userPreferences';
+import { CalculationStatesEndpoint } from './calculationStates';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -206,6 +207,7 @@ export { TimesheetActionLogs } from './timesheetActionLogs/types';
 export { HolidayAdjustmentAdd, HolidayAdjustmentRemove } from './holidayAdjustment/types';
 export { HourType } from './hourTypes/types';
 export { UserEvent, UserEventCreate } from './userEvents/types';
+export { CalculationStates } from './calculationStates/types';
 export * from './workingTimeBalanceRules/types';
 export * from './workingTimeCycles/types';
 
@@ -293,6 +295,7 @@ export default class Api {
   public workingTimeBalanceRules: WorkingTimeBalanceRulesEndpoint;
   public workingTimeCycles: WorkingTimeCyclesEndpoint;
   public userPreferences: UserPreferencesEndpoint;
+  public calculationStates: CalculationStatesEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -382,6 +385,7 @@ export default class Api {
     this.workingTimeBalanceRules = new WorkingTimeBalanceRulesEndpoint(this.config);
     this.workingTimeCycles = new WorkingTimeCyclesEndpoint(this.config);
     this.userPreferences = new UserPreferencesEndpoint(this.config);
+    this.calculationStates = new CalculationStatesEndpoint(this.config);
 
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     this.hourTypes = new HourTypesEndpoint(this.config);
