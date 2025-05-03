@@ -125,7 +125,7 @@ describe('axiosSetup', () => {
       mock.onGet(readPath).timeout();
       await api.tasks.read();
     } catch (error) {
-      expect(error).toMatchObject({ message: 'timeout of 30000ms exceeded' });
+      expect(error).toMatchObject({ message: 'canceled' });
     }
 
     expect.assertions(1);
