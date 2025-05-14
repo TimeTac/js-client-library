@@ -101,6 +101,8 @@ const mockCreatePayloadData = {
     absence_subtype_id: 0,
     absence_group_id: 0,
     duration_unit: AbsenceDurationUnit.Days,
+    cycle_id: 1,
+    cycle_max_days: 10,
   },
 };
 

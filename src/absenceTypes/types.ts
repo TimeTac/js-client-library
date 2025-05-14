@@ -124,7 +124,18 @@ export type AbsenceType = {
   is_visible_for_edit?: boolean;
 };
 
-export type AbsenceTypeCreate = Omit<AbsenceType, 'id'>;
+type CycleFields = {
+  /**
+   * Indicates the cycle of personal days being used.
+   */
+  cycle_id?: number;
+  /**
+   * Says how many personal days are in the cycle.
+   */
+  cycle_max_days?: number;
+};
+
+export type AbsenceTypeCreate = Omit<AbsenceType, 'id'> & CycleFields;
 
 export type AbsenceTypeUpdate = Partial<
   Omit<
@@ -140,4 +151,4 @@ export type AbsenceTypeUpdate = Partial<
   >
 > & {
   id: number;
-};
+} & CycleFields;
