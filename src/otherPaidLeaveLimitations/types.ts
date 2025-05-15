@@ -7,7 +7,7 @@ export type OtherPaidLeaveLimitation = {
   cycle_max_days: number;
 };
 
-export type OtherPaidLeaveLimitationCreate = Omit<Partial<OtherPaidLeaveLimitation>, 'id'> & {
+export type OtherPaidLeaveLimitationCreate = {
   absence_type_id: number;
   absence_subtype_id: number;
   user_id: number;
@@ -15,6 +15,6 @@ export type OtherPaidLeaveLimitationCreate = Omit<Partial<OtherPaidLeaveLimitati
   cycle_max_days: number;
 };
 
-export type OtherPaidLeaveLimitationUpdate = Omit<Partial<OtherPaidLeaveLimitation>, never> & {
+export type OtherPaidLeaveLimitationUpdate = Partial<OtherPaidLeaveLimitation> & {
   id: number;
 };
