@@ -44,6 +44,7 @@ export type TimesheetAccountingSummaries = {
     requested: number;
     granted: number;
     available: number;
+    header_from_to_text: string;
   }>;
   overtime?: {
     overtime_header: string;
