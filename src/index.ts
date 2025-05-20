@@ -78,6 +78,7 @@ import { WorkingTimeCyclesEndpoint } from './workingTimeCycles';
 import { TimeTrackingChangelogsEndPoint } from './timeTrackingChangelogs';
 import { UserPreferencesEndpoint } from './userPreferences';
 import { CalculationStatesEndpoint } from './calculationStates';
+import { OtherPaidLeaveLimitationsEndpoint } from './otherPaidLeaveLimitations';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -121,6 +122,11 @@ export { TimePlanning } from './timeplannings/types';
 export { Integration } from './integrations/types';
 export { IntegrationCategory } from './integrationCategories/types';
 export { IntegrationToCategory } from './integrationsToCategories/types';
+export {
+  OtherPaidLeaveLimitationCreate,
+  OtherPaidLeaveLimitationUpdate,
+  OtherPaidLeaveLimitation,
+} from './otherPaidLeaveLimitations/types';
 export { TimesheetAccountingSummaries, TimesheetAccountingSummariesRead } from './timesheetAccountingSummaries/types';
 export { TimesheetAccounting, TimesheetAccountingApproveRequest, TimesheetAccountingUpdate } from './timesheetAccountings/types';
 export {
@@ -296,6 +302,7 @@ export default class Api {
   public workingTimeCycles: WorkingTimeCyclesEndpoint;
   public userPreferences: UserPreferencesEndpoint;
   public calculationStates: CalculationStatesEndpoint;
+  public otherPaidLeaveLimitations: OtherPaidLeaveLimitationsEndpoint;
 
   constructor(config: ApiConfig) {
     this.config = new ConfigProvider({
@@ -386,6 +393,7 @@ export default class Api {
     this.workingTimeCycles = new WorkingTimeCyclesEndpoint(this.config);
     this.userPreferences = new UserPreferencesEndpoint(this.config);
     this.calculationStates = new CalculationStatesEndpoint(this.config);
+    this.otherPaidLeaveLimitations = new OtherPaidLeaveLimitationsEndpoint(this.config);
 
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     this.hourTypes = new HourTypesEndpoint(this.config);

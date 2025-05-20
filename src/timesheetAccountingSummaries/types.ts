@@ -36,6 +36,16 @@ export type TimesheetAccountingSummaries = {
     holiday_available: number;
     period_from: string;
   };
+  other_absences_with_limits: Array<{
+    id: number;
+    absence_type_id: number;
+    absence_subtype_id: number;
+    cycle_max_days: number;
+    requested: number;
+    granted: number;
+    available: number;
+    header_from_to_text: string;
+  }>;
   overtime?: {
     overtime_header: string;
     overtime_saldo: number;
