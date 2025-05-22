@@ -71,6 +71,7 @@ import { WorkingTimeCycle } from '../../workingTimeCycles/types';
 import { TimeTrackingChangelogs } from '../../timeTrackingChangelogs/types';
 import { UserPreferenceRead } from '../../userPreferences/types';
 import { CalculationStates } from '../../calculationStates/types';
+import { PaidBreaksHistory } from '../../paidBreaksHistory/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -122,6 +123,7 @@ export const resourceNameArray = [
   'workSchedules',
   'workScheduleDays',
   'workScheduleDayDefinitions',
+  'paidBreaksHistory',
   'publicHolidayTemplates',
   'publicHolidays',
   'userRoles',
@@ -244,6 +246,7 @@ export interface Resources {
   workingTimeCycles: WorkingTimeCycle;
   userPreferences: UserPreferenceRead;
   calculationStates: CalculationStates;
+  paidBreaksHistory: PaidBreaksHistory;
 }
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
