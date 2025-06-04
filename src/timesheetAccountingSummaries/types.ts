@@ -58,4 +58,5 @@ export type TimesheetAccountingSummaries = {
 
 export type TimesheetAccountingSummariesRead = {
   user_id: number;
+  start_date?: string;
 };
