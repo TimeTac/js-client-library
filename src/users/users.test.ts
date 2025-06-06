@@ -4,7 +4,7 @@ import axios from 'axios';
 import AxiosMockAdapter from 'axios-mock-adapter';
 import { ConfigProvider } from '../utils';
 import { UpdateRawResponse } from '../utils/response/updateRawResponse';
-import { ParsedErrorMesage } from '../utils/response/responseHandlers';
+import { ParsedErrorMessage } from '../utils/response/responseHandlers';
 import { LibraryReturn } from '../utils/response/apiResponse';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { UserRead, UserUpdate, UserCreate, UserReadMe } from './types';
@@ -327,7 +327,7 @@ describe('Users', () => {
           message: failure.ErrorExtended.errorString,
           response: failure,
           //This is just a workaround as stack if different per environment, so we are not really testing new Error().stack
-          stack: (results.Results[1] as ParsedErrorMesage).stack,
+          stack: (results.Results[1] as ParsedErrorMessage).stack,
         },
       ],
     });

@@ -38,6 +38,11 @@ export class DeltaSyncParams {
     return this;
   }
 
+  includeWithCustomFields<T>(values: T[]): DeltaSyncParams {
+    this.requestParams['_include'] = values.join(',');
+    return this;
+  }
+
   resource<F extends ResourceNames>(resource: F, addFilter: (params: RequestParamsBuilder<Entity<F>>) => void): DeltaSyncParams {
     const params = new RequestParamsBuilder<Entity<F>>();
     addFilter(params);
