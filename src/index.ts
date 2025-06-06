@@ -1,9 +1,10 @@
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { AbsenceBansEndpoint } from './absenceBans';
 import { AbsenceDaysEndpoint } from './absenceDays';
 import { AbsenceTypesEndpoint } from './absenceTypes';
 import { AbsencesEndpoint } from './absences';
 import { AuthenticationEndpoint } from './authentication';
-import { ApiConfig, ApiState } from './baseApi';
+import { ApiConfig, ApiState, DEFAULT_API_VERSION } from './baseApi';
 import { ChangeTimeTrackingRequestEndpoint } from './changeTimeTrackingRequests';
 import { ClientsEndpoint } from './clients';
 import { CountriesEndpoint } from './countries';
@@ -221,6 +222,21 @@ export * from './timeTrackingChangelogs/types';
 
 const DEFAULT_HOST = 'api.timetac.com';
 
+export type TimeTacAxiosOptions = AxiosRequestConfig;
+
+export type TimeTacAxiosResponse<T> = AxiosResponse<T>;
+
+export type TimeTacConfigProvider = ConfigProvider;
+
+export type TimeTacAxiosError = AxiosError;
+
+export type TimeTacAxiosInstance = {
+  get<R = unknown>(url: string, config?: TimeTacAxiosOptions): Promise<AxiosResponse<R>>;
+  post<R = unknown>(url: string, data?: object, config?: TimeTacAxiosOptions): Promise<AxiosResponse<R>>;
+  put<R = unknown>(url: string, data?: object, config?: TimeTacAxiosOptions): Promise<AxiosResponse<R>>;
+  delete<R = unknown>(url: string, config?: TimeTacAxiosOptions): Promise<AxiosResponse<R>>;
+};
+
 export default class Api {
   public config: ConfigProvider;
   public state: ApiState;
@@ -422,5 +438,33 @@ export default class Api {
 
   public setCustomRequestHeaders(customRequestHeaders: { [key: string]: string }): void {
     this.config.settings.customRequestHeaders = { ...this.getCustomRequestHeaders(), ...customRequestHeaders };
+  }
+
+  public getAxios(): TimeTacAxiosInstance {
+    return {
+      get: (url, config) => axios.get(url, config),
+      post: (url, data, config) => axios.post(url, data, config),
+      put: (url, data, config) => axios.put(url, data, config),
+      delete: (url, config) => axios.delete(url, config),
+    };
+  }
+
+  public get apiPath(): string {
+    if (this.config.settings.account == null) {
+      console.warn('Account is not set, using default host');
+    }
+    const accountUrl = `${axios.defaults.baseURL ?? DEFAULT_HOST}/${this.config.settings.account}/`;
+    const apiPrefix =
+      this.config.settings.apiPrefix === undefined
+        ? 'userapi/'
+        : this.config.settings.apiPrefix.length > 0
+          ? `${this.config.settings.apiPrefix}`
+          : '';
+    const apiPath = `${accountUrl}${apiPrefix}v${this.config.settings.version ?? DEFAULT_API_VERSION}/`;
+    return apiPath;
+  }
+
+  public get configuration(): ConfigProvider {
+    return this.config;
   }
 }

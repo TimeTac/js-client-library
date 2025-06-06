@@ -1,5 +1,5 @@
 import BaseApi from '../baseApi';
-import { ParsedErrorMesage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { ParsedErrorMessage, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
 import { Entity, LibraryReturn } from '../utils/response/apiResponse';
 import { RequestParams } from '../utils/params/requestParams';
 import { Department, DepartmentCreate, DepartmentUpdate } from './types';
@@ -15,18 +15,18 @@ export class DepartmentsEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public async update(data: DepartmentUpdate[]): Required<typeof resourceName, (ParsedErrorMesage | Department)[]>;
+  public async update(data: DepartmentUpdate[]): Required<typeof resourceName, (ParsedErrorMessage | Department)[]>;
 
   public async update(data: DepartmentUpdate): Required<ResourceName>;
 
   public async update(
     data: DepartmentUpdate | DepartmentUpdate[],
-  ): Promise<LibraryReturn<'departments', Department> | LibraryReturn<'departments', (ParsedErrorMesage | Department)[]>>;
+  ): Promise<LibraryReturn<'departments', Department> | LibraryReturn<'departments', (ParsedErrorMessage | Department)[]>>;
 
   public async update(
     data: DepartmentUpdate | DepartmentUpdate[],
     params?: RequestParams<Entity<ResourceName>>,
-  ): Promise<LibraryReturn<'departments', Department> | LibraryReturn<'departments', (ParsedErrorMesage | Department)[]>> {
+  ): Promise<LibraryReturn<'departments', Department> | LibraryReturn<'departments', (ParsedErrorMessage | Department)[]>> {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data, params);
       return requiredBatch(response);
