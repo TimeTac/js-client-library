@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { LibraryReturn } from '../utils/response/apiResponse';
-import { ParsedErrorMesage, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { ParsedErrorMessage, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
 import { WorkScheduleDay, WorkScheduleDayUpdate } from './types';
 
 const resourceName = 'workScheduleDays';
@@ -12,7 +12,7 @@ export class WorkScheduleDaysEndpoint extends BaseApi<ResourceName> {
   public async update(
     data: WorkScheduleDayUpdate | WorkScheduleDayUpdate[],
   ): Promise<
-    LibraryReturn<'workScheduleDays', WorkScheduleDay> | LibraryReturn<'workScheduleDays', (ParsedErrorMesage | WorkScheduleDay)[]>
+    LibraryReturn<'workScheduleDays', WorkScheduleDay> | LibraryReturn<'workScheduleDays', (ParsedErrorMessage | WorkScheduleDay)[]>
   > {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data);

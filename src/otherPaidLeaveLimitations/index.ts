@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { Entity, LibraryReturn } from '../utils/response/apiResponse';
-import { ParsedErrorMesage, required, Required, requiredBatch } from '../utils/response/responseHandlers';
+import { ParsedErrorMessage, required, Required, requiredBatch } from '../utils/response/responseHandlers';
 import { RequestParams } from '../utils/params/requestParams';
 import { OtherPaidLeaveLimitation, OtherPaidLeaveLimitationCreate, OtherPaidLeaveLimitationUpdate } from './types';
 
@@ -23,7 +23,7 @@ export class OtherPaidLeaveLimitationsEndpoint extends BaseApi<ResourceName> {
     params?: RequestParams<Entity<ResourceName>>,
   ): Promise<
     | LibraryReturn<'otherPaidLeaveLimitations', OtherPaidLeaveLimitation>
-    | LibraryReturn<'otherPaidLeaveLimitations', (ParsedErrorMesage | OtherPaidLeaveLimitation)[]>
+    | LibraryReturn<'otherPaidLeaveLimitations', (ParsedErrorMessage | OtherPaidLeaveLimitation)[]>
   > {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data);

@@ -1,7 +1,7 @@
 import BaseApi from '../baseApi';
 import { RequestParamsBuilder } from '../utils/params/requestParams';
 import { Entity, LibraryReturn } from '../utils/response/apiResponse';
-import { ParsedErrorMesage, required, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { ParsedErrorMessage, required, Required, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
 import { GeneralSetting, GeneralSettingUpdate } from './types';
 
 const resourceName = 'generalSettings';
@@ -19,7 +19,7 @@ export class GeneralSettingsEndpoint extends BaseApi<ResourceName> {
   public async update(
     data: GeneralSettingUpdate | GeneralSettingUpdate[],
   ): Promise<
-    LibraryReturn<ResourceName, Entity<ResourceName>> | LibraryReturn<ResourceName, (ParsedErrorMesage | Entity<ResourceName>)[]>
+    LibraryReturn<ResourceName, Entity<ResourceName>> | LibraryReturn<ResourceName, (ParsedErrorMessage | Entity<ResourceName>)[]>
   > {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data);

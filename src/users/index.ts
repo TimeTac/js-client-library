@@ -5,7 +5,7 @@ import { NonEntityResult, Entity, LibraryReturn } from '../utils/response/apiRes
 import {
   nonEntityResult,
   list,
-  ParsedErrorMesage,
+  ParsedErrorMessage,
   Required,
   requiredBatch,
   requiredSingle,
@@ -51,15 +51,15 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
     return requiredSingle(response);
   }
 
-  public async update(data: UserUpdate[]): Required<typeof resourceName, (ParsedErrorMesage | UserRead)[]>;
+  public async update(data: UserUpdate[]): Required<typeof resourceName, (ParsedErrorMessage | UserRead)[]>;
   public async update(data: UserUpdate): Required<ResourceName>;
   public async update(
     data: UserUpdate | UserUpdate[],
-  ): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', (ParsedErrorMesage | UserRead)[]>>;
+  ): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', (ParsedErrorMessage | UserRead)[]>>;
 
   public async update(
     data: UserUpdate | UserUpdate[],
-  ): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', (ParsedErrorMesage | UserRead)[]>> {
+  ): Promise<LibraryReturn<'users', UserRead> | LibraryReturn<'users', (ParsedErrorMessage | UserRead)[]>> {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data);
       return requiredBatch(response);
@@ -115,7 +115,7 @@ export class UsersEndpoint extends BaseApi<ResourceName> {
 
   public inviteUsers(
     data: UserInvite | Array<UserInvite>,
-  ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | Array<Entity<ResourceName> | ParsedErrorMesage> | undefined>> {
+  ): Promise<LibraryReturn<ResourceName, Entity<ResourceName> | Array<Entity<ResourceName> | ParsedErrorMessage> | undefined>> {
     const response = this._post<ResourceName>('invite', data) as RequestBatchPromise<ResourceName>;
 
     return requiredBatch(response);
