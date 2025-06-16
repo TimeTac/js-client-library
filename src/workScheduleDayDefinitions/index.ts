@@ -1,6 +1,6 @@
 import BaseApi from '../baseApi';
 import { LibraryReturn } from '../utils/response/apiResponse';
-import { ParsedErrorMesage, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
+import { ParsedErrorMessage, requiredBatch, requiredSingle } from '../utils/response/responseHandlers';
 import { WorkScheduleDayDefinitionCreate, WorkScheduleDayDefinitionUpdate, WorkScheduleDayDefinition } from './types';
 
 const resourceName = 'workScheduleDayDefinitions';
@@ -13,7 +13,7 @@ export class WorkScheduleDayDefinitionsEndpoint extends BaseApi<ResourceName> {
     data: WorkScheduleDayDefinitionCreate | WorkScheduleDayDefinitionCreate[],
   ): Promise<
     | LibraryReturn<'workScheduleDayDefinitions', WorkScheduleDayDefinition>
-    | LibraryReturn<'workScheduleDayDefinitions', (ParsedErrorMesage | WorkScheduleDayDefinition)[]>
+    | LibraryReturn<'workScheduleDayDefinitions', (ParsedErrorMessage | WorkScheduleDayDefinition)[]>
   > {
     if (Array.isArray(data)) {
       const response = this._postBatch<ResourceName>('create', data);
@@ -28,7 +28,7 @@ export class WorkScheduleDayDefinitionsEndpoint extends BaseApi<ResourceName> {
     data: WorkScheduleDayDefinitionUpdate | WorkScheduleDayDefinitionUpdate[],
   ): Promise<
     | LibraryReturn<'workScheduleDayDefinitions', WorkScheduleDayDefinition>
-    | LibraryReturn<'workScheduleDayDefinitions', (ParsedErrorMesage | WorkScheduleDayDefinition)[]>
+    | LibraryReturn<'workScheduleDayDefinitions', (ParsedErrorMessage | WorkScheduleDayDefinition)[]>
   > {
     if (Array.isArray(data)) {
       const response = this._putBatch<ResourceName>('update', data);
