@@ -163,6 +163,7 @@ export {
   UserUpdatePassword,
   UserInvite,
 } from './users/types';
+export { UserHistoryEntry } from './userHistory/types';
 export { testAxiosObject } from './utils/axiosSetup';
 export { Pages } from './utils/pages/pages';
 export { DeltaSyncParams } from './utils/params/deltaSyncParams';
