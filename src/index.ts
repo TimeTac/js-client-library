@@ -80,6 +80,7 @@ import { TimeTrackingChangelogsEndPoint } from './timeTrackingChangelogs';
 import { UserPreferencesEndpoint } from './userPreferences';
 import { CalculationStatesEndpoint } from './calculationStates';
 import { OtherPaidLeaveLimitationsEndpoint } from './otherPaidLeaveLimitations';
+import { UserHistoryEndpoint } from './userHistory';
 
 export { AbsenceBan } from './absenceBans/types';
 export { AbsenceDay } from './absenceDays/types';
@@ -275,6 +276,7 @@ export default class Api {
   public userStatusOverview: UserStatusOverviewEndpoint;
   public userDefinedFieldDefinitions: UserDefinedFieldDefinitionsEndpoint;
   public userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptionsEndpoint;
+  public userHistory: UserHistoryEndpoint;
   public changeTimeTrackingsRequest: ChangeTimeTrackingRequestEndpoint;
   public languages: LanguagesEndpoint;
   public legalDocumentAcceptanceLog: LegalDocumentAcceptanceLogEndpoint;
@@ -366,6 +368,7 @@ export default class Api {
     this.userStatusOverview = new UserStatusOverviewEndpoint(this.config);
     this.userDefinedFieldDefinitions = new UserDefinedFieldDefinitionsEndpoint(this.config);
     this.userDefinedFieldDefinitionOptions = new UserDefinedFieldDefinitionOptionsEndpoint(this.config);
+    this.userHistory = new UserHistoryEndpoint(this.config);
     this.changeTimeTrackingsRequest = new ChangeTimeTrackingRequestEndpoint(this.config);
     this.languages = new LanguagesEndpoint(this.config);
     this.legalDocumentAcceptanceLog = new LegalDocumentAcceptanceLogEndpoint(this.config);

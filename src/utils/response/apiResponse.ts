@@ -72,6 +72,7 @@ import { TimeTrackingChangelogs } from '../../timeTrackingChangelogs/types';
 import { UserPreferenceRead } from '../../userPreferences/types';
 import { CalculationStates } from '../../calculationStates/types';
 import { OtherPaidLeaveLimitation } from '../../otherPaidLeaveLimitations/types';
+import { UserHistoryEntry } from '../../userHistory/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -118,6 +119,7 @@ export const resourceNameArray = [
   'feedback',
   'userDefinedFieldDefinitions',
   'userDefinedFieldDefinitionOptions',
+  'userHistory',
   'userTemplateHistory',
   'salutations',
   'workSchedules',
@@ -215,6 +217,7 @@ export interface Resources {
   feedback: Feedback;
   userDefinedFieldDefinitions: UserDefinedFieldDefinitions;
   userDefinedFieldDefinitionOptions: UserDefinedFieldDefinitionOptions;
+  userHistory: UserHistoryEntry;
   userTemplateHistory: UserTemplateHistoryView;
   salutations: Salutation;
   workSchedules: WorkSchedule;
