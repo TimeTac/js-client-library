@@ -20,7 +20,7 @@ export class WorkSchedulesEndpoint extends BaseApi<ResourceName> {
     return required(response);
   }
 
-  public copy(data: {id:number}, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName, Entity<ResourceName>[]> {
+  public copy(data: { id: number }, params?: RequestParams<Entity<ResourceName>>): Required<ResourceName, Entity<ResourceName>[]> {
     const response = this._post<ResourceName>('copy', data, params);
     return required(response);
   }

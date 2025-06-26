@@ -21,7 +21,7 @@ export type WorkSchedule = {
   minijobber_absence_credit?: number;
   active: boolean;
   overtime_allowance_always_deduct?: number;
-  assigned_users?:string
+  assigned_users?: string;
 };
 
 export type WorkScheduleCreate = Omit<
