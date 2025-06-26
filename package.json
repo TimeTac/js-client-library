@@ -1,6 +1,6 @@
 {
   "name": "@timetac/js-client-library",
-  "version": "2.102.0",
+  "version": "0.0.0-beta-work-schedules-featurebranch",
   "description": "TimeTac API JS client library",
   "homepage": "https://github.com/TimeTac/js-client-library#readme",
   "repository": {
