@@ -125,6 +125,10 @@ export type TimesheetAccounting = {
   rest_period_violation: boolean;
   rest_period_weekly_violation: boolean;
   plausibility_conflict_violation: boolean;
+  paid_break?: number;
+  unpaid_break?: number;
+  paid_break_details?: string;
+  unpaid_break_details?: string;
 };
 
 export type TimesheetAccountingApproveRequest = {

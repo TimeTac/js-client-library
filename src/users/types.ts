@@ -99,6 +99,8 @@ export type UserReadFull = UserReadObscured & {
   overtime__all_inc_ov_hours_per_cycle_valid_starting_from: string;
   overtime_allowance_clear_working_time_saldo_valid_starting_from: string;
   working_time_balance_rule_cycle_id?: number;
+  paid_break_day_quota_in_minutes?: number;
+  paid_break_day_quota_valid_from?: string;
 };
 
 export type UserRead = UserReadFull | UserReadObscured;
