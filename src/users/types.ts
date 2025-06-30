@@ -125,6 +125,7 @@ export interface UserReadMe extends UserReadFull {
 export interface UserUpdate extends Partial<UserReadFull> {
   id: number;
   department_id?: number;
+  timesheet_template_id?: number;
 }
 
 export interface UserResetPassword {

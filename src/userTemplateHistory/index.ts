@@ -13,4 +13,9 @@ export class UserTemplateHistoryEndpoint extends BaseApi<ResourceName> {
     const response = this._get<ResourceName>('view', { params });
     return list(response);
   }
+
+  public readHistory(params?: RequestParams<Entity<ResourceName>>): Promise<LibraryReturn<ResourceName, Entity<ResourceName>[]>> {
+    const response = this._get<ResourceName>('read', { params });
+    return list(response);
+  }
 }
