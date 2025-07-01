@@ -52,5 +52,4 @@ export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
     | 'law_rest_period_minimum_hours'
     | 'law_rest_period_minimum_weekly_hours'
     | 'is_default'
-    | 'active'
   >;
