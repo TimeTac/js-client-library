@@ -21,6 +21,7 @@ export type WorkSchedule = {
   minijobber_absence_credit?: number;
   active: boolean;
   overtime_allowance_always_deduct?: number;
+  assigned_users?: string;
 };
 
 export type WorkScheduleCreate = Omit<
@@ -38,7 +39,7 @@ export type WorkScheduleCreate = Omit<
   | 'active'
 >;
 
-export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
+export type WorkScheduleUpdate = Pick<WorkSchedule, 'id' | 'active'> &
   Omit<
     Partial<WorkSchedule>,
     | 'archived'
@@ -51,5 +52,4 @@ export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
     | 'law_rest_period_minimum_hours'
     | 'law_rest_period_minimum_weekly_hours'
     | 'is_default'
-    | 'active'
   >;

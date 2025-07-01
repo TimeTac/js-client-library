@@ -71,6 +71,7 @@ import { WorkingTimeCycle } from '../../workingTimeCycles/types';
 import { TimeTrackingChangelogs } from '../../timeTrackingChangelogs/types';
 import { UserPreferenceRead } from '../../userPreferences/types';
 import { CalculationStates } from '../../calculationStates/types';
+import { PaidBreaksHistory } from '../../paidBreaksHistory/types';
 import { OtherPaidLeaveLimitation } from '../../otherPaidLeaveLimitations/types';
 import { UserHistoryEntry } from '../../userHistory/types';
 
@@ -125,6 +126,7 @@ export const resourceNameArray = [
   'workSchedules',
   'workScheduleDays',
   'workScheduleDayDefinitions',
+  'paidBreaksHistory',
   'publicHolidayTemplates',
   'publicHolidays',
   'userRoles',
@@ -249,6 +251,7 @@ export interface Resources {
   workingTimeCycles: WorkingTimeCycle;
   userPreferences: UserPreferenceRead;
   calculationStates: CalculationStates;
+  paidBreaksHistory: PaidBreaksHistory;
   otherPaidLeaveLimitations: OtherPaidLeaveLimitation;
 }
 
