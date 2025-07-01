@@ -39,7 +39,7 @@ export type WorkScheduleCreate = Omit<
   | 'active'
 >;
 
-export type WorkScheduleUpdate = Pick<WorkSchedule, 'id' | 'active'> &
+export type WorkScheduleUpdate = Pick<WorkSchedule, 'id'> &
   Omit<
     Partial<WorkSchedule>,
     | 'archived'
@@ -52,4 +52,5 @@ export type WorkScheduleUpdate = Pick<WorkSchedule, 'id' | 'active'> &
     | 'law_rest_period_minimum_hours'
     | 'law_rest_period_minimum_weekly_hours'
     | 'is_default'
+    | 'active'
   >;
