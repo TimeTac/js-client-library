@@ -87,7 +87,7 @@ export { AbsenceDay } from './absenceDays/types';
 export { AbsenceType, AbsenceTypeCreate, AbsenceTypeUpdate } from './absenceTypes/types';
 export { Absence, AbsenceApprove, AbsenceCreate, AbsenceReject, AbsenceUpdate } from './absences/types';
 export { AutomaticBreakTemplate } from './automaticBreakTemplates/types';
-export { Credentials } from './authentication/types';
+export { Credentials, LinkLoginBody, LinkLoginParams } from './authentication/types';
 export { ApiConfig, default as BaseApi, Tokens } from './baseApi';
 export { ChangeTimeTrackingRequest } from './changeTimeTrackingRequests/types';
 export { Client } from './clients/types';
