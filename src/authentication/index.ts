@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import BaseApi from '../baseApi';
 import { objectCheck } from '../utils';
-import { Credentials, TokenResponse } from './types';
+import { Credentials, LinkLoginBody, LinkLoginParams, TokenResponse } from './types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-assignment */
 export class AuthenticationEndpoint extends BaseApi<any> {
@@ -87,6 +87,21 @@ export class AuthenticationEndpoint extends BaseApi<any> {
     this.setTokens({ accessToken, refreshToken });
 
     return { accessToken, refreshToken };
+  }
+
+  async linkLogin(params: LinkLoginParams, body: LinkLoginBody): Promise<AxiosResponse<TokenResponse>> {
+    const url = `${this.getAccountUrl()}auth/loginLink`;
+    const stringifiedParams = new URLSearchParams(params).toString();
+    const finalUrl = stringifiedParams ? `${url}?${stringifiedParams}` : url;
+
+    const config = {
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded',
+        ...this.config.settings.customRequestHeaders,
+      },
+    };
+
+    return axios.post<TokenResponse>(finalUrl, body, config);
   }
 }
 /* eslint-enable @typescript-eslint/no-explicit-any,@typescript-eslint/no-unsafe-assignment */
