@@ -3,4 +3,5 @@ export type UserArchiveHistory = {
   active: boolean;
   valid_from: string;
   valid_to: string;
+  created_at: string;
 };
