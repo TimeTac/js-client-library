@@ -129,6 +129,8 @@ export type TimesheetAccounting = {
   unpaid_break?: number;
   paid_break_details?: string;
   unpaid_break_details?: string;
+  target_annual_hours?: number;
+  annual_hours_balance?: number;
 };
 
 export type TimesheetAccountingApproveRequest = {
