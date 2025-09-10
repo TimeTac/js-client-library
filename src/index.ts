@@ -80,6 +80,7 @@ import { TimeTrackingChangelogsEndPoint } from './timeTrackingChangelogs';
 import { UserPreferencesEndpoint } from './userPreferences';
 import { CalculationStatesEndpoint } from './calculationStates';
 import { PaidBreaksHistoryEndpoint } from './paidBreaksHistory';
+import { AnnualHoursHistoryEndpoint } from './annualHoursHistory';
 import { OtherPaidLeaveLimitationsEndpoint } from './otherPaidLeaveLimitations';
 import { UserHistoryEndpoint } from './userHistory';
 
@@ -222,6 +223,7 @@ export * from './workingTimeBalanceRules/types';
 export * from './workingTimeCycles/types';
 export * from './timeTrackingChangelogs/types';
 export * from './paidBreaksHistory/types';
+export * from './annualHoursHistory/types';
 
 const DEFAULT_HOST = 'api.timetac.com';
 
@@ -323,6 +325,7 @@ export default class Api {
   public userPreferences: UserPreferencesEndpoint;
   public calculationStates: CalculationStatesEndpoint;
   public paidBreaksHistory: PaidBreaksHistoryEndpoint;
+  public annualHoursHistory: AnnualHoursHistoryEndpoint;
   public otherPaidLeaveLimitations: OtherPaidLeaveLimitationsEndpoint;
 
   constructor(config: ApiConfig) {
@@ -420,6 +423,7 @@ export default class Api {
     this.holidayAdjustment = new HolidayAdjustmentEndpoint(this.config);
     this.hourTypes = new HourTypesEndpoint(this.config);
     this.paidBreaksHistory = new PaidBreaksHistoryEndpoint(this.config);
+    this.annualHoursHistory = new AnnualHoursHistoryEndpoint(this.config);
 
     useInterceptors({ state: this.state, config: this.config, authentication: this.authentication });
   }
