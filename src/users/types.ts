@@ -101,6 +101,8 @@ export type UserReadFull = UserReadObscured & {
   working_time_balance_rule_cycle_id?: number;
   paid_break_day_quota_in_minutes?: number;
   paid_break_day_quota_valid_from?: string;
+  annual_hours_per_year?: number;
+  annual_hours_valid_from?: string;
 };
 
 export type UserRead = UserReadFull | UserReadObscured;
