@@ -75,6 +75,7 @@ import { PaidBreaksHistory } from '../../paidBreaksHistory/types';
 import { AnnualHoursHistory } from '../../annualHoursHistory/types';
 import { OtherPaidLeaveLimitation } from '../../otherPaidLeaveLimitations/types';
 import { UserHistoryEntry } from '../../userHistory/types';
+import { UserArchiveHistory } from '../../usersArchiveHistory/types';
 
 // Because types cannot be iterated at runtime, we add the keys of Resources here as a value
 // Below we add conditional types that don't compile if this array and Resources go out of sync
@@ -158,6 +159,7 @@ export const resourceNameArray = [
   'userPreferences',
   'calculationStates',
   'otherPaidLeaveLimitations',
+  'usersArchiveHistory',
 ] as const;
 
 export interface Resources {
@@ -256,6 +258,7 @@ export interface Resources {
   paidBreaksHistory: PaidBreaksHistory;
   annualHoursHistory: AnnualHoursHistory;
   otherPaidLeaveLimitations: OtherPaidLeaveLimitation;
+  usersArchiveHistory: UserArchiveHistory;
 }
 
 // These conditional types ensure that the resourceNameArray and the Resources type are in sync
