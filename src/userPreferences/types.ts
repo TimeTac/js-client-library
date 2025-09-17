@@ -1,5 +1,5 @@
 // backend only supports a single preference at the moment
-export type UserPreferenceName = 'appearance';
+export type UserPreferenceName = 'appearance' | 'dismissed_onboarding_card' | 'dismissed_mobile_app_promotion';
 
 export type UserPreferenceRead = {
   id: number;
