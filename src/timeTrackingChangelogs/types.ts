@@ -8,6 +8,7 @@ export enum TimeTrackingChangelogsChangeTypes {
   CREATE = 'CREATE',
   UPDATE = 'UPDATE',
   DELETE = 'DELETE',
+  START = 'START',
 }
 
 export type TimeTrackingChangelogs = {
