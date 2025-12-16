@@ -10,6 +10,9 @@ export type Tier = {
     currency: string;
     premiumMonth: number;
     priceOnRequest: boolean;
+    hasBaseFee?: boolean;
+    basefeeMonth?: number;
+    basefeeYear?: number;
   };
   description: string;
   display_features: {
